@@ -5,8 +5,8 @@ ogp:
     description: "Per-page overrides for open-graph data"
 ---
 
-.hero
- .hero__page-title     
+.page-header__home
+ .page-header__home-title  
    h1 dryrb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby.
    p It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. 
 
@@ -54,20 +54,14 @@ ogp:
 	        h3 Non-intrusive
 	        p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 	  a.content__btn-view-gems<> href='#'
-	    | View all on GitHub
+	    | View all gems
 
 .row
   .content__wrap
     h2 News     
-    ul.content__feature-list
-      li.content__features-list-item
-        h3 Non-intrusive
-        p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-footer
-  .footer__credits
-    p dryrb is maintained by @solnic and @amhol. This website was made by @icelab. Tweet your questions and suggestions to @dry_rb and follow us for updates. 
-  a.content__btn-social<> href='#'
-    | GitHub
-  a.content__btn-social<> href='#'
-	  | Twitter  
+    ul.content__news-list
+      li.content__news-list-item
+        .content__news-list-item-date 12 February 2016
+        .content__news-list-item-text
+          h3 News item title
+          p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
