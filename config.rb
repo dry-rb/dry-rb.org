@@ -96,6 +96,7 @@ end
 #   end
 
 page "*", :layout => "layouts/base"
+page "/news/*", :layout => "news-single"
 page "*.json"
 
 
