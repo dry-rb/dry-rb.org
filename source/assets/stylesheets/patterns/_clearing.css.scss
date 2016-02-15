@@ -1,0 +1,44 @@
+/*
+ * clearfix     used project wide to clear floats and create a new formatting context
+ * usage      @extend clearfix-<empty|overflow|facebook|micro|stubborn>
+ */
+
+// create stub classes for each of the four clearfix methods
+
+@mixin clearfix-overflow {
+  overflow: hidden;
+  *overflow: visible;
+  zoom: 1;
+}
+
+@mixin clearfix-facebook {
+  display: table-cell;
+  vertical-align: top;
+  width: 10000px;
+}
+
+@mixin clearfix-micro {
+  zoom: 1;
+    &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin clearfix-stubborn {
+  display: table-cell;
+  &:after {
+    clear: both;
+    display: block;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0 !important;
+    line-height: 0;
+    font-size: xx-large;
+    content: "x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x";
+  }
+}

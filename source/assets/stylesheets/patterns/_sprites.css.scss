@@ -1,0 +1,52 @@
+// Sprites
+
+@mixin sprite($width, $height, $offset, $hover: false) {
+
+  // Setup:
+  // You should set the following variables in your CSS (example values below):
+  // $sprite-sheet-width: 200px;
+  // $sprite-sheet-height: 200px;
+  // $sprite-sheet-gutter: 5px; // Default is 5px;
+  // $sprite-sheet-filename: "sprites.png";
+  // $sprite-sheet-filename-2x: "sprites-2x.png";
+
+  // Including a sprite:
+  // @include sprite($width, $height, $offset, $hover: true|false)
+
+  // Offset = number of pixels from the left of the sprite sheet
+
+  // Gutter = the space between individual sprites. Be consistent.
+  $sprite-sheet-gutter: 5px;
+
+  // Width and height of the sprite sheet
+  $sprite-sheet-width: 0px;
+  $sprite-sheet-height: 0px;
+
+  background-image: image-url(#{$sprite-sheet-filename});
+  background-repeat: no-repeat;
+  background-position: -(($offset) + 0px) 0;
+  background-size: $sprite-sheet-width $sprite-sheet-height;
+  width: $width + 0px;
+  height: $height + 0px;
+  text-indent: -9999em;
+
+  // If you want the sprite to have a hover state make sure it immediately follows the normal sprite
+  @if $hover == true {
+    &:focus,
+    &:hover {
+      background-position: -(($offset + $width + $sprite-sheet-gutter) + 0px) 0;
+    }
+  }
+
+  // Retina (2x) version
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and ( min--moz-device-pixel-ratio: 2),
+  only screen and ( -o-min-device-pixel-ratio: 2/1),
+  only screen and ( min-device-pixel-ratio: 2),
+  only screen and ( min-resolution: 192dpi),
+  only screen and ( min-resolution: 2dppx)
+  {
+    background-image: image-url(#{$sprite-sheet-filename-2x});
+  }
+}

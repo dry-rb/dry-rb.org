@@ -1,0 +1,147 @@
+$spacing-base: 5;
+$spacing-sizes: tiny small smaller normal mid medium large larger huge gigantic massive;
+$spacing-units: px rem;
+
+@mixin pad($direction, $size) {
+  @if $direction == "left" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-left: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "right" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-right: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "top" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-top: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "bottom" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-bottom: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "vert" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-top: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+      padding-bottom: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "horz" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding-left: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+      padding-right: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      padding: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  }
+}
+
+@mixin inset($direction, $size) {
+  @if $direction == "left" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-left: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "right" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-right: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "top" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-top: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "bottom" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-bottom: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "vert" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-top: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+      margin-bottom: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else if $direction == "horz" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-left: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+      margin-right: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  } @else {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin: ($spacing-base * index($spacing-sizes, $size) / $divisor)#{$unit};
+    }
+  }
+}
+
+@mixin outset($direction, $size) {
+  @if $direction == "left" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-left: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else if $direction == "right" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-right: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else if $direction == "top" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-top: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else if $direction == "bottom" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-bottom: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else if $direction == "vert" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-top: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+      margin-bottom: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else if $direction == "horz" {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin-left: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+      margin-right: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  } @else {
+    @for $u from 1 through length($spacing-units) {
+      $unit: nth(unquote($spacing-units), $u);
+      $divisor: if($unit == rem, 10, 1);
+      margin: (-($spacing-base * index($spacing-sizes, $size) / $divisor))#{$unit};
+    }
+  }
+}

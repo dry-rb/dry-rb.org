@@ -264,3 +264,6 @@ DEPENDENCIES
   slim
   tilt-jbuilder
   tzinfo
+
+BUNDLED WITH
+   1.10.3

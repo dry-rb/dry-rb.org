@@ -1,0 +1,5 @@
+// Assumes 1rem = 10px
+@mixin font-size($size) {
+  font-size: #{$size}px;
+  font-size: #{$size / 10}rem;
+}

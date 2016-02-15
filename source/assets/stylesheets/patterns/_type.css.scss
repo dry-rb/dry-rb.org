@@ -1,0 +1,45 @@
+@mixin antialiased {
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+
+@mixin standard-links-no-underline {
+  a {
+    color: $primary;
+    &:hover {
+      color: $highlight;
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin standard-links {
+  a {
+    color: $primary;
+    text-decoration: underline;
+    &:hover {
+      color: $highlight;
+      text-decoration: underline;
+    }
+  }
+}
+
+@mixin image-replace {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  *text-indent: -99999px; // IE 6/7 fallback
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+  }
+}
+
+@mixin truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

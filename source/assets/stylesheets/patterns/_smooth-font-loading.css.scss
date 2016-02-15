@@ -1,0 +1,15 @@
+// Smooth font loading
+//
+// Used in tandem with Modernizr.load function to hide common
+// text elements until Typekit has loaded.
+//
+@mixin smooth-font-loading {
+  h1, h2, h3, h4, h5, h6, ol, p, ul, a, dl, blockquote, li {
+    opacity: auto;
+    transition: opacity 100ms linear;
+    .js.wf-loading & {
+      opacity: 0;
+      *visibility: hidden !important;
+    }
+  }
+}
