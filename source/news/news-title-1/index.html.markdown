@@ -1,5 +1,5 @@
 ---
-title: About
+title: News title 1
 ---
 
 * Unordered

@@ -15,8 +15,13 @@ html lang='en'
     / `async` attribute for non-blocking scripts
     = javascript_include_tag "site", async: true
   body
-    h1
-      = data.page.title
+    header
+      nav.main-nav
+        ul.main-nav__list
+          li.main-nav__logo dryrb
+          li News
+          li Gems
+          li GitHub
     = yield
     / If you have more than one JavaScript file we load at the end of the <body>
     / _without_ async true.
