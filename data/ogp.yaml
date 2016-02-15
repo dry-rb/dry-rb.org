@@ -1,0 +1,17 @@
+og:
+  title:
+  site_name:
+  type: website
+  description: "Open graph description."
+  image: ""
+  locale: "en_GB"
+  url:
+fb:
+  admins:
+twitter:
+  card: summary
+  site: "@username"
+  creator: "@username"
+  description:
+  image: ""
+  url:
