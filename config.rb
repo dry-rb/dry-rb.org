@@ -72,6 +72,10 @@ activate :ogp do |ogp|
   }
 end
 
+activate :blog do |blog|
+  # set options on blog
+end
+
 
 # Page options -----------------------------------------------------------------
 

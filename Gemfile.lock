@@ -8,6 +8,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     autoprefixer-rails (1.1.20140523)
       execjs
     better_errors (1.1.0)
@@ -108,6 +109,10 @@ GEM
       autoprefixer-rails (~> 1.1.20140302)
       middleman-core (~> 3.2)
       middleman-sprockets (~> 3.2)
+    middleman-blog (3.5.3)
+      addressable (~> 2.3.5)
+      middleman-core (~> 3.2)
+      tzinfo (>= 0.3.0)
     middleman-cloudfront (0.0.7)
       fog (~> 1.9)
       middleman-core (~> 3.0)
@@ -243,6 +248,7 @@ DEPENDENCIES
   hashugar
   middleman
   middleman-autoprefixer
+  middleman-blog
   middleman-cloudfront
   middleman-dotenv
   middleman-imageoptim
@@ -264,6 +270,3 @@ DEPENDENCIES
   slim
   tilt-jbuilder
   tzinfo
-
-BUNDLED WITH
-   1.10.3

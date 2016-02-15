@@ -42,3 +42,5 @@ gem "tzinfo"
 
 # Project specific -------------------------------------------------------------
 
+gem "middleman-blog"
+
