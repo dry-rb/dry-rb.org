@@ -56,16 +56,13 @@ ogp:
 	  a.content__btn-view-gems<> href='#'
 	    | View all on GitHub
 
-- blog.articles[0...5].each do |article|
 .row
   .content__wrap
-    h2 News     
+    h2 News
     ul.content__feature-list
-      li.content__features-list-item
-        h3
-        = link_to article.title, article
-        p 
-        = article.summary
-
-
-    
+      - blog.articles[0...5].each do |article|
+        li.content__features-list-item
+          h3
+            = link_to article.title, article
+          p
+            = article.summary
