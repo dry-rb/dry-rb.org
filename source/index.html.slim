@@ -31,18 +31,18 @@ ogp:
         li.content__additional-features-list-item
           h3 Re-usable
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        li.content__additionalfeatures-list-item
+        li.content__additional-features-list-item
           h3 Composable
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        li.content__additionalfeatures-list-item
+        li.content__additional-features-list-item
           h3 Not monkey-patched
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       ul.content__code-snippets-list
-        li.content__code-snippets-list
+        li.content__code-snippets-list-item
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        li.content__code-snippets-list
+        li.content__code-snippets-list-item
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        li.content__code-snippets-list
+        li.content__code-snippets-list-item
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
 .row-blue
@@ -59,10 +59,13 @@ ogp:
 .row
   .content__wrap
     h2 News
-    ul.content__feature-list
+    ul.news-list
       - blog.articles[0...5].each do |article|
-        li.content__features-list-item
-          h3
-            = link_to article.title, article
-          p
-            = article.summary
+        li.news__list-item
+          .news__list-item-date
+            p date
+          .news__list-item-content
+            h3
+              = link_to article.title, article
+            p
+              = article.summary
