@@ -84,7 +84,7 @@ activate :blog do |blog|
   blog.sources = "news/{year}-{month}-{day}.html.markdown"
 
   # blog.taglink = "tags/{tag}.html"
-  # blog.layout = "layout"
+  blog.layout = "news-single"
   # blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
