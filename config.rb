@@ -44,9 +44,6 @@ set :markdown,        :fenced_code_blocks => true,
 
 # Activate various extensions --------------------------------------------------
 
-# Output everything as a `/directory/index.html` instead of individual files
-activate :directory_indexes
-
 # Make sure that livereload uses the host FQDN so we can use it across network
 activate :livereload, :host => Socket.gethostbyname(Socket.gethostname).first
 
@@ -78,13 +75,13 @@ end
 
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
-  # blog.prefix = "blog"
+  blog.prefix = "/news"
 
   # Matcher for blog source files
-  blog.sources = "news/{year}-{month}-{day}.html.markdown"
+  blog.sources = "{year}-{month}-{day}.html"
 
   # blog.taglink = "tags/{tag}.html"
-  blog.layout = "news-single"
+  #blog.layout = "news-single"
   # blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
@@ -92,8 +89,8 @@ activate :blog do |blog|
   # blog.day_link = "{year}/{month}/{day}.html"
   # blog.default_extension = ".markdown"
 
-  blog.tag_template = "tag.html"
-  blog.calendar_template = "calendar.html"
+  # blog.tag_template = "tag.html"
+  # blog.calendar_template = "calendar.html"
 
   # Enable pagination
   # blog.paginate = true
@@ -102,6 +99,9 @@ activate :blog do |blog|
 end
 
 page "/feed.xml", layout: false
+
+# Output everything as a `/directory/index.html` instead of individual files
+activate :directory_indexes
 
 # Page options -----------------------------------------------------------------
 ###
