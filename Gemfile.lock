@@ -277,7 +277,7 @@ GEM
     phantomjs (1.9.8.0)
     pmap (1.0.2)
     progress (3.1.0)
-    puma (2.12.2)
+    puma (2.16.0)
     rack (1.6.4)
     rack-contrib (1.3.0)
       git-version-bump (~> 0.15)
@@ -364,4 +364,4 @@ DEPENDENCIES
   tzinfo
 
 BUNDLED WITH
-   1.10.3
+   1.10.6
