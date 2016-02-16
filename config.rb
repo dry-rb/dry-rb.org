@@ -176,10 +176,7 @@ helpers AssetHelpers
 #   end
 # end
 
-set :css_dir, 'stylesheets'
-
 # Build configuration ----------------------------------------------------------
-set :js_dir, 'javascripts'
 
 activate :cloudfront do |cloudfront|
   cloudfront.access_key_id     = ENV['AWS_ACCESS_KEY']
