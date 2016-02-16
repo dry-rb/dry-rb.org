@@ -81,7 +81,7 @@ activate :blog do |blog|
   # blog.prefix = "blog"
 
   # Matcher for blog source files
-  blog.sources = "news/{year}-{month}-{day}-{title}.html.markdown"
+  blog.sources = "news/{year}-{month}-{day}.html.markdown"
 
   # blog.taglink = "tags/{tag}.html"
   # blog.layout = "layout"
