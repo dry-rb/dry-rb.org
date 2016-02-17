@@ -15,6 +15,10 @@ activate :dotenv
 # Pulled from `site.yaml`. Exposed as `site.setting_name` in templates.
 set :site, YAML::load_file(File.dirname(__FILE__) + "/site.yaml").to_hashugar
 Time.zone = site.timezeone
+set :site_title, "dryrb"
+set :site_url, "http://www.domain.com"
+set :site_description, "dryrb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby."
+set :site_keywords, "dryrb, ruby, micro-libraries"
 
 # Configuration ----------------------------------------------------------------
 
@@ -82,7 +86,7 @@ activate :blog do |blog|
 
   # blog.taglink = "tags/{tag}.html"
   blog.layout = "news-single"
-  # blog.summary_separator = /(READMORE)/
+  blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
   # blog.month_link = "{year}/{month}.html"
