@@ -22,6 +22,7 @@
 
 // Libraries and patterns ------------------------------------------------------
 @import "patterns/all";
+@import "components/webfonts";
 
 // Resets ------------------------------------------------------
 @include reset;
@@ -49,7 +50,7 @@
 }
 
 body {
-	font-family: "work-sans", Helvetica Neue, Arial, sans-serif;
+	font-family: "work_sansregular", Helvetica Neue, Arial, sans-serif;
 }
 
 .content-wrap {
