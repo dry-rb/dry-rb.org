@@ -1,1 +1,15 @@
-// Global variables -------------------
+// Colors
+
+$dark-grey: #4A4A4A;
+$teal: #24B9D0;
+$white: #fff;
+
+::selection {
+  background: $teal; /* WebKit/Blink Browsers */
+  color: $white;
+}
+::-moz-selection {
+  background: $teal; /* Gecko Browsers */
+  color: $white
+}
+
