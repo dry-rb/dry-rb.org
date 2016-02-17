@@ -48,8 +48,13 @@
   }
 }
 
+body {
+	font-family: "work-sans", Helvetica Neue, Arial, sans-serif;
+}
 
 .content-wrap {
+	margin-left: auto;
+	margin-right: auto;
 	width: 1200px;
 
 	@media only screen 
@@ -91,10 +96,24 @@ footer {
 
 header {
 	@extend .row;
+	background-color: $teal;
+	color: $white;
 }
 
-.main-nav__list li {
-	display: inline;
+.intro-home {
+	margin-top: 130px;
+	padding-bottom: 180px;
+	text-align: center;
+
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+.intro-page {
+	margin-top: 130px;
 }
 
 .news-article {
@@ -126,7 +145,7 @@ header {
 
 .row-blue {
   @extend .row;
-  background-color: #ccc;
+  background-color: $teal;
 }
 
 .sidebar {
@@ -135,6 +154,14 @@ header {
 
 // Navigation ---------------------------------------------------------
 
+.main-nav {
+	padding-top: 30px;
+}
+
+.main-nav__list li {
+	display: inline;
+	margin-right: 40px;
+}
 
 
 
