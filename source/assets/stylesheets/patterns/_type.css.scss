@@ -5,9 +5,9 @@
 
 @mixin standard-links-no-underline {
   a {
-    color: $primary;
+    color: $teal;
     &:hover {
-      color: $highlight;
+      color: $dark-teal;
       text-decoration: underline;
     }
   }
