@@ -39,18 +39,23 @@
 @mixin col($col, $sum) {
 	box-sizing: border-box;
   display: inline-block;
-  font-size: 16px;
   padding-left: 15px;
   padding-right: 15px;
   width: percentage($col/$sum);
 
-  @media only screen and (min-width: 768px) {
+  @media (min-width: 768px) {
     width: percentage($col/$sum);
   }
 }
 
 body {
 	font-family: "work_sansregular", Helvetica Neue, Arial, sans-serif;
+	font-size: 16px;
+
+	@media (min-width: 320px)
+	and (max-width: 900px) {
+		font-size: 14px;
+	}
 }
 
 .content-wrap {
@@ -58,8 +63,7 @@ body {
 	margin-right: auto;
 	width: 1200px;
 
-	@media only screen 
-	and (min-width: 320px)
+	@media (min-width: 320px)
 	and (max-width: 1199px) {
 		padding-left: 5%;
 		padding-right: 5%;
@@ -84,11 +88,15 @@ body {
 }
 
 footer {
-	@extend .row;
+	background-color: $dark-teal;
+	color: $white;
+	padding-bottom: 40px;
+	padding-top: 40px;
+	width: 100%;
 }
 
 .footer__credits {
-	@include col(2,3);
+	@include col(3,4);
 }
 
 .gem-article {
@@ -96,9 +104,20 @@ footer {
 }
 
 header {
-	@extend .row;
 	background-color: $teal;
+	background-image: url(../images/bg-header.png);
+	background-position: center center;
 	color: $white;
+	width: 100%;
+}
+
+hr {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+	height: 1px;
+	display: block;
+	margin-bottom: 60px;
+	margin-top: 60px;
 }
 
 .intro-home {
@@ -125,8 +144,7 @@ header {
 	@include col(2,3);
 	margin-left: calc(100% / 12 * 2);
 
-	@media only screen 
-	and (min-width: 320px)
+	@media (min-width: 320px)
 	and (max-width: 1199px) {
 		margin-left: 0;
 	}
@@ -141,6 +159,8 @@ header {
 }
 
 .row {
+	padding-bottom: 100px;
+	padding-top: 100px;
 	width: 100%;
 }
 
@@ -164,6 +184,67 @@ header {
 	margin-right: 40px;
 }
 
-
-
 // Typography
+
+blockquote {
+	border-left: 4px solid $teal;
+	padding-left: 26px;
+	margin-bottom: 40px;
+
+	p {
+		color: #666666;
+		line-height: 23px;
+	}
+}
+
+h1 {
+	color: #FFFFFF;
+	font-size: 24px;
+	line-height: 35px;
+	text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
+
+	strong {
+		font-family: work_sansbold;
+	}
+
+	@media (min-width: 320px)
+	and (max-width: 767px) {
+		font-size: 20px;
+	}
+}
+
+h2 {
+	color: $teal;
+	font-family: work_sansbold;
+	font-size: 24px;
+	line-height: 36px;
+}
+
+.content__home-intro h2 {
+	color: #999;
+	font-family: work_sansregular;
+	line-height: 36px;
+	text-align: center;
+}
+
+.row-blue h2 {
+	color: $white;
+	text-align: center;
+}
+
+h3 {
+	color: #dark-grey;
+	font-family: work_sansbold;
+	font-size: 16px;
+	line-height: 19px;
+	margin-bottom: 12px;
+}
+
+p {
+	color: $dark-grey;
+	line-height: 23px;
+}
+
+.intro-home p {
+	color: $white;
+}
