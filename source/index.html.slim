@@ -12,12 +12,15 @@ ogp:
       hr
       ul.content__feature-list
         li.content__features-list-item
+          .features-list-img-door
           h3 Non-intrusive
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         li.content__features-list-item
+          .features-list-img-flexible
           h3 Flexible
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         li.content__features-list-item
+          .features-list-img-lightning
           h3 Fast!
           p Etiam porta sem malesuada magna mollis euismod. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         hr
@@ -45,7 +48,7 @@ ogp:
 
 .row-blue
   .content-wrap
-    h2 Gems
+    h2.section-heading Gems
     ul.content__gems-list
       li.content__gems-list-item
         a href="#"
@@ -63,17 +66,17 @@ ogp:
         a href="#"
           h3 dry-configurable
           p A simple mixin to make Ruby classes configurable
-    a.btn__view-gems<> href='#'
+    a.btn-view-gems<> href='#'
 	    | View all gems
 
 .row
   .content-wrap
-    h2 News
+    h2.section-heading News
     ul.news-list
       - blog.articles[0...5].each do |article|
         li.news__list-item
           .news__list-item-date
-            p date
+            p = article.date.strftime('%e %B %Y')
           .news__list-item-content
             h3
               = link_to article.title, article
