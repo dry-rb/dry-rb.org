@@ -1,0 +1,14 @@
+---
+title: Example Article
+date: 2014-03-14
+---
+
+This is an example article. You probably want to delete it and write your own articles! READMORE
+
+## Heading two (heading one has been used in the page title)
+Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nulla vitae elit libero, a pharetra augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+
+### Heading three
+
+> It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. For these reasons libraries belonging to the dryrb organisation try to follow a few basic principles.
+—Author
