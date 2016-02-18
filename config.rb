@@ -53,9 +53,6 @@ activate :livereload, :host => Socket.gethostbyname(Socket.gethostname).first
 
 # Autoprefixer
 activate :autoprefixer, browsers: ['last 2 versions', 'ie 8', 'ie 9']
-###
-# Blog settings
-###
 
 # React
 activate :react
@@ -76,6 +73,10 @@ activate :ogp do |ogp|
   }
 end
 # Time.zone = "UTC"
+
+###
+# Blog settings
+###
 
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
