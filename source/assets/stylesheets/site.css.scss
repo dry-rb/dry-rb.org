@@ -58,6 +58,27 @@ body {
 	}
 }
 
+.btn {
+	background-color: $teal;
+	border-radius: 4px;
+	color: #FFFFFF;
+	font-family: work_sansbold;
+	font-size: 14px;
+	padding: 12px 20px;
+	transition: background-color 100ms ease;
+
+	&:hover {
+		background-color: shade( $teal, 5% );
+	}
+}
+
+.btn__view-gems {
+	@extend .btn;
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .content-wrap {
 	margin-left: auto;
 	margin-right: auto;
@@ -83,8 +104,27 @@ body {
 	@include col(1,3);
 }
 
+.content__gems-list {
+	display: flex;
+}
+
 .content__gems-list-item {
 	@include col(1,4);
+	padding-bottom: 30px;
+}
+
+.content__gems-list-item a {
+	background: #FFFFFF;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	display: block;
+	padding: 20px;
+	transition : border 100ms ease-out;
+
+	&:hover {
+		border: 1px solid #34BACF;
+		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.10);
+	}
 }
 
 footer {
@@ -121,6 +161,8 @@ hr {
 }
 
 .intro-home {
+	@include col(2,3);
+	margin-left: calc(100% / 12 * 2);
 	margin-top: 130px;
 	padding-bottom: 180px;
 	text-align: center;
@@ -166,7 +208,7 @@ hr {
 
 .row-blue {
   @extend .row;
-  background-color: $teal;
+  background-color: $light-blue;
 }
 
 .sidebar {
@@ -201,6 +243,7 @@ h1 {
 	color: #FFFFFF;
 	font-size: 24px;
 	line-height: 35px;
+	margin-bottom: 20px;
 	text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
 
 	strong {
@@ -228,7 +271,7 @@ h2 {
 }
 
 .row-blue h2 {
-	color: $white;
+	margin-bottom: 60px;
 	text-align: center;
 }
 
