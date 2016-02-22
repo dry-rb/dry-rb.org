@@ -74,7 +74,6 @@ body {
 	&:hover {
 		background-color: shade( $teal, 5% );
 		color: $white;
-		text-decoration: none;
 	}
 }
 
@@ -240,7 +239,6 @@ body {
 	&:hover {
 		border: 1px solid #34BACF;
 		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.10);
-		text-decoration: none;
 	}
 }
 
@@ -498,7 +496,7 @@ hr {
 
 		&:hover {
 			border-bottom: 2px solid rgba(255,255,255,.3);
-			text-decoration: none;
+
 		}
 	}
 

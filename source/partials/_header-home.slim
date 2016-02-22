@@ -1,20 +1,10 @@
 body
   header
    .content-wrap
-      nav.main-nav
-        ul.main-nav__list
-          li.main-nav__logo 
-            a href="/" dryrb
-          li 
-            a href="/news" News
-          li 
-            a href="/gems" Gems
-          li
-            a href="http://github.com/dryrb" GitHub
-
-      .intro-home
-        img src="assets/images/logo.png"
-        h1 
-          strong dryrb 
-          | is a collection of micro-libraries, each intended to encapsulate a common task in Ruby.
-        p It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. 
+    = partial "nav"
+    .intro-home
+      img src="assets/images/logo.png"
+      h1 
+        strong dryrb 
+        | is a collection of micro-libraries, each intended to encapsulate a common task in Ruby.
+      p It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. 
