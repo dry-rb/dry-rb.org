@@ -277,6 +277,10 @@ footer {
 
 .gem-article {
 	@include col(3,4);
+
+	@include mobile {
+		@include col(1,1);
+	}
 }
 
 header {
@@ -429,6 +433,18 @@ hr {
 
 .sidebar {
 	@include col(1,4);
+
+	@include mobile {
+		@include col(1,1);
+		margin-bottom: 30px;
+	}
+
+	vertical-align: top;
+}
+
+.sidebar ul li ul {
+	border-left: 2px solid $light-blue;
+	padding-left: 15px;
 }
 
 // Navigation ---------------------------------------------------------
@@ -598,7 +614,7 @@ p {
 	color: $white;
 }
 
-.news-article h2, .news-article h3 {
+article h2, .article h3 {
 	padding-top: 10px;
 
 	&:first-child {
@@ -606,13 +622,13 @@ p {
 	}
 }
 
-.news-article ul li:before {
+article ul li:before {
 	color: $teal;
 	content: "•"; /* Insert content that looks like bullets */
   padding-right: 24px;
 }
 
-.news-article ul li {
+article ul li {
 	color: #666;
 	margin-bottom: 8px;
 }
