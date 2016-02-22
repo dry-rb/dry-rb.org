@@ -1,5 +1,6 @@
 ---
 title: Gem 1
+layout: gem-single
 ---
 
 * Unordered
