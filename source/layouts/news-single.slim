@@ -4,6 +4,7 @@ html lang='en'
     meta charset="utf-8"
     / Inline JavaScript includes, they should _always_ come before CSS
     = partial "inline_js"
+    = javascript_include_tag "retina"
     title
       = data.page.title
       '  —
@@ -19,10 +20,9 @@ html lang='en'
       .content-wrap
         article.news-article
           = yield
-    .row
-      .content-wrap
-        a<> href="#"
-          | View all news
+        hr
+        p.center-text
+          a href="#" View all news
     = partial "footer"
     / If you have more than one JavaScript file we load at the end of the <body>
     / _without_ async true.
