@@ -1,4 +1,29 @@
+// Mixins
+
+$mobile-width: 320px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin mobile {
+  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
 // Colors
+
 $light-blue: #E9F7FB;
 $dark-grey: #4A4A4A;
 $dark-teal: #125E73;
@@ -14,3 +39,7 @@ $white: #fff;
   color: $white
 }
 
+// Fonts
+$primary-font-bold: "work_sansbold", Helvetica Neue, Helvetica, sans-serif;
+$primary-font-regular: "work_sansregular", Helvetica Neue, Helvetica, sans-serif;
+$code-font: "source_code_proregular", sans-serif;
