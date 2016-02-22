@@ -48,13 +48,12 @@
   }
 }
 
-a {
-	@include standard-links-no-underline;
-}
+@include standard-links-no-underline;
 
 body {
-	font-family: "work_sansregular", Helvetica Neue, Arial, sans-serif;
+	font-family: $primary-font-regular;
 	font-size: 16px;
+	line-height: 1.4;
 
 	@media (min-width: 320px)
 	and (max-width: 900px) {
@@ -66,18 +65,27 @@ body {
 	background-color: $teal;
 	border-radius: 4px;
 	color: #FFFFFF;
-	font-family: work_sansbold;
+	font-family: $primary-font-bold;
 	font-size: 14px;
-	padding: 10px 20px;
+	padding: 12px 20px;
+	text-align: center;
 	transition: background-color 100ms ease;
 
 	&:hover {
 		background-color: shade( $teal, 5% );
+		color: $white;
+		text-decoration: none;
 	}
 }
 
 .btn-social {
 	@extend .btn;
+
+	@include mobile {
+		@include col(1,1);
+		margin-bottom: 10px;
+	}
+
 	display: inline-block;
 	margin-right: 15px;
 	vertical-align: top;
@@ -89,10 +97,23 @@ body {
 
 .btn-view-gems {
 	@extend .btn;
+
+	@include desktop {
+		margin-top: 50px;
+	}
+
+	@include tablet {
+		margin-top: 20px;
+	}
+
+	@include mobile {
+		margin-top: 0;
+		width: 100%;
+	}
+
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 60px;
 	width: 140px;
 }
 
@@ -114,6 +135,10 @@ body {
 	padding-left: 50px;
 	padding-right: 50px;
 	text-align: center;
+
+	@include mobile {
+  	@include col(1,1);
+  }
 }
 
 .features-list-img {
@@ -156,19 +181,48 @@ body {
 
 .content__additional-features-list-item {
 	@include col(1,4);
+
+  @include tablet {
+  	@include col(1,2);
+  }
+
+  @include mobile {
+  	@include col(1,1);
+  }
 }
 
 .content__code-snippets-list-item {
 	@include col(1,3);
+
+  @include tablet {
+  	@include col(2,3);
+  	margin-left: calc(100% / 6 * 1);
+  }	
+
+  @include mobile {
+  	@include col(1,1);
+  }
+
 }
 
 .content__gems-list {
-	display: flex;
+	@include desktop {
+		display: flex;
+	}
 }
 
 .content__gems-list-item {
 	@include col(1,4);
 	padding-bottom: 30px;
+
+	@include tablet {
+		@include col(1,2);
+	}
+
+	@include mobile {
+		@include col(1,1);
+	}
+
 }
 
 .content__gems-list-item a {
@@ -179,9 +233,14 @@ body {
 	padding: 20px;
 	transition : border 100ms ease-out;
 
+	h3 {
+		color: $dark-grey;
+	}
+
 	&:hover {
 		border: 1px solid #34BACF;
 		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.10);
+		text-decoration: none;
 	}
 }
 
@@ -195,11 +254,21 @@ footer {
 
 .footer__credits {
 	@include col(3,4);
+
+	@include tablet {
+		@include col(2,3);
+	}
+
+	@include mobile {
+		@include col(1,1);
+		margin-bottom: 20px;
+	}
+
 	color: $white;
 	font-size: 13px;
-	line-height: 20px;
 
 	a {
+		color: $white;
 		font-family: work_sansbold;
 
 		&:hover {
@@ -227,6 +296,16 @@ hr {
 	display: block;
 	margin-bottom: 60px;
 	margin-top: 60px;
+
+	@include tablet {
+		margin-bottom: 40px;
+		margin-top: 40px;
+	}
+
+	@include mobile {
+		margin-bottom: 30px;
+		margin-top: 30px;
+	}
 }
 
 .intro-home {
@@ -260,6 +339,14 @@ hr {
 	and (max-width: 1199px) {
 		margin-left: 0;
 	}
+
+	@include tablet {
+		@include col (1,1);
+	}
+
+	@include mobile {
+		@include col (1,1);
+	}
 }
 
 .news__list-item {
@@ -280,13 +367,26 @@ hr {
 
 .news__list-item-content {
 	@include col(6,8);
+
+	@include mobile {
+		@include col(1,1);
+	}
+
+	a {
+		color: $dark-grey;
+	}
+
 }
 
 .news__list-item-date {
 	@include col(2,8);
+
+	@include mobile {
+		@include col(1,1);
+	}
+
 	color: #666666;
 	font-size: 14px;
-	line-height: 16px;
 	vertical-align: top;
 }
 
@@ -298,6 +398,16 @@ hr {
 	padding-bottom: 100px;
 	padding-top: 100px;
 	width: 100%;
+
+	@include tablet {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
+
+	@include mobile {
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
 }
 
 .row-blue {
@@ -329,48 +439,60 @@ blockquote {
 
 	p {
 		color: #666666;
-		line-height: 23px;
 	}
 }
 
+.center-text {
+	text-align: center;
+}
+
+code {
+	/* Rectangle 7: */
+	background: $light-blue;
+	font-family: $code-font;
+	font-size: 14px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 .intro-home h1 {
+	@include mobile {
+		font-size: 20px;
+	}
+
 	color: #FFFFFF;
 	font-size: 24px;
-	line-height: 35px;
 	margin-bottom: 20px;
+	margin-top: 30px;
 	text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
 
 	strong {
 		font-family: work_sansbold;
 	}
 
-	@media (min-width: 320px)
-	and (max-width: 767px) {
-		font-size: 20px;
-	}
 }
 
 .intro-page h1 {
 	color: #FFFFFF;
 	font-family: work_sansbold;
 	font-size: 24px;
-	line-height: 35px;
 	margin-bottom: 20px;
 	text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
 }
 
 h2 {
+	@include mobile {
+		font-size: 16px;
+	}
 	color: $teal;
 	font-family: work_sansbold;
 	font-size: 24px;
-	line-height: 36px;
 	margin-bottom: 12px;
 }
 
 .content__home-intro h2 {
 	color: #999;
 	font-family: work_sansregular;
-	line-height: 36px;
 	text-align: center;
 }
 
@@ -383,7 +505,6 @@ h3 {
 	color: #dark-grey;
 	font-family: work_sansbold;
 	font-size: 16px;
-	line-height: 19px;
 	margin-bottom: 12px;
 }
 
@@ -393,10 +514,28 @@ h3 {
 
 p {
 	color: $dark-grey;
-	line-height: 23px;
-	margin-bottom: 18px;
+	margin-bottom: 20px;
 }
 
 .intro-home p {
 	color: $white;
+}
+
+.news-article h2, .news-article h3 {
+	padding-top: 10px;
+
+	&:first-child {
+		padding-top: 0;
+	}
+}
+
+.news-article ul li:before {
+	color: $teal;
+	content: "•"; /* Insert content that looks like bullets */
+  padding-right: 24px;
+}
+
+.news-article ul li {
+	color: #666;
+	margin-bottom: 8px;
 }
