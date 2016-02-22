@@ -310,9 +310,18 @@ hr {
 
 .intro-home {
 	@include col(2,3);
+
+	@include mobile {
+		@include col(1,1);
+		padding-bottom: 50px;
+		margin-left: 0;
+		margin-top: 50px;
+	}
+
 	margin-left: calc(100% / 12 * 2);
 	margin-top: 130px;
 	padding-bottom: 180px;
+
 	text-align: center;
 
 	img {
@@ -324,6 +333,11 @@ hr {
 
 .intro-page {
 	@extend .intro-home;
+
+	@include mobile {
+		padding-bottom: 30px;
+	}
+
 	padding-bottom: 70px;
 }
 
@@ -447,7 +461,6 @@ blockquote {
 }
 
 code {
-	/* Rectangle 7: */
 	background: $light-blue;
 	font-family: $code-font;
 	font-size: 14px;
