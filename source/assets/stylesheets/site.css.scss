@@ -436,13 +436,79 @@ hr {
 // Navigation ---------------------------------------------------------
 
 .main-nav {
+	padding-left: 30px;
 	padding-top: 30px;
+	position: relative;
+
+	&:before {
+		background: url('../images/logo-sml.png') no-repeat;
+		content: '';
+		height: 30px;
+		left: 0;
+		position: absolute;
+		top: 25px;
+		width: 30px;
+
+		@media screen 
+		and (-webkit-min-device-pixel-ratio: 2) {
+			background: url('../images/logo-sml@2x.png') no-repeat;
+			background-size: cover;
+		}
+	}
 }
 
 .main-nav__list li {
 	display: inline;
 	margin-right: 40px;
+
+	@include mobile {
+		display: inline-block;
+	}
+
+	&:first-child {
+		@include mobile {
+			display: block;
+			margin-left: 15px;
+			width: 100%;
+
+			a {
+				display: block;
+			}
+		}
+	}
+
+	&:nth-child(2) {
+		@include mobile {
+			margin-left: 15px;
+		}
+	}
+
+	&:not(:first-child) {
+		@include mobile {
+			margin-top: 20px;
+		}
+	}
 }
+
+.main-nav__list li a {
+	@include desktop {
+		border-bottom: 2px solid rgba(255,255,255,0);
+		padding-bottom: 3px;
+		transition: border 250ms ease;
+
+		&:hover {
+			border-bottom: 2px solid rgba(255,255,255,.3);
+			text-decoration: none;
+		}
+	}
+
+	color: $white;
+}
+
+.main-nav__logo {
+	margin-left: 30px;
+}
+
 
 // Typography
 

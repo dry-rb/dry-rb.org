@@ -6,6 +6,7 @@
 @mixin standard-links-no-underline {
   a {
     color: $teal;
+    transition: color 150ms ease;
     &:hover {
       color: $dark-teal;
       text-decoration: underline;
