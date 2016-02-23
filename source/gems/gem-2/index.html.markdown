@@ -3,14 +3,8 @@ title: Gem 2
 layout: gem-single
 ---
 
-* Unordered
-* List
-* Of
-* Things
+## Getting started
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
+Many Rubyists start their journey being exposed to Rails and its favored object relational mapping (ORM) library, `Active Record`. `Active Record` is an implementation of the Active Record pattern. In this pattern, objects carry the data and the behavior that operates on that data.
 
-1. Ordered
-2. List
-3. Of
-4. Things
+The `Active Record` pattern has been widely adopted by the Ruby community, mostly due to the success of Rails; however, it’s a pattern with well known shortcomings. In complex applications, `Active Record` is no longer a good choice as it tightly couples your application’s domain layer with the underlying database. It’s especially problematic in Rails where its `ActiveRecord` ORM provides a gigantic interface to handle many different concerns. As a result, many Rails applications suffer from rapidly increasing complexity, caused by internal coupling and lack of a clean domain layer, to a point where maintaining and growing an application becomes very difficult.

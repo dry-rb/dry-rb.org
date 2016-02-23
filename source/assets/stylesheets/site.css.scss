@@ -61,6 +61,26 @@ body {
 	}
 }
 
+.article-list {
+	@include col(1,2);
+	margin-left: calc(100% / 12 * 3);
+
+	@include mobile {
+		@include col(1,1);
+		margin-left: 0;
+	}
+}
+
+.article-list ul li {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+	padding-top: 30px;	
+
+	&:last-of-type {
+		border-bottom: 0;
+	}
+}
+
 .btn {
 	background-color: $teal;
 	border-radius: 4px;
@@ -391,7 +411,6 @@ hr {
 	a {
 		color: $dark-grey;
 	}
-
 }
 
 .news__list-item-date {
@@ -408,6 +427,17 @@ hr {
 
 .news__list-item-content a:hover {
 	color: $teal;
+}
+
+pre {
+	background: #4A4A4A;
+	border-radius: 4px;
+	padding: 20px;
+}
+
+pre code {
+	background: none;
+	color: #999;
 }
 
 .row {
@@ -512,7 +542,6 @@ hr {
 
 		&:hover {
 			border-bottom: 2px solid rgba(255,255,255,.3);
-
 		}
 	}
 
