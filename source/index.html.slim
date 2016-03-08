@@ -50,7 +50,7 @@ ogp:
   .content-wrap
     h2.section-heading Gems
     ul.content__gems-list
-      - list_pages('gem').each do |page|
+      - list_pages_by_type('gem').each do |page|
         li.content__gems-list-item
           a href= page.url
             h3 = page.data.title

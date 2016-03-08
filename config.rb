@@ -166,11 +166,18 @@ page "*.json"
 
 helpers do
 
-  # Returns pages matching a specific type
-  def list_pages(type)
+  # Returnsa list of pages matching a specific type
+  def list_pages_by_type(type)
     sitemap.resources.select do |resource|
       resource.data.type == type
     end.sort_by { |resource| resource.data.title }
+  end
+
+  # Return a list of pages matching a specific group
+  def list_pages_by_group(group)
+    sitemap.resources.select do |resource|
+      resource.data.group == group
+    end.sort_by { |resource| resource.data.order }
   end
 
 end
