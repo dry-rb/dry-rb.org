@@ -164,6 +164,17 @@ page "*.json"
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
+helpers do
+
+  # Returns pages matching a specific type
+  def list_pages(type)
+    sitemap.resources.select do |resource|
+      resource.data.type == type
+    end.sort_by { |resource| resource.data.title }
+  end
+
+end
+
 # Helpers ----------------------------------------------------------------------
 # Load helpers from `./lib`
 require "lib/typography_helpers"

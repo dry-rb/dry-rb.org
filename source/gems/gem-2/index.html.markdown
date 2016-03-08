@@ -1,6 +1,8 @@
 ---
 title: Gem 2
+description: A short description about gem 2
 layout: gem-single
+type: gem
 ---
 
 ## Getting started
