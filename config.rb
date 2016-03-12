@@ -42,6 +42,8 @@ activate :external_pipeline,
   source: '.tmp/dist',
   latency: 1
 
+activate :syntax
+
 set :markdown_engine, :redcarpet
 set :markdown,        fenced_code_blocks: true,
                       autolink: true,

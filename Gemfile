@@ -11,6 +11,8 @@ gem "middleman-dotenv"
 gem "middleman-livereload"
 gem "middleman-minify-html"
 gem 'middleman-deploy', github: 'middleman-contrib/middleman-deploy'
+gem "middleman-blog"
+gem "middleman-syntax"
 
 # Formats
 gem "redcarpet"
@@ -28,7 +30,3 @@ gem "rack"
 gem "rack-contrib"
 gem "rake"
 gem "tzinfo"
-
-# Project specific -------------------------------------------------------------
-
-gem "middleman-blog"
