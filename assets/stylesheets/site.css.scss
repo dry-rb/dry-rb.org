@@ -74,7 +74,7 @@ body {
 .article-list ul li {
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 20px;
-	padding-top: 30px;	
+	padding-top: 30px;
 
 	&:last-of-type {
 		border-bottom: 0;
@@ -167,35 +167,35 @@ body {
 
 .features-list-img-door {
 	@extend .features-list-img;
-	background: url('../images/icon-door.png') no-repeat center center;
+	background: url('/images/icon-door.png') no-repeat center center;
 
-	@media screen 
+	@media screen
 	and (-webkit-min-device-pixel-ratio: 2) {
-		background: url('../images/icon-door@2x.png') no-repeat center center;
+		background: url('/images/icon-door@2x.png') no-repeat center center;
 		background-size: contain;
 	}
 }
 
 .features-list-img-flexible {
 	@extend .features-list-img;
-	background: url('../images/icon-flexible.png') no-repeat center center;
+	background: url('/images/icon-flexible.png') no-repeat center center;
 
-	@media screen 
+	@media screen
 	and (-webkit-min-device-pixel-ratio: 2) {
-		background: url('../images/icon-flexible@2x.png') no-repeat center center;
+		background: url('/images/icon-flexible@2x.png') no-repeat center center;
 		background-size: 64px;
-	}	
+	}
 }
 
 .features-list-img-lightning {
 	@extend .features-list-img;
-	background: url('../images/icon-lightning.png') no-repeat center center;
+	background: url('/images/icon-lightning.png') no-repeat center center;
 
-	@media screen 
+	@media screen
 	and (-webkit-min-device-pixel-ratio: 2) {
-		background: url('../images/icon-lightning@2x.png') no-repeat center center;
+		background: url('/images/icon-lightning@2x.png') no-repeat center center;
 		background-size: contain;
-	}	
+	}
 }
 
 .content__additional-features-list-item {
@@ -216,7 +216,7 @@ body {
   @include tablet {
   	@include col(2,3);
   	margin-left: calc(100% / 6 * 1);
-  }	
+  }
 
   @include mobile {
   	@include col(1,1);
@@ -305,7 +305,7 @@ footer {
 
 header {
 	background-color: $teal;
-	background-image: url(../images/bg-header.png);
+	background-image: url(/images/bg-header.png);
 	background-position: center center;
 	color: $white;
 	width: 100%;
@@ -485,7 +485,7 @@ pre code {
 	position: relative;
 
 	&:before {
-		background: url('../images/logo-sml.png') no-repeat;
+		background: url('/images/logo-sml.png') no-repeat;
 		content: '';
 		height: 30px;
 		left: 0;
@@ -493,9 +493,9 @@ pre code {
 		top: 25px;
 		width: 30px;
 
-		@media screen 
+		@media screen
 		and (-webkit-min-device-pixel-ratio: 2) {
-			background: url('../images/logo-sml@2x.png') no-repeat;
+			background: url('/images/logo-sml@2x.png') no-repeat;
 			background-size: cover;
 		}
 	}

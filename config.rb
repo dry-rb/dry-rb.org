@@ -14,7 +14,9 @@ activate :dotenv
 # Public site settings
 # Pulled from `site.yaml`. Exposed as `site.setting_name` in templates.
 set :site, YAML::load_file(File.dirname(__FILE__) + "/site.yaml").to_hashugar
-Time.zone = site.timezeone
+
+Time.zone = config.site.timezeone
+
 set :site_title, "dryrb"
 set :site_url, "http://www.domain.com"
 set :site_description, "dryrb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby."
@@ -22,37 +24,39 @@ set :site_keywords, "dryrb, ruby, micro-libraries"
 
 # Configuration ----------------------------------------------------------------
 
-# General configuration for Middleman and its sprockets environment
-set :partials_dir,    'partials'
-set :css_dir,         'assets/stylesheets'
-set :js_dir,          'assets/javascripts'
-set :images_dir,      'assets/images'
-set :fonts_dir,       'assets/fonts'
-set :vendor_dir,      'assets/vendor'
+# General configuration for Middleman assets
+set :css_dir,    'assets/stylesheets'
+set :js_dir,     'assets/javascripts'
+set :images_dir, 'images'
+set :fonts_dir,  'fonts'
+set :vendor_dir, 'vendor'
 
-after_configuration do
-  sprockets.append_path "assets/vendor"
-end
-
+activate :external_pipeline,
+  name: :webpack,
+  command:
+    if build?
+      './node_modules/webpack/bin/webpack.js --bail'
+    else
+      './node_modules/webpack/bin/webpack.js --watch -d'
+    end,
+  source: '.tmp/dist',
+  latency: 1
 
 set :markdown_engine, :redcarpet
-set :markdown,        :fenced_code_blocks => true,
-                      :autolink => true,
-                      :smartypants => true,
-                      :hard_wrap => true,
-                      :smart => true,
-                      :superscript => true,
-                      :no_intra_emphasis => true,
-                      :lax_spacing => true,
-                      :with_toc_data => true
+set :markdown,        fenced_code_blocks: true,
+                      autolink: true,
+                      smartypants: true,
+                      hard_wrap: true,
+                      smart: true,
+                      superscript: true,
+                      no_intra_emphasis: true,
+                      lax_spacing: true,
+                      with_toc_data: true
 
 # Activate various extensions --------------------------------------------------
 
 # Make sure that livereload uses the host FQDN so we can use it across network
-activate :livereload, :host => Socket.gethostbyname(Socket.gethostname).first
-
-# Autoprefixer
-activate :autoprefixer, browsers: ['last 2 versions', 'ie 8', 'ie 9']
+activate :livereload, host: Socket.gethostbyname(Socket.gethostname).first
 
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
@@ -100,7 +104,7 @@ activate :directory_indexes
 # Example configuration options:
 # With no layout:
 #
-#   page "/path/to/file.html", :layout => false
+#   page "/path/to/file.html", layout: false
 #
 # With alternative layout:
 # Change Compass configuration
@@ -114,7 +118,7 @@ activate :directory_indexes
 
 # Per-page layout changes:
 #
-#   page "/path/to/file.html", :layout => :otherlayout
+#   page "/path/to/file.html", layout: :otherlayout
 # With no layout
 # page "/path/to/file.html", layout: false
 #
@@ -131,15 +135,15 @@ activate :directory_indexes
 # end
 
 # Proxy (fake) files:
-#   page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
+#   page "/this-page-has-no-template.html", proxy: "/template-file.html" do
 #     @which_fake_page = "Rendering a fake page with a variable"
 #   end
 # Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
-page "*", :layout => "layouts/base"
-page "/news/*", :layout => "news-single"
+page "/", layout: "base"
+page "/news/*", layout: "news-single"
 page "*.json"
 ###
 # Helpers
@@ -149,7 +153,6 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
-
   # Returnsa list of pages matching a specific type
   def list_pages_by_type(type)
     sitemap.resources.select do |resource|
@@ -164,50 +167,28 @@ helpers do
     end.sort_by { |resource| resource.data.order }
   end
 
+  def page
+    current_resource
+  end
+
+  def site
+    page.data.site
+  end
+
+  def partial(name)
+    super("partials/#{name}")
+  end
 end
 
-# Helpers ----------------------------------------------------------------------
-# Load helpers from `./lib`
 require "lib/typography_helpers"
 helpers TypographyHelpers
-require "lib/asset_helpers"
-helpers AssetHelpers
-# Reload the browser automatically whenever files change
-# activate :livereload
-
-# Methods defined in the helpers block are available in templates
-# Uncomment the below to add custom helpers
-# helpers do
-#   def some_helper
-#     "Helping"
-#   end
-# end
 
 # Build configuration ----------------------------------------------------------
 
-set :images_dir, 'images'
-
 # Build-specific configuration
 configure :build do
-  # Common configuration
   activate :gzip
   activate :minify_css
   activate :minify_javascript
   activate :asset_hash
-  # For example, change the Compass output style for deployment
-  # activate :minify_css
-
-  # Minify Javascript on build
-  # activate :minify_javascript
-
-  # Enable cache buster
-  # activate :asset_hash
-
-  # Relative URLs ../etc
-  # Use relative URLs
-  # activate :relative_assets
-
-  activate :imageoptim do |image_optim|
-    image_optim.image_extensions = ['*.png', '*.jpg', '*.gif']
-  end
 end
