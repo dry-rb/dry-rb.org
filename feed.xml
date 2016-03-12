@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Blog Name</title>
+  <subtitle>Blog subtitle</subtitle>
+  <id>http://blog.url.com/news</id>
+  <link href="http://blog.url.com/news"/>
+  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <updated>2014-03-14T01:00:00+01:00</updated>
+  <author>
+    <name>Blog Author</name>
+  </author>
+  <entry>
+    <title>Example Article</title>
+    <link rel="alternate" href="http://blog.url.com/news/2014/03/14/example-article/"/>
+    <id>http://blog.url.com/news/2014/03/14/example-article/</id>
+    <published>2014-03-14T01:00:00+01:00</published>
+    <updated>2016-02-23T14:33:23+01:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;This is an example article. You probably want to delete it and write your own articles! &lt;/p&gt;
+
+&lt;h2 id="heading-two-heading-one-has-been-used-in-the-page-title"&gt;Heading two (heading one has been used in the page title)&lt;/h2&gt;
+
+&lt;p&gt;Donec sed odio dui. &lt;code&gt;Cras justo odio&lt;/code&gt; dapibus ac facilisis in, egestas eget quam. Nulla vitae elit libero, a pharetra augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. This is a &lt;a href="http://example.net/"&gt;link example&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id="heading-three"&gt;Heading three&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. For these reasons libraries belonging to the dryrb organisation try to follow a few basic principles.&lt;/p&gt;
+
+&lt;p&gt;—Author&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;List item 1&lt;/li&gt;
+&lt;li&gt;List item 2&lt;/li&gt;
+&lt;li&gt;List item 3&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Example Article</title>
+    <link rel="alternate" href="http://blog.url.com/news/2012/01/01/example-article/"/>
+    <id>http://blog.url.com/news/2012/01/01/example-article/</id>
+    <published>2012-01-01T01:00:00+01:00</published>
+    <updated>2016-02-23T14:33:23+01:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;This is an example article. You probably want to delete it and write your own articles! &lt;/p&gt;
+
+&lt;h2 id="heading-two-heading-one-has-been-used-in-the-page-title"&gt;Heading two (heading one has been used in the page title)&lt;/h2&gt;
+
+&lt;p&gt;Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nulla vitae elit libero, a pharetra augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta sem malesuada magna mollis euismod. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.&lt;/p&gt;
+
+&lt;h3 id="heading-three"&gt;Heading three&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. For these reasons libraries belonging to the dryrb organisation try to follow a few basic principles.&lt;br&gt;
+—Author&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+  </entry>
+</feed>
