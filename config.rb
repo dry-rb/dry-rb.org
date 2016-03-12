@@ -157,7 +157,7 @@ helpers do
   def list_pages_by_type(type)
     sitemap.resources.select do |resource|
       resource.data.type == type
-    end.sort_by { |resource| resource.data.title }
+    end.sort_by { |resource| resource.data.order }
   end
 
   # Return a list of pages matching a specific group

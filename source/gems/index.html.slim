@@ -1,9 +1,6 @@
 ---
 title: Gems
 layout: listing
-ogp:
-  og:
-    description: "Per-page overrides for open-graph data"
 ---
 
 - children = current_page.children.select { |p| p.ext == ".html" && p.data.title && p.data.hidden != true }

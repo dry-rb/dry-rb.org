@@ -20,28 +20,13 @@ title: Home
 .row-blue
   .content-wrap
     h2.section-heading Gems
-    ul.content__gems-list
-      - list_pages_by_type('gem').each do |page|
-        li.content__gems-list-item
-          a href= page.url
-            h3 = page.data.title
-            p = page.data.description
-      / li.content__gems-list-item
-      /   a href="#"
-	    /    h3 dry-validation
-	    /    p Data validation library based on predicate logic and rule composition
-      / li.content__gems-list-item
-      /   a href="#"
-      /     h3 dry-container
-      /     p A simple, configurable container implemented in Ruby
-      / li.content__gems-list-item
-      /   a href="#"
-      /     h3 dry-configurable
-      /     p A simple mixin to make Ruby classes configurable
-      / li.content__gems-list-item
-      /   a href="#"
-      /     h3 dry-configurable
-      /     p A simple mixin to make Ruby classes configurable
+    - list_pages_by_type('gem').take(8).in_groups_of(4).each do |group|
+      ul.content__gems-list
+        - group.compact.each do |page|
+          li.content__gems-list-item
+            a href= page.url
+              h3 = page.data.title
+              p = page.data.description
     a.btn-view-gems href='/gems'
 	    | View all gems
 
