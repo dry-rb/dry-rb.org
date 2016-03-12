@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/middleman-contrib/middleman-deploy.git
+  revision: 243ab38b08896cd5a37d6845a01a5761b934a898
+  specs:
+    middleman-deploy (2.0.0.pre.alpha)
+      middleman-core (>= 3.2)
+      net-sftp
+      ptools
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -112,6 +121,9 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    net-sftp (2.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.0.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     padrino-helpers (0.13.1)
@@ -121,6 +133,7 @@ GEM
     padrino-support (0.13.1)
       activesupport (>= 3.1)
     parallel (1.6.2)
+    ptools (1.3.3)
     puma (3.1.0)
     rack (1.6.4)
     rack-contrib (1.4.0)
@@ -165,6 +178,7 @@ DEPENDENCIES
   hashugar
   middleman
   middleman-blog
+  middleman-deploy!
   middleman-dotenv
   middleman-livereload
   middleman-minify-html

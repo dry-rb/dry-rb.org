@@ -185,6 +185,8 @@ helpers TypographyHelpers
 
 # Build configuration ----------------------------------------------------------
 
+activate :deploy, deploy_method: :git
+
 # Build-specific configuration
 configure :build do
   activate :gzip
