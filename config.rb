@@ -185,7 +185,10 @@ helpers TypographyHelpers
 
 # Build configuration ----------------------------------------------------------
 
-activate :deploy, deploy_method: :git
+activate :deploy do |config|
+  config.deploy_method = :git
+  config.branch = 'master'
+end
 
 # Build-specific configuration
 configure :build do
