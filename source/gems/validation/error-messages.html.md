@@ -7,9 +7,7 @@ group: dry-validation
 
 ## Error Messages
 
-By default `dry-validation` comes with a set of pre-defined error messages for
-every built-in predicate. They are defined in [a yaml file](https://github.com/dryrb/dry-validation/blob/master/config/errors.yml)
-which is shipped with the gem. This file is compatible with `I18n` format.
+By default `dry-validation` comes with a set of pre-defined error messages for every built-in predicate. They are defined in [a yaml file](https://github.com/dryrb/dry-validation/blob/master/config/errors.yml) which is shipped with the gem. This file is compatible with `I18n` format.
 
 You can provide your own messages and configure your schemas to use it like that:
 
@@ -83,13 +81,11 @@ user_messages[:filled?, rule: :age] # "%{name} cannot be blank"
 user_messages[:filled?, rule: :address] # "You gotta tell us where you live"
 ```
 
-By configuring `messages_file` and/or `namespace` in a schema, default messages
-are going to be automatically merged with your overrides and/or namespaced.
+By configuring `messages_file` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
 
 ## I18n Integration
 
-If you are using `i18n` gem and load it before `dry-validation` then you'll be
-able to configure a schema to use `i18n` messages:
+If you are using `i18n` gem and load it before `dry-validation` then you'll be able to configure a schema to use `i18n` messages:
 
 ``` ruby
 require 'i18n'
@@ -112,5 +108,4 @@ puts schema.call(email: '').messages(locale: :pl)
 { :email => ["email musi być wypełniony"] }
 ```
 
-Important: I18n must be initialized before using schema, `dry-validation` does
-not try to do it for you, it only sets its default error translations automatically.
+Important: I18n must be initialized before using schema, `dry-validation` does not try to do it for you, it only sets its default error translations automatically.

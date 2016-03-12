@@ -1,5 +1,5 @@
 ---
-title: Active Record Validation Equivalents in Dry Validation
+title: Active Record Comparison
 layout: gem-single
 order: 10
 group: dry-validation
@@ -39,7 +39,9 @@ Active Record: `validates :email, presence: true, format: { with: EMAIL_REGEX }`
 Dry Validation: ` key(:email) { |email| email.filled? & email.format?(EMAIL_REGEX) }`
 
 ## 2. Validation Helpers
+
 ### 2.1 acceptance
+
 | Active Record Validation                         | Dry Validation                         |
 |--------------------------------------------------|----------------------------------------|
 | `validates :attr, acceptance: true`              | `key(:attr){ |attr| attr.eql?('1') }`  |
@@ -48,6 +50,7 @@ Dry Validation: ` key(:email) { |email| email.filled? & email.format?(EMAIL_REGE
 Note: Active Record automatically creates the virtual acceptance attribute for you, so you will need to do this manually.
 
 ### 2.2 validates_associated
+
 You will need to create a custom predicate to achieve this.
 
 **Unsure if you can access the object & its associated objects in dry-v**

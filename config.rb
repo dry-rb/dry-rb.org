@@ -53,7 +53,8 @@ set :markdown,        fenced_code_blocks: true,
                       superscript: true,
                       no_intra_emphasis: true,
                       lax_spacing: true,
-                      with_toc_data: true
+                      with_toc_data: true,
+                      tables: true
 
 # Activate various extensions --------------------------------------------------
 
