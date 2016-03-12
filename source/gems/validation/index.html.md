@@ -1,5 +1,5 @@
 ---
-title: dry-validation
+title: Introduction
 description: Powerful data validation based on predicate logic
 layout: gem-single
 order: 1
