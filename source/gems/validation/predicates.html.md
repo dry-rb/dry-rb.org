@@ -5,8 +5,6 @@ order: 2
 group: dry-validation
 ---
 
-## Predicates
-
 You have access to the following built-in predicates:
 
 ### Basic

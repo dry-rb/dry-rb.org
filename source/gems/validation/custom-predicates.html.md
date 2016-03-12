@@ -5,13 +5,11 @@ order: 9
 group: dry-validation
 ---
 
-## Custom Predicates
-
 You can simply define predicate methods on your schema object:
 
 ``` ruby
-class Schema < Dry::Validation::Schema
-  key(:email) { |value| value.str? & value.email? }
+schema = Dry::Validation.Schema do
+  key(:email).required(:str?, :email?)
 
   def email?(value)
     ! /magical-regex-that-matches-emails/.match(value).nil?
@@ -30,12 +28,12 @@ module MyPredicates
   end
 end
 
-class Schema < Dry::Validation::Schema
-  configure do |config|
+schema = Dry::Validation.Schema do
+  configure do
     config.predicates = MyPredicates
   end
 
-  key(:email) { |value| value.str? & value.email? }
+  key(:email).required(:str?, :email?)
 end
 ```
 

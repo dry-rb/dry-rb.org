@@ -5,23 +5,21 @@ order: 8
 group: dry-validation
 ---
 
-## Error Messages
-
 By default `dry-validation` comes with a set of pre-defined error messages for every built-in predicate. They are defined in [a yaml file](https://github.com/dryrb/dry-validation/blob/master/config/errors.yml) which is shipped with the gem. This file is compatible with `I18n` format.
 
 You can provide your own messages and configure your schemas to use it like that:
 
 ``` ruby
-class Schema < Dry::Validation::Schema
-  configure { |config| config.messages_file = '/path/to/my/errors.yml' }
+schema = Dry::Validation.Schema do
+  configure { config.messages_file = '/path/to/my/errors.yml' }
 end
 ```
 
 You can also provide a namespace per-schema that will be used by default:
 
 ``` ruby
-class Schema < Dry::Validation::Schema
-  configure { |config| config.namespace = :user }
+schema = Dry::Validation.Schema do
+  configure { config.namespace = :user }
 end
 ```
 
@@ -91,13 +89,11 @@ If you are using `i18n` gem and load it before `dry-validation` then you'll be a
 require 'i18n'
 require 'dry-validation'
 
-class Schema < Dry::Validation::Schema
+schema = Dry::Validation.Schema do
   configure { config.messages = :i18n }
 
   key(:email, &:filled?)
 end
-
-schema = Schema.new
 
 # return default translations
 puts schema.call(email: '').messages

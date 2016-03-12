@@ -5,8 +5,6 @@ order: 7
 group: dry-validation
 ---
 
-## Form Validation
-
 Probably the most common use case is to validate form params. This is a special kind of a validation for a couple of reasons:
 
 * The input is a hash with stringified keys
@@ -18,20 +16,18 @@ For that reason, `dry-validation` ships with `Schema::Form` class:
 ``` ruby
 require 'dry-validation'
 
-class UserFormSchema < Dry::Validation::Schema::Form
-  key(:email) { |value| value.str? & value.filled? }
+schema = Dry::Validation.Schema.Form do
+  key(:email).required { |value| value.str? & value.filled? }
 
-  key(:age) { |value| value.int? & value.gt?(18) }
+  key(:age).required(:int?, gt?: 18)
 end
-
-schema = UserFormSchema.new
 
 errors = schema.call('email' => '', 'age' => '18').messages
 
 puts errors.inspect
 # {
-#   :email => [["email must be filled"], nil],
-#   :age => [["age must be greater than 18"], 18]
+#   :email => ["must be filled"],
+#   :age => ["must be greater than 18"]
 # }
 ```
 
