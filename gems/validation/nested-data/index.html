@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><script src="/assets/javascripts/retina.js"></script><title>Nested Data</title><link href="/assets/stylesheets/site-969cb415.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}</style><script src="/assets/javascripts/site-80bc51c7.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Nested Data</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/validation/">Introduction</a></li><li><a href="/gems/validation/basics/">Basics</a></li><li><a href="/gems/validation/predicates/">Predicates</a></li><li><a href="/gems/validation/optional-keys-and-values/">Optional Keys and Values</a></li><li><a class="active" href="/gems/validation/nested-data/">Nested Data</a></li><li><a href="/gems/validation/high-level-rules/">High-level Rules</a></li><li><a href="/gems/validation/forms/">Form Validation</a></li><li><a href="/gems/validation/error-messages/">Error Messages</a></li><li><a href="/gems/validation/custom-predicates/">Custom Predicates</a></li><li><a href="/gems/validation/active-record-comparison/">Active Record Comparison</a></li></ul></aside><article class="gem-article"><p><code>dry-validation</code> supports validation of nested data, this includes both hashes<br>
+and arrays as the validation input.</p>
+
+<h3 id="nested-hash">Nested Hash</h3>
+
+<p>To define validation rules for a nested hash you can use the same DSL on a specific key:</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'dry-validation'</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:address</span><span class="p">).</span><span class="nf">schema</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">(</span><span class="ss">:city</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="n">min_size?</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">key</span><span class="p">(</span><span class="ss">:street</span><span class="p">).</span><span class="nf">required</span>
+
+    <span class="n">key</span><span class="p">(</span><span class="ss">:country</span><span class="p">).</span><span class="nf">schema</span> <span class="k">do</span>
+      <span class="n">key</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">required</span>
+      <span class="n">key</span><span class="p">(</span><span class="ss">:code</span><span class="p">).</span><span class="nf">required</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">({}).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># { :address =&gt; ["is missing"] }</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">address: </span><span class="p">{</span> <span class="ss">city: </span><span class="s1">'NYC'</span> <span class="p">}).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">to_h</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># {</span>
+<span class="c1">#   :address =&gt; [</span>
+<span class="c1">#     { :street =&gt; ["is missing"] },</span>
+<span class="c1">#     { :country =&gt; ["is missing"] }</span>
+<span class="c1">#   ]</span>
+<span class="c1"># }</span>
+</code></pre>
+
+<h3 id="nested-array">Nested Array</h3>
+
+<p>You can use <code>each</code> rule for validating each element in an array:</p>
+<pre class="highlight ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:phone_numbers</span><span class="p">).</span><span class="nf">each</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">phone_numbers: </span><span class="s1">''</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># { :phone_numbers =&gt; ["must be an array"] }</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">phone_numbers: </span><span class="p">[</span><span class="s1">'123456789'</span><span class="p">,</span> <span class="mi">123456789</span><span class="p">]).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># {</span>
+<span class="c1">#   :phone_numbers =&gt; {</span>
+<span class="c1">#     1 =&gt; ["must be a string"]</span>
+<span class="c1">#   }</span>
+<span class="c1"># }</span>
+</code></pre>
+</article></div></div><footer><div class="content-wrap"><div class="footer__credits">dryrb is maintained by <a href="http://twitter.com/solnic">@solnic </a>and <a href="http://twitter.com/amhol">@amhol</a>. This website was made by <a href="http://twitter.com/icelab">@icelab</a>. Tweet your questions and suggestions to <a href="http://twitter.com/dry_rb">@dry_rb</a> and follow us for updates. </div><a class="btn-social" href="#">GitHub</a><a class="btn-social" href="#">Twitter  </a></div></footer></body></html>

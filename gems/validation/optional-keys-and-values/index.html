@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><script src="/assets/javascripts/retina.js"></script><title>Optional Keys and Values</title><link href="/assets/stylesheets/site-969cb415.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}</style><script src="/assets/javascripts/site-80bc51c7.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Optional Keys and Values</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/validation/">Introduction</a></li><li><a href="/gems/validation/basics/">Basics</a></li><li><a href="/gems/validation/predicates/">Predicates</a></li><li><a class="active" href="/gems/validation/optional-keys-and-values/">Optional Keys and Values</a></li><li><a href="/gems/validation/nested-data/">Nested Data</a></li><li><a href="/gems/validation/high-level-rules/">High-level Rules</a></li><li><a href="/gems/validation/forms/">Form Validation</a></li><li><a href="/gems/validation/error-messages/">Error Messages</a></li><li><a href="/gems/validation/custom-predicates/">Custom Predicates</a></li><li><a href="/gems/validation/active-record-comparison/">Active Record Comparison</a></li></ul></aside><article class="gem-article"><p>We make a clear distinction between specifying an optional <code>key</code> and an optional <code>value</code>. This gives you a way of being very specific about validation rules. You can define a schema which can give you precise errors when a key was missing or key was present but the value was nil.</p>
+
+<p>This also comes with the benefit of being explicit about the type expectation.  In the example below we explicitly state that <code>:age</code> <em>can be nil</em> or it <em>can be an integer</em> and when it <em>is an integer</em> we specify that it <em>must be greater than 18</em>.</p>
+
+<p>You can define which keys are optional and define rules for their values:</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'dry-validation'</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">required</span>
+
+  <span class="n">optional</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">:</span> <span class="mi">18</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># {}</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">17</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># { :age =&gt; ["must be greater than 18"] }</span>
+</code></pre>
+
+<h2 id="optional-values">Optional Values</h2>
+
+<p>When it is valid for a given value to be <code>nil</code> you can use <code>maybe</code> macro:</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'dry-validation'</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">required</span>
+
+  <span class="n">optional</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">:</span> <span class="mi">18</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="no">Schema</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">age: </span><span class="kp">nil</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># {}</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">19</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># {}</span>
+
+<span class="n">errors</span> <span class="o">=</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">17</span><span class="p">).</span><span class="nf">messages</span>
+
+<span class="nb">puts</span> <span class="n">errors</span><span class="p">.</span><span class="nf">inspect</span>
+<span class="c1"># { :age =&gt; ["must be greater than 18"] }</span>
+</code></pre>
+</article></div></div><footer><div class="content-wrap"><div class="footer__credits">dryrb is maintained by <a href="http://twitter.com/solnic">@solnic </a>and <a href="http://twitter.com/amhol">@amhol</a>. This website was made by <a href="http://twitter.com/icelab">@icelab</a>. Tweet your questions and suggestions to <a href="http://twitter.com/dry_rb">@dry_rb</a> and follow us for updates. </div><a class="btn-social" href="#">GitHub</a><a class="btn-social" href="#">Twitter  </a></div></footer></body></html>
