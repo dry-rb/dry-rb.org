@@ -22,9 +22,9 @@ title: Home
     h2.section-heading Gems
     - site.gems.take(8).in_groups_of(4).each do |group|
       ul.content__gems-list
-        - group.compact.each do |gem|
+        - group.compact.each do |page|
           li.content__gems-list-item
-            a href="/gems/#{gem.name.sub('dry-', '')}"
+            a href="/gems/#{page.name.sub('dry-', '')}"
               h3 = gem.name
               p = gem.desc
     a.btn-view-gems href='/gems'

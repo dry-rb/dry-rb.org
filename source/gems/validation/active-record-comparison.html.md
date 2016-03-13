@@ -1,6 +1,7 @@
 ---
 title: Active Record Comparison
 layout: gem-single
+name: types
 order: 10
 ---
 
