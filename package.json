@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dryrb/dryrb.git"
+    "url": "git+https://github.com/dryrb/dryrb.github.io.git"
   },
   "author": "icelab",
   "license": "MIT",
