@@ -20,13 +20,13 @@ title: Home
 .row-blue
   .content-wrap
     h2.section-heading Gems
-    - list_pages_by_type('gem').take(8).in_groups_of(4).each do |group|
+    - site.gems.take(8).in_groups_of(4).each do |group|
       ul.content__gems-list
-        - group.compact.each do |page|
+        - group.compact.each do |gem|
           li.content__gems-list-item
-            a href= page.url
-              h3 = page.data.title
-              p = page.data.description
+            a href="/gems/#{gem.name.sub('dry-', '')}"
+              h3 = gem.name
+              p = gem.desc
     a.btn-view-gems href='/gems'
 	    | View all gems
 

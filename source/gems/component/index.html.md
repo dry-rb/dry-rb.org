@@ -1,6 +1,5 @@
 ---
-title: dry-component
-description: Organize your code into reusable components
+title: Introduction
 layout: gem-single
 order: 6
 type: gem

@@ -7,3 +7,28 @@ breakpoints:
   -
     name: "phone"
     query: "(max-width: 480px)"
+gems:
+  -
+    name: dry-validation
+    desc: Powerful data validation based on predicate logic
+  -
+    name: dry-types
+    desc: Flexible type system with many built-in types
+  -
+    name: dry-container
+    desc: Simple and thread-safe IoC container
+  -
+    name: dry-auto_inject
+    desc: Container-agnostic constructor injection mixin
+  -
+    name: dry-equalizer
+    desc: Simple mixing providing equality methods
+  -
+    name: dry-component
+    desc: Organize your code into reusable components
+  -
+    name: dry-configurable
+    desc: Thread-safe configuration mixin
+  -
+    name: dry-logic
+    desc: Predicate logic with composable rules

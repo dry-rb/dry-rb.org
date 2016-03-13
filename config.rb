@@ -156,7 +156,28 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
-  # Returnsa list of pages matching a specific type
+  def nav_for(root)
+    pages = sitemap.resources.select { |resource|
+      url = resource.url
+      url.start_with?(root) && url != root && url.split('/').reject(&:empty?).size == 3
+    }
+
+    nav_menu(pages)
+  end
+
+  def nav_menu(pages)
+    content_tag(:ul) do
+      pages.sort_by { |p| p.data.order }.map do |page|
+        content_tag(:li) do
+          html = link_to page.data.title, page.url
+          html << nav_menu(page.children)
+          html
+        end
+      end.join
+    end
+  end
+
+  # Returns a list of pages matching a specific type
   def list_pages_by_type(type)
     return [] unless type
 
@@ -179,7 +200,7 @@ helpers do
   end
 
   def site
-    page.data.site
+    config.site
   end
 
   def partial(name)

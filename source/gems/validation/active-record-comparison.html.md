@@ -2,7 +2,6 @@
 title: Active Record Comparison
 layout: gem-single
 order: 10
-group: dry-validation
 ---
 
 ## 1. Validation Overview

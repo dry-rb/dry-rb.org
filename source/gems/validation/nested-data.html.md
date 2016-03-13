@@ -2,7 +2,6 @@
 title: Nested Data
 layout: gem-single
 order: 4
-group: dry-validation
 ---
 
 `dry-validation` supports validation of nested data, this includes both hashes

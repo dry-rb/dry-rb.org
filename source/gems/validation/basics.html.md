@@ -2,7 +2,6 @@
 title: Basics
 layout: gem-single
 order: 1
-group: dry-validation
 ---
 
 Here's a basic example where we validate following things:
