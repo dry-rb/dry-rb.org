@@ -1,11 +1,13 @@
 ---
-title: Introduction
+title: dry-validation
 description: Powerful data validation based on predicate logic
 layout: gem-single
 order: 1
 group: dry-validation
 type: gem
 ---
+
+## Introduction
 
 Unlike other, well known, validation solutions in Ruby, `dry-validation` takes a different approach and focuses a lot on explicitness, clarity and preciseness of validation logic. It is designed to work with any data input, whether it's a simple hash, an array or a complex object with deeply nested data.
 
