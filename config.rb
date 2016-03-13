@@ -159,21 +159,26 @@ helpers do
   def nav_for(root)
     pages = sitemap.resources.select { |resource|
       url = resource.url
-      url.start_with?(root) && url != root && url.split('/').reject(&:empty?).size == 3
+      url.start_with?(root) && url.split('/').reject(&:empty?).size == 3
     }
 
-    nav_menu(pages)
+    root = sitemap.resources.detect { |page| page.url == root }
+
+    nav_menu(pages, root)
   end
 
-  def nav_menu(pages)
+  def nav_menu(pages, root = nil)
     content_tag(:ul) do
-      pages.sort_by { |p| p.data.order }.map do |page|
+      links = []
+      links << content_tag(:li, link_to(root.data.title, root.url)) if root
+      links.concat(pages.sort_by { |p| p.data.order }.map do |page|
         content_tag(:li) do
           html = link_to page.data.title, page.url
           html << nav_menu(page.children)
           html
         end
-      end.join
+      end)
+      links.join
     end
   end
 
