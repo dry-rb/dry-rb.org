@@ -3,9 +3,7 @@ title: Gems
 layout: listing
 ---
 
-- children = current_page.children.select { |p| p.ext == ".html" && p.data.title && p.data.hidden != true }
-- if children.any?
-  ul
-    - children.each do |page|
-      li
-        == link_to page.data.title, page
+ul
+  - site.gems.each do |page|
+    li
+      == link_to page.name, "/gems/#{page.name.sub('dry-', '')}"
