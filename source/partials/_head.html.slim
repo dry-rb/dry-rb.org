@@ -1,7 +1,9 @@
 meta charset="utf-8"
-= javascript_include_tag "retina.min"
+- site.breakpoints.each do |breakpoint|
+  meta name="breakpoint" content=breakpoint.name media=breakpoint.query
 title = page.data.title
 = stylesheet_link_tag "site"
 style type="text/css"
   = Rouge::Themes::Base16::Monokai.render(:scope => '.highlight')
+= javascript_include_tag "retina.min"
 = javascript_include_tag "site", async: true
