@@ -1,5 +1,5 @@
 ---
-title: Active Record Comparison
+title: Comparison With ActiveRecord
 layout: gem-single
 name: types
 order: 10

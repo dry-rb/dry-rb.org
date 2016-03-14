@@ -1,7 +1,6 @@
 ---
 title: Custom Predicates
 layout: gem-single
-order: 9
 ---
 
 You can simply define predicate methods on your schema object:

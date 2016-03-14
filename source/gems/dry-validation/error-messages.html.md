@@ -1,7 +1,6 @@
 ---
 title: Error Messages
 layout: gem-single
-order: 8
 ---
 
 By default `dry-validation` comes with a set of pre-defined error messages for every built-in predicate. They are defined in [a yaml file](https://github.com/dryrb/dry-validation/blob/master/config/errors.yml) which is shipped with the gem. This file is compatible with `I18n` format.

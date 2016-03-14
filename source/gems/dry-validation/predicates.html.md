@@ -1,7 +1,6 @@
 ---
 title: Predicates
 layout: gem-single
-order: 2
 ---
 
 You have access to the following built-in predicates:

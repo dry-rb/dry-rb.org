@@ -22,11 +22,11 @@ title: Home
     h2.section-heading Gems
     - site.gems.take(8).in_groups_of(4).each do |group|
       ul.content__gems-list
-        - group.compact.each do |page|
+        - group.compact.each do |gem|
           li.content__gems-list-item
-            a href="/gems/#{page.name.sub('dry-', '')}"
-              h3 = page.name
-              p = page.desc
+            a href="/gems/#{gem.name}"
+              h3 = gem.name
+              p = gem.desc
     a.btn-view-gems href='/gems'
       | View all gems
 

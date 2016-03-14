@@ -2,6 +2,7 @@ require 'socket'
 require 'better_errors'
 require 'slim'
 require 'lib/redcarpet_renderers'
+
 use BetterErrors::Middleware
 
 # Settings ---------------------------------------------------------------------
@@ -156,30 +157,42 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
-  def nav_for(root)
-    pages = sitemap.resources.select { |resource|
-      url = resource.url
-      url.start_with?(root) && url.split('/').reject(&:empty?).size == 3
-    }
+  def nav
+    url = "#{current_resource.url.split('/')[0..2].join('/')}/"
+    root = sitemap.resources.detect { |page| page.url == url }
 
-    root = sitemap.resources.detect { |page| page.url == root }
+    raise "page for #{url} not found" unless root
 
-    nav_menu(pages, root)
+    content_tag(:ul, nav_link(root, false))
   end
 
-  def nav_menu(pages, root = nil)
-    content_tag(:ul) do
-      links = []
-      links << content_tag(:li, link_to(root.data.title, root.url)) if root
-      links.concat(pages.sort_by { |p| p.data.order }.map do |page|
-        content_tag(:li) do
-          html = link_to page.data.title, page.url
-          html << nav_menu(page.children)
-          html
-        end
-      end)
-      links.join
+  def nav_header
+    name = current_resource.url.split('/')[2]
+    content_tag(:h2, name)
+  end
+
+  def nav_link(page, nest = true)
+    content_tag(:li) do
+      classes = []
+      classes << 'active' if current_resource.url == page.url
+
+      html = link_to(page.data.title, page.url, class: classes.join(' '))
+
+      if page.data.sections
+        links = nav_links(page.children, page).html_safe
+        html << (nest ? content_tag(:ul, links) : links)
+      end
+
+      html
     end
+  end
+
+  def nav_links(pages, root)
+    root.data.sections.map do |name|
+      page = pages.detect { |r| r.path.include?(name) }
+      raise "section #{name} not found" unless page
+      page
+    end.map { |page| nav_link(page) }.join
   end
 
   # Returns a list of pages matching a specific type

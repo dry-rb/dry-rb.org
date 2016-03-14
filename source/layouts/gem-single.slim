@@ -13,7 +13,10 @@ html lang='en'
     .row
       .content-wrap
         aside.sidebar
-          = nav_for("/gems/#{page.data.name}/")
+          ul
+            li
+              == nav_header
+              == nav
         article.gem-article
           = yield
     = partial "footer"

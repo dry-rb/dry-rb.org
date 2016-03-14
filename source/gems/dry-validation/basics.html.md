@@ -1,7 +1,8 @@
 ---
 title: Basics
 layout: gem-single
-order: 1
+sections:
+  - predicate-logic
 ---
 
 Here's a basic example where we validate following things:
