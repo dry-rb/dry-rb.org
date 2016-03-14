@@ -35,11 +35,11 @@ set :vendor_dir, 'vendor'
 activate :external_pipeline,
   name: :webpack,
   command:
-    if build?
+    (if build?
       './node_modules/webpack/bin/webpack.js --bail'
     else
       './node_modules/webpack/bin/webpack.js --watch -d'
-    end,
+    end),
   source: '.tmp/dist',
   latency: 1
 
