@@ -25,10 +25,10 @@ title: Home
         - group.compact.each do |page|
           li.content__gems-list-item
             a href="/gems/#{page.name.sub('dry-', '')}"
-              h3 = gem.name
-              p = gem.desc
+              h3 = page.name
+              p = page.desc
     a.btn-view-gems href='/gems'
-	    | View all gems
+      | View all gems
 
 .row
   .content-wrap
