@@ -1,8 +1,6 @@
 ---
-title: Constrained Types
+title: Constraints
 layout: gem-single
-name: types
-order: 8
 ---
 
 You can create constrained types that will use validation rules to check if the input is not violating any of the configured contraints. You can treat it as a lower level guarantee that you're not instantiating objects that are broken.

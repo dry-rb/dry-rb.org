@@ -1,8 +1,6 @@
 ---
 title: Built-in Types
 layout: gem-single
-name: types
-order: 2
 ---
 
 Built-in types are grouped under 5 categories:

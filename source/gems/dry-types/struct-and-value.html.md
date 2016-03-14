@@ -1,8 +1,6 @@
 ---
 title: Struct & Value
 layout: gem-single
-name: types
-order: 12
 ---
 
 ### Struct

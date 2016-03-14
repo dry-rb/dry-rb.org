@@ -1,8 +1,6 @@
 ---
 title: Enum
 layout: gem-single
-name: types
-order: 11
 ---
 
 In many cases you may want to define an enum. For example in a blog application a post may have a finite list of statuses. Apart from accessing the current status value it is useful to have all possible values accessible too. Furthermore an enum is a `int => value` map, so you can store integers somewhere and have them mapped to enum values conveniently.

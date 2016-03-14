@@ -1,8 +1,6 @@
 ---
-title: Default-Value Types
+title: Default Values
 layout: gem-single
-name: types
-order: 5
 ---
 
 A type with a default value will return the configured value when the input is `nil`:

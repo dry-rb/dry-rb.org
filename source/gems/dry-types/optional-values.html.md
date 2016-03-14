@@ -1,8 +1,6 @@
 ---
-title: Optional Types
+title: Optional Values
 layout: gem-single
-name: types
-order: 4
 ---
 
 All built-in types have their optional versions too, you can access them under `Types::Maybe::Strict` and `Types::Maybe::Coercible` namespaces:

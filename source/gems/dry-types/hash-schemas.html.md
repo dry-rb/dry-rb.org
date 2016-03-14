@@ -1,8 +1,6 @@
 ---
 title: Hash Schemas
 layout: gem-single
-name: types
-order: 9
 ---
 
 The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types.

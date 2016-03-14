@@ -2,8 +2,18 @@
 title: Introduction
 layout: gem-single
 type: gem
-order: 2
-name: types
+sections:
+  - including-types
+  - built-in-types
+  - strict
+  - optional-values
+  - default-values
+  - sum
+  - constraints
+  - hash-schemas
+  - array-with-member
+  - enum
+  - struct-and-value
 ---
 
 `dry-types` is a simple and extendible type system for Ruby with support for kernel coercions,

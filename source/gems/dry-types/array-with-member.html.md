@@ -1,8 +1,6 @@
 ---
 title: Array With Member Types
 layout: gem-single
-name: types
-order: 10
 ---
 
 The built-in array type supports defining member type:

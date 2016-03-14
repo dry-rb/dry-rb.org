@@ -1,8 +1,6 @@
 ---
 title: Including Types
 layout: gem-single
-name: types
-order: 1
 ---
 
 To include all built-in types in your own namespace simply do:
