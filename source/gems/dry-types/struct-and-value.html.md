@@ -31,7 +31,7 @@ You can define value objects which will behave like structs and have equality me
 ``` ruby
 class Location < Dry::Types::Value
   attribute :lat, Types::Strict::Float
-  attribute :lat, Types::Strict::Float
+  attribute :lng, Types::Strict::Float
 end
 
 loc1 = Location.new(lat: 1.23, lng: 4.56)
