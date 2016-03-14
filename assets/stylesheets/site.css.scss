@@ -225,21 +225,23 @@ body {
 }
 
 .content__gems-list {
-  @include desktop {
-    display: flex;
-  }
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .content__gems-list-item {
   @include col(1,4);
+  display: flex;
   padding-bottom: 30px;
 
   @include tablet {
     @include col(1,2);
+    display: flex;
   }
 
   @include mobile {
     @include col(1,1);
+    display: flex;
   }
 
 }
@@ -251,6 +253,7 @@ body {
   display: block;
   padding: 20px;
   transition : border 100ms ease-out;
+  width: 100%;
 
   h3 {
     color: $dark-grey;
