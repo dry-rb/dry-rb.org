@@ -1,3 +1,9 @@
+---
+title: Reusing Schemas
+layout: gem-single
+order: 5
+---
+
 You can easily reuse existing schemas using nested-schema syntax:
 
 ``` ruby
