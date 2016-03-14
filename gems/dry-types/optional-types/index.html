@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><script src="/assets/javascripts/retina.js"></script><title>Optional Types</title><link href="/assets/stylesheets/site-2078d8b7.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><title>Optional Types</title><link href="/assets/stylesheets/site-2078d8b7.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
 .highlight, .highlight .w {
   color: #f8f8f2;
@@ -75,7 +75,7 @@
 }
 .highlight .ss {
   color: #90a959;
-}</style><script src="/assets/javascripts/site-80bc51c7.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Optional Types</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-types</h2><ul><li><a class="" href="/gems/dry-types/">Introduction</a></li></ul></li></ul></aside><article class="gem-article"><p>All built-in types have their optional versions too, you can access them under <code>Types::Maybe::Strict</code> and <code>Types::Maybe::Coercible</code> namespaces:</p>
+}</style><script src="/assets/javascripts/retina.min-4534879a.js"></script><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Optional Types</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-types</h2><ul><li><a class="" href="/gems/dry-types/">Introduction</a></li></ul></li></ul></aside><article class="gem-article"><p>All built-in types have their optional versions too, you can access them under <code>Types::Maybe::Strict</code> and <code>Types::Maybe::Coercible</code> namespaces:</p>
 <pre class="highlight ruby"><code><span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Int</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># None</span>
 <span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Int</span><span class="p">[</span><span class="mi">123</span><span class="p">]</span> <span class="c1"># Some(123)</span>
 
