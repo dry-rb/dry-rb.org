@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><script src="/assets/javascripts/retina.js"></script><title>Introduction</title><link href="/assets/stylesheets/site-969cb415.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}</style><script src="/assets/javascripts/site-80bc51c7.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Introduction</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-validation</h2><ul><li><a class="active" href="/gems/dry-validation/">Introduction</a><li><a class="" href="/gems/dry-validation/basics/">Basics</a><ul><li><a class="" href="/gems/dry-validation/basics/predicate-logic/">Predicate Logic</a></li></ul></li><li><a class="" href="/gems/dry-validation/custom-predicates/">Custom Predicates</a></li><li><a class="" href="/gems/dry-validation/optional-keys-and-values/">Optional Keys and Values</a></li><li><a class="" href="/gems/dry-validation/nested-data/">Nested Data</a></li><li><a class="" href="/gems/dry-validation/reusing-schemas/">Reusing Schemas</a></li><li><a class="" href="/gems/dry-validation/forms/">Form Validation</a></li><li><a class="" href="/gems/dry-validation/high-level-rules/">High-level Rules</a></li><li><a class="" href="/gems/dry-validation/comparison-with-activerecord/">Comparison With ActiveRecord</a></li></li></ul></li></ul></aside><article class="gem-article"><p>Unlike other, well known, validation solutions in Ruby, <code>dry-validation</code> takes a different approach and focuses a lot on explicitness, clarity and preciseness of validation logic. It is designed to work with any data input, whether it&rsquo;s a simple hash, an array or a complex object with deeply nested data.</p>
+
+<p>It is based on an idea that each validation is encapsulated by a simple, stateless predicate, that receives some input and returns either <code>true</code> or <code>false</code>.  Those predicates are encapsulated by <code>rules</code> which can be composed together using <code>predicate logic</code>. This means you can use the common logic operators to build up a validation <code>schema</code>.</p>
+
+<p>Validations can be described with great precision, <code>dry-validation</code> eliminates ambigious concepts like <code>presence</code> validation where we can&rsquo;t really say whether some attribute or key is <em>missing</em> or it&rsquo;s just that the value is <code>nil</code>.</p>
+
+<p>In <code>dry-validation</code> type-safety is a first-class feature, something that&rsquo;s completely missing in other validation libraries, and it&rsquo;s an important and useful feature. It means you can compose a validation that does rely on the type of a given value. In example it makes no sense to validate each element of an array when it turns out to be an empty string.</p>
+
+<h3 id="the-dsl">The DSL</h3>
+
+<p>The core of <code>dry-validation</code> is rule composition and predicate logic provided by <a href="https://github.com/dryrb/dry-logic">dry-logic</a>. The DSL is a simple front-end for it. It only allows you to define the rules by using predicate identifiers.  There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.</p>
+
+<p>The DSL is very abstract, it builds <a href="https://github.com/dryrb/dry-validation/wiki/Rule-AST">a rule AST</a> which is compiled into an array of rule objects. This means alternative interfaces could be easily built.</p>
+
+<h3 id="when-to-use">When To Use?</h3>
+
+<p>Always and everywhere. This is a general-purpose validation library that can be used for many things and <strong>it&rsquo;s multiple times faster</strong> than <code>ActiveRecord</code>/<code>ActiveModel::Validations</code> <em>and</em> <code>strong-parameters</code>.</p>
+
+<p>Possible use-cases include validation of:</p>
+
+<ul>
+<li>Form params</li>
+<li>&ldquo;GET&rdquo; params</li>
+<li>JSON documents</li>
+<li>YAML documents</li>
+<li>Application configuration (ie stored in ENV)</li>
+<li>Replacement for <code>ActiveRecord</code>/<code>ActiveModel::Validations</code></li>
+<li>Replacement for <code>strong-parameters</code></li>
+<li>etc.</li>
+</ul>
+
+<h3 id="synopsis">Synopsis</h3>
+
+<p>Please refer to <a href="https://github.com/dryrb/dry-validation/wiki">the wiki</a> for full usage documentation.</p>
+<pre class="highlight ruby"><code><span class="no">UserSchema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">required</span>
+
+  <span class="n">key</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="nb">format</span><span class="sc">?:</span> <span class="no">EMAIL_REGEX</span><span class="p">)</span>
+
+  <span class="n">key</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
+
+  <span class="n">key</span><span class="p">(</span><span class="ss">:address</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">(</span><span class="ss">:street</span><span class="p">).</span><span class="nf">required</span>
+    <span class="n">key</span><span class="p">(</span><span class="ss">:city</span><span class="p">).</span><span class="nf">required</span>
+    <span class="n">key</span><span class="p">(</span><span class="ss">:zipcode</span><span class="p">).</span><span class="nf">required</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">UserSchema</span><span class="o">.</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span>
+  <span class="ss">address: </span><span class="p">{</span> <span class="ss">street: </span><span class="s1">'Street 1'</span><span class="p">,</span> <span class="ss">city: </span><span class="s1">'NYC'</span><span class="p">,</span> <span class="ss">zipcode: </span><span class="s1">'1234'</span> <span class="p">}</span>
+<span class="p">).</span><span class="nf">inspect</span>
+
+<span class="c1"># #&lt;Dry::Validation::Result output={:name=&gt;"Jane", :email=&gt;"jane@doe.org", :address=&gt;{:street=&gt;"Street 1", :city=&gt;"NYC", :zipcode=&gt;"1234"}} messages={:age=&gt;["age is missing"]}&gt;</span>
+</code></pre>
+</article></div></div><footer><div class="content-wrap"><div class="footer__credits">dryrb is maintained by&nbsp;<a href="http://solnic.eu">@solnic</a>&nbsp;and&nbsp;<a href="https://github.com/AMHOL">@AMHOL</a>. This website was made by<a href="http://twitter.com/icelab">@icelab</a>. Tweet your questions and suggestions to&nbsp;<a href="http://twitter.com/dry_rb">@dry_rb</a> and follow us for updates.</div><a class="btn-social" href="https://github.com/dryrb">GitHub</a><a class="btn-social" href="https://twitter.com/dry_rb">Twitter</a></div></footer></body></html>

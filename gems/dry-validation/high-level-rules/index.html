@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><script src="/assets/javascripts/retina.js"></script><title>High-level Rules</title><link href="/assets/stylesheets/site-969cb415.css" rel="stylesheet" /><style type="text/css">.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #f8f8f2;
+  background-color: #272822;
+}
+.highlight .err {
+  color: #151515;
+  background-color: #ac4142;
+}
+.highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
+  color: #505050;
+}
+.highlight .cp {
+  color: #f4bf75;
+}
+.highlight .nt {
+  color: #f4bf75;
+}
+.highlight .o, .highlight .ow {
+  color: #d0d0d0;
+}
+.highlight .p, .highlight .pi {
+  color: #d0d0d0;
+}
+.highlight .gi {
+  color: #90a959;
+}
+.highlight .gd {
+  color: #ac4142;
+}
+.highlight .gh {
+  color: #6a9fb5;
+  background-color: #151515;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #aa759f;
+}
+.highlight .kc {
+  color: #d28445;
+}
+.highlight .kt {
+  color: #d28445;
+}
+.highlight .kd {
+  color: #d28445;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #90a959;
+}
+.highlight .sr {
+  color: #75b5aa;
+}
+.highlight .si {
+  color: #8f5536;
+}
+.highlight .se {
+  color: #8f5536;
+}
+.highlight .nn {
+  color: #f4bf75;
+}
+.highlight .nc {
+  color: #f4bf75;
+}
+.highlight .no {
+  color: #f4bf75;
+}
+.highlight .na {
+  color: #6a9fb5;
+}
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
+  color: #90a959;
+}
+.highlight .ss {
+  color: #90a959;
+}</style><script src="/assets/javascripts/site-80bc51c7.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>High-level Rules</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-validation</h2><ul><li><a class="" href="/gems/dry-validation/">Introduction</a><li><a class="" href="/gems/dry-validation/basics/">Basics</a><ul><li><a class="" href="/gems/dry-validation/basics/predicate-logic/">Predicate Logic</a></li></ul></li><li><a class="" href="/gems/dry-validation/custom-predicates/">Custom Predicates</a></li><li><a class="" href="/gems/dry-validation/optional-keys-and-values/">Optional Keys and Values</a></li><li><a class="" href="/gems/dry-validation/nested-data/">Nested Data</a></li><li><a class="" href="/gems/dry-validation/reusing-schemas/">Reusing Schemas</a></li><li><a class="" href="/gems/dry-validation/forms/">Form Validation</a></li><li><a class="active" href="/gems/dry-validation/high-level-rules/">High-level Rules</a></li><li><a class="" href="/gems/dry-validation/comparison-with-activerecord/">Comparison With ActiveRecord</a></li></li></ul></li></ul></aside><article class="gem-article"><p>It is often not enough to define simple type-checking rules and in addition to those you need to be able to specify higher-level rules that simply rely on other rules. This can be achieved using <code>rule</code> interface which can access already defined rules for specific keys.</p>
+
+<p>In example let&rsquo;s say we have a schema with 3 keys, <code>:barcode</code>, <code>:job_number</code> and <code>:sample_number</code> and we need to make sure that when barcode is provided then both job and sample numbers cannot be provided. The low-level checks need to make sure that individual values have correct state and on top of that we can define our high-level rule:</p>
+<pre class="highlight ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:barcode</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
+
+  <span class="n">key</span><span class="p">(</span><span class="ss">:job_number</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
+
+  <span class="n">key</span><span class="p">(</span><span class="ss">:sample_number</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">barcode_only: </span><span class="p">[</span><span class="ss">:barcode</span><span class="p">,</span> <span class="ss">:job_number</span><span class="p">,</span> <span class="ss">:sample_number</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">barcode</span><span class="p">,</span> <span class="n">job_num</span><span class="p">,</span> <span class="n">sample_num</span><span class="o">|</span>
+    <span class="n">barcode</span><span class="p">.</span><span class="nf">filled?</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">job_num</span><span class="p">.</span><span class="nf">none?</span> <span class="o">&amp;</span> <span class="n">sample_num</span><span class="p">.</span><span class="nf">none?</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This way we have validations for individual keys and the high-level <code>:barcode_only</code> rule which says &ldquo;barcode can be filled only if both job_number and sample_number are empty&rdquo;.</p>
+
+<h2 id="rules-depending-on-values-from-other-rules">Rules Depending On Values From Other Rules</h2>
+
+<p>Similar to rules that depend on results from other rules, you can define high-level rules that need to apply additional predicates to values provided by other rules. In example, let&rsquo;s say we want to validate presence of an <code>email</code> address but only when <code>login</code> value is set to <code>true</code>:</p>
+<pre class="highlight ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:login</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="ss">:bool?</span><span class="p">)</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">email_presence: </span><span class="p">[</span><span class="ss">:login</span><span class="p">,</span> <span class="ss">:email</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">login</span><span class="p">,</span> <span class="n">email</span><span class="o">|</span>
+    <span class="n">login</span><span class="p">.</span><span class="nf">true?</span><span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="n">email</span><span class="p">.</span><span class="nf">filled?</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>This translates to &ldquo;login set to true implies that email must be present&rdquo;.</p>
+
+<p>We can also easily specify a rule for the absence of an email:</p>
+<pre class="highlight ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:login</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="ss">:bool?</span><span class="p">)</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">email_absence: </span><span class="p">[</span><span class="ss">:login</span><span class="p">,</span> <span class="ss">:email</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">login</span><span class="p">,</span> <span class="n">email</span><span class="o">|</span>
+    <span class="n">login</span><span class="p">.</span><span class="nf">false?</span><span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="n">email</span><span class="p">.</span><span class="nf">none?</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Notice that you must add <code>:email_absence</code> message to configuration if you want to have the error converted to a message.</p>
+</article></div></div><footer><div class="content-wrap"><div class="footer__credits">dryrb is maintained by&nbsp;<a href="http://solnic.eu">@solnic</a>&nbsp;and&nbsp;<a href="https://github.com/AMHOL">@AMHOL</a>. This website was made by<a href="http://twitter.com/icelab">@icelab</a>. Tweet your questions and suggestions to&nbsp;<a href="http://twitter.com/dry_rb">@dry_rb</a> and follow us for updates.</div><a class="btn-social" href="https://github.com/dryrb">GitHub</a><a class="btn-social" href="https://twitter.com/dry_rb">Twitter</a></div></footer></body></html>
