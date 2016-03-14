@@ -354,12 +354,6 @@ hr {
   padding-bottom: 180px;
 
   text-align: center;
-
-  img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 .intro-page {
@@ -586,12 +580,29 @@ code {
   padding-right: 5px;
 }
 
-.intro-home h1 {
+.intro-home__heading {
+  background-image: url(/images/logo.png);
+  background-repeat: no-repeat;
+  color: transparent;
+  font: 0/0 a;
+  margin-left: auto;
+  margin-right: auto;
+  width: 48px;
+  height: 48px;
+  @media screen
+  and (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url('/images/logo@2x.png');
+    background-size: 100%;
+  }
+}
+
+.intro-home__sub-heading {
   @include mobile {
     font-size: 20px;
   }
 
   color: #FFFFFF;
+  font-family: $primary-font-regular;
   font-size: 24px;
   margin-bottom: 20px;
   margin-top: 30px;
