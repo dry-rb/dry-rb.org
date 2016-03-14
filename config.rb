@@ -221,6 +221,7 @@ helpers TypographyHelpers
 activate :deploy do |config|
   config.deploy_method = :git
   config.branch = 'master'
+  config.build_before = true
 end
 
 # Build-specific configuration
