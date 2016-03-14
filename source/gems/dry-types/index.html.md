@@ -16,42 +16,24 @@ sections:
   - struct-and-value
 ---
 
-`dry-types` is a simple and extendible type system for Ruby with support for kernel coercions,
-form coercions, sum types, constrained types and default-value types.
+`dry-types` is a simple and extendible type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
 
-Used by:
+### dry-types vs virtus
 
-* [dry-validation](https://github.com/dryrb/dry-validation) for params coercions
-* [rom-repository](https://github.com/rom-rb/rom-repository) for auto-mapped structs
-* [rom](https://github.com/rom-rb/rom)'s adapters for relation schema definitions
-* your project...?
+[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the bounderies etc.
 
-Articles:
+`dry-types` has been created to become a better tool that solves *similar* (but not identical!) problems related to type-safety and coercions. It is a superior solution because:
 
-* ["Invalid Object Is An Anti-Pattern"](http://solnic.eu/2015/12/28/invalid-object-is-an-anti-pattern.html)
-
-## dry-types vs virtus
-
-[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately
-it is "only" a by-product of an ActiveRecord ORM which carries many issues typical
-to ActiveRecord-like features that we all know from Rails, especially when it
-comes to very complicated coercion logic, mixing unrelated concerns, polluting
-application layer with concerns that should be handled at the bounderies etc.
-
-`dry-types` has been created to become a better tool that solves *similar* (but
-not identical!) problems related to type-safety and coercions. It is a superior
-solution because:
-
-* Types are [categorized](#built-in-type-categories), which is especially important for coercions
+* Types are [categorized](/gems/dry-types/built-in-types), which is especially important for coercions
 * Types are objects and they are easily reusable
-* Has [structs](#structs) and [values](#values) with *a simple DSL*
-* Has [constrained types](#constrained-types)
-* Has [optional types](#optional-types)
-* Has [defaults](#defaults)
-* Has [sum-types](#sum-types)
-* Has [enums](#enums)
-* Has [hash type with type schemas](#hashes)
-* Has [array type with member type](#arrays)
+* Has [structs and values](/gems/dry-types/structs-and-values) with *a simple DSL*
+* Has [constrained types](/gems/dry-types/constraints)
+* Has [optional values](/gems/dry-types/optional-values)
+* Has [default values](/gems/dry-types/default-values)
+* Has [sum types](/gems/dry-types/sum)
+* Has [enums](/gems/dry-types/enum)
+* Has [hash type with type schemas](/gems/dry-types/hash-schemas)
+* Has [array type with members](/gems/dry-types/array-with-member)
 * Suitable for many use-cases while remaining simple, in example:
   * Params coercions
   * Domain "models"

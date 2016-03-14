@@ -1,5 +1,5 @@
 ---
-title: Array With Member Types
+title: Array With Member
 layout: gem-single
 ---
 
