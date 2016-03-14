@@ -1,11 +1,6 @@
 doctype html
-html lang='en'
-  head
-    meta charset="utf-8"
-    = javascript_include_tag "retina"
-    title = page.title
-    = stylesheet_link_tag "site"
-    = javascript_include_tag "site", async: true
+html lang="en"
+  head = partial("head")
   body
     = partial "header"
     .row
