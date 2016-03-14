@@ -630,6 +630,13 @@ h2 {
 .section-heading {
   margin-bottom: 60px;
   text-align: center;
+
+  @include tablet {
+    margin-bottom: 40px;
+  }
+  @include mobile {
+    margin-bottom: 30px;
+  }
 }
 
 h3 {
