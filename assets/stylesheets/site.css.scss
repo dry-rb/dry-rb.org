@@ -669,3 +669,8 @@ pre {
 .sidebar li {
   padding: 0.25em 0;
 }
+
+.sidebar li .active {
+  font-weight: 900;
+  color: $dark-blue;
+}
