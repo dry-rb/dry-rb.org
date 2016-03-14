@@ -6,4 +6,6 @@ layout: listing
 ul
   - site.gems.each do |page|
     li
-      == link_to page.name, "/gems/#{page.name.sub('dry-', '')}"
+      == link_to page.name, "/gems/#{page.name}"
+      br
+      == page.desc
