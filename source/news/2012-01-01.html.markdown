@@ -10,5 +10,5 @@ Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
 
 ### Heading three
 
-> It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. For these reasons libraries belonging to the dryrb organisation try to follow a few basic principles.
+> It was born out of frustration at the state of third-party libraries available in the Ruby ecosystem, namely their tendency to be written in the typical “idiomatic” Ruby way. For these reasons libraries belonging to the dry-rb organisation try to follow a few basic principles.
 —Author

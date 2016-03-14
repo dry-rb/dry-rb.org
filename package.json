@@ -1,17 +1,17 @@
 {
-  "name": "dryrb.org",
-  "description": "dryrb website",
+  "name": "dry-rb.org",
+  "description": "dry-rb website",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dryrb/dryrb.github.io.git"
+    "url": "git+https://github.com/dry-rb/dry-rb.github.io.git"
   },
   "author": "icelab",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dryrb/dryrb/issues"
+    "url": "https://github.com/dry-rb/dry-rb/issues"
   },
-  "homepage": "https://github.com/dryrb/dryrb#readme",
+  "homepage": "https://github.com/dry-rb/dry-rb#readme",
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.0",

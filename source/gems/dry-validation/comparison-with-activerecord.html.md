@@ -203,7 +203,7 @@ add `.empty?` into your rule
 **Dry Validation:** `key(:attr) { |attr| attr.empty? | attr.min_size?(int) }`
 
 #### 3.3 `:message`
-Custom messages are implemented through a separate yaml file (see [wiki page](https://github.com/dryrb/dry-validation/wiki/Error-Messages))
+Custom messages are implemented through a separate yaml file (see [wiki page](https://github.com/dry-rb/dry-validation/wiki/Error-Messages))
 
 #### 3.4 `:on`
 To validate based on the state of the object (e.g. create or update) you would need to create a custom rule and access the persisted status of the object.

@@ -25,9 +25,9 @@ In `dry-validation` type-safety is a first-class feature, something that's compl
 
 ### The DSL
 
-The core of `dry-validation` is rule composition and predicate logic provided by [dry-logic](https://github.com/dryrb/dry-logic). The DSL is a simple front-end for it. It only allows you to define the rules by using predicate identifiers.  There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.
+The core of `dry-validation` is rule composition and predicate logic provided by [dry-logic](https://github.com/dry-rb/dry-logic). The DSL is a simple front-end for it. It only allows you to define the rules by using predicate identifiers.  There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.
 
-The DSL is very abstract, it builds [a rule AST](https://github.com/dryrb/dry-validation/wiki/Rule-AST) which is compiled into an array of rule objects. This means alternative interfaces could be easily built.
+The DSL is very abstract, it builds [a rule AST](https://github.com/dry-rb/dry-validation/wiki/Rule-AST) which is compiled into an array of rule objects. This means alternative interfaces could be easily built.
 
 ### When To Use?
 
@@ -46,7 +46,7 @@ Possible use-cases include validation of:
 
 ### Synopsis
 
-Please refer to [the wiki](https://github.com/dryrb/dry-validation/wiki) for full usage documentation.
+Please refer to [the wiki](https://github.com/dry-rb/dry-validation/wiki) for full usage documentation.
 
 ``` ruby
 UserSchema = Dry::Validation.Schema do
