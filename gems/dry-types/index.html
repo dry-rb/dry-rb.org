@@ -75,47 +75,25 @@
 }
 .highlight .ss {
   color: #90a959;
-}</style><script src="/assets/javascripts/retina.min-4534879a.js"></script><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Introduction</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-types</h2><ul><li><a class="active" href="/gems/dry-types/">Introduction</a><li><a class="" href="/gems/dry-types/including-types/">Including Types</a></li><li><a class="" href="/gems/dry-types/built-in-types/">Built-in Types</a></li><li><a class="" href="/gems/dry-types/strict/">Strict</a></li><li><a class="" href="/gems/dry-types/optional-values/">Optional Values</a></li><li><a class="" href="/gems/dry-types/default-values/">Default Values</a></li><li><a class="" href="/gems/dry-types/sum/">Sum</a></li><li><a class="" href="/gems/dry-types/constraints/">Constraints</a></li><li><a class="" href="/gems/dry-types/hash-schemas/">Hash Schemas</a></li><li><a class="" href="/gems/dry-types/array-with-member/">Array With Member Types</a></li><li><a class="" href="/gems/dry-types/enum/">Enum</a></li><li><a class="" href="/gems/dry-types/struct-and-value/">Struct & Value</a></li></li></ul></li></ul></aside><article class="gem-article"><p><code>dry-types</code> is a simple and extendible type system for Ruby with support for kernel coercions,<br>
-form coercions, sum types, constrained types and default-value types.</p>
+}</style><script src="/assets/javascripts/retina.min-4534879a.js"></script><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dryrb</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dryrb">GitHub</a></li></ul></nav><div class="intro-page"><h1>Introduction</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><h2>dry-types</h2><ul><li><a class="active" href="/gems/dry-types/">Introduction</a><li><a class="" href="/gems/dry-types/including-types/">Including Types</a></li><li><a class="" href="/gems/dry-types/built-in-types/">Built-in Types</a></li><li><a class="" href="/gems/dry-types/strict/">Strict</a></li><li><a class="" href="/gems/dry-types/optional-values/">Optional Values</a></li><li><a class="" href="/gems/dry-types/default-values/">Default Values</a></li><li><a class="" href="/gems/dry-types/sum/">Sum</a></li><li><a class="" href="/gems/dry-types/constraints/">Constraints</a></li><li><a class="" href="/gems/dry-types/hash-schemas/">Hash Schemas</a></li><li><a class="" href="/gems/dry-types/array-with-member/">Array With Member</a></li><li><a class="" href="/gems/dry-types/enum/">Enum</a></li><li><a class="" href="/gems/dry-types/struct-and-value/">Struct & Value</a></li></li></ul></li></ul></aside><article class="gem-article"><p><code>dry-types</code> is a simple and extendible type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus&rsquo; successor.</p>
 
-<p>Used by:</p>
+<h3 id="dry-types-vs-virtus">dry-types vs virtus</h3>
 
-<ul>
-<li><a href="https://github.com/dryrb/dry-validation">dry-validation</a> for params coercions</li>
-<li><a href="https://github.com/rom-rb/rom-repository">rom-repository</a> for auto-mapped structs</li>
-<li><a href="https://github.com/rom-rb/rom">rom</a>&rsquo;s adapters for relation schema definitions</li>
-<li>your project&hellip;?</li>
-</ul>
+<p><a href="https://github.com/solnic/virtus">Virtus</a> has been a successful library, unfortunately it is &ldquo;only&rdquo; a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the bounderies etc.</p>
 
-<p>Articles:</p>
+<p><code>dry-types</code> has been created to become a better tool that solves <em>similar</em> (but not identical!) problems related to type-safety and coercions. It is a superior solution because:</p>
 
 <ul>
-<li><a href="http://solnic.eu/2015/12/28/invalid-object-is-an-anti-pattern.html">&ldquo;Invalid Object Is An Anti-Pattern&rdquo;</a></li>
-</ul>
-
-<h2 id="dry-types-vs-virtus">dry-types vs virtus</h2>
-
-<p><a href="https://github.com/solnic/virtus">Virtus</a> has been a successful library, unfortunately<br>
-it is &ldquo;only&rdquo; a by-product of an ActiveRecord ORM which carries many issues typical<br>
-to ActiveRecord-like features that we all know from Rails, especially when it<br>
-comes to very complicated coercion logic, mixing unrelated concerns, polluting<br>
-application layer with concerns that should be handled at the bounderies etc.</p>
-
-<p><code>dry-types</code> has been created to become a better tool that solves <em>similar</em> (but<br>
-not identical!) problems related to type-safety and coercions. It is a superior<br>
-solution because:</p>
-
-<ul>
-<li>Types are <a href="#built-in-type-categories">categorized</a>, which is especially important for coercions</li>
+<li>Types are <a href="/gems/dry-types/built-in-types">categorized</a>, which is especially important for coercions</li>
 <li>Types are objects and they are easily reusable</li>
-<li>Has <a href="#structs">structs</a> and <a href="#values">values</a> with <em>a simple DSL</em></li>
-<li>Has <a href="#constrained-types">constrained types</a></li>
-<li>Has <a href="#optional-types">optional types</a></li>
-<li>Has <a href="#defaults">defaults</a></li>
-<li>Has <a href="#sum-types">sum-types</a></li>
-<li>Has <a href="#enums">enums</a></li>
-<li>Has <a href="#hashes">hash type with type schemas</a></li>
-<li>Has <a href="#arrays">array type with member type</a></li>
+<li>Has <a href="/gems/dry-types/structs-and-values">structs and values</a> with <em>a simple DSL</em></li>
+<li>Has <a href="/gems/dry-types/constraints">constrained types</a></li>
+<li>Has <a href="/gems/dry-types/optional-values">optional values</a></li>
+<li>Has <a href="/gems/dry-types/default-values">default values</a></li>
+<li>Has <a href="/gems/dry-types/sum">sum types</a></li>
+<li>Has <a href="/gems/dry-types/enum">enums</a></li>
+<li>Has <a href="/gems/dry-types/hash-schemas">hash type with type schemas</a></li>
+<li>Has <a href="/gems/dry-types/array-with-member">array type with members</a></li>
 <li>Suitable for many use-cases while remaining simple, in example:
 
 <ul>
