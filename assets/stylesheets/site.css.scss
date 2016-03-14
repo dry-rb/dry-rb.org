@@ -275,15 +275,15 @@ footer {
 
   @include tablet {
     @include col(2,3);
+    br {
+      display: none;
+    }
   }
 
   @include mobile {
     @include col(1,1);
     margin-bottom: 20px;
   }
-
-  color: $white;
-  font-size: 13px;
 
   a {
     color: $white;
@@ -292,6 +292,12 @@ footer {
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  p {
+    color: $white;
+    font-size: 13px;
+    margin-bottom: 0;
   }
 }
 
