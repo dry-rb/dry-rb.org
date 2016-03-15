@@ -44,7 +44,7 @@ puts errors.to_h.inspect
 
 ### Nested Array
 
-You can use `each` rule for validating each element in an array:
+You can use `each` macro for validating each element in an array:
 
 ``` ruby
 schema = Dry::Validation.Schema do

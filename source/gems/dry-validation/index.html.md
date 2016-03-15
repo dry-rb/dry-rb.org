@@ -9,6 +9,7 @@ sections:
   - predicates
   - optional-keys-and-values
   - nested-data
+  - array-as-input
   - reusing-schemas
   - forms
   - high-level-rules
