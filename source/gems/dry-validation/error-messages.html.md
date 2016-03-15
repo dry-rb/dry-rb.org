@@ -28,23 +28,23 @@ en:
   errors:
     size?:
       arg:
-        default: "%{name} size must be %{num}"
-        range: "%{name} size must be within %{left} - %{right}"
+        default: "size must be %{num}"
+        range: "size must be within %{left} - %{right}"
 
       value:
         string:
           arg:
-            default: "%{name} length must be %{num}"
-            range: "%{name} length must be within %{left} - %{right}"
+            default: "length must be %{num}"
+            range: "length must be within %{left} - %{right}"
 
-    filled?: "%{name} must be filled"
+    filled?: "must be filled"
 
     rules:
       email:
         filled?: "the email is missing"
 
       user:
-        filled?: "%{name} name cannot be blank"
+        filled?: "name cannot be blank"
 
         rules:
           address:
@@ -57,15 +57,15 @@ Given the yaml file above, messages lookup works as follows:
 messages = Dry::Validation::Messages.load('/path/to/our/errors.yml')
 
 # matching arg type for size? predicate
-messages[:size?, rule: :name, arg_type: Fixnum] # => "%{name} size must be %{num}"
-messages[:size?, rule: :name, arg_type: Range] # => "%{name} size must within %{left} - %{right}"
+messages[:size?, rule: :name, arg_type: Fixnum] # => "size must be %{num}"
+messages[:size?, rule: :name, arg_type: Range] # => "size must within %{left} - %{right}"
 
 # matching val type for size? predicate
-messages[:size?, rule: :name, val_type: String] # => "%{name} length must be %{num}"
+messages[:size?, rule: :name, val_type: String] # => "length must be %{num}"
 
 # matching predicate
-messages[:filled?, rule: :age] # => "%{name} must be filled"
-messages[:filled?, rule: :address] # => "%{name} must be filled"
+messages[:filled?, rule: :age] # => "must be filled"
+messages[:filled?, rule: :address] # => "must be filled"
 
 # matching predicate for a specific rule
 messages[:filled?, rule: :email] # => "the email is missing"
@@ -73,7 +73,7 @@ messages[:filled?, rule: :email] # => "the email is missing"
 # with namespaced messages
 user_messages = messages.namespaced(:user)
 
-user_messages[:filled?, rule: :age] # "%{name} cannot be blank"
+user_messages[:filled?, rule: :age] # "cannot be blank"
 user_messages[:filled?, rule: :address] # "You gotta tell us where you live"
 ```
 
@@ -90,16 +90,25 @@ require 'dry-validation'
 schema = Dry::Validation.Schema do
   configure { config.messages = :i18n }
 
-  key(:email, &:filled?)
+  key(:email).required
 end
 
 # return default translations
-puts schema.call(email: '').messages
-{ :email => ["email must be filled"] }
+schema.call(email: '').messages
+{ :email => ["must be filled"] }
 
 # return other translations (assuming you have it :))
 puts schema.call(email: '').messages(locale: :pl)
-{ :email => ["email musi być wypełniony"] }
+{ :email => ["musi być wypełniony"] }
 ```
 
 Important: I18n must be initialized before using schema, `dry-validation` does not try to do it for you, it only sets its default error translations automatically.
+
+## Full Messages
+
+By default, messages do not include name of rules, if you want them to be included simply use `:full` option:
+
+``` ruby
+schema.call(email: '').messages
+{ :email => ["email must be filled"] }
+```
