@@ -36,6 +36,17 @@ Dry::Validation.Schema do
 end
 ```
 
+### each
+
+Use it to apply predicates to every element in a value that is expected to be an array.
+
+``` ruby
+Dry::Validation.Schema do
+  # expands to: `key(:tags) { array? { each { str? } } }`
+  key(:tags).each(:str?)
+end
+```
+
 ### when
 
 Use it when another rule depends on the state of a value:
