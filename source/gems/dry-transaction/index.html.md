@@ -1,0 +1,38 @@
+---
+title: Introduction
+description: Business transaction DSL
+layout: gem-single
+order: 7
+type: gem
+sections:
+  - usage
+---
+
+`dry-transaction` is a business transaction DSL. It provides a simple way to define a complex business transaction that includes processing by many different objects. It makes error handling a primary concern by using a “[Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/)” approach for capturing and returning errors from any step in the transaction.
+
+`dry-transaction` is based on the following ideas:
+
+* A business transaction is a series of operations where each can fail and stop processing.
+* A business transaction resolves its dependencies using an external container object and it doesn’t know any details about the individual operation objects except their identifiers.
+* A business transaction can describe its steps on an abstract level without being coupled to any details about how individual operations work.
+* A business transaction doesn’t have any state.
+* Each operation shouldn’t accumulate state, instead it should receive an input and return an output without causing any side-effects.
+* The only interface of a an operation is `#call(input)`.
+* Each operation provides a meaningful functionality and can be reused.
+* Errors in any operation can be easily caught and handled as part of the normal application flow.
+
+## Why?
+
+Requiring a business transaction’s steps to exist as independent operations directly addressable via a container means that they can be tested in isolation and easily reused throughout your application. Following from this, keeping the business transaction to a series of high-level, declarative steps ensures that it’s easy to understand at a glance.
+
+The output of each step is wrapped in a [Kleisli](https://github.com/txus/kleisli) `Either` object (`Right` for success or `Left` for failure). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning an `Either` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic. Wrapping the step output also means that you can work with a wide variety of operations within your application – they don’t need to return an `Either` already.
+
+## Links
+
+View the [full API documentation](http://www.rubydoc.info/github/dry-rb/dry-transaction) on RubyDoc.info.
+
+## Credits
+
+`dry-transaction` is developed and maintained by [Icelab](http://icelab.com.au/).
+
+`dry-transaction`’s error handling is based on Scott Wlaschin’s [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/), found via Zohaib Rauf’s [Railway Oriented Programming in Elixir](http://zohaib.me/railway-programming-pattern-in-elixir/) blog post. dry-transaction’s behavior as a business transaction library draws heavy inspiration from Piotr Solnica’s [Transflow](http://github.com/solnic/transflow) and Gilbert B Garza’s [Solid Use Case](https://github.com/mindeavor/solid_use_case). Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem makes functional programming patterns in Ruby accessible and fun. Thank you all!

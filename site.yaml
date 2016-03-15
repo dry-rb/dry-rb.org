@@ -15,6 +15,9 @@ gems:
     name: dry-types
     desc: Flexible type system with many built-in types
   -
+    name: dry-transaction
+    desc: Business transaction DSL
+  -
     name: dry-container
     desc: Simple and thread-safe IoC container
   -
