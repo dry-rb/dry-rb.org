@@ -286,6 +286,9 @@ footer {
   @include mobile {
     @include col(1,1);
     margin-bottom: 20px;
+    br {
+      display: none;
+    }
   }
 
   a {
