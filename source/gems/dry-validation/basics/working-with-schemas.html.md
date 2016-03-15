@@ -61,3 +61,37 @@ result.messages(locale: :pl)
 ```
 
 > Learn more about [error messages](/gems/dry-validation/error-messages)
+
+### Injecting External Dependencies
+
+When validation requires external dependencies, like an access to a database or some remote HTTP api, you can set up your schema to accept additional objects as dependencies that will be injected:
+
+``` ruby
+schema = Dry::Validation.Schema do
+  configure do
+    option :my_thing, MyThing
+
+    def some_predicate?(value)
+      my_thing.is_it_ok?(value)
+    end
+  end
+end
+```
+
+You can also inject objects dynamically at run-time:
+
+``` ruby
+schema = Dry::Validation.Schema do
+  configure do
+    option :my_thing
+
+    def some_predicate?(value)
+      my_thing.is_it_ok?(value)
+    end
+  end
+end
+
+schema.with(my_thing: MyThing).call(input)
+```
+
+> Currently `with` will cause all rules to be re-built, so keep in mind the impact on performance
