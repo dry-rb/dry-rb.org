@@ -3,6 +3,7 @@ title: Basics
 layout: gem-single
 sections:
   - predicate-logic
+  - macros
 ---
 
 Here's a basic example where we validate following things:
