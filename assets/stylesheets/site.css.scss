@@ -24,6 +24,10 @@
 @import "patterns/all";
 @import "components/webfonts";
 
+// Syntax highlighting
+@import "components/code";
+@import "components/syntax";
+
 // Resets ------------------------------------------------------
 @include reset;
 
