@@ -28,16 +28,11 @@ errors = schema.call(email: 'jane@doe.org', age: 19).messages
 puts errors.inspect
 # []
 
-errors = schema.call(email: nil, age: 19).messages
-
-puts errors.inspect
+schema.call(email: nil, age: 19).messages
 # { :email => ["must be filled"] }
 ```
 
-A couple of remarks:
+Learn more:
 
-* `key` assumes that we want to use the `:key?` predicate to check the existance of that key
-* `gt?(18)` translates to calling a predicate like this: `schema[:gt?].(18, age)`
-* `int? & gt?(18)` is a conjunction, so we don't bother about `gt?` unless `int?` returns `true`
-* You can also use `|` for disjunction
-* Schema object does not carry the input as its state, nor does it know how to access the input values, we pass the input to `call` and get a result object
+  * [Predicate logic](/gem/dry-validation/basics/predicate-logic)
+  * [Macros](/gems/dry-validation/basics/macros)
