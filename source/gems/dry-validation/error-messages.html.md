@@ -109,6 +109,6 @@ Important: I18n must be initialized before using schema, `dry-validation` does n
 By default, messages do not include name of rules, if you want them to be included simply use `:full` option:
 
 ``` ruby
-schema.call(email: '').messages
+schema.call(email: '').messages(full: true)
 { :email => ["email must be filled"] }
 ```
