@@ -59,3 +59,5 @@ result.messages(full: true)
 result.messages(locale: :pl)
 # => {:email=>['musi być wypełniony']}
 ```
+
+> Learn more about [error messages](/gems/dry-validation/error-messages)
