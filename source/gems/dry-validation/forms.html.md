@@ -9,13 +9,11 @@ Probably the most common use case is to validate form params. This is a special 
 * The input include values that are strings, hashes or arrays
 * Prior validation, we need to coerce values and symbolize keys based on the information from rules
 
-For that reason, `dry-validation` ships with `Schema::Form` class:
+For that reason, `dry-validation` ships with `Schema.Form` validation:
 
 ``` ruby
-require 'dry-validation'
-
 schema = Dry::Validation.Schema.Form do
-  key(:email).required { |value| value.str? & value.filled? }
+  key(:email).required
 
   key(:age).required(:int?, gt?: 18)
 end
@@ -29,9 +27,21 @@ puts errors.inspect
 # }
 ```
 
-There are few major differences between how it works here and in `ActiveModel`:
+> Form-specific value coercion is handled by a hash-schema using `dry-types`. It is built automatically for you based on the type expectations and used prior applying validation rules.
 
-* We have type checking as predicates, ie `gt?(18)` will not be applied if the value is not an integer
-* Even though not all predicates might be applied, error messages include all information
-* Coercion is handled by `dry-data` coercible hash using its `form.*` types that are dedicated for this type of coercions
-* It's very easy to add your own types and coercions (more info/docs coming soon)
+## Handling Empty Strings
+
+Your schema will automatically coerce empty strings to `nil` provided that you allow a value to be nil:
+
+``` ruby
+schema = Dry::Validation.Schema.Form do
+  key(:email).required
+
+  key(:age).maybe(:int?, gt?: 18)
+end
+
+result = schema.call('email' => 'jane@doe.org', 'age' => '')
+
+puts result.output
+# {:email=>'jane@doe.org', :age=>nil}
+```
