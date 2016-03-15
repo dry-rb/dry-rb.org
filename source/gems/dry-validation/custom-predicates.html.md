@@ -9,8 +9,10 @@ You can simply define predicate methods on your schema object:
 schema = Dry::Validation.Schema do
   key(:email).required(:str?, :email?)
 
-  def email?(value)
-    ! /magical-regex-that-matches-emails/.match(value).nil?
+  configure do
+    def email?(value)
+      ! /magical-regex-that-matches-emails/.match(value).nil?
+    end
   end
 end
 ```
