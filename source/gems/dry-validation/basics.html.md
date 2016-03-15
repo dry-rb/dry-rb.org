@@ -4,6 +4,7 @@ layout: gem-single
 sections:
   - predicate-logic
   - macros
+  - working-with-schemas
 ---
 
 Here's a basic example where we validate following things:
