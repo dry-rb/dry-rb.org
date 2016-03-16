@@ -20,7 +20,7 @@ Error messages have been improved too. You can now ask for full messages, which 
 
 The error messages hash is now simpler and works very well with nested structures, including arrays with error messages for individual elements.
 
-`dry-validation` remains very fast. Benchmarks show it's ~2.5x faster than `ActiveMode::Validations`. We'll keep making it faster!
+`dry-validation` remains very fast. Benchmarks show it's ~2.5x faster than `ActiveModel::Validations`. We'll keep making it faster!
 
 For a complete list of changes please refer to the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v070-2016-03-16).
 
