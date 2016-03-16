@@ -7,6 +7,10 @@ breakpoints:
   -
     name: "phone"
     query: "(max-width: 480px)"
+authors:
+  solnic:
+    name: Piotr Solnica
+    url: https://twitter.com/_solnic_
 gems:
   -
     name: dry-validation

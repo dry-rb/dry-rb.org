@@ -224,6 +224,11 @@ helpers do
   def partial(name)
     super("partials/#{name}")
   end
+
+  def author_url
+    author = site.authors[current_page.data.author]
+    link_to author.name, author.url
+  end
 end
 
 require "lib/typography_helpers"

@@ -1,6 +1,7 @@
 ---
 title: Announcing dry-rb
 date: 2016-03-16
+author: solnic
 ---
 
 We are thrilled to announce the official launch of [dry-rb](https://github.com/dry-rb) and this brand new website! The dry-rb organization was established on GitHub last year by Andy Holland. He created a couple of small and very useful gems, namely `dry-container` and `dry-configurable`. The organization has since grown very quickly, with more people joining the effort, and today we already have 9 gems released on RubyGems.org and more in the works.
