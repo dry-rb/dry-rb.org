@@ -29,7 +29,7 @@ gems:
     desc: Container-agnostic constructor injection mixin
   -
     name: dry-equalizer
-    desc: Simple mixing providing equality methods
+    desc: Simple mixin providing equality methods
   -
     name: dry-component
     desc: Organize your code into reusable components
