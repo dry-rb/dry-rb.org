@@ -42,7 +42,3 @@ sections:
   * and more...
 * There's no const-missing magic and complicated const lookups like in Virtus
 * AND is roughly 10-12x faster than Virtus
-
-## Rails
-
-If you're using Rails then you want to install [dry-types-rails](https://github.com/jeromegn/dry-types-rails) which makes it work in development mode.
