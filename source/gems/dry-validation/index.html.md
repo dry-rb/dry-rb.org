@@ -13,7 +13,6 @@ sections:
   - reusing-schemas
   - forms
   - high-level-rules
-  - comparison-with-activerecord
   - error-messages
 ---
 
