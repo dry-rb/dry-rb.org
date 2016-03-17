@@ -1,6 +1,7 @@
 ---
 title: Introduction
 layout: gem-single
+name: dry-component
 type: gem
 sections:
   - container

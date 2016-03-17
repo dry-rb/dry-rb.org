@@ -4,6 +4,7 @@ description: Business transaction DSL
 layout: gem-single
 order: 7
 type: gem
+name: dry-transaction
 sections:
   - usage
 ---
