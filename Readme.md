@@ -95,27 +95,6 @@ To remove this support:
 1. Remove "middleman-react" from the `Gemfile`.
 2. Remove `activate :react` from `config.rb`.
 
-### Testing
-
-Out of the box the skeleton is set up for testing your JavaScript using
-[Jasmine](http://jasmine.github.io/), it uses the
-[`middleman-jasmine`](https://github.com/mrship/middleman-jasmine) gem.
-
-There are some dummy spec files under `/spec`. If you add any `spec.js` files
-to `/spec/` and Jasmine will automatically run the tests using livereload at
-<http://localhost:4567/jasmine/>. You’ll need to restart Middleman after you
-add new spec files.
-
-Spec files are in the sprockets load path, so you can simply `//= require foo`
-any specific files you need to test. At the moment specs have to be written
-in JavaScript.
-
-To remove this support:
-
-1. Remove "middleman-jasmine" from the `Gemfile`.
-2. Remove `activate :jasmine` from `config.rb`.
-
-
 ## Deployment
 
 The default configuration means you can `git push` to deploy to Heroku, though this should only be used for staging purposes. Each push will rebuild the entire site and serve it statically from Heroku.

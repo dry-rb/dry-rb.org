@@ -3,8 +3,6 @@ source "https://rubygems.org"
 # For feed.xml.builder
 gem "builder", "~> 3.0"
 
-# Skeleton defaults ------------------------------------------------------------
-
 # Middleman
 gem "middleman"
 gem "middleman-dotenv"
