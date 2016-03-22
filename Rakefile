@@ -8,13 +8,6 @@ task :build do
   system 'middleman build'
 end
 
-namespace :assets do
-  # Heroku will automatically detect and run this task
-  task :precompile do
-    sh "middleman build"
-  end
-end
-
 begin
   require 'jasmine'
   load 'jasmine/tasks/jasmine.rake'
