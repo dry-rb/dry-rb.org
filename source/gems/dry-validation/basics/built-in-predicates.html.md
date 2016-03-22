@@ -1,5 +1,5 @@
 ---
-title: Predicates
+title: Built-in Predicates
 layout: gem-single
 ---
 
