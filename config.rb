@@ -101,20 +101,6 @@ page "/feed.xml", layout: false
 activate :directory_indexes
 
 # Page options -----------------------------------------------------------------
-###
-# Compass
-###
-
-# Example configuration options:
-# With no layout:
-#
-#   page "/path/to/file.html", layout: false
-#
-# With alternative layout:
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
 
 ###
 # Page options, layouts, aliases and proxies
@@ -149,6 +135,7 @@ activate :directory_indexes
 page "/", layout: "base"
 page "/news/*", layout: "news-single"
 page "*.json"
+
 ###
 # Helpers
 ###
