@@ -19,7 +19,7 @@ set :site, YAML::load_file(File.dirname(__FILE__) + "/site.yaml").to_hashugar
 Time.zone = config.site.timezeone
 
 set :site_title, "dry-rb"
-set :site_url, "https://dry-rb.github.io"
+set :site_url, "http://dry-rb.org"
 set :site_description, "dry-rb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby."
 set :site_keywords, "dry-rb, ruby, micro-libraries"
 
