@@ -390,6 +390,10 @@ hr {
 
 .news-article-meta {
   font-size: 90%;
+  a:hover,
+  a:focus {
+    color: $light-blue;
+  }
 }
 
 .news-article {
