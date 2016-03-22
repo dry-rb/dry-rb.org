@@ -8,8 +8,8 @@ html lang="en"
         aside.sidebar
           ul
             li
-              == nav_header
               == nav
         article.gem-article
+          h2 = page.data.title
           = yield
     = partial "footer"
