@@ -3,11 +3,10 @@ title: Built-in Predicates
 layout: gem-single
 ---
 
-You have access to the following built-in predicates:
+## Basic
 
-### Basic
+### `none?`
 
-#### `none?`
 Checks that a key's value is nil.
 
 ```ruby
@@ -30,7 +29,8 @@ describe 'none?' do
 end
 ```
 
-#### `eql?`
+### `eql?`
+
 Checks that a key's value is equal to the given value.
 
 ```ruby
@@ -53,7 +53,8 @@ describe 'eql?' do
 end
 ```
 
-#### `key?`
+### `key?`
+
 Checks that a key is present in the input.
 
 ```ruby
@@ -76,9 +77,9 @@ describe 'key?' do
 end
 ```
 
-### Types
+## Types
 
-#### `type?`
+### `type?`
 
 Checks that a key's class is equal to the given value.
 
@@ -114,9 +115,10 @@ Shorthand for common Ruby types:
 * `array?` equivalent to `type?(Array)`
 * `hash?` equivalent to `type?(Hash)`
 
-### Number, String, Collection
+## Number, String, Collection
 
-#### `empty?`
+### `empty?`
+
 Checks that either the array, string, or hash is empty.
 
 ```ruby
@@ -141,7 +143,8 @@ describe 'empty?' do
 end
 ```
 
-#### `filled?`
+### `filled?`
+
 Checks that either the array, string, or hash is filled.
 
 ```ruby
@@ -166,7 +169,8 @@ describe 'filled?' do
 end
 ```
 
-#### `gt?`
+### `gt?`
+
 Checks that the value is greater than the given value.
 
 ```ruby
@@ -187,7 +191,8 @@ describe 'gt?' do
 end
 ```
 
-#### `gteq?`
+### `gteq?`
+
 Checks that the value is greater than or equal to the given value.
 
 ```ruby
@@ -208,7 +213,8 @@ describe 'gteq?' do
 end
 ```
 
-#### `lt?`
+### `lt?`
+
 Checks that the value is less than the given value.
 
 ```ruby
@@ -229,7 +235,8 @@ describe 'lt?' do
 end
 ```
 
-#### `lteq?`
+### `lteq?`
+
 Checks that the value is less than or equal to the given value.
 
 ```ruby
@@ -250,7 +257,8 @@ describe 'lt?' do
 end
 ```
 
-#### `max_size?`
+### `max_size?`
+
 Check that an array's size is no less than or equal to the given value.
 
 ```ruby
@@ -271,7 +279,8 @@ describe 'max_size?' do
 end
 ```
 
-#### `min_size?`
+### `min_size?`
+
 Checks that an array's size is greater than or equal to the given value.
 
 ```ruby
@@ -292,7 +301,8 @@ describe 'min_size?' do
 end
 ```
 
-#### `size?(int)`
+### `size?(int)`
+
 Checks that an array's size is equal to the given value.
 
 ```ruby
@@ -313,7 +323,8 @@ describe 'size?' do
 end
 ```
 
-#### `size?(range)`
+### `size?(range)`
+
 Checks that an array's size is between a range of values.
 
 ```ruby
@@ -334,7 +345,8 @@ describe 'size?' do
 end
 ```
 
-#### `format?`
+### `format?`
+
 Checks that a string matches a given regular expression.
 
 ```ruby
@@ -355,7 +367,9 @@ describe 'format?' do
 end
 ```
 
-#### `inclusion?`
+### `inclusion?`
+
+
 Checks that a value is included in a given array.
 
 ```ruby
@@ -376,7 +390,9 @@ describe 'inclusion?' do
 end
 ```
 
-#### `exclusion?`
+### `exclusion?`
+
+
 Checks that a value is excluded from a given array.
 
 ```ruby
