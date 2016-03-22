@@ -373,7 +373,7 @@ hr {
 
   margin-left: calc(100% / 12 * 2);
   margin-top: 130px;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
 
   text-align: center;
 }
@@ -648,6 +648,7 @@ code {
   font-size: 24px;
   margin-bottom: 20px;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
+  @include desktop { font-size: 32px; }
 }
 
 h2 {
