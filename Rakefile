@@ -8,24 +8,10 @@ task :build do
   system 'middleman build'
 end
 
-desc "Set up as a clean project"
-task :setup do
-  system 'rm -rf .git'
-  system 'mv README.md Skeleton.md'
-  system 'git init'
-end
-
 namespace :assets do
-  # For deploying to heroku
-  # It’ll automatically pick up this task
+  # Heroku will automatically detect and run this task
   task :precompile do
     sh "middleman build"
-  end
-
-  desc "Pull down latest CSS patterns"
-  task :fetch_patterns do
-    system 'git clone git@bitbucket.org:icelab/css-patterns.git ./source/assets/stylesheets/patterns'
-    system 'rm -rf ./source/assets/stylesheets/patterns/.git'
   end
 end
 
