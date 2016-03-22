@@ -39,3 +39,6 @@ gems:
   -
     name: dry-logic
     desc: Predicate logic with composable rules
+  -
+    name: dry-result_matcher
+    desc: Expressive match API for operating on Either results
