@@ -174,7 +174,7 @@ body {
   background: url('/images/icon-door.png') no-repeat center center;
 
   @media screen
-  and (-webkit-min-device-pixel-ratio: 2) {
+  and (min-resolution: 2dppx) {
     background: url('/images/icon-door@2x.png') no-repeat center center;
     background-size: contain;
   }
@@ -185,7 +185,7 @@ body {
   background: url('/images/icon-flexible.png') no-repeat center center;
 
   @media screen
-  and (-webkit-min-device-pixel-ratio: 2) {
+  and (min-resolution: 2dppx) {
     background: url('/images/icon-flexible@2x.png') no-repeat center center;
     background-size: 64px;
   }
@@ -196,7 +196,7 @@ body {
   background: url('/images/icon-lightning.png') no-repeat center center;
 
   @media screen
-  and (-webkit-min-device-pixel-ratio: 2) {
+  and (min-resolution: 2dppx) {
     background: url('/images/icon-lightning@2x.png') no-repeat center center;
     background-size: contain;
   }
@@ -548,7 +548,7 @@ pre code {
       top: -20px;
       left: 0;
       @media screen
-      and (-webkit-min-device-pixel-ratio: 2) {
+      and (min-resolution: 2dppx) {
         background: url('/images/logo-sml@2x.png') no-repeat;
         background-size: 100%;
       }
@@ -618,7 +618,7 @@ code {
   width: 48px;
   height: 48px;
   @media screen
-  and (-webkit-min-device-pixel-ratio: 2) {
+  and (min-resolution: 2dppx) {
     background-image: url('/images/logo@2x.png');
     background-size: 100%;
   }

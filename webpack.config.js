@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer')
 
 module.exports = {
   debug: true,
@@ -28,8 +29,12 @@ module.exports = {
     loaders: [
       { test: /\.js?$/, loader: "babel", exclude: /node_modules/ },
       { test: /\.scss$/, exclude: /node_modules|\.tmp|vendor/,
-        loader: ExtractTextPlugin.extract('css!sass') }
+        loader: ExtractTextPlugin.extract('css!postcss-loader!sass-loader') }
     ]
+  },
+
+  postcss: function () {
+    return [autoprefixer];
   },
 
   plugins: [
