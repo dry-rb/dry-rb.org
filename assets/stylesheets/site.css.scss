@@ -434,6 +434,10 @@ hr {
 
 }
 
+.news__list-item-anchor {
+  display: block;
+}
+
 .news__list-item-content {
   @include col(6,8);
 
