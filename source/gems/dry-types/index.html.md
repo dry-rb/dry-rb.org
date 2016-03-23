@@ -2,6 +2,7 @@
 title: Introduction
 layout: gem-single
 type: gem
+name: dry-types
 sections:
   - including-types
   - built-in-types

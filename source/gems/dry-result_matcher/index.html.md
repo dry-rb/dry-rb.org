@@ -3,6 +3,7 @@ title: Introduction & Usage
 description: Expressive match API for operating on Either results
 layout: gem-single
 type: gem
+name: dry-result_matcher
 ---
 
 ## Introduction

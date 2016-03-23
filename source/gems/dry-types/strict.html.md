@@ -1,7 +1,6 @@
 ---
 title: Strict
 layout: gem-single
-name: types
 order: 3
 ---
 

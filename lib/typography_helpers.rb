@@ -52,4 +52,11 @@ module TypographyHelpers
       text.gsub /\s+(?=\S+$)/, "&nbsp;"
     end
   end
+
+  def sanitize(html, allow_tags = "p i em strong br code", allow_attributes = {})
+    Sanitize.fragment(html, Sanitize::Config.merge(Sanitize::Config::RESTRICTED,
+      :elements => allow_tags.split(" "),
+      :attributes => allow_attributes
+    ))
+  end
 end

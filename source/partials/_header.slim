@@ -2,7 +2,4 @@ header
  .content-wrap
    = partial "nav"
    .intro-page
-     h1 = page.data.title
-     - if page.data.author
-       span.news-article-meta
-         = "Published on #{I18n.l(current_page.data.date, format: :long)} by #{author_url}"
+     h1 == page_header
