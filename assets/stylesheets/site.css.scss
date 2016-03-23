@@ -373,7 +373,7 @@ hr {
 
   margin-left: calc(100% / 12 * 2);
   margin-top: 130px;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
 
   text-align: center;
 }
@@ -390,6 +390,10 @@ hr {
 
 .news-article-meta {
   font-size: 90%;
+  a:hover,
+  a:focus {
+    color: $light-blue;
+  }
 }
 
 .news-article {
@@ -430,15 +434,15 @@ hr {
 
 }
 
+.news__list-item-anchor {
+  display: block;
+}
+
 .news__list-item-content {
   @include col(6,8);
 
   @include mobile {
     @include col(1,1);
-  }
-
-  a {
-    color: $dark-grey;
   }
 }
 
@@ -452,10 +456,6 @@ hr {
   color: #666666;
   font-size: 14px;
   vertical-align: top;
-}
-
-.news__list-item-content a:hover {
-  color: $teal;
 }
 
 pre {
@@ -648,6 +648,7 @@ code {
   font-size: 24px;
   margin-bottom: 20px;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
+  @include desktop { font-size: 32px; }
 }
 
 h2 {
@@ -708,13 +709,17 @@ article h2, .article h3 {
 
 article ul li:before {
   color: $teal;
-  content: "•"; /* Insert content that looks like bullets */
-  padding-right: 24px;
+  content: "\2022"; /* Insert content that looks like bullets */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 article ul li {
   color: #666;
   margin-bottom: 8px;
+  padding-left: 24px;
+  position: relative;
 }
 
 .sidebar li {
