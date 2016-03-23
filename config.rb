@@ -1,7 +1,8 @@
-require 'socket'
-require 'better_errors'
-require 'slim'
-require 'lib/redcarpet_renderers'
+require "socket"
+require "better_errors"
+require "slim"
+require "lib/redcarpet_renderers"
+require "lib/typography_helpers"
 
 use BetterErrors::Middleware
 
@@ -26,24 +27,24 @@ set :site_keywords, "dry-rb, ruby, micro-libraries"
 # Configuration ----------------------------------------------------------------
 
 # General configuration for Middleman assets
-set :css_dir,    'assets/stylesheets'
-set :js_dir,     'assets/javascripts'
-set :images_dir, 'images'
-set :fonts_dir,  'fonts'
-set :vendor_dir, 'vendor'
+set :css_dir,    "assets/stylesheets"
+set :js_dir,     "assets/javascripts"
+set :images_dir, "images"
+set :fonts_dir,  "fonts"
+set :vendor_dir, "vendor"
 
 activate :external_pipeline,
   name: :webpack,
   command:
     (if build?
-      './node_modules/webpack/bin/webpack.js --bail'
+      "./node_modules/webpack/bin/webpack.js --bail"
     else
-      './node_modules/webpack/bin/webpack.js --watch -d'
+      "./node_modules/webpack/bin/webpack.js --watch -d"
     end),
-  source: '.tmp/dist',
+  source: ".tmp/dist",
   latency: 1
 
-activate :syntax, css_class: 'syntax'
+activate :syntax, css_class: "syntax"
 
 set :markdown_engine, :redcarpet
 set :markdown,        fenced_code_blocks: true,
@@ -233,7 +234,6 @@ helpers do
   end
 end
 
-require "lib/typography_helpers"
 helpers TypographyHelpers
 
 # Build configuration ----------------------------------------------------------
