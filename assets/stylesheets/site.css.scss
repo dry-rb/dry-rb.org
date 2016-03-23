@@ -713,13 +713,17 @@ article h2, .article h3 {
 
 article ul li:before {
   color: $teal;
-  content: "•"; /* Insert content that looks like bullets */
-  padding-right: 24px;
+  content: "\2022"; /* Insert content that looks like bullets */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 article ul li {
   color: #666;
   margin-bottom: 8px;
+  padding-left: 24px;
+  position: relative;
 }
 
 .sidebar li {
