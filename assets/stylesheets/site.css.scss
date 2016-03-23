@@ -444,10 +444,6 @@ hr {
   @include mobile {
     @include col(1,1);
   }
-
-  a {
-    color: $dark-grey;
-  }
 }
 
 .news__list-item-date {
@@ -460,10 +456,6 @@ hr {
   color: #666666;
   font-size: 14px;
   vertical-align: top;
-}
-
-.news__list-item-content a:hover {
-  color: $teal;
 }
 
 pre {
