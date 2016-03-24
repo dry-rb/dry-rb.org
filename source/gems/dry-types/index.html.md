@@ -17,11 +17,11 @@ sections:
   - struct-and-value
 ---
 
-`dry-types` is a simple and extendible type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
+`dry-types` is a simple and extendable type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
 
 ### dry-types vs virtus
 
-[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the bounderies etc.
+[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the boundaries etc.
 
 `dry-types` has been created to become a better tool that solves *similar* (but not identical!) problems related to type-safety and coercions. It is a superior solution because:
 
