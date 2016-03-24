@@ -27,7 +27,7 @@ sections:
 
 * Types are [categorized](/gems/dry-types/built-in-types), which is especially important for coercions
 * Types are objects and they are easily reusable
-* Has [structs and values](/gems/dry-types/structs-and-values) with *a simple DSL*
+* Has [structs and values](/gems/dry-types/struct-and-value) with *a simple DSL*
 * Has [constrained types](/gems/dry-types/constraints)
 * Has [optional values](/gems/dry-types/optional-values)
 * Has [default values](/gems/dry-types/default-values)
