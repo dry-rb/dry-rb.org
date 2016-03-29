@@ -145,9 +145,9 @@ NOTIFICATIONS
 
 This pub/sub mechanism is provided by the [Wisper](https://github.com/krisleech/wisper) gem. You can subscribe to specific steps using the `#subscribe(step_name: listener)` API, or subscribe to all steps via `#subscribe(listener)`.
 
-### Extending transactions
+### Modifying transactions
 
-You can extend existing transactions by inserting or removing steps. See the [API docs](http://www.rubydoc.info/github/dry-rb/dry-transaction/Dry/Transaction/Sequence) for more information.
+You can modify existing transactions by inserting or removing steps (with the modified transaction returned as a copy). See the [API docs](http://www.rubydoc.info/github/dry-rb/dry-transaction/Dry/Transaction/Sequence) for more information.
 
 ### Working with a larger container
 
