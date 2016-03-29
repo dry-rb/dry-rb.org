@@ -57,11 +57,12 @@ save_user.call(name: "Jane", email: "jane@doe.com") do |m|
   end
 
   m.failure :validate do |error|
-    # In a more realistic example, you’d loop through a list of messages in `errors`.
-    puts "Please provide an email address."
+    # Runs only when the transaction fails on the :validate step
+    puts "Please provide a valid user."
   end
 
   m.failure do |error|
+    # Runs for any failure (including :validate failures)
     puts "Couldn’t save this user."
   end
 end
