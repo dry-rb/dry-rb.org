@@ -7,7 +7,7 @@ layout: gem-single
 
 All you need to use dry-transaction is a container to hold your application’s operations. Each operation must respond to `#call(input)`.
 
-The operations will be resolved from the container via `#[]`. For our examples, we’ll use a [Dry::Container](http://dry-rb.org/gems/dry-container):
+The operations will be resolved from the container via `#[]`. For our examples, we’ll use a [`dry-container`](http://dry-rb.org/gems/dry-container):
 
 ```ruby
 require "dry-container"
