@@ -134,7 +134,6 @@ module UserPersistListener
   end
 end
 
-
 input = {"name" => "Jane", "email" => "jane@doe.com"}
 
 save_user.subscribe(persist: UserPersistListener)
