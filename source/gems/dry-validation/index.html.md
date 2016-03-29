@@ -57,7 +57,7 @@ UserSchema = Dry::Validation.Schema do
 
   key(:age).maybe(:int?)
 
-  key(:address) do
+  key(:address).schema do
     key(:street).required
     key(:city).required
     key(:zipcode).required
