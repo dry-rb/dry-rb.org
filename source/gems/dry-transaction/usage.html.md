@@ -11,13 +11,14 @@ The operations will be resolved from the container via `#[]`. For our examples, 
 
 ```ruby
 require "dry-container"
+require "kleisli"
 
 class Container
   extend Dry::Container::Mixin
 
-  register :process, -> input { {name: input["name"], email: input["email"]} }
-  register :validate, -> input { input[:email].nil? ? raise(ValidationFailure, "not valid") : input }
-  register :persist, -> input { DB << input and true }
+  register :process, -> input { Right(name: input["name"], email: input["email"]) }
+  register :validate, -> input { input[:email].nil? ? Left(:not_valid) : Right(input) }
+  register :persist, -> input { DB << input; Right(:input) }
 end
 ```
 
@@ -27,18 +28,11 @@ Define a transaction to bring your opererations together:
 
 ```ruby
 save_user = Dry.Transaction(container: Container) do
-  map :process
-  try :validate, catch: ValidationFailure
-  tee :persist
+  step :process
+  step :validate
+  step :persist
 end
 ```
-
-Operations are formed into steps using _step adapters._ Step adapters wrap the output of your operations to make them easy to integrate into a transaction. The following adapters are available:
-
-* `step` – the operation already returns an `Either` object (`Right(output)` for success and `Left(output)` for failure), and needs no special handling.
-* `map` – any output is considered successful and returned as `Right(output)`
-* `try` – the operation may raise an exception in an error case. This is caught and returned as `Left(exception)`. The output is otherwise returned as `Right(output)`.
-* `tee` – the operation interacts with some external system and has no meaningful output. The original input is passed through and returned as `Right(input)`.
 
 ### Calling a transaction
 
@@ -73,6 +67,24 @@ save_user.call(name: "Jane", email: "jane@doe.com") do |m|
 end
 ```
 
+### Working with various operations via step adapters
+
+`step` adds operations to your transaction that already return an `Either` object. If you have to work with other types of operations, you can use an alternative _step adapter_. Step adapters can wrap the output of your operations to make them easier to integrate into a transaction. The following adapters are available:
+
+* `map` – any output is considered successful and returned as `Right(output)`
+* `try` – the operation may raise an exception in an error case. This is caught and returned as `Left(exception)`. The output is otherwise returned as `Right(output)`.
+* `tee` – the operation interacts with some external system and has no meaningful output. The original input is passed through and returned as `Right(input)`.
+
+These step adapters in use look like this:
+
+```ruby
+save_user = Dry.Transaction(container: Container) do
+  map :process
+  try :validate, catch: ValidationError
+  tee :persist
+end
+```
+
 ### Passing additional step arguments
 
 Additional arguments for step operations can be passed at the time of calling your transaction. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the front of the operation’s arguments. This means that transactions can effectively support operations with any sort of `#call(*args, input)` interface.
@@ -89,9 +101,9 @@ class Container
 end
 
 save_user = Dry.Transaction(container: Container) do
-  map :process
-  try :validate, catch: ValidationFailure
-  tee :persist
+  step :process
+  step :validate
+  step :persist
 end
 
 input = {"name" => "Jane", "email" => "jane@doe.com"}
@@ -142,9 +154,9 @@ You can extend existing transactions by inserting or removing steps. See the [AP
 In practice, your container won’t be a trivial collection of generically named operations. You can keep your transaction step names simple by using the `with:` option to provide the identifiers for the operations within your container:
 
 ```ruby
-save_user = Dry.Transaction(container: large_whole_app_container) do
-  map :process, with: "attributes.user"
-  try :validate, with: "validations.user", catch: ValidationFailure
-  tee :persist, with: "persistance.commands.update_user"
+save_user = Dry.Transaction(container: LargeAppContainer) do
+  step :process, with: "processors.process_user"
+  step :validate, with: "validation.validate_user"
+  step :persist, with: "persistance.commands.update_user"
 end
 ```
