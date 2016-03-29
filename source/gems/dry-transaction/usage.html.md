@@ -3,28 +3,30 @@ title: Usage
 layout: gem-single
 ---
 
-### Container
+### Providing a container
 
 All you need to use dry-transaction is a container to hold your application’s operations. Each operation must respond to `#call(input)`.
 
-The operations will be resolved from the container via `#[]`. For our examples, we’ll use a plain hash:
+The operations will be resolved from the container via `#[]`. For our examples, we’ll use a [Dry::Container](http://dry-rb.org/gems/dry-container):
 
 ```ruby
-container = {
-  process:  -> input { {name: input["name"], email: input["email"]} },
-  validate: -> input { input[:email].nil? ? raise(ValidationFailure, "not valid") : input },
-  persist:  -> input { DB << input and true }
-}
-```
+require "dry-container"
 
-For larger apps, you may like to consider something like [dry-container](https://github.com/dryrb/dry-container).
+class Container
+  extend Dry::Container::Mixin
+
+  register :process, -> input { {name: input["name"], email: input["email"]} }
+  register :validate, -> input { input[:email].nil? ? raise(ValidationFailure, "not valid") : input }
+  register :persist, -> input { DB << input and true }
+end
+```
 
 ### Defining a transaction
 
 Define a transaction to bring your opererations together:
 
 ```ruby
-save_user = Dry.Transaction(container: container) do
+save_user = Dry.Transaction(container: Container) do
   map :process
   try :validate, catch: ValidationFailure
   tee :persist
@@ -78,13 +80,15 @@ Additional arguments for step operations can be passed at the time of calling yo
 ```ruby
 DB = []
 
-container = {
-  process:  -> input { {name: input["name"], email: input["email"]} },
-  validate: -> allowed, input { input[:email].include?(allowed) ? raise(ValidationFailure, "not allowed") : input },
-  persist:  -> input { DB << input and true }
-}
+class Container
+  extend Dry::Container::Mixin
 
-save_user = Dry.Transaction(container: container) do
+  register :process, -> input { Right(name: input["name"], email: input["email"]) }
+  register :validate, -> allowed, input { input[:email].include?(allowed) ? Left(:not_valid) : Right(input) }
+  register :persist, -> input { DB << input; Right(:input) }
+end
+
+save_user = Dry.Transaction(container: Container) do
   map :process
   try :validate, catch: ValidationFailure
   tee :persist
@@ -95,7 +99,7 @@ save_user.call(input, validate: ["doe.com"])
 # => Right({:name=>"Jane", :email=>"jane@doe.com"})
 
 save_user.call(input, validate: ["smith.com"])
-# => Left("not allowed")
+# => Left(:not_valid)
 ```
 
 ### Subscribing to step notifications
