@@ -13,13 +13,13 @@ sections:
 
 `dry-transaction` is based on the following ideas:
 
-* A business transaction is a series of operations where each can fail and stop processing.
+* A business transaction is a series of operations where any can fail and stop the processing.
 * A business transaction resolves its dependencies using an external container object and it doesn’t know any details about the individual operation objects except their identifiers.
 * A business transaction can describe its steps on an abstract level without being coupled to any details about how individual operations work.
 * A business transaction doesn’t have any state.
 * Each operation shouldn’t accumulate state, instead it should receive an input and return an output without causing any side-effects.
 * The only interface of a an operation is `#call(input)`.
-* Each operation provides a meaningful functionality and can be reused.
+* Each operation provides a meaningful piece of functionality and can be reused.
 * Errors in any operation can be easily caught and handled as part of the normal application flow.
 
 ## Why?
