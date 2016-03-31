@@ -1,7 +1,8 @@
-require 'socket'
-require 'better_errors'
-require 'slim'
-require 'lib/redcarpet_renderers'
+require "socket"
+require "better_errors"
+require "slim"
+require "lib/redcarpet_renderers"
+require "lib/typography_helpers"
 
 use BetterErrors::Middleware
 
@@ -19,31 +20,31 @@ set :site, YAML::load_file(File.dirname(__FILE__) + "/site.yaml").to_hashugar
 Time.zone = config.site.timezeone
 
 set :site_title, "dry-rb"
-set :site_url, "https://dry-rb.github.io"
+set :site_url, "http://dry-rb.org"
 set :site_description, "dry-rb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby."
 set :site_keywords, "dry-rb, ruby, micro-libraries"
 
 # Configuration ----------------------------------------------------------------
 
 # General configuration for Middleman assets
-set :css_dir,    'assets/stylesheets'
-set :js_dir,     'assets/javascripts'
-set :images_dir, 'images'
-set :fonts_dir,  'fonts'
-set :vendor_dir, 'vendor'
+set :css_dir,    "assets/stylesheets"
+set :js_dir,     "assets/javascripts"
+set :images_dir, "images"
+set :fonts_dir,  "fonts"
+set :vendor_dir, "vendor"
 
 activate :external_pipeline,
   name: :webpack,
   command:
     (if build?
-      './node_modules/webpack/bin/webpack.js --bail'
+      "./node_modules/webpack/bin/webpack.js --bail"
     else
-      './node_modules/webpack/bin/webpack.js --watch -d'
+      "./node_modules/webpack/bin/webpack.js --watch -d"
     end),
-  source: '.tmp/dist',
+  source: ".tmp/dist",
   latency: 1
 
-activate :syntax, css_class: 'syntax'
+activate :syntax, css_class: "syntax"
 
 set :markdown_engine, :redcarpet
 set :markdown,        fenced_code_blocks: true,
@@ -101,20 +102,6 @@ page "/feed.xml", layout: false
 activate :directory_indexes
 
 # Page options -----------------------------------------------------------------
-###
-# Compass
-###
-
-# Example configuration options:
-# With no layout:
-#
-#   page "/path/to/file.html", layout: false
-#
-# With alternative layout:
-# Change Compass configuration
-# compass_config do |config|
-#   config.output_style = :compact
-# end
 
 ###
 # Page options, layouts, aliases and proxies
@@ -149,6 +136,7 @@ activate :directory_indexes
 page "/", layout: "base"
 page "/news/*", layout: "news-single"
 page "*.json"
+
 ###
 # Helpers
 ###
@@ -157,6 +145,21 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
+  def page_title
+    [config[:site_title], page_header, current_page.data.title].compact.join(' - ')
+  end
+
+  def page_header
+    current_page.data.name || recursive_name(current_page)
+  end
+
+  def recursive_name(page)
+    return nil unless page
+    return page.data.name if page.data.name
+
+    recursive_name(page.parent)
+  end
+
   def nav
     url = "#{current_resource.url.split('/')[0..2].join('/')}/"
     root = sitemap.resources.detect { |page| page.url == url }
@@ -191,8 +194,8 @@ helpers do
     root.data.sections.map do |name|
       page = pages.detect { |r| r.path.include?(name) }
       raise "section #{name} not found" unless page
-      page
-    end.map { |page| nav_link(page) }.join
+      nav_link(page)
+    end.join
   end
 
   # Returns a list of pages matching a specific type
@@ -224,9 +227,13 @@ helpers do
   def partial(name)
     super("partials/#{name}")
   end
+
+  def author_url
+    author = site.authors[current_page.data.author]
+    link_to author.name, author.url
+  end
 end
 
-require "lib/typography_helpers"
 helpers TypographyHelpers
 
 # Build configuration ----------------------------------------------------------

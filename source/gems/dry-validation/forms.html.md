@@ -9,10 +9,10 @@ Probably the most common use case is to validate form params. This is a special 
 * The input include values that are strings, hashes or arrays
 * Prior validation, we need to coerce values and symbolize keys based on the information from rules
 
-For that reason, `dry-validation` ships with `Schema.Form` validation:
+For that reason, `dry-validation` ships with `Form` validation:
 
 ``` ruby
-schema = Dry::Validation.Schema.Form do
+schema = Dry::Validation.Form do
   key(:email).required
 
   key(:age).required(:int?, gt?: 18)
@@ -34,7 +34,7 @@ puts errors.inspect
 Your schema will automatically coerce empty strings to `nil` provided that you allow a value to be nil:
 
 ``` ruby
-schema = Dry::Validation.Schema.Form do
+schema = Dry::Validation.Form do
   key(:email).required
 
   key(:age).maybe(:int?, gt?: 18)

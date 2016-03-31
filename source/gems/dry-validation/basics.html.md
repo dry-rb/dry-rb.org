@@ -3,6 +3,7 @@ title: Basics
 layout: gem-single
 sections:
   - predicate-logic
+  - built-in-predicates
   - macros
   - working-with-schemas
 ---

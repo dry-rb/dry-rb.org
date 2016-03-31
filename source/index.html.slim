@@ -36,10 +36,9 @@ title: Home
     ul.news-list
       - blog.articles[0...5].each do |article|
         li.news__list-item
-          .news__list-item-date
-            p = article.date.strftime('%e %B %Y')
-          .news__list-item-content
-            h3
-              = link_to article.title, article
-            p
-              = article.summary
+          a.news__list-item-anchor href= article.url
+            .news__list-item-date
+              p = article.date.strftime('%e %B %Y')
+            .news__list-item-content
+              h3 = article.title
+              = sanitize article.summary

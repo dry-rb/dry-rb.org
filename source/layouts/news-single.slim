@@ -2,12 +2,9 @@ doctype html
 html lang="en"
   head = partial("head")
   body
-    = partial "header"
+    = partial "header-news"
     .row
       .content-wrap
         article.news-article
           = yield
-        hr
-        p.center-text
-          a href="#" View all news
     = partial "footer"

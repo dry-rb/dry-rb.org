@@ -2,6 +2,7 @@
 title: Introduction
 layout: gem-single
 type: gem
+name: dry-types
 sections:
   - including-types
   - built-in-types
@@ -16,17 +17,17 @@ sections:
   - struct-and-value
 ---
 
-`dry-types` is a simple and extendible type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
+`dry-types` is a simple and extendable type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
 
 ### dry-types vs virtus
 
-[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the bounderies etc.
+[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the boundaries etc.
 
 `dry-types` has been created to become a better tool that solves *similar* (but not identical!) problems related to type-safety and coercions. It is a superior solution because:
 
 * Types are [categorized](/gems/dry-types/built-in-types), which is especially important for coercions
 * Types are objects and they are easily reusable
-* Has [structs and values](/gems/dry-types/structs-and-values) with *a simple DSL*
+* Has [structs and values](/gems/dry-types/struct-and-value) with *a simple DSL*
 * Has [constrained types](/gems/dry-types/constraints)
 * Has [optional values](/gems/dry-types/optional-values)
 * Has [default values](/gems/dry-types/default-values)
@@ -42,7 +43,3 @@ sections:
   * and more...
 * There's no const-missing magic and complicated const lookups like in Virtus
 * AND is roughly 10-12x faster than Virtus
-
-## Rails
-
-If you're using Rails then you want to install [dry-types-rails](https://github.com/jeromegn/dry-types-rails) which makes it work in development mode.

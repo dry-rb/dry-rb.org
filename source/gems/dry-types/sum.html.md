@@ -1,7 +1,6 @@
 ---
 title: Sum
 layout: gem-single
-name: types
 order: 7
 ---
 

@@ -3,6 +3,7 @@ title: Introduction & Usage
 description: Predicate logic with composable rules
 layout: gem-single
 type: gem
+name: dry-logic
 ---
 
 Predicate logic and rule composition used by:

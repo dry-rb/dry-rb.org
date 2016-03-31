@@ -7,6 +7,10 @@ breakpoints:
   -
     name: "phone"
     query: "(max-width: 480px)"
+authors:
+  solnic:
+    name: Piotr Solnica
+    url: https://twitter.com/_solnic_
 gems:
   -
     name: dry-validation
@@ -25,7 +29,7 @@ gems:
     desc: Container-agnostic constructor injection mixin
   -
     name: dry-equalizer
-    desc: Simple mixing providing equality methods
+    desc: Simple mixin providing equality methods
   -
     name: dry-component
     desc: Organize your code into reusable components
@@ -35,3 +39,6 @@ gems:
   -
     name: dry-logic
     desc: Predicate logic with composable rules
+  -
+    name: dry-result_matcher
+    desc: Expressive match API for operating on Either results
