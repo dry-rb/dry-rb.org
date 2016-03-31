@@ -18,7 +18,7 @@ require 'dry-types'
 
 module Types
   include Dry::Types.module
-  
+
   Age = Strict::String.constrained(gt: 18)
 end
 
@@ -28,7 +28,7 @@ UserSchema = Dry::Validation.Form do
 end
 
 UserSchema.(name: 'Jane', age: 17).messages
-# { age: ["must be greater than 17"] }
+# { age: ["must be greater than 18"] }
 ```
 
 This way you can encapsulate important constraints and completely avoid duplication.
@@ -47,7 +47,7 @@ require 'dry-types'
 
 module Types
   include Dry::Types.module
-  
+
   module DataImport
     StrippedString = Strict::String.constructor { |value| value.to_s.strip }
   end
@@ -55,7 +55,7 @@ end
 
 UserImport = Dry::Validation.Schema do
   configure { config.input_processor = :sanitizer }
-  
+
   key(:name).required(Types::DataImport::StrippedString)
   key(:email).required(Types::DataImport::StrippedString)
 end
@@ -91,11 +91,11 @@ end
 CommandSchema = Dry::Validation.Schema do
   key(:command).maybe(:str?, :inclusion?: %w(Create Delete))
   key(:args).maybe(:hash?)
-  
+
   rule(create_command: [:command, :args]) do |command, args|
     command.eql?('Create').then(args.schema(CreateCommandSchema))
   end
-  
+
   rule(update_command: [:command, :args]) do |command, args|
     command.eql?('Update').then(args.schema(UpdateCommandSchema))
   end
