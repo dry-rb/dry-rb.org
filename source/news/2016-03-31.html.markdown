@@ -4,11 +4,11 @@ date: 2016-03-31
 author: solnic
 ---
 
-What a busy week! New versions of dry-types and dry-validation have been released and there are really exciting new features awaiting for you. We're also very excited seeing [Trailblazer](http://trailblazer.to) adopting dry-rb libraries - Reform will soon support latest dry-validation, and Disposable has already replaced Virtus with dry-types for its coercion functionality.
+What a busy week! New versions of [dry-types](http://dry-rb.org/gems/dry-types) and [dry-validation](http://dry-rb.org/gems/dry-types) have been released and there are really exciting new features awaiting for you. We're also very excited to see [Trailblazer](http://trailblazer.to) adopting some dry-rb libraries - Reform will soon support latest dry-validation, and Disposable has already replaced Virtus with dry-types for its coercion functionality.
 
 ## New dry-validation features
 
-Major highlight is improved integration with dry-types, a feature that we haven't revealed until now. Both dry-validation and dry-types are based on the same foundational library called dry-logic. Validation rules and type constraints are handled by dry-logic, this means we can use constrained types to share common constraints between type definitions and validation schemas to reduce information duplication. This will DRY-up your code (do you see what I did there?).
+The major highlight of the new 0.7.3 dry-validation release is improved integration with dry-types, a feature that we haven't revealed until now. Both dry-validation and dry-types are based on the same foundational library called dry-logic. Validation rules and type constraints are handled by dry-logic, which means we can use constrained types to share common constraints between type definitions and validation schemas to reduce information duplication. This will DRY-up your code (see what I did there?).
 
 Here's what it means in practice:
 
@@ -37,7 +37,7 @@ We are not stopping here!
 
 ### Custom constructor types!
 
-Another fantastic improvement is support for custom constructor types in validation schemas. You can now define types that can encapsulate custom coercion logic and dry-validation will infer input processor from it and apply it to the input data prior validation.
+Another fantastic improvement is support for custom constructor types in validation schemas. You can now define types that can encapsulate custom coercion logic and dry-validation will infer an input processor from it and apply it to the input data before validation.
 
 Simple example:
 
@@ -64,9 +64,9 @@ UserSchema.(name: '   Jane  ', email: 'jane@doe').to_h
 # { name: "Jane", email: "jane@doe.org" }
 ```
 
-This is a clean way of encapsulating custom coercion or sanitization logic. Notice that your type objects are small and reusable. You can also use them manually anywhere in your application ie `Types::DataImport::StrippedString[" foo "] # => "foo"`.
+This is a clean way of encapsulating custom coercion or sanitization logic. Notice that your type objects are small and reusable. You can also use them manually anywhere in your application, e.g. `Types::DataImport::StrippedString[" foo "] # => "foo"`.
 
-dry-validation infers both validation rules and value constructors from your types, notice that `Types::DataImport::StrippedString` is a strict string, this means a proper validation rule is set too:
+dry-validation infers both validation rules and value constructors from your types, notice that `Types::DataImport::StrippedString` is a strict string, which means a proper validation rule is set too:
 
 ``` ruby
 UserSchema.(name: '   Jane  ', email: nil).messages
@@ -168,7 +168,7 @@ Types::Options.call([["a", "one"], ["b"]])
 # Dry::Types::ConstraintError
 ```
 
-Exception messages have been improved too; however, it's still a work in progress, complex types like in the previous example still need some work.
+Exception messages have been improved too; however, they're still a work in progress, and complex types like in the previous example still need some work.
 
 Here's what you'd get if a simple constraint was violated:
 
