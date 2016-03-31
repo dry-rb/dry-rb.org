@@ -232,26 +232,8 @@ You could use the predicate below to achieve this. Copied from rails 'activemode
 
 
         #For anything which represents a number (e.g. '1', 15, '12.345' etc.)
-        #you will need to define your own predicate and use it as follows:
-        key(:attr) { filled? & number? }
-
-        configure do
-          #Custom predicate copied from rails #'activemodel/lib/active_model/validations/numericality.rb', line 58
-          #An equivelant predicate is being added to library which will mean that this code is no longer needed.
-
-          def number?(value)
-            case value
-            when %r\A0[xX]/
-              false
-            else
-              begin
-                Kernel.Float(value)
-              rescue ArgumentError, TypeError
-                false
-              end
-            end
-          end
-        end
+        #you can simply use:
+        key(:attr).required(:number?)
       end
 
       ```
@@ -339,13 +321,6 @@ For validations using additional options (`:greater_than`, `:less_than` etc.) yo
       ```ruby
       Dry::Validation.Schema do
         key(:attr){ int? & odd? }
-
-        configure do
-          #Custom predicate
-          def odd?(value)
-            value.odd?
-          end
-        end
       end
 
       ```
@@ -365,13 +340,6 @@ For validations using additional options (`:greater_than`, `:less_than` etc.) yo
       ```ruby
       Dry::Validation.Schema do
         key(:attr){ int? & even? }
-
-        configure do
-          #Custom predicate
-          def even?(value)
-            value.even?
-          end
-        end
       end
 
       ```
