@@ -192,5 +192,5 @@ gem "dry-validation", "~> 0.7.3"
 
 Detailed CHANGELOGs:
 
-- dry-validation [v0.7.2](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v073-2016-03-30) and quick follow-up [v0.7.3](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v072-2016-03-28)
+- dry-validation [v0.7.2](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v072-2016-03-28) and quick follow-up [v0.7.3](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v073-2016-03-30)
 - dry-types [v0.7.0](https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#v070-2016-03-30)
