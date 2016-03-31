@@ -1,6 +1,6 @@
 ---
 title: New releases of dry-types and dry-validation
-date: 2016-03-30
+date: 2016-03-31
 author: solnic
 ---
 
