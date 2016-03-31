@@ -89,7 +89,7 @@ UpdateCommandSchema = Dry::Validation.Schema do
 end
 
 CommandSchema = Dry::Validation.Schema do
-  key(:command).maybe(:str?, :inclusion?: %w(Create Delete))
+  key(:command).maybe(:str?, :inclusion?: %w(Create Update))
   key(:args).maybe(:hash?)
 
   rule(create_command: [:command, :args]) do |command, args|
