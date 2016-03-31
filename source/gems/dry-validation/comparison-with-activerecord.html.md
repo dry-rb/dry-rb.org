@@ -40,23 +40,31 @@ In ActiveRecord validations this helper is used to validate that a checkbox on t
 
 In its simplest form:
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, acceptance: true</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr) { bool? & true? }</pre></dd>
-</dl>
+```ruby
+validates :attr, acceptance: true
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr) { bool? & true? }
+```
 
 When using the `:accepts` option:
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, acceptance: { accept: 'yes' }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(eql?: 'yes')</pre></dd>
-</dl>
+```ruby
+validates :attr, acceptance: { accept: 'yes' }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required(eql?: 'yes')
+```
 
 > Note: ActiveRecord automatically creates a virtual acceptance attribute for you. If you are using Protected Parameters you will need to add this attribute yourself.
 
@@ -70,26 +78,33 @@ You will need to create a custom predicate to achieve this.
 
 This helper is used when you have two text fields that should receive exactly the same content. Common use cases include email addresses and passwords.
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, confirmation: true</pre></dd>
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).confirmation</pre></dd>
-</dl>
+**ActiveRecord Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd>
-    <pre>
-      validates :attr, confirmation: true
-      validates :attr_confirmation, presence: true
-    </pre>
-  </dd>
+```ruby
+validates :attr, confirmation: true
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required.confirmation</pre></dd>
-</dl>
+**Dry Validation**
+
+```ruby
+key(:attr).confirmation
+```
+
+> Note: In these examples, checks are performed only if attr_confirmation is not nil. To require confirmation, make sure to add a presence check for the confirmation attribute:
+
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, confirmation: true
+validates :attr_confirmation, presence: true
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required.confirmation
+```
 
 > Note: ActiveRecord automatically creates a virtual confirmation attribute for you whose name is the name of the field that has to be confirmed with "_confirmation" appended. If you are using Protected Parameters you will need to add this attribute yourself.
 
@@ -97,13 +112,17 @@ This helper is used when you have two text fields that should receive exactly th
 
 This helper validates that the attributes' values are not included in a given enumerable object.
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, exclusion: { in: enumerable_object }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(exclusion?: enumerable_object)</pre></dd>
-</dl>
+```ruby
+validates :attr, exclusion: { in: enumerable_object }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required(exclusion?: enumerable_object)
+```
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
@@ -111,35 +130,49 @@ This helper validates that the attributes' values are not included in a given en
 
 This helper validates the attributes' values by testing whether they match or doesn't match a given regular expression.
 
-**Match**
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, format: { with: regex }</pre></dd>
+####Match
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(format?: regex)</pre></dd>
-</dl>
+**ActiveRecord Validation**
 
-**Doesn't Match**
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, format: { without: regex }</pre></dd>
+```ruby
+validates :attr, format: { with: regex }
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr) { filled? & !format?(regex) }</pre></dd>
-</dl>
+**Dry Validation**
+
+```ruby
+key(:attr).required(format?: regex)
+```
+
+####Doesn't Match
+
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, format: { without: regex }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr) { filled? & !format?(regex) }
+```
 
 ### 2.6 inclusion
 
 This helper validates that the attributes' values are included in a given enumerable object.
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, inclusion: { in: enumerable_object }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(inclusion?: enumerable_object)</pre></dd>
-</dl>
+```ruby
+validates :attr, inclusion: { in: enumerable_object }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required(inclusion?: enumerable_object)
+```
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
@@ -147,49 +180,64 @@ This helper validates that the attributes' values are included in a given enumer
 
 This helper validates the length of the attributes' values. ActiveRecord relies on a variety of options to specify length constraints in different ways. Dry-Validation uses different predicates for each constraint.
 
-**Minimum**
+####Minimum
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { minimum: int }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(min_size?: int)</pre></dd>
-</dl>
+```ruby
+validates :attr, length: { minimum: int }
+```
 
+**Dry Validation**
 
-**Maximum**
+```ruby
+key(:attr).required(min_size?: int)
+```
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { maximum: int }</pre></dd>
+####Maximum
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(max_size?: int)</pre></dd>
-</dl>
+**ActiveRecord Validation**
 
+```ruby
+validates :attr, length: { maximum: int }
+```
 
-**In**
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { in: range }</pre></dd>
+**Dry Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(size?: range)</pre></dd>
-</dl>
+```ruby
+key(:attr).required(max_size?: int)
+```
 
+####In
 
-**Is**
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { is: int }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(size?: int)</pre></dd>
-</dl>
+```ruby
+validates :attr, length: { in: range }
+```
 
+**Dry Validation**
 
-**Tokeniser Option**
+```ruby
+key(:attr).required(size?: range)
+```
+
+####Is
+
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, length: { is: int }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required(size?: int)
+```
+
+####Tokeniser Option
+
 As with Active Record Validations, Dry-Validation counts characters by default. ActiveRecord provides a `:tokeniser` option to allow you to customise how the value is split. You can acheive the same thing in Dry-Validation by creating your own predicate.
 
 E.g.:
@@ -215,139 +263,151 @@ In Dry Validation, you can either validate by data type using the build in type 
 
 You could use the predicate below to achieve this. Copied from rails 'activemodel/lib/active_model/validations/numericality.rb', line 58
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: true</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd>
-    <pre>
-      ```ruby
-      Dry::Validation.Schema do
-        #if you know what type of number you require then simply use one of the options below:
-        key(:attr).required(:int?)
-        key(:attr).required(:float?)
-        key(:attr).required(:decimal?)
+```ruby
+validates :attr, numericality: true
+```
+
+**Dry Validation**
+
+```ruby
+Dry::Validation.Schema do
+  #if you know what type of number you require then simply use one of the options below:
+  key(:attr).required(:int?)
+  key(:attr).required(:float?)
+  key(:attr).required(:decimal?)
 
 
-        #For anything which represents a number (e.g. '1', 15, '12.345' etc.)
-        #you can simply use:
-        key(:attr).required(:number?)
-      end
-
-      ```
-    </pre>
-  </dd>
-</dl>
-
+  #For anything which represents a number (e.g. '1', 15, '12.345' etc.)
+  #you can simply use:
+  key(:attr).required(:number?)
+end
+```
 
 For validations using additional options (`:greater_than`, `:less_than` etc.) you should use the correct type `.int?`, `.float?`, `.decimal?` rather than the custom predicate above.
 
-**Options - only_integer**
+####Options - only_integer
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { only_integer: true }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd>
-    <pre>
-      key(:attr).required(format?: /\A[+-]?\d+\Z/) #option 1 - most similar to ActiveRecord
-      key(:attr).required(:int?) #option 2 - best practise
-    </pre>
-  </dd>
-</dl>
+```ruby
+validates :attr, numericality: { only_integer: true }
+```
 
-**Options - greater_than**
+**Dry Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { greater_than: int }</pre></dd>
+```ruby
+key(:attr).required(format?: /\A[+-]?\d+\Z/) #option 1 - most similar to ActiveRecord
+key(:attr).required(:int?) #option 2 - best practise
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(:int?, gt?: int)</pre></dd>
-</dl>
+####Options - greater_than
 
-**Options - greater_than_or_equal_to**
+**ActiveRecord Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { greater_than_or_equal_to: int }</pre></dd>
+```ruby
+validates :attr, numericality: { greater_than: int }
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(:int?, gteq?: int)</pre></dd>
-</dl>
+**Dry Validation**
 
-**Options - less_than**
+```ruby
+key(:attr).required(:int?, gt?: int)
+```
+####Options - greater_than_or_equal_to
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { less_than: int }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(:int?, lt?: int)</pre></dd>
-</dl>
+```ruby
+validates :attr, numericality: { greater_than_or_equal_to: int }
+```
 
-**Options - less_than_or_equal_to**
+**Dry Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { less_than_or_equal_to: int }</pre></dd>
+```ruby
+key(:attr).required(:int?, gteq?: int)
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(:int?, lteq?: int)</pre></dd>
-</dl>
+####Options - less_than
 
-**Options - equal_to**
+**ActiveRecord Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { equal_to: int }</pre></dd>
+```ruby
+validates :attr, numericality: { less_than: int }
+```
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required(:int?, eq?: int)</pre></dd>
-</dl>
+**Dry Validation**
 
-**Options - odd**
+```ruby
+key(:attr).required(:int?, lt?: int)
+```
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { odd: true }</pre></dd>
+####Options - less_than_or_equal_to
 
-  <dt>Dry Validation</dt>
-  <dd>
-    <pre>
-      ```ruby
-      Dry::Validation.Schema do
-        key(:attr){ int? & odd? }
-      end
+**ActiveRecord Validation**
 
-      ```
-    </pre>
-  </dd>
-</dl>
+```ruby
+validates :attr, numericality: { less_than_or_equal_to: int }
+```
 
-**Options - even**
+**Dry Validation**
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, numericality: { even: true }</pre></dd>
+```ruby
+key(:attr).required(:int?, lteq?: int)
+```
 
-  <dt>Dry Validation</dt>
-  <dd>
-    <pre>
-      ```ruby
-      Dry::Validation.Schema do
-        key(:attr){ int? & even? }
-      end
+####Options - equal_to
 
-      ```
-    </pre>
-  </dd>
-</dl>
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, numericality: { equal_to: int }
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required(:int?, eq?: int)
+```
+
+####Options - odd
+
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, numericality: { odd: true }
+```
+
+**Dry Validation**
+
+```ruby
+Dry::Validation.Schema do
+  key(:attr){ int? & odd? }
+end
+
+```
+
+####Options - even
+
+**ActiveRecord Validation**
+
+```ruby
+validates :attr, numericality: { even: true }
+```
+
+**Dry Validation**
+
+```ruby
+Dry::Validation.Schema do
+  key(:attr).required(:int?, :even?)
+end
+```
+
+> Note: `odd?` and `even?` predicates can only be used on integers.
 
 
-**Additional Uses:**
+####Additional Uses:
 
 Because dry validations uses equality operators (`<`, `>`, `==` etc.) for its predicates they can be used to validate anything which comparable.
 
@@ -359,90 +419,122 @@ key(:attr).required(:date?, lteq?: start_date, gteq?: end_date)
 
 ### 2.9 presence
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, presence: true</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).required</pre></dd>
-</dl>
+```ruby
+validates :attr, presence: true
+```
+
+**Dry Validation**
+
+```ruby
+key(:attr).required
+```
 
 **Associations**
+
 If you want to be sure that an association is present, you'll need to create a custom predicate to test whether the associated object itself is present.
 
 If you want to replicate Active Record's presence validation of an object associated via a has_one or has_many relationship (checking `.blank?` and `.marked_for_destruction?`), you will need a custom predicate.
 
 **Booleans**
+
 If you want to validate the presence of a boolean field (e.g. true or false) you should use the built in predicate `.bool?`.
-E.g. `key(:attr).required(:bool?)`
+
+```ruby
+key(:attr).required(:bool?)
+```
 
 ### 2.10 absence
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, absence: true</pre></dd>
+**ActiveRecord Validation**
+```ruby
+validates :attr, absence: true
+```
 
-  <dt>Dry Validation</dt>
-  <dd>
-    <pre>
-      #Use whichever is most applicable remembering that an empty string
-      #can be turned into nil when using to_nil coercion.
-      key(:attr) { none? } # only allows nil
-      key(:attr) { empty? } # only empties:  string(```""```), array(```[]```), hash(```{}```) etc
-    </pre>
-  </dd>
-</dl>
+**Dry Validation**
+Dry validation includes two predicates (`empty?` and `none?`) for absense. You should use whichever is most applicable to your circumstance remembering that an empty string can be turned into nil when using to_nil coercion.
 
-**Associations**
+```ruby
+key(:attr) { none? } # only allows nil
+key(:attr) { empty? } # only empties:  string(```""```), array(```[]```), hash(```{}```) etc
+```
+
+####Associations
+
 If you want to be sure that an association is absent, you'll need create a custom predicate to test whether the associated object itself is absent.
 
+> TODO: give an example of what such a predicate could looklike
+
 **Booleans**
+
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-`key(:attr) { exclusion?([true, false]) }`
+```ruby
+key(:attr) { exclusion?([true, false]) }
+```
 
 ### 2.11 uniqueness
-Custom Predicate
+
+ToDo
 
 ### 2.12 validates_with
 
+ToDo
+
 ### 2.13 validates_each
 
+ToDo
+
 ### 3. Common Validation Options
+
 These are the common options allowed by ActiveRecord validations and their equivalents in Dry Validation
 
-**3.1 `:allow_nil`**
+####3.1 `:allow_nil`
+
 In Dry-Validation you can simply use `maybe` instead of `required` when defining your rules.
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { minimum: int, allow_nil: true }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr).maybe(int?, min_size?: int)</pre></dd>
-</dl>
+```ruby
+validates :attr, length: { minimum: int, allow_nil: true }
+```
 
-**3.2  `:allow_blank`**
+**Dry Validation**
+
+```ruby
+key(:attr).maybe(int?, min_size?: int)
+```
+
+####3.2  `:allow_blank`
+
 In Dry-Validation you will need to use a block when defining your rule instead of `required` and include the `.empty?` predicate into your rule.
 
 
-<dl>
-  <dt>ActiveRecord Validation</dt>
-  <dd><pre>validates :attr, length: { minimum: int, allow_blank: true }</pre></dd>
+**ActiveRecord Validation**
 
-  <dt>Dry Validation</dt>
-  <dd><pre>key(:attr) { empty? | int? & min_size?: int )</pre></dd>
-</dl>
+```ruby
+validates :attr, length: { minimum: int, allow_blank: true }
+```
 
-**3.3 `:message`**
+**Dry Validation**
+
+```ruby
+key(:attr) { empty? | int? & min_size?: int )
+```
+
+####3.3 `:message`
+
 Custom messages are implemented through a separate yaml file see the [error messages page](/gems/dry-validation/error-messages/) for full instructions.
 
-**3.4 `:on`**
+####3.4 `:on`
+
 In Dry-Validation, validations are defined in schemas. You can create seperate schemas for various states (e.g UserCreateSchema, UserUpdateSchema) and then choose the correct schema to run in the relevant action.
 
 You can keep your schema code nice and DRY by [reusing schemas](gems/dry-validation/reusing-schemas/).
 
 ### 4. Conditional Validation
+
 In Active Record you can use `:if` or `:unless` to only perform a validation based on the result of a proc or method.
 
 For example:
