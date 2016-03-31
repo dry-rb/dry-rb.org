@@ -60,7 +60,7 @@ UserImport = Dry::Validation.Schema do
   key(:email).required(Types::DataImport::StrippedString)
 end
 
-UserSchema.(name: '   Jane  ', email: 'jane@doe').to_h
+UserSchema.(name: '   Jane  ', email: 'jane@doe.org  ').to_h
 # { name: "Jane", email: "jane@doe.org" }
 ```
 
