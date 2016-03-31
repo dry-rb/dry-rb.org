@@ -19,7 +19,7 @@ require 'dry-types'
 module Types
   include Dry::Types.module
 
-  Age = Strict::String.constrained(gt: 18)
+  Age = Strict::Int.constrained(gt: 18)
 end
 
 UserSchema = Dry::Validation.Form do
