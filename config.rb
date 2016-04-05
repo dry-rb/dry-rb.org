@@ -192,7 +192,10 @@ helpers do
 
   def nav_links(pages, root)
     root.data.sections.map do |name|
-      page = pages.detect { |r| r.path.include?(name) }
+      page = pages.detect { |r|
+        slug = r.path.split("/").last.gsub(/\.html$/, "")
+        name == slug
+      }
       raise "section #{name} not found" unless page
       nav_link(page)
     end.join
