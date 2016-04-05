@@ -6,7 +6,11 @@ order: 7
 type: gem
 name: dry-transaction
 sections:
-  - usage
+  - basic-usage
+  - step-notifications
+  - step-adapters
+  - custom-step-adapters
+  - modifying-transactions
 ---
 
 `dry-transaction` is a business transaction DSL. It provides a simple way to define a complex business transaction that includes processing by many different objects. It makes error handling a primary concern by using a “[Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/)” approach for capturing and returning errors from any step in the transaction.
