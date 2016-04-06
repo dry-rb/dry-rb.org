@@ -52,7 +52,7 @@ Once we have this adapter in place, the next thing we need to do is make sure it
 Now we can pass the container to our transaction and start using the new adapter:
 
 ```ruby
-publish_article = Dry.Transaction(container: MyApp::Container) do
+publish_article = Dry.Transaction(container: MyApp::Container, step_adapters: Admin::TransactionStepAdapters) do
   step :publish, with: "admin.articles.operations.publish_article"
   step :index, with: "search.operations.index_article"
   enqueue :generate_pdf, with: "admin.articles.operations.generate_pdf"
