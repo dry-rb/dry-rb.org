@@ -11,6 +11,9 @@ authors:
   solnic:
     name: Piotr Solnica
     url: https://twitter.com/_solnic_
+  timriley:
+    name: Tim Riley
+    url: https://twitter.com/timriley
 gems:
   -
     name: dry-validation
