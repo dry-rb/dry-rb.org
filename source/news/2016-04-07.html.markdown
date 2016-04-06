@@ -1,6 +1,6 @@
 ---
-title: dry-transaction 0.6 brings support for powerful custom step adapters
-date: 2016-03-31
+title: dry-transaction 0.6 brings powerful new support for custom step adapters
+date: 2016-04-07
 author: timriley
 ---
 
