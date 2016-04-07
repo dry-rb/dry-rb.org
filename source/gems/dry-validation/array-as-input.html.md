@@ -8,8 +8,10 @@ A schema can accept either a hash or an array as the input. If you want to defin
 ``` ruby
 schema = Dry::Validation.Schema do
   each do
-    key(:name).required
-    key(:age).required
+    schema do
+      key(:name).required
+      key(:age).required
+    end
   end
 end
 
