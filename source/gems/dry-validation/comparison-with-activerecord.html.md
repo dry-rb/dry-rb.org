@@ -4,9 +4,9 @@ layout: gem-single
 order: 10
 ---
 
-As explained in the [introduction](/gems/dry-validation) Dry-Validation focuses on explicitness, clarity and preciseness of validation logic. For those of us used to ActiveRecord validations with their numerous options, ifs, ons and unlesses Dry-Validation is a way to make even the most complex validation cases easy to read and understand.
+As explained in the [introduction](/gems/dry-validation) dry-validation focuses on explicitness, clarity and precision of validation logic. For those of us used to ActiveRecord validations with their numerous options, ifs, ons and unlesses dry-validation is a way to make even the most complex validation cases easy to read and understand.
 
-But, how would we go about converting our Active Record validation code into Dry-Validation?
+But, how would we go about converting our Active Record validation code into dry-validation?
 
 After reading this guide, you will know:
 
@@ -19,14 +19,14 @@ When using ActiveRecord validation, validations are declared in the model in the
 
 `validates :name, :email, presence: true`
 
-When using Dry-Validation, you declare your validation in a separate schema class using predicates to build up rules.
+When using dry-validation, you declare your validation in a separate schema class using predicates to build up rules.
 
 A predicate is a simple stateless method which receives some input and returns either `true` or `false`.
 
-For example:
+A simple schema can look like this:
 
 ```ruby
-Dry::Validation::Schema do
+Dry::Validation.Schema do
   key(:email).required
   key(:name).required
 end
@@ -145,7 +145,7 @@ This helper validates that the attributes' values are included in a given enumer
 
 ### 2.7 length
 
-This helper validates the length of the attributes' values. ActiveRecord relies on a variety of options to specify length constraints in different ways. Dry-Validation uses different predicates for each constraint.
+This helper validates the length of the attributes' values. ActiveRecord relies on a variety of options to specify length constraints in different ways. dry-validation uses different predicates for each constraint.
 
 **Minimum**
 
@@ -190,7 +190,7 @@ This helper validates the length of the attributes' values. ActiveRecord relies 
 
 
 **Tokeniser Option**
-As with Active Record Validations, Dry-Validation counts characters by default. ActiveRecord provides a `:tokeniser` option to allow you to customise how the value is split. You can acheive the same thing in Dry-Validation by creating your own predicate.
+As with Active Record Validations, dry-validation counts characters by default. ActiveRecord provides a `:tokeniser` option to allow you to customise how the value is split. You can acheive the same thing in dry-validation by creating your own predicate.
 
 E.g.:
 
@@ -444,7 +444,7 @@ Custom Predicate
 These are the common options allowed by ActiveRecord validations and their equivalents in Dry Validation
 
 **3.1 `:allow_nil`**
-In Dry-Validation you can simply use `maybe` instead of `required` when defining your rules.
+In dry-validation you can simply use `maybe` instead of `required` when defining your rules.
 
 <dl>
   <dt>ActiveRecord Validation</dt>
@@ -455,7 +455,7 @@ In Dry-Validation you can simply use `maybe` instead of `required` when defining
 </dl>
 
 **3.2  `:allow_blank`**
-In Dry-Validation you will need to use a block when defining your rule instead of `required` and include the `.empty?` predicate into your rule.
+In dry-validation you will need to use a block when defining your rule instead of `required` and include the `.empty?` predicate into your rule.
 
 
 <dl>
@@ -470,7 +470,7 @@ In Dry-Validation you will need to use a block when defining your rule instead o
 Custom messages are implemented through a separate yaml file see the [error messages page](/gems/dry-validation/error-messages/) for full instructions.
 
 **3.4 `:on`**
-In Dry-Validation, validations are defined in schemas. You can create seperate schemas for various states (e.g UserCreateSchema, UserUpdateSchema) and then choose the correct schema to run in the relevant action.
+In dry-validation, validations are defined in schemas. You can create seperate schemas for various states (e.g UserCreateSchema, UserUpdateSchema) and then choose the correct schema to run in the relevant action.
 
 You can keep your schema code nice and DRY by [reusing schemas](gems/dry-validation/reusing-schemas/).
 
