@@ -419,16 +419,21 @@ hr {
 }
 
 .news-article {
-  @extend .news-list;
-}
+  @include col(2,3);
+  margin-left: calc(100% / 12 * 2);
 
-.news-article__aside {
-  float: right;
-  margin-left: 60px;
-  margin-bottom: 60px;
-  width: 400px;
-  @include tablet { display: none; }
-  @include mobile { display: none; }
+  @media (min-width: 320px)
+  and (max-width: 1199px) {
+   margin-left: 0;
+  }
+
+  @include tablet {
+    @include col (1,1);
+  }
+
+  @include mobile {
+    @include col (1,1);
+  }
 }
 
 .news__list-item {
