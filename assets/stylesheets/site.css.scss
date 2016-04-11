@@ -407,6 +407,7 @@ hr {
     float: left;
     padding-left: 30px;
     width: 45%;
+    & > iframe[style] { margin-top: -10px !important; }
   }
 }
 
