@@ -36,6 +36,6 @@ schema.call(email: nil, age: 19).messages
 
 Learn more:
 
-  * [Predicate logic](/gem/dry-validation/basics/predicate-logic)
+  * [Predicate logic](/gems/dry-validation/basics/predicate-logic)
   * [Macros](/gems/dry-validation/basics/macros)
   * [Working With Schemas](/gems/dry-validation/basics/working-with-schemas)
