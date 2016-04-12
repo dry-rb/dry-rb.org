@@ -16,7 +16,7 @@ sections:
   - error-messages
 ---
 
-Unlike other, well known, validation solutions in Ruby, `dry-validation` takes a different approach and focuses a lot on explicitness, clarity and preciseness of validation logic. It is designed to work with any data input, whether it's a simple hash, an array or a complex object with deeply nested data.
+Unlike other, well known, validation solutions in Ruby, `dry-validation` takes a different approach and focuses a lot on explicitness, clarity and precision of validation logic. It is designed to work with any data input, whether it's a simple hash, an array or a complex object with deeply nested data.
 
 It is based on an idea that each validation is encapsulated by a simple, stateless predicate, that receives some input and returns either `true` or `false`.  Those predicates are encapsulated by `rules` which can be composed together using `predicate logic`. This means you can use the common logic operators to build up a validation `schema`.
 
