@@ -90,7 +90,7 @@ require 'dry-validation'
 schema = Dry::Validation.Schema do
   configure { config.messages = :i18n }
 
-  key(:email).required
+  required(:email).filled
 end
 
 # return default translations

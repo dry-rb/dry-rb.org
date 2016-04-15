@@ -13,9 +13,9 @@ For that reason, `dry-validation` ships with `Form` validation:
 
 ``` ruby
 schema = Dry::Validation.Form do
-  key(:email).required
+  required(:email).filled
 
-  key(:age).required(:int?, gt?: 18)
+  required(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call('email' => '', 'age' => '18').messages
@@ -35,9 +35,9 @@ Your schema will automatically coerce empty strings to `nil` provided that you a
 
 ``` ruby
 schema = Dry::Validation.Form do
-  key(:email).required
+  required(:email).filled
 
-  key(:age).maybe(:int?, gt?: 18)
+  required(:age).maybe(:int?, gt?: 18)
 end
 
 result = schema.call('email' => 'jane@doe.org', 'age' => '')
