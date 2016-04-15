@@ -26,5 +26,5 @@ email["jane@doe.org"]
 # => "jane@doe.org"
 
 email["jane"]
-# => Dry::Types::ConstraintError: "fo" violates constraints
+# => Dry::Types::ConstraintError: "jane" violates constraints
 ```
