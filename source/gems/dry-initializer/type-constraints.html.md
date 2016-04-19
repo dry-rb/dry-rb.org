@@ -28,11 +28,15 @@ You can use either plain Ruby classes and modules, or [dry-types][dry-types]:
 require 'dry-initializer'
 require 'dry-types'
 
+module Types
+  include Dry::Types.module
+end
+
 class User
   extend Dry::Initializer
 
   param :name,  type: String
-  param :email, type: Dry::Types::Coercion::String
+  param :email, type: Types::Strict::String
 end
 
 user = User.new name: :Andrew, email: 123 # => #<TypeError ...>
