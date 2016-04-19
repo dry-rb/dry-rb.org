@@ -40,6 +40,9 @@ gems:
     name: dry-configurable
     desc: Thread-safe configuration mixin
   -
+    name: dry-initializer
+    desc: DSL for defining initializer params and options
+  -
     name: dry-logic
     desc: Predicate logic with composable rules
   -
