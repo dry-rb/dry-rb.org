@@ -6,6 +6,7 @@ order: 8
 type: gem
 name: dry-initializer
 sections:
+  - container-version
   - params-and-options
   - default-values
   - type-constraints
