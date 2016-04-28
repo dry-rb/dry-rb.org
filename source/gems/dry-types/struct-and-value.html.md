@@ -18,7 +18,7 @@ user = User.new(name: nil, age: '21')
 user.name # None
 user.age # 21
 
-user = User(name: 'Jane', age: '21')
+user = User.new(name: 'Jane', age: '21')
 
 user.name # => Some("Jane")
 user.age # => 21
