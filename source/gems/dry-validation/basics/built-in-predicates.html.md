@@ -24,7 +24,7 @@ describe 'none?' do
   end
 
   it 'with dry-validation' do
-    assert schema.call(good_input).success?
+    assert schema.call(input).success?
   end
 end
 ```
@@ -44,7 +44,7 @@ describe 'eql?' do
   let(:input) { {sample: 1234} }
 
   it 'as regular ruby' do
-    assert sample[:input] == 1234
+    assert input[:sample] == 1234
   end
 
   it 'with dry-validation' do
@@ -98,7 +98,7 @@ describe 'type?' do
   end
 
   it 'with dry-validation' do
-    assert schema.call(good_input).success?
+    assert schema.call(input).success?
   end
 end
 ```
