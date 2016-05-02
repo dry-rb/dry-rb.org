@@ -3,14 +3,14 @@ title: Introduction & Usage
 description: Common monads for Ruby
 layout: gem-single
 type: gem
-name: dry-result_monads
+name: dry-monads
 ---
 
 ## Introduction
 
 `dry-monads` is a set of common monads for Ruby.
 
-Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`'s and `else`'s.
+Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`'s and `else`'s. The gem was inspired by [Kleisli](https://github.com/txus/kleisli) gem.
 
 See [dry-result_matcher](/gems/dry-result_matcher/) for an example of how to use monads for controlling the flow of code with a result.
 
@@ -18,10 +18,11 @@ See [dry-result_matcher](/gems/dry-result_matcher/) for an example of how to use
 
 ### Maybe monad
 
-The `Maybe` monad is used when a series of computations that could return `nil`
-at any point.
+The `Maybe` monad is used when a series of computations that could return `nil` at any point.
 
-#### `bind` or `>>`
+#### `bind`
+
+Applies a block to a monadic value. If the value is `Some` then calls the block passing unwrapped value as an argument. Returns itself if the value is `None`.
 
 ```ruby
 require 'dry-monads'
@@ -41,13 +42,11 @@ end
 
 # You also can pass a proc to #bind
 
-add_two = -> x { x + 2 }
+add_two = -> (x) { M.Maybe(x + 2) }
 
 M.Maybe(5).bind(add_two).bind(add_two) # => Some(9)
+M.Maybe(nil).bind(add_two).bind(add_two) # => None()
 
-# >> (right shift) is an alias for bind
-
-M.Maybe >> :succ.to_proc >> add_two # => Some(8)
 ```
 
 #### `fmap`
@@ -63,6 +62,35 @@ Dry::Monads::Maybe(user).fmap(&:address).fmap(&:street)
 # => Some("Street Address")
 # If user or address is nil
 # => None()
+```
+
+
+#### `value`
+
+You always can unlift the result by calling `value`.
+
+```ruby
+require 'dry-monads'
+
+Dry::Monads::Some(5).fmap(&:succ).value # => 6
+
+Dry::Monads::None().fmap(&:succ).value # => nil
+
+```
+
+#### `or`
+
+The opposite of `bind`.
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+add_two = -> (x) { M.Maybe(x + 2) }
+
+M.Maybe(5).bind(add_two).bind(add_two).or(M.Some(1)) # => Some(9)
+M.Maybe(nil).bind(add_two).bind(add_two).or(M.Some(1)) # => Some(1)
 ```
 
 ### Either monad
@@ -145,11 +173,23 @@ result # => Right(20)
 # If it did not
 result # => Left("wrong")
 
-# #fmap accepts proc as well as #bind
+# #fmap accepts a proc as well as #bind
 
 upcase = :upcase.to_proc
 
 M.Right('hello').fmap(upcase) # => Right("HELLO")
+```
+
+#### `value`
+
+Unlift the result by calling `value`.
+
+```ruby
+M = Dry::Monads
+
+M.Right(10).value # => 10
+M.Error('Error').value # => 'Error'
+
 ```
 
 #### `or`
@@ -183,23 +223,79 @@ result # => Some(10)
 result # => None()
 ```
 
+#### `left?` and `right?`
+
+You can explicitly check the type by calling `left?` or `right?` on a monadic value. Also `left?` has `failure?` alias and `right?` has `success?`.
+
 ### Try monad
 
-Examples of using the `Try` monad.
+Rescues a block from an exception. `Try` monad is useful when you want to wrap some code that can raise exceptions of certain types. A common example is making HTTP request or querying a database.
 
 ```ruby
 require 'dry-monads'
 
-extend Dry::Monads::Try::Mixin
+module ExceptionalLand
+  extend Dry::Monads::Try::Mixin
 
-res = Try() { 10 / 2 }
-res.value if res.success?
-# => 5
+  res = Try() { 10 / 2 }
+  res.value if res.success?
+  # => 5
 
-res = Try() { 10 / 0 }
-res.exception if res.failure?
-# => #<ZeroDivisionError: divided by 0>
+  res = Try() { 10 / 0 }
+  res.exception if res.failure?
+  # => #<ZeroDivisionError: divided by 0>
 
-Try(NoMethodError, NotImplementedError) { 10 / 0 }
-# => raise ZeroDivisionError: divided by 0 exception
+  # By default Try catches all exceptions inherited from StandardError.
+  # However you can catch only certain exceptions like this
+  Try(NoMethodError, NotImplementedError) { 10 / 0 }
+  # => raise ZeroDivisionError: divided by 0 exception
+end
 ```
+
+It is better you to pass a list of expected exceptions which you sure you can process. Catching exceptions of all types is considered as bad practice.
+
+`Try` monad consists of two types: `Success` and `Failure`. The first is returned when code did not raise an error and the second is returned when the error was captured.
+
+
+#### `bind`
+
+Works exactly the same as `Either#bind` does.
+
+```ruby
+require 'dry-monads'
+
+module ExceptionalLand
+  extend Dry::Monads::Try::Mixin
+
+  Try() { 10 / 2 }.bind { |x| x * 3 }
+  # => 15
+
+  Try(ZeroDivisionError) { 10 / 0 }.bind { |x| x * 3 }
+  # => Failure(ZeroDivisionError: divided by 0)
+end
+```
+
+#### `fmap`
+
+Allows you to chain blocks that can raise exceptions.
+
+```ruby
+Try(NetworkError, DBError) { grap_user_by_making_request }.fmap { |user| user_repo.save(user) }
+
+# Possible outcomes:
+# => Success(persisted_user)
+# => Failure(NetworkError: request timeout)
+# => Failure(DBError: unique constraint violated)
+```
+
+#### `value` and `exception`
+
+Use `value` for unlifting a `Success` and `exception` for getting error object from a `Failure`.
+
+#### `to_either` and `to_maybe`
+
+`Try`'s `Success` and `Failure` can be transformed to `Right` and `Left` correspondingly by calling `to_either` and to `Some` and `None` by calling `to_maybe`. Keep in mind that by transforming `Try` to `Maybe` you loose information about an exception so be sure that you've processed the error before doing so.
+
+## Credits
+
+`dry-monads` is inspired by Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem and its usage by [`dry-transactions`](http://dry-rb.org/gems/dry-transaction/) and [`dry-types`](http://dry-rb.org/gems/dry-types/).

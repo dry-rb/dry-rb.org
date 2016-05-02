@@ -48,3 +48,6 @@ gems:
   -
     name: dry-result_matcher
     desc: Expressive match API for operating on Either results
+  -
+    name: dry-monads
+    desc: Useful, common monads in idiomatic Ruby
