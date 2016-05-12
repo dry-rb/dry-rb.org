@@ -47,8 +47,6 @@ Possible use-cases include validation of:
 
 ### Synopsis
 
-Please refer to [the wiki](https://github.com/dry-rb/dry-validation/wiki) for full usage documentation.
-
 ``` ruby
 UserSchema = Dry::Validation.Schema do
   key(:name).required
