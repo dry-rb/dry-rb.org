@@ -12,6 +12,8 @@ sections:
   - type-constraints
   - readers
   - inheritance
+  - rails-support
+  - custom-plugins
 ---
 
 `dry-initializer` is a simple mixin of class methods `params` and `options` for instances.
