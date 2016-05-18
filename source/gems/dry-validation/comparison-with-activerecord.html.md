@@ -66,7 +66,7 @@ You will need to create a custom predicate to achieve this.
 ### 2.4 exclusion
 | Active Record Validation                    | Dry Validation                               |
 |---------------------------------------------|----------------------------------------------|
-| `validates :attr, exclusion: { in: array }` | `key(:attr){ |attr| attr.exclusion?(array) }`|
+| `validates :attr, exclusion: { in: array }` | `key(:attr){ |attr| attr.excluded_from?(array) }`|
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
@@ -175,7 +175,7 @@ If you want to be sure that an association is absent, you'll need create a custo
 #### Booleans
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-`key(:attr) { |attr| attr.exclusion?([true, false]) }`
+`key(:attr) { |attr| attr.excluded_from?([true, false]) }`
 
 ### 2.11 uniqueness
 Custom Predicate

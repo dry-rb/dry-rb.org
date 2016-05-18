@@ -390,16 +390,16 @@ describe 'included_in?' do
 end
 ```
 
-### `exclusion?`
+### `excluded_from?`
 
 
 Checks that a value is excluded from a given array.
 
 ```ruby
-describe 'exclusion?' do
+describe 'excluded_from?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { exclusion?([1,3,5]) }
+      key(:sample) { excluded_from?([1,3,5]) }
     end
   end
 
