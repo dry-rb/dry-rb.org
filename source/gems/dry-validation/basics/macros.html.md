@@ -3,7 +3,7 @@ title: Macros
 layout: gem-single
 ---
 
-Rule composition using blocks is very flexible and powerful; however, in many common cases defining same rules all over again leads to boilerplate code. That's why `dry-validation` provides convenient macros available in the DSL to reduce that boilerplate. Every macro can be expanded to its block-based equivalent.
+Rule composition using blocks is very flexible and powerful; however, in many common cases repeatedly defining the same rules leads to boilerplate code. That's why `dry-validation`'s DSL provides convenient macros to reduce that boilerplate. Every macro can be expanded to its block-based equivalent.
 
 This document describes available built-in macros.
 
@@ -53,12 +53,11 @@ Use it when another rule depends on the state of a value:
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:email).maybe
-
   # expands to:
   #
   # rule(email: [:login]) { |login| login.true?.then(value(:email).filled?) }
   #
+  key(:email).maybe
   key(:login).required(:bool?).when(:true?) do
     value(:email).filled?
   end

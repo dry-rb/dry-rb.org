@@ -3,8 +3,7 @@ title: Nested Data
 layout: gem-single
 ---
 
-`dry-validation` supports validation of nested data, this includes both hashes
-and arrays as the validation input.
+`dry-validation` supports validation of nested data, this includes both hashes and arrays as the validation input.
 
 ### Nested Hash
 
