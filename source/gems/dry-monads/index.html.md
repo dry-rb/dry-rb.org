@@ -188,7 +188,7 @@ Unlift the result by calling `value`.
 M = Dry::Monads
 
 M.Right(10).value # => 10
-M.Error('Error').value # => 'Error'
+M.Left('Error').value # => 'Error'
 
 ```
 
@@ -248,7 +248,7 @@ module ExceptionalLand
   # By default Try catches all exceptions inherited from StandardError.
   # However you can catch only certain exceptions like this
   Try(NoMethodError, NotImplementedError) { 10 / 0 }
-  # => raise ZeroDivisionError: divided by 0 exception
+  # => raised ZeroDivisionError: divided by 0 exception
 end
 ```
 
