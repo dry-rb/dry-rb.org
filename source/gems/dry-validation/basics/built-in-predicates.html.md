@@ -367,16 +367,16 @@ describe 'format?' do
 end
 ```
 
-### `inclusion?`
+### `included_in?`
 
 
 Checks that a value is included in a given array.
 
 ```ruby
-describe 'inclusion?' do
+describe 'included_in?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { inclusion?([1,3,5]) }
+      key(:sample) { included_in?([1,3,5]) }
     end
   end
 
