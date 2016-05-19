@@ -44,7 +44,7 @@ This is pretty the same as the following ruby code:
 class User
   attr_reader :name, :type, :admin
 
-  def initializer(name, type = 'customer', admin: false)
+  def initialize(name, type = 'customer', admin: false)
     @name  = name
     @type  = type
     @admin = admin
