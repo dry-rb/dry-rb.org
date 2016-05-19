@@ -30,7 +30,7 @@ module Dry::Initializer::Reporter
 
   # Register a builder when using the plugin
   def self.extended(klass)
-    klass.initializer_builder.register Builder
+    klass.register_initializer_plugin Builder
   end
 end
 
@@ -106,7 +106,7 @@ module Dry::Initializer::Coercion
   end
 
   def self.extended(klass)
-    klass.initializer_builder.register Builder
+    klass.register_initializer_plugin Builder
   end
 end
 ```
@@ -134,7 +134,7 @@ require 'dry-initializer-rails'
 
 class CreateOrder
   include Dry::Initializer.define -> do
-    extend Dry::Initializer::Coercer
+    extend Dry::Initializer::Coercion
 
     # ... params/options declarations
   end
