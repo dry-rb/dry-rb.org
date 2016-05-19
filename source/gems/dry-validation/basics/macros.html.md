@@ -68,7 +68,7 @@ end
 
 ### confirmation
 
-Use it when another value under key with a `_confirmation` prefix is expected to be equal.
+Use confirmation to assert that an identical value in the sample is mapped to the same key suffixed with `_confirmation`.
 
 ``` ruby
 Dry::Validation.Schema do
