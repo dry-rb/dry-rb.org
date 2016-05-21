@@ -3,7 +3,7 @@ title: Optional Values
 layout: gem-single
 ---
 
-All built-in types have their optional versions too, you can access them under `Types::Maybe::Strict` and `Types::Maybe::Coercible` namespaces:
+All built-in types have their optional versions too, you can access them under the `Types::Maybe::Strict` and `Types::Maybe::Coercible` namespaces:
 
 ``` ruby
 Types::Maybe::Int[nil] # None
