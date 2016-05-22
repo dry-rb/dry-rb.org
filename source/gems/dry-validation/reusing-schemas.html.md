@@ -7,15 +7,15 @@ You can easily reuse existing schemas using nested-schema syntax:
 
 ``` ruby
 AddressSchema = Dry::Validation.Schema do
-  key(:street).required
-  key(:city).required
-  key(:zipcode).required
+  required(:street).filled
+  required(:city).filled
+  required(:zipcode).filled
 end
 
 UserSchema = Dry::Validation.Schema do
-  key(:email).required
-  key(:name).required
-  key(:address).schema(AddressSchema)
+  required(:email).filled
+  required(:name).filled
+  required(:address).schema(AddressSchema)
 end
 
 UserSchema.(

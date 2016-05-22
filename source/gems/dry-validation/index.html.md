@@ -49,16 +49,16 @@ Possible use-cases include validation of:
 
 ``` ruby
 UserSchema = Dry::Validation.Schema do
-  key(:name).required
+  required(:name).filled
 
-  key(:email).required(format?: EMAIL_REGEX)
+  required(:email).filled(format?: EMAIL_REGEX)
 
-  key(:age).maybe(:int?)
+  required(:age).maybe(:int?)
 
-  key(:address).schema do
-    key(:street).required
-    key(:city).required
-    key(:zipcode).required
+  required(:address).schema do
+    required(:street).filled
+    required(:city).filled
+    required(:zipcode).filled
   end
 end
 

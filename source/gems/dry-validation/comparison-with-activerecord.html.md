@@ -17,8 +17,8 @@ For example:
 require 'dry-validation'
 
 class Schema < Dry::Validation::Schema
-  key(:email) { |email| email.filled? }
-  key(:name) { |name| name.filled? }
+  required(:email) { |email| email.filled? }
+  required(:name) { |name| name.filled? }
 end
 ```
 or the short-hand:
@@ -27,24 +27,24 @@ or the short-hand:
 require 'dry-validation'
 
 class Schema < Dry::Validation::Schema
-  key(:email, &:filled?)
-  key(:name, &:filled?)
+  required(:email, &:filled?)
+  required(:name, &:filled?)
 end
 ```
 You can declare multiple predicates per key (or attribute) for example
 
 Active Record: `validates :email, presence: true, format: { with: EMAIL_REGEX }`
 
-Dry Validation: ` key(:email) { |email| email.filled? & email.format?(EMAIL_REGEX) }`
+Dry Validation: `required(:email) { |email| email.filled? & email.format?(EMAIL_REGEX) }`
 
 ## 2. Validation Helpers
 
 ### 2.1 acceptance
 
-| Active Record Validation                         | Dry Validation                         |
-|--------------------------------------------------|----------------------------------------|
-| `validates :attr, acceptance: true`              | `key(:attr){ |attr| attr.eql?('1') }`  |
-| `validates :attr, acceptance: { accept: 'yes' }` | `key(:attr){ |attr| attr.eql?('yes') }`|
+| Active Record Validation                         | Dry Validation                              |
+|--------------------------------------------------|---------------------------------------------|
+| `validates :attr, acceptance: true`              | `required(:attr){ |attr| attr.eql?('1') }`  |
+| `validates :attr, acceptance: { accept: 'yes' }` | `required(:attr){ |attr| attr.eql?('yes') }`|
 
 Note: Active Record automatically creates the virtual acceptance attribute for you, so you will need to do this manually.
 
@@ -64,32 +64,32 @@ You will need to create a custom predicate to achieve this.
 > If using in combination with `:allow_nil` or `:allow_blank` options you will need to create your own rules instead of using the above dry validation helper.
 
 ### 2.4 exclusion
-| Active Record Validation                    | Dry Validation                               |
-|---------------------------------------------|----------------------------------------------|
-| `validates :attr, exclusion: { in: array }` | `key(:attr){ |attr| attr.exclusion?(array) }`|
+| Active Record Validation                    | Dry Validation                                    |
+|---------------------------------------------|---------------------------------------------------|
+| `validates :attr, exclusion: { in: array }` | `required(:attr){ |attr| attr.exclusion?(array) }`|
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
 ### 2.5 format
-| Active Record Validation                      | Dry Validation                               |
-|-----------------------------------------------|----------------------------------------------|
-| `validates :attr, format: { with: regex }`    | `key(:attr) { |attr| attr.format?(regex) }`  |
-| `validates :attr, format: { without: regex }` | `key(:attr) { |attr| !attr.format?(regex) }` |
+| Active Record Validation                      | Dry Validation                                    |
+|-----------------------------------------------|---------------------------------------------------|
+| `validates :attr, format: { with: regex }`    | `required(:attr) { |attr| attr.format?(regex) }`  |
+| `validates :attr, format: { without: regex }` | `required(:attr) { |attr| !attr.format?(regex) }` |
 
 ### 2.6 inclusion
-| Active Record Validation                    | Dry Validation                                 |
-|---------------------------------------------|------------------------------------------------|
-| `validates :attr, inclusion: { in: array }` | `key(:attr) { |attr| attr.inclusion?(array) }` |
+| Active Record Validation                    | Dry Validation                                      |
+|---------------------------------------------|-----------------------------------------------------|
+| `validates :attr, inclusion: { in: array }` | `required(:attr) { |attr| attr.inclusion?(array) }` |
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
 ### 2.7 Length
-| Active Record                               | Dry Validation Predicate                    |
-|---------------------------------------------|---------------------------------------------|
-| `validates :attr, length: { minimum: int }` | `key(:attr) { |attr| attr.min_size?(int) }` |
-| `validates :attr, length: { maximum: int }` | `key(:attr) { |attr| attr.max_size?(int) }` |
-| `validates :attr, length: { in: range }`    | `key(:attr) { |attr| attr.size?(range) }`   |
-| `validates :attr, length: { is: int }`      | `key(:attr) { |attr| attr.size?(int) }`     |
+| Active Record                               | Dry Validation Predicate                         |
+|---------------------------------------------|--------------------------------------------------|
+| `validates :attr, length: { minimum: int }` | `required(:attr) { |attr| attr.min_size?(int) }` |
+| `validates :attr, length: { maximum: int }` | `required(:attr) { |attr| attr.max_size?(int) }` |
+| `validates :attr, length: { in: range }`    | `required(:attr) { |attr| attr.size?(range) }`   |
+| `validates :attr, length: { is: int }`      | `required(:attr) { |attr| attr.size?(int) }`     |
 
 ### 2.8 Numericality
 Active Record determines numericality either by trying to convert the value to a number using Float, or using a Regex if you specify `only_integer: true`.
@@ -114,15 +114,15 @@ end
 ```
 The examples in the table below use the predicate example above, but you could use `.int?`, `.float?`, `.decimal?` in its place.
 
-| Active Record                                                     | Dry Validation                                     |
-|-------------------------------------------------------------------|----------------------------------------------------|
-| `validates :name, numericality: true`                             | `key(:attr){ |attr| attr.value_is_a_number? }`     |
-| `validates :attr, numericality: { only_integer: true }`           | `key(:attr){ |attr| attr.format?(/\A[+-]?\d+\Z/) }`|
-| `validates :attr, numericality: { greater_than: int }`            | `key(:attr){ |attr| attr.value_is_a_number? & attr.gt?(int) }`               |
-| `validates :attr, numericality: { greater_than_or_equal_to: int }`| `key(:attr){ |attr| attr.value_is_a_number? & attr.gteq?(int) }`             |
-| `validates :attr, numericality: { less_than: int }`               | `key(:attr){ |attr| attr.value_is_a_number? & attr.lt?(int) }`               |
-| `validates :attr, numericality: { less_than_or_equal_to: int }`   | `key(:attr){ |attr| attr.value_is_a_number? & attr.lteq?(int) }`             |
-| `validates :attr, numericality: { equal_to: int }`                | `key(:attr){ |attr| attr.value_is_a_number? & attr.eql?(int) }`              |
+| Active Record                                                     | Dry Validation                                          |
+|-------------------------------------------------------------------|---------------------------------------------------------|
+| `validates :name, numericality: true`                             | `required(:attr){ |attr| attr.value_is_a_number? }`     |
+| `validates :attr, numericality: { only_integer: true }`           | `required(:attr){ |attr| attr.format?(/\A[+-]?\d+\Z/) }`|
+| `validates :attr, numericality: { greater_than: int }`            | `required(:attr){ |attr| attr.value_is_a_number? & attr.gt?(int) }`               |
+| `validates :attr, numericality: { greater_than_or_equal_to: int }`| `required(:attr){ |attr| attr.value_is_a_number? & attr.gteq?(int) }`             |
+| `validates :attr, numericality: { less_than: int }`               | `required(:attr){ |attr| attr.value_is_a_number? & attr.lt?(int) }`               |
+| `validates :attr, numericality: { less_than_or_equal_to: int }`   | `required(:attr){ |attr| attr.value_is_a_number? & attr.lteq?(int) }`             |
+| `validates :attr, numericality: { equal_to: int }`                | `required(:attr){ |attr| attr.value_is_a_number? & attr.eql?(int) }`              |
 | `validates :attr, numericality: { odd: int }`                     | custom predicate                                   |
 | `validates :attr, numericality: { even: int }`                    | custom predicate                                   |
 
@@ -139,9 +139,9 @@ end
 ```
 
 ### 2.9 presence
-| Active Record Validation          | Dry Validation                       |
-|-----------------------------------|--------------------------------------|
-| `validates :attr, presence: true` | `key(:attr) { |attr| attr.filled? }` |
+| Active Record Validation          | Dry Validation                            |
+|-----------------------------------|-------------------------------------------|
+| `validates :attr, presence: true` | `required(:attr) { |attr| attr.filled? }` |
 
 #### Associations
 If you want to be sure that an association is present, you'll need to create a custom predicate to test whether the associated object itself is present.
@@ -150,12 +150,12 @@ If you want to replicate Active Record's presence validation of an object associ
 
 #### Booleans
 If you want to validate the presence of a boolean field (e.g. true or false) you should use the built in predicate `.bool?`.
-E.g. `key(:attr) { |attr| attr.bool? }`
+E.g. `required(:attr) { |attr| attr.bool? }`
 
 ### 2.10 absence
-| Active Record Validation          | Dry Validation                                                             |
-|-----------------------------------|----------------------------------------------------------------------------|
-| `validates :attr, absence: true`  | `key(:attr) { |attr| attr.blank? }` or `key(:attr) { |attr| attr.empty? }` |
+| Active Record Validation          | Dry Validation                                                                       |
+|-----------------------------------|--------------------------------------------------------------------------------------|
+| `validates :attr, absence: true`  | `required(:attr) { |attr| attr.blank? }` or `required(:attr) { |attr| attr.empty? }` |
 
 #### none? or empty?
 `empty?` allows an empty string(```""```), array(```[]```), hash(```{}```) etc.
@@ -175,7 +175,7 @@ If you want to be sure that an association is absent, you'll need create a custo
 #### Booleans
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-`key(:attr) { |attr| attr.exclusion?([true, false]) }`
+`required(:attr) { |attr| attr.exclusion?([true, false]) }`
 
 ### 2.11 uniqueness
 Custom Predicate
@@ -192,14 +192,14 @@ add `.none?` into your rule E.g.
 
 **Active Record:** `validates :attr, length: { minimum: int, allow_nil: true }`
 
-**Dry Validation:** `key(:attr) { |attr| attr.none? | attr.min_size?(int) }`
+**Dry Validation:** `required(:attr) { |attr| attr.none? | attr.min_size?(int) }`
 
 #### 3.2  `:allow_blank`
 add `.empty?` into your rule
 
 **Active Record:** `validates :attr, length: { minimum: int, allow_blank: true }`
 
-**Dry Validation:** `key(:attr) { |attr| attr.empty? | attr.min_size?(int) }`
+**Dry Validation:** `required(:attr) { |attr| attr.empty? | attr.min_size?(int) }`
 
 #### 3.3 `:message`
 Custom messages are implemented through a separate yaml file (see [wiki page](https://github.com/dry-rb/dry-validation/wiki/Error-Messages))
@@ -223,8 +223,8 @@ To achieve this in Dry Validation you will need to create a custom rule.
 
 .1. Initially we declare a rule for each of the attributes we need to reference
 ```ruby
-key(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
-key(:card_number) { |card_number| card_number.none? | card_number.filled? }
+required(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
+required(:card_number) { |card_number| card_number.none? | card_number.filled? }
 ```
 .2. Declare a custom predicate to check if `payment_type == 'card'`
 ```ruby
@@ -242,8 +242,8 @@ end
 
 Put it all together and you get:
 ```ruby
-key(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
-key(:card_number) { |card_number| card_number.none? | card_number.filled? }
+required(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
+required(:card_number) { |card_number| card_number.none? | card_number.filled? }
 
 rule(:require_card_number) do
   rule(:payment_type).paid_with_card? > rule(:card_number).

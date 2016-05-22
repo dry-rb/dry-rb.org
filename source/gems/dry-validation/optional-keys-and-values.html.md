@@ -13,9 +13,9 @@ You can define which keys are optional and define rules for their values:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
+  required(:email).filled
 
-  optional(:age).required(:int?, gt?: 18)
+  optional(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call(email: 'jane@doe.org').messages
@@ -37,7 +37,7 @@ When it is valid for a given value to be `nil` you can use `maybe` macro:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
+  required(:email).filled
 
   optional(:age).maybe(:int?, gt?: 18)
 end

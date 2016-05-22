@@ -7,7 +7,7 @@ You can simply define predicate methods on your schema object:
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:email).required(:str?, :email?)
+  required(:email).filled(:str?, :email?)
 
   configure do
     def email?(value)
@@ -33,7 +33,7 @@ schema = Dry::Validation.Schema do
     config.predicates = MyPredicates
   end
 
-  key(:email).required(:str?, :email?)
+  required(:email).filled(:str?, :email?)
 end
 ```
 

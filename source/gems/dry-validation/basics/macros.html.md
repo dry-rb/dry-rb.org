@@ -7,21 +7,32 @@ Rule composition using blocks is very flexible and powerful; however, in many co
 
 This document describes available built-in macros.
 
-### required
+### value
+
+Use it to build up predicates.
+
+```
+Dry::Validation.Schema do
+  # expands to `required(:age) { filled? & int? & gt?(3) }`
+  required(:age).value(:filled?, :int?, gt?: 3)
+end
+```
+
+### filled
 
 Use it when a value is expected to be filled.
 
 ``` ruby
 Dry::Validation.Schema do
-  # expands to `key(:age) { filled? }`
-  key(:age).required
+  # expands to `required(:age) { filled? }`
+  required(:age).filled
 end
 ```
 
 ``` ruby
 Dry::Validation.Schema do
-  # expands to `key(:age) { filled? & int? }`
-  key(:age).required(:int?)
+  # expands to `required(:age) { filled? & int? }`
+  required(:age).filled(:int?)
 end
 ```
 
@@ -31,8 +42,8 @@ Use it when a value can be nil.
 
 ``` ruby
 Dry::Validation.Schema do
-  # expands to `key(:age) { none? | int? }`
-  key(:age).maybe(:int?)
+  # expands to `required(:age) { none? | int? }`
+  required(:age).maybe(:int?)
 end
 ```
 
@@ -42,8 +53,8 @@ Use it to apply predicates to every element in a value that is expected to be an
 
 ``` ruby
 Dry::Validation.Schema do
-  # expands to: `key(:tags) { array? { each { str? } } }`
-  key(:tags).each(:str?)
+  # expands to: `required(:tags) { array? { each { str? } } }`
+  required(:tags).each(:str?)
 end
 ```
 
@@ -53,13 +64,13 @@ Use it when another rule depends on the state of a value:
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:email).maybe
+  required(:email).maybe
 
   # expands to:
   #
   # rule(email: [:login]) { |login| login.true?.then(value(:email).filled?) }
   #
-  key(:login).required(:bool?).when(:true?) do
+  required(:login).filled(:bool?).when(:true?) do
     value(:email).filled?
   end
 end
@@ -79,6 +90,6 @@ Dry::Validation.Schema do
   #   value(:password_confirmation).eql?(password) }
   # end
   #
-  key(:password).required(min_size?: 12).confirmation
+  required(:password).filled(min_size?: 12).confirmation
 end
 ```
