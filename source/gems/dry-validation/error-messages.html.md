@@ -102,11 +102,11 @@ puts schema.call(email: '').messages(locale: :pl)
 { :email => ["musi być wypełniony"] }
 ```
 
-Important: I18n must be initialized before using schema, `dry-validation` does not try to do it for you, it only sets its default error translations automatically.
+Important: I18n must be initialized before using a schema, `dry-validation` does not try to do it for you, it only sets its default error translations automatically.
 
 ## Full Messages
 
-By default, messages do not include name of rules, if you want them to be included simply use `:full` option:
+By default, messages do not include a rule's name, if you want it to be included simply use `:full` option:
 
 ``` ruby
 schema.call(email: '').messages(full: true)

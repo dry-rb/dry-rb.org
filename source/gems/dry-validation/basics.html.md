@@ -8,7 +8,7 @@ sections:
   - working-with-schemas
 ---
 
-Here's a basic example where we validate following things:
+Here's a basic example where we validate the following things:
 
 * The input *must have a key* called `:email`
   * Provided the email key is present, its value *must be filled*

@@ -15,7 +15,7 @@ Schema definition best practices:
 
 ### Calling a Schema
 
-Calling a schema will apply all its rules to the input. High-level rules defined with `rule` API are applied in a second step and they are guarded, which means if the values they depend on are not valid, nothing will crash and a high-level rule will not be applied.
+Calling a schema will apply all its rules to the input. High-level rules defined with the `rule` API are applied in a second step and they are guarded, which means if the values they depend on are not valid, nothing will crash and a high-level rule will not be applied.
 
 Example:
 

@@ -3,9 +3,9 @@ title: High-level Rules
 layout: gem-single
 ---
 
-It is often not enough to define simple type-checking rules and in addition to those you need to be able to specify higher-level rules that simply rely on other rules. This can be achieved using `rule` interface which can access already defined rules for specific keys.
+Often it is not enough to define simple type-checking rules. In addition to those you need to be able to specify higher-level rules that rely on other rules. This can be achieved using the `rule` interface which can access already defined rules for specific keys.
 
-In example let's say we have a schema with 3 keys, `:barcode`, `:job_number` and `:sample_number` and we need to make sure that when barcode is provided then both job and sample numbers cannot be provided. The low-level checks need to make sure that individual values have correct state and on top of that we can define our high-level rule:
+For example let's say we have a schema with 3 keys, `:barcode`, `:job_number` and `:sample_number` and we need to make sure that when barcode is provided both job and sample numbers are not provided. The low-level checks need to make sure that individual values have the correct state and on top of those we can define our high-level rule:
 
 ``` ruby
 schema = Dry::Validation.Schema do
@@ -25,7 +25,7 @@ This way we have validations for individual keys and the high-level `:barcode_on
 
 ## Rules Depending On Values From Other Rules
 
-Similar to rules that depend on results from other rules, you can define high-level rules that need to apply additional predicates to values provided by other rules. In example, let's say we want to validate presence of an `email` address but only when `login` value is set to `true`:
+Similar to rules that depend on results from other rules, you can define high-level rules that need to apply additional predicates to values provided by other rules. For example, let's say we want to validate presence of an `email` address but only when `login` value is set to `true`:
 
 ``` ruby
 schema = Dry::Validation.Schema do
@@ -53,4 +53,4 @@ schema = Dry::Validation.Schema do
 end
 ```
 
-Notice that you must add `:email_absence` message to configuration if you want to have the error converted to a message.
+Notice that you must add the `:email_absence` message to the configuration if you want to have the error converted to a message.

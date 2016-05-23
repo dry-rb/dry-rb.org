@@ -135,7 +135,7 @@ describe 'empty?' do
     assert !{sample: {}}[:sample].empty?
   end
 
-  it 'with dry-validatoin' do
+  it 'with dry-validation' do
     assert schema.call(sample: "").success?
     assert schema.call(sample: []).success?
     assert schema.call(sample: {}).success?
@@ -161,7 +161,7 @@ describe 'filled?' do
     assert !{sample: {k: 3}}[:sample].empty?
   end
 
-  it 'with dry-validatoin' do
+  it 'with dry-validation' do
     assert schema.call(sample: "1").success?
     assert schema.call(sample: [2]).success?
     assert schema.call(sample: {k: 3}).success?
@@ -240,7 +240,7 @@ end
 Checks that the value is less than or equal to the given value.
 
 ```ruby
-describe 'lt?' do
+describe 'lteq?' do
   let(:schema) do
     Dry::Validation.Schema do
       key(:sample) { lteq?(1) }
@@ -259,7 +259,7 @@ end
 
 ### `max_size?`
 
-Check that an array's size is no less than or equal to the given value.
+Check that an array's size is less than or equal to the given value.
 
 ```ruby
 describe 'max_size?' do
@@ -314,7 +314,7 @@ describe 'size?' do
   end
 
   it 'with regular ruby' do
-    assert [1, 2, 3].size = 3
+    assert [1, 2, 3].size == 3
   end
 
   it 'with dry-validation' do
@@ -325,7 +325,7 @@ end
 
 ### `size?(range)`
 
-Checks that an array's size is between a range of values.
+Checks that an array's size is within a range of values.
 
 ```ruby
 describe 'size?' do
