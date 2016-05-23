@@ -24,7 +24,7 @@ end
 
 ### Defining a transaction
 
-Define a transaction to bring your opererations together:
+Define a transaction to bring your operations together:
 
 ```ruby
 save_user = Dry.Transaction(container: Container) do

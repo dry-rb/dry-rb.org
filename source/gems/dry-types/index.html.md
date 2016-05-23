@@ -17,7 +17,7 @@ sections:
   - struct-and-value
 ---
 
-`dry-types` is a simple and extendable type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
+`dry-types` is a simple and extendable type system for Ruby; useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
 
 ### dry-types vs virtus
 
