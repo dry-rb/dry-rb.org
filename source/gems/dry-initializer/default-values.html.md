@@ -9,7 +9,7 @@ By default both params and options are mandatory. Use `:default` key to make the
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param  :name,  default: proc { 'Unknown user' }
   option :email, default: proc { 'unknown@example.com' }
@@ -30,7 +30,7 @@ You cannot define required **parameter** after optional one. The following examp
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name, default: proc { 'Unknown name' }
   param :email # => #<SyntaxError ...>
@@ -43,7 +43,7 @@ Set `nil` as a default value explicitly:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param  :name
   option :email, default: proc { nil }
@@ -64,7 +64,7 @@ If you need to **assign** proc as a default value, wrap it to another one:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name_proc, default: proc { proc { 'Unknown user' } }
 end
@@ -79,7 +79,7 @@ Proc will be executed in a scope of new instance. You can refer to other argumen
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name
   param :email, default: proc { "#{name.downcase}@example.com" }
@@ -95,7 +95,7 @@ user.email # => 'andrew@example.com'
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name, default: -> (obj) { 'Dude' }
 end

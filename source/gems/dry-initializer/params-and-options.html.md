@@ -9,7 +9,7 @@ Use `param` to define plain argument:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend  Dry::Initializer::Mixin
 
   param :name
   param :email
@@ -26,7 +26,7 @@ Use `option` to define named (hash) argument:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   option :name
   option :email
@@ -43,7 +43,7 @@ All names should be unique:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param  :name
   option :name # => raises #<SyntaxError ...>
