@@ -9,7 +9,7 @@ Subclassing preserves all definitions being made inside a superclass:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name
 end

@@ -11,7 +11,7 @@ To skip it, use `reader: false`:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param :name
   param :email, reader: false

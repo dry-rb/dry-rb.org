@@ -9,7 +9,7 @@ By default the initializer is strict - it expects params and options to be defin
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 end
 
 user = User.new email: 'joe@example.com' # raises ArgumentError
@@ -21,7 +21,7 @@ Use `tolerant_to_unknown_options` helper to change this behavior and ignore unde
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   tolerant_to_unknown_options
 end

@@ -25,7 +25,7 @@ sections:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer
+  extend Dry::Initializer::Mixin
 
   param  :name,  type: String
   param  :role,  default: proc { 'customer' }
