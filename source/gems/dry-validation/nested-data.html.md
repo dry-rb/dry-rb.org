@@ -64,3 +64,20 @@ puts errors.inspect
 #   }
 # }
 ```
+
+You can specify array of schemas as well:
+
+``` ruby
+schema = Dry::Validation.Schema do
+  key(:phone_numbers).each do
+    key(:country_code).required
+    key(:area_code).required
+    key(:number).required
+  end
+end
+
+errors = schema.call(phone_numbers: [{ country_code: "1", area_code: "613", number: "6006789" }]).messages
+
+puts errors.inspect
+# {}
+```
