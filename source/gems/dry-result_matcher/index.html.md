@@ -8,7 +8,7 @@ name: dry-result_matcher
 
 ## Introduction
 
-`dry-result_matcher` is an expressive, all-in-one API for operating on [Kleisli](https://github.com/txus/kleisli) `Either` results.
+`dry-result_matcher` is an expressive, all-in-one API for operating on [dry-monads](https://github.com/dry-rb/dry-monads) `Either` results.
 
 It’s particularly useful for controlling flow using your `Either` results from within a heavily block-based DSL, like the [Roda](http://roda.jeremyevans.net) routing tree.
 
