@@ -66,7 +66,7 @@ You will need to create a custom predicate to achieve this.
 ### 2.4 exclusion
 | Active Record Validation                    | Dry Validation                               |
 |---------------------------------------------|----------------------------------------------|
-| `validates :attr, exclusion: { in: array }` | `key(:attr){ |attr| attr.exclusion?(array) }`|
+| `validates :attr, exclusion: { in: array }` | `key(:attr){ |attr| attr.excluded_from?(array) }`|
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
@@ -79,7 +79,7 @@ You will need to create a custom predicate to achieve this.
 ### 2.6 inclusion
 | Active Record Validation                    | Dry Validation                                 |
 |---------------------------------------------|------------------------------------------------|
-| `validates :attr, inclusion: { in: array }` | `key(:attr) { |attr| attr.inclusion?(array) }` |
+| `validates :attr, inclusion: { in: array }` | `key(:attr) { |attr| attr.included_in?(array) }` |
 
 > Note: As per ActiveRecord docs, `:within` option is an alias of `:in`
 
@@ -175,7 +175,7 @@ If you want to be sure that an association is absent, you'll need create a custo
 #### Booleans
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-`key(:attr) { |attr| attr.exclusion?([true, false]) }`
+`key(:attr) { |attr| attr.excluded_from?([true, false]) }`
 
 ### 2.11 uniqueness
 Custom Predicate
@@ -223,7 +223,7 @@ To achieve this in Dry Validation you will need to create a custom rule.
 
 .1. Initially we declare a rule for each of the attributes we need to reference
 ```ruby
-key(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
+key(:payment_type) { |payment_type| payment_type.included_in?(["card", "cash", "cheque"]) }
 key(:card_number) { |card_number| card_number.none? | card_number.filled? }
 ```
 .2. Declare a custom predicate to check if `payment_type == 'card'`
@@ -242,7 +242,7 @@ end
 
 Put it all together and you get:
 ```ruby
-key(:payment_type) { |payment_type| payment_type.inclusion?(["card", "cash", "cheque"]) }
+key(:payment_type) { |payment_type| payment_type.included_in?(["card", "cash", "cheque"]) }
 key(:card_number) { |card_number| card_number.none? | card_number.filled? }
 
 rule(:require_card_number) do
