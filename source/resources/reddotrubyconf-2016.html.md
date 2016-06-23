@@ -16,9 +16,18 @@ If you’ve ever yearned for more than the Rails way, come along and learn how a
 
 <script async class="speakerdeck-embed" data-id="8704b908c14a41df96aa6d563cd2887c" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
+## Resources
+
+* [dry-rb documentation](http://dry-rb.org/)
+* [dry-rb on GitHub](https://github.com/dry-rb)
+* [rom-rb documentation](http://rom-rb.org/)
+* [rom-rb on GitHub](https://github.com/rom-rb)
+* [roda documentation](http://roda.jeremyevans.net)
+* [roda on GitHub](https://github.com/jeremyevans/roda)
+
 ## Open source examples
 
-Check out [icelab/berg](https://github.com/icelab/berg), a live, working example of a dry-web app, powering the [Icelab](http://icelab.com.au) company website.
+Check out [icelab/berg](https://github.com/icelab/berg), a live, working example of a dry-web app, powering the brand-new [Icelab company website](http://icelab.com.au).
 
 ## Further reading
 
