@@ -8,13 +8,13 @@ layout: news-single
 
 ## Slides
 
+<script async class="speakerdeck-embed" data-id="8704b908c14a41df96aa6d563cd2887c" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
 ### Next-generation Ruby web apps with dry-rb, rom-rb, and Roda
 
 Thursday 23rd June, 2016
 
 If you’ve ever yearned for more than the Rails way, come along and learn how a small set of tools and techniques can bring joy to your Ruby web app development, from the smallest beginnings through to the most complex of codebases. Discover how concepts like functional programming, immutability, strict typing, dependency injection and object composition can actually be easy and natural in Ruby (yes, really!), and how they will make your web app a pleasure to build, test and extend.
-
-<script async class="speakerdeck-embed" data-id="8704b908c14a41df96aa6d563cd2887c" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
 ## Resources
 
