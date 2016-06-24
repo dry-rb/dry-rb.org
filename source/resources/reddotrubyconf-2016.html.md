@@ -25,6 +25,8 @@ If you’ve ever yearned for more than the Rails way, come along and learn how a
 * [roda documentation](http://roda.jeremyevans.net)
 * [roda on GitHub](https://github.com/jeremyevans/roda)
 
+And be sure to check out Piotr Solnica’s upcoming book, [Web Development with ROM and Roda](https://leanpub.com/web-development-with-rom-and-roda)!
+
 ## Open source examples
 
 Check out [icelab/berg](https://github.com/icelab/berg), a live, working example of a dry-web app, powering the brand-new [Icelab company website](http://icelab.com.au).
