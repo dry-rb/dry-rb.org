@@ -46,8 +46,8 @@ gems:
     name: dry-logic
     desc: Predicate logic with composable rules
   -
-    name: dry-result_matcher
-    desc: Expressive match API for operating on Either results
+    name: dry-matcher
+    desc: Flexible, expressive pattern matching
   -
     name: dry-monads
     desc: Useful, common monads in idiomatic Ruby
