@@ -64,7 +64,7 @@ Dry::Validation.Schema do
 end
 ```
 
-This finally allows us to define each rules with additional rules for the value itself. For example let’s define a rule that specified that the `:data` key is required and its value must be an array with 3 elements - where every element is an integer:
+This finally allows us to define each rules with additional rules for the value itself. For example let’s define a rule that specifies that the `:data` key is required and its value must be an array with 3 elements - where every element is an integer:
 
 ``` ruby
 Dry::Validation.Schema do
@@ -86,7 +86,6 @@ Here are some examples:
 ``` ruby
 Dry::Validation.Schema do
   required(:tags).filled(:str?, included_in?: %w(red green blue))
-  required(:name).filled(:str?, includes?: "foo")
   required(:num).filled(:int?, not_eql?: 10)
 end
 ```
