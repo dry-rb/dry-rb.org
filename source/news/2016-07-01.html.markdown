@@ -103,7 +103,7 @@ en:
   errors:
     min_size?:
       failure: "size can't be less than %{num}"
-      hint: "please make sure it has at least 3 chars"
+      hint: "please make sure it has at least %{num} chars"
 ```
 
 Now hints will be different than actual validation errors:
