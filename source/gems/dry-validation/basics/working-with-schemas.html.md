@@ -21,8 +21,8 @@ Example:
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:email).required
-  key(:age).required
+  required(:email).filled
+  required(:age).filled
 end
 
 result = schema.call(email: 'jane@doe.org', age: 21)

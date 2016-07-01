@@ -21,8 +21,8 @@ This can be easily expressed through the DSL:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
-  key(:age).required(:int?, gt?: 18)
+  required(:email).filled(:str?)
+  required(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call(email: 'jane@doe.org', age: 19).messages

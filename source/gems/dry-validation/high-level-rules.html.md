@@ -9,11 +9,11 @@ For example let's say we have a schema with 3 keys, `:barcode`, `:job_number` an
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:barcode).maybe(:str?)
+  required(:barcode).maybe(:str?)
 
-  key(:job_number).maybe(:int?)
+  required(:job_number).maybe(:int?)
 
-  key(:sample_number).maybe(:int?)
+  required(:sample_number).maybe(:int?)
 
   rule(barcode_only: [:barcode, :job_number, :sample_number]) do |barcode, job_num, sample_num|
     barcode.filled? & (job_num.none? & sample_num.none?)
@@ -29,8 +29,8 @@ Similar to rules that depend on results from other rules, you can define high-le
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:login).required(:bool?)
-  key(:email).maybe(:str?)
+  required(:login).filled(:bool?)
+  required(:email).maybe(:str?)
 
   rule(email_presence: [:login, :email]) do |login, email|
     login.true?.then(email.filled?)
@@ -44,8 +44,8 @@ We can also easily specify a rule for the absence of an email:
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:login).required(:bool?)
-  key(:email).maybe(:str?)
+  required(:login).filled(:bool?)
+  required(:email).maybe(:str?)
 
   rule(email_absence: [:login, :email]) do |login, email|
     login.false?.then(email.none?)

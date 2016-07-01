@@ -11,7 +11,7 @@ This document explains how rule composition works in terms of predicate logic.
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { int? & gt?(18) }
+  required(:age) { int? & gt?(18) }
 end
 ```
 
@@ -21,7 +21,7 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { none? | int? }
+  required(:age) { none? | int? }
 end
 ```
 
@@ -31,7 +31,7 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { filled? > int? }
+  required(:age) { filled? > int? }
 end
 ```
 
@@ -43,8 +43,8 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:eat_cookie).required
-  key(:have_cookie).required
+  required(:eat_cookie).filled
+  required(:have_cookie).filled
 
   rule(be_reasonable: [:eat_cookie, :have_cookie]) do |eat_cookie, have_cookie|
     eat_cookie.eql?('yes') ^ have_cookie.eql?('yes')
