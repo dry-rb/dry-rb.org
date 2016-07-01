@@ -88,7 +88,6 @@ Here are some examples:
 ``` ruby
 Dry::Validation.Schema do
   required(:tags).filled(:str?, included_in?: %w(red green blue))
-  required(:name).filled(:str?, includes?: "foo")
   required(:num).filled(:int?, not_eql?: 10)
 end
 ```
