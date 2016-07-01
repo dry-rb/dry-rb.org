@@ -30,7 +30,7 @@ end
 
 schema = Dry::Validation.Schema do
   configure do
-    config.predicates = MyPredicates
+    predicates(MyPredicates)
   end
 
   required(:email).filled(:str?, :email?)
