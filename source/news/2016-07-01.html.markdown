@@ -4,11 +4,11 @@ date: 2016-07-01
 author: solnic
 ---
 
-After 2 months of hard work we are happy to announce the release of dry-validation 0.8.0! This release brings many new features, performance improvements and important bug fixes.
+After 2 months of hard work we are happy to announce the release of dry-validation 0.8.0! This release includes many new features, performance improvements and important bug fixes.
 
 ## Installation
 
-At the time of writing this, there’s a weird issue with the rubygems.org index, and `bundle install` won’t work in your project because it doesn’t find latest version of dry-logic. For now please **install dry-validation manually** and then do `bundle install`, so:
+At the time of writing this, there’s a weird issue with the rubygems.org index where `bundle install` won’t work in your project because it doesn’t find latest version of dry-logic. For now please **install dry-validation manually** and then do `bundle install`, so:
 
 ```
 gem install dry-validation
@@ -17,7 +17,7 @@ bundle install
 
 ## Upgrading
 
-If you are upgrading from 0.7.x you should see plenty of deprecation warnings related to renamed macros. Updating it is pretty straightforward, but if you don’t feel like doing it now and warnings are annoying while you’re running your tests, just configure deprecation logger and revisit the output later:
+If you are upgrading from 0.7.x you should see plenty of deprecation warnings related to renamed macros and predicates. Updating it is pretty straightforward, but if you don’t feel like doing it now and warnings are annoying while you’re running your tests, just configure deprecation logger and revisit the output later:
 
 ``` ruby
 Dry::Validation::Deprecations.configure do |config|
@@ -43,7 +43,9 @@ Let’s take a look at a couple of highlights of this release.
 
 We have refined existing macros and added a couple of new ones to allow rule compositions which were not possible before.
 
-The new `filled` macro (which replaces `required`) and the `maybe` macro now support blocks too, and both are based on a simpler, new macro called `value`. The `key` macro has been renamed to `required` which makes it easier to understand the difference between defining required or optional keys and rules for their values.
+The new `filled` macro (which replaces `required`) and the `maybe` macro now support blocks too, and both are based on a simpler, new macro called `value`.
+
+The `key` macro has been renamed to `required` which makes it easier to understand the difference between defining required or optional keys and rules for their values.
 
 Here’s an example:
 
@@ -64,7 +66,7 @@ Dry::Validation.Schema do
 end
 ```
 
-This finally allows us to define each rules with additional rules for the value itself. For example let’s define a rule that specified that the `:data` key is required and its value must be an array with 3 elements - where every element is an integer:
+This allows you to define each rules with additional rules for the value itself. For example let’s define a rule where the `:data` key is required and its value must be an array with 3 elements - where every element is an integer:
 
 ``` ruby
 Dry::Validation.Schema do
@@ -93,9 +95,9 @@ end
 
 ## Customizable hints
 
-In addition to a number of bug fixes, we've added support for defining seperate message for hints and error messages. This allows you to customize messages when a value didn’t pass basic checks and you want to display additional messages that are different than errors:
+In addition to a number of bug fixes, we've added support for defining a seperate message for hints and error messages. This allows you to customize messages when a value didn’t pass basic checks and you want to display additional messages that are different than errors:
 
-To make use of this feature you need to tweak your errors.yml as follows:
+To make use of this feature you need to tweak your `errors.yml` as follows:
 
 ``` yaml
 en:
@@ -121,7 +123,7 @@ UserSchema.(login: "fo").messages
 
 ## Root-level rules
 
-A root-level rule is applied **first** to the input that’s passed to a schema. It is a useful feature for cases where you completely don’t trust that the input will have a correct type (ie. you don’t know if it will always be a hash).
+A root-level rule is applied to an input **before** any other rules in your schema. It's a useful feature for cases where you can't guarantee that the input will be the correct type (i.e. you don’t know if it will always be a hash).
 
 Usage is very simple:
 
@@ -135,13 +137,13 @@ end
 UserSchema.(nil).messages # ["must be a hash"]
 ```
 
-Notice that the messages is a flat array in this case, since we don’t have any identifier for the input value, like in case of individual keys in a hash.
+Notice that when a root-level rule fails, `messages` returns a flat array rather than a hash.
 
 ## Support for zero-arity predicates
 
-For context-aware schemas you can now define rules with predicates that rely on schema’s state and don’t need any arguments.
+For context-aware schemas you can now define rules with predicates that rely on a schema’s state and don’t need any arguments.
 
-Let’s say we want to make sure that `:login_time` exists for users that are logged in, which we detect by checking if `current_user[:id]` exists using a custom predicate:
+Let’s say we want to make sure that `:login_time` exists for users that are logged in. We can verify this by checking if `current_user[:id]` exists using the following custom predicate:
 
 ``` ruby
 UserSchema = Dry::Validation.Schema do
@@ -174,9 +176,9 @@ schema.(name: "Jane", login_time: nil).messages
 
 ## Improved messages
 
-Messages now have access to all predicate arguments by default. If you add a custom predicate with arguments, the argument values will be available in your message templates using the name of the argument as a token.
+Messages now have access to **all** predicate arguments by default. If you add a custom predicate with arguments, the argument values will be available in your message templates using the name of the argument as the token.
 
-Given a custom message like this:
+For example:
 
 ``` yaml
 en:
@@ -201,13 +203,13 @@ UserSchema.(data: "w00t").messages
 
 ## New way of configuring coercions
 
-The default behavior for coercions is to automatically infer them from rule definitions. It’s smart and reduces code duplication; however, it turned out to be extremely slow. Furthermore, it is an implicit behavior that we don’t really like. That’s why it’s been decided that we’ll be separating coercions from validation rules for 1.0.0. This release is the first step in that direction. Final API is not yet discovered, ideas and feedback are much appreciated!
+The default behavior for coercions is to automatically infer them from rule definitions. It’s smart and reduces code duplication; however, it turned out to be extremely slow. Furthermore, it's behaviour was a little too magical for our liking. That’s why we have decided to separate coercions from validation rules as of version 1.0.0. This release is the first step in that direction. The current API is not finalised so ideas and feedback are much appreciated!
 
-For more details on this feature [see our guide here](/gems/dry-validation/type-specs)
+For more details on this feature [see our guide here](/gems/dry-validation/type-specs).
 
 ## Extendible DSL
 
-If your schemas become verbose with a lot of duplication, you can now provide your own methods to DRY things up:
+You can now provide your own methods to DRY up your schema definitions:
 
 ``` ruby
 module MyMacros
