@@ -106,9 +106,9 @@ describe 'empty?' do
   end
 
   it 'with regular ruby' do
-    assert !{sample: ""}[:sample].empty?
-    assert !{sample: []}[:sample].empty?
-    assert !{sample: {}}[:sample].empty?
+    assert {sample: ""}[:sample].empty?
+    assert {sample: []}[:sample].empty?
+    assert {sample: {}}[:sample].empty?
   end
 
   it 'with dry-validation' do
