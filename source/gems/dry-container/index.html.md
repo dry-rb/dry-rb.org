@@ -17,11 +17,10 @@ Making use of the dependency inversion principle, with an IoC container and low-
 
 ```ruby
 container = Dry::Container.new
-container.register(:parrot) { |a| puts a }
+container.register(:parrot) { puts "Hello world" }
 
-parrot = container.resolve(:parrot)
-parrot.call("Hello World")
-# Hello World
+container.resolve(:parrot)
+# >> Hello World
 # => nil
 ```
 
