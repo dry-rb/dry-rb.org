@@ -6,15 +6,6 @@ author: solnic
 
 After 2 months of hard work we are happy to announce the release of dry-validation 0.8.0! This release includes many new features, performance improvements and important bug fixes.
 
-## Installation
-
-At the time of writing this, there’s a weird issue with the rubygems.org index where `bundle install` won’t work in your project because it doesn’t find latest version of dry-logic. For now please **install dry-validation manually** and then do `bundle install`, so:
-
-```
-gem install dry-validation
-bundle install
-```
-
 ## Upgrading
 
 If you are upgrading from 0.7.x you should see plenty of deprecation warnings related to renamed macros and predicates. Updating it is pretty straightforward, but if you don’t feel like doing it now and warnings are annoying while you’re running your tests, just configure deprecation logger and revisit the output later:
