@@ -21,7 +21,7 @@ we're going to use `dry-container`:
 my_container = Dry::Container.new
 
 my_container.register("data_store", -> { DataStore.new })
-my_container.register("user_repository", -> { container["data_store"][:users] })
+my_container.register("user_repository", -> { my_container["data_store"][:users] })
 my_container.register("persist_user", -> { PersistUser.new })
 
 # set up your auto-injection function
