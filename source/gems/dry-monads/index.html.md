@@ -12,7 +12,7 @@ name: dry-monads
 
 Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`'s and `else`'s. The gem was inspired by [Kleisli](https://github.com/txus/kleisli) gem.
 
-See [dry-result_matcher](/gems/dry-result_matcher/) for an example of how to use monads for controlling the flow of code with a result.
+See [dry-matcher](/gems/dry-matcher/) for an example of how to use monads for controlling the flow of code with a result.
 
 ## Usage
 
