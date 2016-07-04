@@ -80,7 +80,7 @@ class Container
 
   register :process, -> input { Right(name: input["name"], email: input["email"]) }
   register :validate, -> allowed, input { input[:email].include?(allowed) ? Left(:not_valid) : Right(input) }
-  register :persist, -> input { DB << input; Right(:input) }
+  register :persist, -> input { DB << input; Right(input) }
 end
 
 save_user = Dry.Transaction(container: Container) do
