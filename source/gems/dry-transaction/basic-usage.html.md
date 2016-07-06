@@ -25,7 +25,7 @@ class Container
   }
 
   register :persist, -> input {
-    DB << input; Dry::Monads.Right(:input)
+    DB << input; Dry::Monads.Right(input)
   }
 end
 ```
@@ -97,7 +97,7 @@ class Container
   }
 
   register :persist, -> input {
-    DB << input; Dry::Monads.Right(:input)
+    DB << input; Dry::Monads.Right(input)
   }
 end
 
