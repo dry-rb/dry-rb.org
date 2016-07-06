@@ -30,7 +30,7 @@ sections:
 
 Requiring a business transaction’s steps to be independent operations directly addressable via a container means that they can be tested in isolation and easily reused throughout your application. The business transaction can then become a simple series of declarative steps, which ensures that it’s easy to understand at a glance.
 
-The output of each step is a [Kleisli](https://github.com/txus/kleisli) `Either` object (`Right` for success or `Left` for failure). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning an `Either` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic.
+The output of each step is a [dry-monads](https://github.com/dry-rb/dry-moands) `Either` object (`Right` for success or `Left` for failure). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning an `Either` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic.
 
 ## Links
 
@@ -40,4 +40,4 @@ View the [full API documentation](http://www.rubydoc.info/github/dry-rb/dry-tran
 
 `dry-transaction` is developed and maintained by [Icelab](http://icelab.com.au/).
 
-`dry-transaction`’s error handling is based on Scott Wlaschin’s [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/), found via Zohaib Rauf’s [Railway Oriented Programming in Elixir](http://zohaib.me/railway-programming-pattern-in-elixir/) blog post. dry-transaction’s behavior as a business transaction library draws heavy inspiration from Piotr Solnica’s [Transflow](http://github.com/solnic/transflow) and Gilbert B Garza’s [Solid Use Case](https://github.com/mindeavor/solid_use_case). Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem makes functional programming patterns in Ruby accessible and fun. Thank you all!
+`dry-transaction`’s error handling is based on Scott Wlaschin’s [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/), found via Zohaib Rauf’s [Railway Oriented Programming in Elixir](http://zohaib.me/railway-programming-pattern-in-elixir/) blog post. dry-transaction’s behavior as a business transaction library draws heavy inspiration from Piotr Solnica’s [Transflow](http://github.com/solnic/transflow) and Gilbert B Garza’s [Solid Use Case](https://github.com/mindeavor/solid_use_case). Thank you all!
