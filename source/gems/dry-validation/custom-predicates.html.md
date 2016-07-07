@@ -7,13 +7,13 @@ You can simply define predicate methods on your schema object:
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  required(:email).filled(:str?, :email?)
-
   configure do
     def email?(value)
       ! /magical-regex-that-matches-emails/.match(value).nil?
     end
   end
+
+  required(:email).filled(:str?, :email?)
 end
 ```
 
