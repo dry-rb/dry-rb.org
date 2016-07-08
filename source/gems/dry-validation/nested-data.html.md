@@ -41,6 +41,31 @@ puts errors.to_h.inspect
 # }
 ```
 
+### Nested Maybe Hash
+
+If a nested hash could be nil, simply use `maybe` macro with a block:
+
+``` ruby
+require 'dry-validation'
+
+schema = Dry::Validation.Schema do
+  required(:address).maybe do
+    schema do
+      required(:city).filled(min_size?: 3)
+
+      required(:street).filled
+
+      required(:country).schema do
+        required(:name).filled
+        required(:code).filled
+      end
+    end
+  end
+end
+
+schema.(address: nil).success? # true
+```
+
 ### Nested Array
 
 You can use `each` macro for validating each element in an array:

@@ -12,6 +12,7 @@ Schema definition best practices:
 * Specify type expectations for all the values!
 * Use custom predicates to keep things concise when built-in predicates create too much noise
 * Assign schema objects to constants for convenient access
+* Define a base schema for your application with common configuration
 
 ### Calling a Schema
 
@@ -38,6 +39,30 @@ result.success?
 # check if any of the rules failed
 result.failure?
 # => false
+```
+
+### Defining Base Schema Class
+
+``` ruby
+class AppSchema < Dry::Validation::Schema
+  configure do |config|
+    config.messages_file = '/my/app/config/locales/en.yml'
+    config.messages = :i18n
+  end
+
+  def email?(value)
+    true
+  end
+
+  define! do
+    # define common rules, if any
+  end
+end
+
+# now you can build other schemas on top of the base one:
+Dry::Validation.Schema(AppSchema) do
+  # define your rules
+end
 ```
 
 ### Working With Messages
