@@ -18,7 +18,7 @@ See [dry-matcher](/gems/dry-matcher/) for an example of how to use monads for co
 
 ### Maybe monad
 
-The `Maybe` monad is used when a series of computations that could return `nil` at any point.
+The `Maybe` monad is used when a series of computations could return `nil` at any point.
 
 #### `bind`
 
@@ -140,7 +140,7 @@ result = c.calculate
 result # => Right(12)
 result.value # => 12
 
-# If if failed in the first block
+# If it failed in the first block
 c.input = 0
 result = c.calculate
 result # => Left("value was less than 1")
@@ -173,7 +173,7 @@ result # => Right(20)
 # If it did not
 result # => Left("wrong")
 
-# #fmap accepts a proc as well as #bind
+# #fmap accepts a proc, just like #bind
 
 upcase = :upcase.to_proc
 
@@ -252,7 +252,7 @@ module ExceptionalLand
 end
 ```
 
-It is better you to pass a list of expected exceptions which you sure you can process. Catching exceptions of all types is considered as bad practice.
+It is better if you pass a list of expected exceptions which you are sure you can process. Catching exceptions of all types is considered bad practice.
 
 `Try` monad consists of two types: `Success` and `Failure`. The first is returned when code did not raise an error and the second is returned when the error was captured.
 
