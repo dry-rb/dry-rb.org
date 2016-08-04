@@ -1,0 +1,63 @@
+people:
+  -
+    name: Andy Holland
+    image: andy.png
+    github_handle: AMHOL
+    location: Manchester, UK
+    since: 2015
+    bio:
+    gems:
+      - dry-container
+      - dry-configurable
+      - etc.
+  -
+    name: Piotr Solnica
+    image: piotr.jpg
+    github_handle: solnic
+    location: Mountains of Poland
+    since: 2015
+    bio:
+    gems:
+      - dry-validation
+      - etc.
+  -
+    name: Tim Riley
+    image: tim.jpg
+    github_handle: timriley
+    location: Canberra, Australia
+    since: 2015
+    bio: |
+      Tim helps run [Icelab](http://icelab.com.au/), where the team has
+      adopted dry-rb and [rom-rb](http://rom-rb.org/) for their prime Ruby web
+      stack. He’s particularly interested in improving (and talking about!)
+      high-level web app architecture in Ruby.
+
+    gems:
+      - dry-web
+      - dry-web-roda
+      - dry-component
+      - dry-auto_inject
+      - dry-view
+      - dry-transaction
+      - dry-matcher
+  -
+    name: Nikita Shilnikov
+    image: nikita.jpg
+    github_handle: flash-gordon
+    location: Moscow, Russia
+    since: 2016
+    bio:
+    gems:
+      - dry-monads
+      - etc.
+  -
+    name: Fran Worley
+    image: fran.jpg
+    github_handle: fran-worley
+    location: London, UK
+    since: 2016
+    bio:
+    gems:
+      - dry-logic
+      - dry-validation
+      - etc.
