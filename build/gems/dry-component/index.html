@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-component - Introduction</title><link href="/assets/stylesheets/site-4002c8f8.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="http://github.com/dry-rb">GitHub</a></li><li><a href="https://discuss.dry-rb.org">Discuss</a></li><li><a href="https://gitter.im/dry-rb/chat">Gitter</a></li></ul></nav><div class="intro-page"><h1>dry-component</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a class="active" href="/gems/dry-component/">Introduction</a><li><a class="" href="/gems/dry-component/container/">Container</a></li><li><a class="" href="/gems/dry-component/auto-import/">Auto-Import</a></li><li><a class="" href="/gems/dry-component/booting-a-dependency/">Booting a Dependency</a></li><li><a class="" href="/gems/dry-component/environment-and-options/">Environment & Options</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Introduction</h2><p>Dependency management system based on <a href="/gems/dry-container">dry-container</a> and <a href="/gems/dry-auto_inject">dry-auto_inject</a> allowing you to configure reusable components in any environment, set up their load-paths, require needed files and instantiate objects automatically with the ability to have them injected as dependencies.</p>
+
+<p>Originally built for <a href="https://github.com/solnic/rodakase">rodakase</a> stack, now as a standalone, small library.</p>
+
+<p>This is a simple system that relies on very basic mechanisms provided by Ruby, specifically <code>require</code> and managing <code>$LOAD_PATH</code>. It does not rely on any magic like automatic const resolution, it&rsquo;s pretty much the opposite and forces you to be explicit about dependencies in your applications.</p>
+
+<p>It does a couple of things for you that are really not something you want to do yourself:</p>
+
+<ul>
+<li>Provides an abstract dependency container implementation</li>
+<li>Handles <code>$LOAD_PATH</code> configuration</li>
+<li>Loads needed files using <code>require</code></li>
+<li>Resolves dependencies automatically</li>
+<li>Supports auto-registration of dependencies via file/dir naming conventions</li>
+<li>Provides support for custom configuration loaded from external sources (ie YAML)</li>
+</ul>
+
+<p>To put it all together, this allows you to configure your system in a way where you have full control over dependencies and it&rsquo;s very easy to draw the boundaries between individual components.</p>
+
+<p>This comes with a bunch of nice benefits:</p>
+
+<ul>
+<li>Your system relies on abstractions rather than concrete classes and modules</li>
+<li>It helps in decoupling your code from 3rd party code</li>
+<li>It makes it possible to load components in complete isolation. In example you can run a single test for a single component and only required files will be loaded, or you can run a rake task and it will only load the things it needs.</li>
+<li>It opens up doors to better instrumentation and debugging tools</li>
+</ul>
+</article></div></div><footer><div class="content-wrap"><div class="footer__credits"><p>dry-rb is maintained by&nbsp;<a href="https://twitter.com/_solnic_">@_solnic_</a>,&nbsp;<a href="https://twitter.com/ndyHolland1991">@ndyHolland1991</a>,&nbsp;and&nbsp;<a href="https://twitter.com/timriley">@timriley</a>. This website was made by&nbsp;<a href="http://twitter.com/icelab">@icelab</a>. <br />Tweet your questions and suggestions to&nbsp;<a href="http://twitter.com/dry_rb">@dry_rb&nbsp;</a>and follow us for updates.</p></div><div class="footer__social"><a class="btn-social" href="https://github.com/dry-rb">GitHub</a><a class="btn-social" href="https://twitter.com/dry_rb">Twitter</a><a class="btn-social" href="https://gitter.im/dry-rb/chat">Gitter</a></div></div></footer></body></html>

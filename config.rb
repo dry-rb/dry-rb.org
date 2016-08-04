@@ -236,14 +236,6 @@ end
 
 helpers TypographyHelpers
 
-# Build configuration ----------------------------------------------------------
-
-activate :deploy do |config|
-  config.deploy_method = :git
-  config.branch = 'gh-pages'
-  config.build_before = true
-end
-
 # Build-specific configuration
 configure :build do
   activate :gzip
