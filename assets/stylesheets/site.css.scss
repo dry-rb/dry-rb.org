@@ -755,28 +755,39 @@ article ul li {
 
 // Community page
 
+.people {
+  padding-bottom: 30px;
+  @include tablet {
+    padding-bottom: 10px;
+  }
+
+  @include mobile {
+    padding-bottom: 10px;
+  }
+}
+
 .people-list {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 20px;
-  padding-top: 30px;
+  padding-bottom: 10px;
+  padding-top: 20px;
 }
 
 .people-list__item {
   @include col(1,3);
   display: flex;
-  padding-bottom: 30px;
 
   @include tablet {
-    @include col(1,2);
+    @include col(1,1);
     display: flex;
+    padding-bottom: 20px;
   }
 
   @include mobile {
     @include col(1,1);
     display: flex;
+    padding-bottom: 20px;
   }
-
 }
 
 .people-list__item:before {
@@ -795,9 +806,25 @@ article ul li {
     padding-top: 20px;
     margin-bottom: 5px;
     text-align: center;
+    @include tablet {
+      padding-top: 30px;
+    }
+
+    @include mobile {
+      padding-top: 30px;
+    }
   }
   img {
     width: 100%;
+    @include tablet {
+      margin: 0 auto;
+      max-width: 400px;
+    }
+
+    @include mobile {
+      margin: 0 auto;
+      max-width: 300px;
+    }
   }
 }
 
