@@ -17,19 +17,22 @@ p
   | Day-to-day maintenance and overall direction of the dry-rb gems is handled by a core team. This group of long-term contributors evaluates issues and pull requests, manages releases, and contributes to major new features.
 
 .people
-  - data.core_team.people.each do |person|
-    .person
-      img src="/images/core-team/#{person.image}"
-      = person.name
-      br
-      = "Since #{person.since}"
-      br
-      = person.location
-      == md person.bio
-      ol.gems
-        - person.gems.each do |gem|
-          li = gem
-      a.github href="http://github.com/#{person.github_handle}" = "@#{person.github_handle}"
+  - data.core_team.people.in_groups_of(3).each do |group|
+    ul.people-list
+      - group.compact.each do |person|
+        li.people-list__item
+          .person
+            .person__image
+              img.circular src="/images/core-team/#{person.image}"
+            h3.person__name = person.name
+            p.person__byline = "Since #{person.since} — #{person.location}"
+            .person__bio == md person.bio
+            ol.person__gems
+              - person.gems.each do |gem|
+                li.person__gems--item = gem
+            a.person__github href="http://github.com/#{person.github_handle}"
+              span.ss-icon.ss-social.octocat octocat
+              = "@#{person.github_handle}"
 
 h2 Code of conduct
 
