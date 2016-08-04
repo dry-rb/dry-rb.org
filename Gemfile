@@ -8,7 +8,6 @@ gem "middleman"
 gem "middleman-dotenv"
 gem "middleman-livereload"
 gem "middleman-minify-html"
-gem 'middleman-deploy', github: 'middleman-contrib/middleman-deploy'
 gem "middleman-blog"
 gem "middleman-syntax"
 
