@@ -751,3 +751,91 @@ article ul li {
   font-weight: 900;
   color: $dark-blue;
 }
+
+
+// Community page
+
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  padding-top: 30px;
+}
+
+.people-list__item {
+  @include col(1,3);
+  display: flex;
+  padding-bottom: 30px;
+
+  @include tablet {
+    @include col(1,2);
+    display: flex;
+  }
+
+  @include mobile {
+    @include col(1,1);
+    display: flex;
+  }
+
+}
+
+.people-list__item:before {
+  content: none;
+}
+
+.person {
+  background: #FFFFFF;
+  display: block;
+  width: 100%;
+
+  .circular {
+    border-radius: 50%;
+  }
+  h3 {
+    padding-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+.person__byline {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.person__gems {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+}
+
+.person__gems--item {
+  border-radius: 3px;
+  border: 1px solid #E9F7FB;
+  background-color: #E9F7FB;
+  color: $dark-grey;
+  font-size: 13px;
+  margin-right: 3px;
+  padding: 2px 3px 0 3px;
+}
+
+.person__gems--item:before {
+  content: none;
+}
+
+.person__github {
+  font-size: 16px;
+  padding-left: 25px;
+}
+
+.octocat {
+  font-size: 20px;
+  position: absolute;
+  left: 15px;
+}
+
