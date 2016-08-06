@@ -46,10 +46,18 @@ people:
     github_handle: flash-gordon
     location: Moscow, Russia
     since: 2016
-    bio:
+    bio: |
+      Nikita has been programming in PL/SQL and Ruby for six years,
+      he came to dry-rb through [rom-rb](http://rom-rb.org/). Whenever you see
+      a really weird behavior, feel free to ask him for help.
+
     gems:
       - dry-monads
-      - etc.
+      - dry-types
+      - dry-struct
+      - dry-transaction
+      - dry-matcher
+      - dry-auto_inject
   -
     name: Fran Worley
     image: fran.jpg
