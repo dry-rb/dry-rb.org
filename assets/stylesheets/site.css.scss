@@ -835,26 +835,6 @@ article ul li {
   text-align: center;
 }
 
-.person__gems {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 20px;
-}
-
-.person__gems--item {
-  border-radius: 3px;
-  border: 1px solid #E9F7FB;
-  background-color: #E9F7FB;
-  color: $dark-grey;
-  font-size: 13px;
-  margin-right: 3px;
-  padding: 2px 3px 0 3px;
-}
-
-.person__gems--item:before {
-  content: none;
-}
-
 .person__github {
   font-size: 16px;
   padding-left: 25px;

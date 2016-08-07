@@ -27,9 +27,6 @@ p
             h3.person__name = person.name
             p.person__byline = "Since #{person.since} — #{person.location}"
             .person__bio == md person.bio
-            ol.person__gems
-              - person.gems.each do |gem|
-                li.person__gems--item = gem
             a.person__github href="http://github.com/#{person.github_handle}"
               span.ss-icon.ss-social.octocat octocat
               = "@#{person.github_handle}"

@@ -6,10 +6,6 @@ people:
     location: Manchester, UK
     since: 2015
     bio:
-    gems:
-      - dry-container
-      - dry-configurable
-      - etc.
   -
     name: Piotr Solnica
     image: piotr.jpg
@@ -17,9 +13,6 @@ people:
     location: Mountains of Poland
     since: 2015
     bio:
-    gems:
-      - dry-validation
-      - etc.
   -
     name: Tim Riley
     image: tim.jpg
@@ -31,15 +24,6 @@ people:
       adopted dry-rb and [rom-rb](http://rom-rb.org/) for their prime Ruby web
       stack. He’s particularly interested in improving (and talking about!)
       high-level web app architecture in Ruby.
-
-    gems:
-      - dry-web
-      - dry-web-roda
-      - dry-component
-      - dry-auto_inject
-      - dry-view
-      - dry-transaction
-      - dry-matcher
   -
     name: Nikita Shilnikov
     image: nikita.jpg
@@ -50,14 +34,6 @@ people:
       Nikita has been programming in PL/SQL and Ruby for six years,
       he came to dry-rb through [rom-rb](http://rom-rb.org/). Whenever you see
       a really weird behavior, feel free to ask him for help.
-
-    gems:
-      - dry-monads
-      - dry-types
-      - dry-struct
-      - dry-transaction
-      - dry-matcher
-      - dry-auto_inject
   -
     name: Fran Worley
     image: fran.jpg
@@ -65,7 +41,3 @@ people:
     location: London, UK
     since: 2016
     bio:
-    gems:
-      - dry-logic
-      - dry-validation
-      - etc.
