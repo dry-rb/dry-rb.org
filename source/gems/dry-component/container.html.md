@@ -35,7 +35,7 @@ require 'dry/component/container'
 
 class Application < Dry::Component::Container
   configure do |config|
-    config.root = '/my/app'
+    config.root = Pathname.new('/my/app')
 
     # we set 'lib' relative to `root` as a path which contains class definitions
     # that can be auto-registered
