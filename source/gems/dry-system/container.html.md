@@ -3,16 +3,16 @@ title: Container
 layout: gem-single
 ---
 
-Main API of `dry-component` is the abstract container that you inherit from. It allows you to configure basic settings and exposes APIs for requiring files easily.
+Main API of `dry-system` is the abstract container that you inherit from. It allows you to configure basic settings and exposes APIs for requiring files easily.
 
 Let's say you want to define an application container that will provide a logger:
 
 ``` ruby
-require 'dry/component/container'
+require 'dry/system/container'
 
-class Application < Dry::Component::Container
+class Application < Dry::System::Container
   configure do |config|
-    config.root = Pathname.new('./my/app')
+    config.root = Pathname('./my/app')
   end
 end
 
@@ -31,11 +31,11 @@ By using simple naming conventions we can automatically register objects within 
 Let's provide a custom logger object and put it under a custom load-path that we will configure:
 
 ``` ruby
-require 'dry/component/container'
+require 'dry/system/container'
 
-class Application < Dry::Component::Container
+class Application < Dry::System::Container
   configure do |config|
-    config.root = '/my/app'
+    config.root = Pathname('./my/app')
 
     # we set 'lib' relative to `root` as a path which contains class definitions
     # that can be auto-registered

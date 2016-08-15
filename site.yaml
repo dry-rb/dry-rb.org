@@ -34,7 +34,7 @@ gems:
     name: dry-equalizer
     desc: Simple mixin providing equality methods
   -
-    name: dry-component
+    name: dry-system
     desc: Organize your code into reusable components
   -
     name: dry-configurable
