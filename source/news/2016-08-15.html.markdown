@@ -24,7 +24,7 @@ Yes, the almost forbidden word in the Ruby community. If you think we don’t ne
 ``` ruby
 class UserRepo
   attr_reader :db
-  
+
   def initialize(db)
     @db = db
   end
@@ -49,15 +49,11 @@ Such systems are loosely-coupled, they rely on abstractions, rather than concret
 
 ## How does it work?
 
-`dry-system` provides two main APIs - a container and a DI mixin. All you need to do is to define a system container, configure it with a root path and you’re done:
+`dry-system` provides two main APIs - a container and a DI mixin. All you need to do is to define a system container:
 
 ``` ruby
 # system/container.rb
 class MyApp < Dry::System::Container
-  configure do |config|
-    config.root = Pathname('..').realpath
-  end
-  
   load_paths!('lib')
 end
 ```
@@ -65,7 +61,7 @@ end
 Then, you can ask your system container to provide a DI mixin that you can use in your classes:
 
 ``` ruby
-# system/my_app/import.rb
+# system/import.rb
 require_relative 'container'
 Import = MyApp.injector
 ```
@@ -94,12 +90,15 @@ Here’s how we could configure Sequel:
 
 ``` ruby
 # system/boot/persistence.rb
-MyApp.namespace(:persistence) do |persistence|
-  start do
+MyApp.finalize(:persistence) do |persistence|
+  init do
     require 'sequel'
-    persistence.register(:db, Sequel.connect(ENV['DB_URL']))
   end
-  
+
+  start do
+    persistence.register('persistence.db', Sequel.connect(ENV['DB_URL']))
+  end
+
   stop do
     db.close_connection
   end
@@ -137,10 +136,9 @@ Convention-over-configuration is a great thing and we embrace it here too. Your 
 # system/container.rb
 class MyApp < Dry::System::Container
   configure do |config|
-    config.root = Pathname('..').realpath
     config.auto_register = %w(lib)
   end
-  
+
   load_paths!('lib')
 end
 ```
@@ -149,6 +147,8 @@ Now if you put `UserRepo` class definition in `lib/user_repo.rb`, it will be aut
 
 ## Learn more!
 
-You can check out a full-blown web application called [Berg](https://github.com/icelab/berg), which is based on `dry-system`. There’s also a [dedicated user documentation](/gems/dry-system) and [API documentation](https://rubydoc.info/gems/dry-system). You can already use `dry-system` via [dry-web-roda](https://github.com/dry-rb/dry-web-roda) and we’ll be working on support for Hanami and Rails soon too.
+You can check out a full-blown web application called [Berg](https://github.com/icelab/berg), which is based on `dry-system`. If you want to see something really basic - check out a [standalone example app](https://github.com/dry-rb/dry-system/tree/master/examples/standalone) with a full setup using examples from this article.
+
+There’s also a [dedicated user documentation](/gems/dry-system) and [API documentation](https://rubydoc.info/gems/dry-system). You can already use `dry-system` via [dry-web-roda](https://github.com/dry-rb/dry-web-roda) and we’ll be working on support for Hanami and Rails soon too.
 
 As always, there’s a lot to improve and we’ll continue to work on it. This release is a major improvement in terms of internal APIs as well as public-facing features, so we have a good foundation for future improvements. If you try it out and find any issues, please [report them](https://github.com/dry-rb/dry-system/issues).
