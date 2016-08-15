@@ -435,6 +435,10 @@ hr {
   @include mobile {
     @include col (1,1);
   }
+
+  strong {
+    font-weight: 900;
+  }
 }
 
 .news__list-item {
