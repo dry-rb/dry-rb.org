@@ -9,7 +9,7 @@ sections:
   - container-version
   - params-and-options
   - options-tolerance
-  - default-values
+  - optionals-and-defaults
   - type-constraints
   - readers
   - inheritance

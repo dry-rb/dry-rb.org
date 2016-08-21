@@ -1,5 +1,5 @@
 ---
-title: Default Values
+title: Optional Attributes and Default Values
 layout: gem-single
 ---
 
@@ -13,15 +13,18 @@ class User
 
   param  :name,  default: proc { 'Unknown user' }
   option :email, default: proc { 'unknown@example.com' }
+  option :phone, optional: true
 end
 
 user = User.new
 user.name  # => 'Unknown user'
 user.email # => 'unknown@example.com'
+user.phone # => Dry::Initializer::UNDEFINED
 
-user = User.new 'Vladimir', email: 'vladimir@example.com'
+user = User.new 'Vladimir', email: 'vladimir@example.com', phone: '71234567788'
 user.name  # => 'Vladimir'
 user.email # => 'vladimir@example.com'
+user.phone # => '71234567788'
 ```
 
 You cannot define required **parameter** after optional one. The following example raises `SyntaxError` exception:
@@ -37,7 +40,28 @@ class User
 end
 ```
 
-Set `nil` as a default value explicitly:
+**NOTICE** that unlike dry types, here we take `nil` and undefined (not assigned) values differently.
+
+You should assign `nil` value explicitly, or it will be left undefined:
+
+```ruby
+require 'dry-initializer'
+
+class User
+  extend Dry::Initializer::Mixin
+
+  param  :name
+  option :email, optional: true
+end
+
+user = User.new 'Andrew'
+user.email # => Dry::Initializer::UNDEFINED
+
+user = User.new 'Andrew', email: nil
+user.email # => nil
+```
+
+You can also set `nil` as a default value:
 
 ```ruby
 require 'dry-initializer'
@@ -51,9 +75,6 @@ end
 
 user = User.new 'Andrew'
 user.email # => nil
-
-user = User.new
-# => #<ArgumentError ...>
 ```
 
 You **must** wrap default values into procs.
