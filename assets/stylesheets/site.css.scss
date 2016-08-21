@@ -280,37 +280,73 @@ footer {
   width: 100%;
 }
 
-.footer__social {
-  @include col(1,3);
-  text-align: right;
-  vertical-align: top;
+.footer__links {
+  display: block;
+  text-align: center;
+}
 
-  @include tablet {
-    @include col(1,2);
+.footer__links ul {
+  display: block;
+
+  @include desktop {
+    display: inline-block;
+  }
+}
+
+.footer__links li {
+  display: block;
+  margin-bottom: 0.5em;
+
+  @include desktop {
+    display: inline-block;
+  }
+}
+
+.footer__links li:after {
+  @include desktop {
+    content: "\00b7";
+  }
+}
+
+.footer__links li:last-of-type:after {
+  @include desktop {
+    content: "";
+  }
+}
+
+.footer__links li a {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.footer__links li a span {
+  border-bottom: 2px solid rgba(255,255,255,0);
+  color: $white;
+  padding-bottom: 3px;
+  transition: border 250ms ease;
+
+  &:hover,
+  &:focus {
+    border-bottom: 2px solid rgba(255,255,255,.3);
   }
 
+  @include tablet {
+    padding-bottom: 1px;
+  }
   @include mobile {
-    @include col(1,1);
-    text-align: center;
+    padding-bottom: 1px;
   }
 }
 
 .footer__credits {
-  @include col(2,3);
+  margin-top: 2em;
+  text-align: center;
 
-  @include tablet {
-    @include col(1,2);
-    br {
-      display: none;
-    }
-  }
-
-  @include mobile {
-    @include col(1,1);
-    margin-bottom: 20px;
-    br {
-      display: none;
-    }
+  p {
+    color: $white;
+    display: inline-block;
+    font-size: 13px;
+    margin-bottom: 0;
   }
 
   a {
@@ -320,12 +356,6 @@ footer {
     &:hover {
       text-decoration: underline;
     }
-  }
-
-  p {
-    color: $white;
-    font-size: 13px;
-    margin-bottom: 0;
   }
 }
 
