@@ -758,6 +758,10 @@ article h2, .article h3 {
   }
 }
 
+article strong {
+  font-family: work_sansbold;
+}
+
 article ul li:before {
   color: $teal;
   content: "\2022"; /* Insert content that looks like bullets */
