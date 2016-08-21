@@ -807,12 +807,6 @@ article ul li {
   @include col(1,3);
   display: flex;
 
-  @include tablet {
-    @include col(1,1);
-    display: flex;
-    padding-bottom: 20px;
-  }
-
   @include mobile {
     @include col(1,1);
     display: flex;
@@ -832,28 +826,22 @@ article ul li {
   .circular {
     border-radius: 50%;
   }
+
   h3 {
     padding-top: 20px;
     margin-bottom: 5px;
     text-align: center;
-    @include tablet {
-      padding-top: 30px;
-    }
 
     @include mobile {
       padding-top: 30px;
     }
   }
+
   img {
     width: 100%;
-    @include tablet {
-      margin: 0 auto;
-      max-width: 400px;
-    }
-
     @include mobile {
       margin: 0 auto;
-      max-width: 300px;
+      max-width: 200px;
     }
   }
 }
