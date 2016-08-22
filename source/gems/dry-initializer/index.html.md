@@ -43,11 +43,11 @@ This is pretty the same as the following ruby code:
 
 ```ruby
 class User
-  attr_reader :name, :type, :admin
+  attr_reader :name, :role, :admin
 
-  def initialize(name, type = 'customer', admin: false)
+  def initialize(name, role = 'customer', admin: false)
     @name  = name
-    @type  = type
+    @role  = role
     @admin = admin
 
     fail TypeError unless String === @name
