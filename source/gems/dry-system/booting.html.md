@@ -72,7 +72,7 @@ end
 
 ### Using other bootable dependencies
 
-It is often needed to use another dependency when booting a component, you can use a convenient `uses` API for that, it will auto-boot required dependency
+It is often needed to use another dependency when booting a component, you can use a convenient `use` API for that, it will auto-boot required dependency
 and make it available in the booting context:
 
 ``` ruby
@@ -84,7 +84,7 @@ end
 
 # system/boot/db.rb
 Application.finalize(:db) do |container|
-  uses :logger
+  use :logger
   container.register(DB.new(ENV['DB_URL'], logger: logger))
 end
 ```
