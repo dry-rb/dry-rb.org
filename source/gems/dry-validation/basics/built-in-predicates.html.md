@@ -343,16 +343,16 @@ describe 'format?' do
 end
 ```
 
-### `inclusion?`
+### `included_in?`
 
 
 Checks that a value is included in a given array.
 
 ```ruby
-describe 'inclusion?' do
+describe 'included_in?' do
   let(:schema) do
     Dry::Validation.Schema do
-      required(:sample).value(inclusion?: [1,3,5])
+      required(:sample).value(included_in?: [1,3,5])
     end
   end
 
@@ -366,16 +366,15 @@ describe 'inclusion?' do
 end
 ```
 
-### `exclusion?`
-
+### `excluded_from?`
 
 Checks that a value is excluded from a given array.
 
 ```ruby
-describe 'exclusion?' do
+describe 'excluded_from?' do
   let(:schema) do
     Dry::Validation.Schema do
-      required(:sample).value(exclusion?: [1,3,5])
+      required(:sample).value(excluded_from?: [1,3,5])
     end
   end
 
