@@ -1,0 +1,34 @@
+---
+title: Community
+layout: news-single
+---
+
+h2 dry-rb is a community
+
+p
+  | dry-rb is here to help you build better Ruby apps. Our collection of gems is growing and evolving, and we welcome your contributions!
+
+p
+  | To get started, try out the gems and share your stories or questions in <a href="http://discuss.dry-rb.org/"><strong>our discussion forum</strong></a>. Find a bug or want to fix one? Share your <a href="http://github.com/dry-rb"><strong>issues or pull requests on GitHub</strong></a>. You can also <a href="http://gitter.im/dry-rb/chat"><strong>find us on Gitter</strong></a> for development-focused chat.
+p
+  | We are committed to fostering a welcoming community. dry-rb adheres to a <a href="/conduct">Contributor Code of Conduct</a>. By participating in the dry-rb community, you are expected to abide by its terms. Please report unacceptable behavior to a core team member.
+
+h2 Core team
+
+p
+  | Day-to-day maintenance and overall direction of the dry-rb gems is handled by a core team. This group of long-term contributors evaluates issues and pull requests, manages releases, and contributes to major new features.
+
+.people
+  - data.core_team.people.in_groups_of(3).each do |group|
+    ul.people-list
+      - group.compact.each do |person|
+        li.people-list__item
+          .person
+            .person__image
+              img.circular src="/images/core-team/#{person.image}"
+            h3.person__name = person.name
+            p.person__byline = "Since #{person.since} — #{person.location}"
+            .person__bio == md person.bio
+            a.person__github href="http://github.com/#{person.github_handle}"
+              span.ss-icon.ss-social.octocat octocat
+              = person.github_handle
