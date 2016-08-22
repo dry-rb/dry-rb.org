@@ -5,7 +5,10 @@ people:
     github_handle: AMHOL
     location: Manchester, UK
     since: 2015
-    bio:
+    bio: |
+      Andy is a software developer at [Fatsoma](https://fatsoma.com), he has
+      been contributing to open-source since 2015 when he found
+      [rom-rb](http://rom-rb.org).
   -
     name: Piotr Solnica
     image: piotr.jpg
