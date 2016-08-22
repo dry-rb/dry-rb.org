@@ -16,7 +16,7 @@ schema = Dry::Validation.Schema do
   required(:sample_number).maybe(:int?)
 
   rule(barcode_only: [:barcode, :job_number, :sample_number]) do |barcode, job_num, sample_num|
-    barcode.filled? & (job_num.none? & sample_num.none?)
+    barcode.filled? > (job_num.none? & sample_num.none?)
   end
 end
 ```
