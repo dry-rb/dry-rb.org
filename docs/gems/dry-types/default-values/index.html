@@ -19,4 +19,11 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">PostStatus</span><span class="p">[</span><span class="s1">''</span><span class="p">]</span> <span class="c1"># "draft"</span>
 <span class="no">PostStatus</span><span class="p">[</span><span class="s2">"published"</span><span class="p">]</span> <span class="c1"># "published"</span>
 </code></pre>
+
+<p>It works with a callable value:</p>
+<pre class="syntax ruby"><code><span class="no">CallableDateTime</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">DateTime</span><span class="p">.</span><span class="nf">default</span> <span class="p">{</span> <span class="no">DateTime</span><span class="p">.</span><span class="nf">now</span> <span class="p">}</span>
+
+<span class="no">CallableDateTime</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># Sun, 07 Aug 2016 23:52:04 -0400</span>
+<span class="no">CallableDateTime</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># Sun, 07 Aug 2016 23:52:05 -0400</span>
+</code></pre>
 </article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry-rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>

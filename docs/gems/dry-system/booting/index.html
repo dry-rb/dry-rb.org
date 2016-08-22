@@ -27,7 +27,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <pre class="syntax ruby"><code><span class="c1"># under /my/app/boot/container.rb</span>
 <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Component</span><span class="o">::</span><span class="no">Container</span>
   <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="s1">'/my/app'</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'/my/app'</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
 
@@ -69,7 +69,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <h3 id="using-other-bootable-dependencies">Using other bootable dependencies</h3>
 
-<p>It is often needed to use another dependency when booting a component, you can use a convenient <code>uses</code> API for that, it will auto-boot required dependency<br>
+<p>It is often needed to use another dependency when booting a component, you can use a convenient <code>use</code> API for that, it will auto-boot required dependency<br>
 and make it available in the booting context:</p>
 <pre class="syntax ruby"><code><span class="c1"># system/boot/logger.rb</span>
 <span class="no">Application</span><span class="p">.</span><span class="nf">finalize</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">container</span><span class="o">|</span>
@@ -79,7 +79,7 @@ and make it available in the booting context:</p>
 
 <span class="c1"># system/boot/db.rb</span>
 <span class="no">Application</span><span class="p">.</span><span class="nf">finalize</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">container</span><span class="o">|</span>
-  <span class="n">uses</span> <span class="ss">:logger</span>
+  <span class="n">use</span> <span class="ss">:logger</span>
   <span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="no">DB</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DB_URL'</span><span class="p">],</span> <span class="ss">logger: </span><span class="n">logger</span><span class="p">))</span>
 <span class="k">end</span>
 </code></pre>

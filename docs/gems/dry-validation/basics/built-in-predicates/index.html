@@ -319,13 +319,13 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="k">end</span>
 </code></pre>
 
-<h3 id="inclusion"><code>inclusion?</code></h3>
+<h3 id="included_in"><code>included_in?</code></h3>
 
 <p>Checks that a value is included in a given array.</p>
-<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'inclusion?'</span> <span class="k">do</span>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'included_in?'</span> <span class="k">do</span>
   <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
     <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
-      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">inclusion?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">included_in?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
     <span class="k">end</span>
   <span class="k">end</span>
 
@@ -339,13 +339,13 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="k">end</span>
 </code></pre>
 
-<h3 id="exclusion"><code>exclusion?</code></h3>
+<h3 id="excluded_from"><code>excluded_from?</code></h3>
 
 <p>Checks that a value is excluded from a given array.</p>
-<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'exclusion?'</span> <span class="k">do</span>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'excluded_from?'</span> <span class="k">do</span>
   <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
     <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
-      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">exclusion?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">excluded_from?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
     <span class="k">end</span>
   <span class="k">end</span>
 

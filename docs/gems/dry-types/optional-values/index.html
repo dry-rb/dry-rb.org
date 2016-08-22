@@ -13,7 +13,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 </code></pre>
 
 <p>You can define your own optional types too:</p>
-<pre class="syntax ruby"><code><span class="n">maybe_string</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+<pre class="syntax ruby"><code><span class="n">maybe_string</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">maybe</span>
 
 <span class="n">maybe_string</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span>
 <span class="c1"># =&gt; None</span>
@@ -29,5 +29,19 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="n">maybe_string</span><span class="p">[</span><span class="s1">'something'</span><span class="p">].</span><span class="nf">fmap</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:upcase</span><span class="p">).</span><span class="nf">value</span>
 <span class="c1"># =&gt; "SOMETHING"</span>
+</code></pre>
+
+<p>You can also define optional types which allow <code>nil</code> using a sum type, rather than use <code>Maybe</code>:</p>
+<pre class="syntax ruby"><code><span class="n">optional_string</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+<span class="c1"># same as Types::Strict::Nil | Types::Strict::String</span>
+
+<span class="n">optional_string</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span>
+<span class="c1"># =&gt; nil</span>
+
+<span class="n">optional_string</span><span class="p">[</span><span class="s1">'something'</span><span class="p">]</span>
+<span class="c1"># =&gt; "something"</span>
+
+<span class="n">optional_string</span><span class="p">[</span><span class="mi">123</span><span class="p">]</span>
+<span class="c1"># raises Dry::Types::ConstraintError</span>
 </code></pre>
 </article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry-rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>

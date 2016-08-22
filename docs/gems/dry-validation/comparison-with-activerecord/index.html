@@ -300,7 +300,7 @@ E.g. <code>required(:attr) { |attr| attr.bool? }</code></p>
 
 <p>To validate the absence of a boolean field (e.g. not true or false) you should use:</p>
 
-<p><code>required(:attr) { |attr| attr.exclusion?([true, false]) }</code></p>
+<p><code>required(:attr) { |attr| attr.excluded_from?([true, false]) }</code></p>
 
 <h3 id="2-11-uniqueness">2.11 uniqueness</h3>
 
@@ -353,7 +353,7 @@ For example:</p>
 <p>To achieve this in Dry Validation you will need to create a custom rule.</p>
 
 <p>.1. Initially we declare a rule for each of the attributes we need to reference</p>
-<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">payment_type</span><span class="o">|</span> <span class="n">payment_type</span><span class="p">.</span><span class="nf">inclusion?</span><span class="p">([</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span> <span class="p">}</span>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">payment_type</span><span class="o">|</span> <span class="n">payment_type</span><span class="p">.</span><span class="nf">included_in?</span><span class="p">([</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span> <span class="p">}</span>
 <span class="n">required</span><span class="p">(</span><span class="ss">:card_number</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">card_number</span><span class="o">|</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">none?</span> <span class="o">|</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">filled?</span> <span class="p">}</span>
 </code></pre>
 
@@ -370,7 +370,7 @@ For example:</p>
 </code></pre>
 
 <p>Put it all together and you get:</p>
-<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">payment_type</span><span class="o">|</span> <span class="n">payment_type</span><span class="p">.</span><span class="nf">inclusion?</span><span class="p">([</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span> <span class="p">}</span>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">payment_type</span><span class="o">|</span> <span class="n">payment_type</span><span class="p">.</span><span class="nf">included_in?</span><span class="p">([</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span> <span class="p">}</span>
 <span class="n">required</span><span class="p">(</span><span class="ss">:card_number</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">card_number</span><span class="o">|</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">none?</span> <span class="o">|</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">filled?</span> <span class="p">}</span>
 
 <span class="n">rule</span><span class="p">(</span><span class="ss">:require_card_number</span><span class="p">)</span> <span class="k">do</span>

@@ -26,11 +26,11 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>This is pretty the same as the following ruby code:</p>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span>
-  <span class="kp">attr_reader</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:type</span><span class="p">,</span> <span class="ss">:admin</span>
+  <span class="kp">attr_reader</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:role</span><span class="p">,</span> <span class="ss">:admin</span>
 
-  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s1">'customer'</span><span class="p">,</span> <span class="ss">admin: </span><span class="kp">false</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">role</span> <span class="o">=</span> <span class="s1">'customer'</span><span class="p">,</span> <span class="ss">admin: </span><span class="kp">false</span><span class="p">)</span>
     <span class="vi">@name</span>  <span class="o">=</span> <span class="nb">name</span>
-    <span class="vi">@type</span>  <span class="o">=</span> <span class="n">type</span>
+    <span class="vi">@role</span>  <span class="o">=</span> <span class="n">role</span>
     <span class="vi">@admin</span> <span class="o">=</span> <span class="n">admin</span>
 
     <span class="nb">fail</span> <span class="no">TypeError</span> <span class="k">unless</span> <span class="no">String</span> <span class="o">===</span> <span class="vi">@name</span>

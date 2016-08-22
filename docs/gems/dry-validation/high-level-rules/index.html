@@ -15,7 +15,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="n">required</span><span class="p">(</span><span class="ss">:sample_number</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
 
   <span class="n">rule</span><span class="p">(</span><span class="ss">barcode_only: </span><span class="p">[</span><span class="ss">:barcode</span><span class="p">,</span> <span class="ss">:job_number</span><span class="p">,</span> <span class="ss">:sample_number</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">barcode</span><span class="p">,</span> <span class="n">job_num</span><span class="p">,</span> <span class="n">sample_num</span><span class="o">|</span>
-    <span class="n">barcode</span><span class="p">.</span><span class="nf">filled?</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">job_num</span><span class="p">.</span><span class="nf">none?</span> <span class="o">&amp;</span> <span class="n">sample_num</span><span class="p">.</span><span class="nf">none?</span><span class="p">)</span>
+    <span class="n">barcode</span><span class="p">.</span><span class="nf">filled?</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">job_num</span><span class="p">.</span><span class="nf">none?</span> <span class="o">&amp;</span> <span class="n">sample_num</span><span class="p">.</span><span class="nf">none?</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
