@@ -45,4 +45,9 @@ people:
     github_handle: fran-worley
     location: London, UK
     since: 2016
-    bio:
+    bio: |
+      Fran is Technical Director and Co-Founder of [SafetyToolbox](http://safetytoolbox.co.uk).
+      SafetyToolbox made the move to adopt [Trailblazer](http://trailblazer.to) last year and
+      found the dry-rb community as part of that process. Fran is also a member of the
+      Trailblazer core team so should be able to help those of you using dry gems with Trailblazer.
+
