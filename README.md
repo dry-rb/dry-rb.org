@@ -17,4 +17,6 @@ Run `bundle exec rake watch` and visit the site at [http://localhost:4567](http:
 
 ## Deploying
 
-Run `bundle exec middleman deploy` to deploy the latest build of the site to GitHub Pages.
+GitHub Pages is configured to serve any files in the `docs/` directory.
+
+Run `bundle exec rake build` to generate the latest copy of the site. Commit any changed files in `docs/` and push the master branch to GitHub.

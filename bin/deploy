@@ -1,7 +1,0 @@
-#!/bin/bash
-
-bundle exec middleman build
-
-git add -A
-git commit -am 'Build site'
-git subtree push --prefix build origin gh-pages

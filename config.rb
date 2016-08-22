@@ -27,6 +27,7 @@ set :site_keywords, "dry-rb, ruby, micro-libraries"
 # Configuration ----------------------------------------------------------------
 
 # General configuration for Middleman assets
+set :build_dir,  "docs"
 set :css_dir,    "assets/stylesheets"
 set :js_dir,     "assets/javascripts"
 set :images_dir, "images"
