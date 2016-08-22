@@ -39,6 +39,9 @@ en:
 
     filled?: "must be filled"
 
+    included_in?: "must be one of %{list}"
+    excluded_from?: "must not be one of: %{list}"
+
     rules:
       email:
         filled?: "the email is missing"
