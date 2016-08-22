@@ -1,0 +1,361 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Built-in Predicates</title><link href="/assets/stylesheets/site-2e3defc6.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-validation</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a class="" href="/gems/dry-validation/">Introduction</a><li><a class="" href="/gems/dry-validation/basics/">Basics</a><ul><li><a class="" href="/gems/dry-validation/basics/predicate-logic/">Predicate Logic</a></li><li><a class="active" href="/gems/dry-validation/basics/built-in-predicates/">Built-in Predicates</a></li><li><a class="" href="/gems/dry-validation/basics/macros/">Macros</a></li><li><a class="" href="/gems/dry-validation/basics/working-with-schemas/">Working With Schemas</a></li></ul></li><li><a class="" href="/gems/dry-validation/custom-predicates/">Custom Predicates</a></li><li><a class="" href="/gems/dry-validation/optional-keys-and-values/">Optional Keys and Values</a></li><li><a class="" href="/gems/dry-validation/nested-data/">Nested Data</a></li><li><a class="" href="/gems/dry-validation/array-as-input/">Array As Input</a></li><li><a class="" href="/gems/dry-validation/reusing-schemas/">Reusing Schemas</a></li><li><a class="" href="/gems/dry-validation/forms/">Form Validation</a></li><li><a class="" href="/gems/dry-validation/high-level-rules/">High-level Rules</a></li><li><a class="" href="/gems/dry-validation/dynamic-predicate-arguments/">Dynamic Predicate Arguments</a></li><li><a class="" href="/gems/dry-validation/error-messages/">Error Messages</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Built-in Predicates</h2><h2 id="basic">Basic</h2>
+
+<h3 id="none"><code>none?</code></h3>
+
+<p>Checks that a key&rsquo;s value is nil.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'none?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:none?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="kp">nil</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">nil?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="eql"><code>eql?</code></h3>
+
+<p>Checks that a key&rsquo;s value is equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'eql?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="nb">eql?</span><span class="p">:</span> <span class="mi">1234</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="mi">1234</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1234</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+     <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h2 id="types">Types</h2>
+
+<h3 id="type"><code>type?</code></h3>
+
+<p>Checks that a key&rsquo;s class is equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'type?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">type?</span><span class="p">:</span> <span class="no">Integer</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="mi">1234</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">class</span> <span class="o">==</span> <span class="no">Integer</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<p>Shorthand for common Ruby types:</p>
+
+<ul>
+<li><code>str?</code> equivalent to <code>type?(String)</code></li>
+<li><code>int?</code> equivalent to <code>type?(Integer)</code></li>
+<li><code>float?</code> equivalent to <code>type?(Float)</code></li>
+<li><code>decimal?</code> equivalent to <code>type?(BigDecimal)</code></li>
+<li><code>bool?</code> equivalent to <code>type?(Boolean)</code></li>
+<li><code>date?</code> equivalent to <code>type?(Date)</code></li>
+<li><code>time?</code> equivalent to <code>type?(Time)</code></li>
+<li><code>date_time?</code> equivalent to <code>type?(DateTime)</code></li>
+<li><code>array?</code> equivalent to <code>type?(Array)</code></li>
+<li><code>hash?</code> equivalent to <code>type?(Hash)</code></li>
+</ul>
+
+<h2 id="number-string-collection">Number, String, Collection</h2>
+
+<h3 id="empty"><code>empty?</code></h3>
+
+<p>Checks that either the array, string, or hash is empty.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'empty?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:empty?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="s2">""</span><span class="p">}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="p">[]}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="p">{}}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">""</span><span class="p">).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">{}).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="filled"><code>filled?</code></h3>
+
+<p>Checks that either the array, string, or hash is filled.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'filled?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:filled?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="s2">"1"</span><span class="p">}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">2</span><span class="p">]}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="p">{</span><span class="ss">k: </span><span class="mi">3</span><span class="p">}}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">"1"</span><span class="p">).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">{</span><span class="ss">k: </span><span class="mi">3</span><span class="p">}).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="gt"><code>gt?</code></h3>
+
+<p>Checks that the value is greater than the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'gt?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">gt?</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="gteq"><code>gteq?</code></h3>
+
+<p>Checks that the value is greater than or equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'gteq?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">gteq?</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="lt"><code>lt?</code></h3>
+
+<p>Checks that the value is less than the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'lt?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">lt?</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">0</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="lteq"><code>lteq?</code></h3>
+
+<p>Checks that the value is less than or equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'lteq?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">lteq?</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="max_size"><code>max_size?</code></h3>
+
+<p>Check that an array&rsquo;s size is less than or equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'max_size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">max_size?</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="min_size"><code>min_size?</code></h3>
+
+<p>Checks that an array&rsquo;s size is greater than or equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'min_size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">min_size?</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="size-int"><code>size?(int)</code></h3>
+
+<p>Checks that an array&rsquo;s size is equal to the given value.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">size?</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">==</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="size-range"><code>size?(range)</code></h3>
+
+<p>Checks that an array&rsquo;s size is within a range of values.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">size?</span><span class="p">:</span> <span class="mi">0</span><span class="p">.</span><span class="nf">.</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="nf">.</span><span class="mi">3</span><span class="p">).</span><span class="nf">include?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="format"><code>format?</code></h3>
+
+<p>Checks that a string matches a given regular expression.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'format?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="nb">format</span><span class="sc">?:</span> <span class="o">/^</span><span class="n">a</span><span class="o">/</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="sr">/^a/</span> <span class="o">=~</span> <span class="s2">"aa"</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+     <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">"aa"</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="inclusion"><code>inclusion?</code></h3>
+
+<p>Checks that a value is included in a given array.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'inclusion?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">inclusion?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nf">include?</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">3</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+
+<h3 id="exclusion"><code>exclusion?</code></h3>
+
+<p>Checks that a value is excluded from a given array.</p>
+<pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'exclusion?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="n">exclusion?</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nf">include?</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">2</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry-rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
