@@ -76,7 +76,7 @@ Dry::Validation.Schema do
   # expands to:
   #
   # rule(password_confirmation: [:password]) do |password|
-  #   value(:password_confirmation).eql?(password) }
+  #   value(:password_confirmation).eql?(password)
   # end
   #
   required(:password).filled(min_size?: 12).confirmation
