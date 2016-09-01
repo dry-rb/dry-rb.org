@@ -15,6 +15,6 @@ schema = Dry::Validation.Schema do
   end
 end
 
-schema.([{ name: 'Jane', age: 21 }, { name: 'Joe', age: nil }]).messages
+schema.call([{ name: 'Jane', age: 21 }, { name: 'Joe', age: nil }]).messages
 # { 1 => { age: ['must be filled'] } }
 ```
