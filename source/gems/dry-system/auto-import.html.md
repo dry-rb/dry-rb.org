@@ -16,7 +16,7 @@ Import = Application.injector
 # lib/post_publisher.rb
 require 'import'
 class PostPublisher
-  include Injector['utils.logger']
+  include Import['utils.logger']
 
   def call(post)
     # some stuff
@@ -71,7 +71,7 @@ Import = Application.injector
 Application.finalize(:persistence) do |container|
   start do
     require 'sequel'
-    container.register('persistence.db', Sequel.connect(ENV['DB_URL'])
+    container.register('persistence.db', Sequel.connect(ENV['DB_URL']))
   end
 
   stop do
