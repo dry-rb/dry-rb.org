@@ -3,7 +3,7 @@ title: Working With Schemas
 layout: gem-single
 ---
 
-A schema is an object which contains a list of rules that will be applied to its input when you call a schema. It returns a `result object` which provides an API to retrieve `error messages` and access to the validation `output`.
+A schema is an object which contains a list of rules that will be applied to its input when you call a schema. It returns a `result object` which provides an API to retrieve `error messages` and access to the validation output.
 
 Schema definition best practices:
 
@@ -29,7 +29,7 @@ end
 result = schema.call(email: 'jane@doe.org', age: 21)
 
 # access validation output data
-result.output
+result.to_h
 # => {:email=>'jane@doe.org', :age=>21}
 
 # check if all rules passed
