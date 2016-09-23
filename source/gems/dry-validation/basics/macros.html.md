@@ -31,7 +31,7 @@ Use it when a value can be nil.
 
 ``` ruby
 Dry::Validation.Schema do
-  # expands to `required(:age) { none? | int? }`
+  # expands to `required(:age) { none?.not > int? }`
   required(:age).maybe(:int?)
 end
 ```
