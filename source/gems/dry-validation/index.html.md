@@ -13,6 +13,7 @@ sections:
   - reusing-schemas
   - forms
   - high-level-rules
+  - custom-validation-blocks
   - dynamic-predicate-arguments
   - error-messages
 ---

@@ -65,27 +65,46 @@ Dry::Validation.Schema(AppSchema) do
 end
 ```
 
-### Working With Messages
+### Working With Error Messages
 
 The result object returned by `Schema#call` provides an API to convert error objects to human-friendly messages.
 
 ``` ruby
 result = schema.call(email: nil, age: 21)
 
-# get default messages
-result.messages
+# get default errors
+result.errors
 # => {:email=>['must be filled']}
 
-# get full messages
-result.messages(full: true)
+# get full errors
+result.errors(full: true)
 # => {:email=>['email must be filled']}
 
-# get messages in another language
-result.messages(locale: :pl)
+# get errors in another language
+result.errors(locale: :pl)
 # => {:email=>['musi być wypełniony']}
 ```
 
-> Learn more about [error messages](/gems/dry-validation/error-messages)
+### Using Validation Hints
+
+In addition to error messages, you can also access hints, which are generated from your rules.
+
+``` ruby
+schema = Dry::Validation.Schema do
+  required(:email).filled
+  required(:age).filled(gt?: 18)
+end
+
+result = schema.call(email: 'jane@doe.org', age: '')
+
+result.errors
+# {:age=>['must be filled']}
+
+result.hints
+# {:age=>['must be greater than 18']}
+```
+
+> Learn more about customizing [error and hint messages](/gems/dry-validation/error-messages)
 
 ### Injecting External Dependencies
 
