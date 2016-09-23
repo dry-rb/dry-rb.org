@@ -26,7 +26,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>Use it when a value can be nil.</p>
 <pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
-  <span class="c1"># expands to `required(:age) { none? | int? }`</span>
+  <span class="c1"># expands to `required(:age) { none?.not &gt; int? }`</span>
   <span class="n">required</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
