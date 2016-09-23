@@ -15,7 +15,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="c1"># lib/post_publisher.rb</span>
 <span class="nb">require</span> <span class="s1">'import'</span>
 <span class="k">class</span> <span class="nc">PostPublisher</span>
-  <span class="kp">include</span> <span class="no">Injector</span><span class="p">[</span><span class="s1">'utils.logger'</span><span class="p">]</span>
+  <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'utils.logger'</span><span class="p">]</span>
 
   <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
     <span class="c1"># some stuff</span>
@@ -68,7 +68,7 @@ These identifiers <em>may have special meaning</em> where the first name defines
 <span class="no">Application</span><span class="p">.</span><span class="nf">finalize</span><span class="p">(</span><span class="ss">:persistence</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">container</span><span class="o">|</span>
   <span class="n">start</span> <span class="k">do</span>
     <span class="nb">require</span> <span class="s1">'sequel'</span>
-    <span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="s1">'persistence.db'</span><span class="p">,</span> <span class="no">Sequel</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DB_URL'</span><span class="p">])</span>
+    <span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="s1">'persistence.db'</span><span class="p">,</span> <span class="no">Sequel</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DB_URL'</span><span class="p">]))</span>
   <span class="k">end</span>
 
   <span class="n">stop</span> <span class="k">do</span>
