@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-struct - Introduction</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-struct</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a class="active" href="/gems/dry-struct/">Introduction</a></li></ul></li></ul></aside><article class="gem-article"><h2>Introduction</h2><h3 id="synopsis">Synopsis</h3>
+
+<p>You can define struct objects which will have readers for specified attributes using a simple dsl:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-struct'</span>
+
+<span class="k">module</span> <span class="nn">Types</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="p">.</span><span class="nf">module</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">)</span>
+
+<span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="c1"># nil</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">age</span> <span class="c1"># 21</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">)</span>
+
+<span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="c1"># =&gt; "Jane"</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">age</span> <span class="c1"># =&gt; 21</span>
+</code></pre>
+
+<h3 id="value">Value</h3>
+
+<p>You can define value objects which will behave like structs but will be <em>deeply frozen</em>:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Location</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span><span class="o">::</span><span class="no">Value</span>
+  <span class="n">attribute</span> <span class="ss">:lat</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Float</span>
+  <span class="n">attribute</span> <span class="ss">:lng</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Float</span>
+<span class="k">end</span>
+
+<span class="n">loc1</span> <span class="o">=</span> <span class="no">Location</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">lat: </span><span class="mi">1</span><span class="o">.</span><span class="mi">23</span><span class="p">,</span> <span class="ss">lng: </span><span class="mi">4</span><span class="o">.</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">loc2</span> <span class="o">=</span> <span class="no">Location</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">lat: </span><span class="mi">1</span><span class="o">.</span><span class="mi">23</span><span class="p">,</span> <span class="ss">lng: </span><span class="mi">4</span><span class="o">.</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">loc1</span><span class="p">.</span><span class="nf">frozen?</span> <span class="c1"># true</span>
+<span class="n">loc2</span><span class="p">.</span><span class="nf">frozen?</span> <span class="c1"># true</span>
+
+<span class="n">loc1</span> <span class="o">==</span> <span class="n">loc2</span>
+<span class="c1"># true</span>
+</code></pre>
+</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry-rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
