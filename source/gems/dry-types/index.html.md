@@ -14,7 +14,6 @@ sections:
   - hash-schemas
   - array-with-member
   - enum
-  - struct-and-value
 ---
 
 `dry-types` is a simple and extendable type system for Ruby; useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
@@ -27,7 +26,6 @@ sections:
 
 * Types are [categorized](/gems/dry-types/built-in-types), which is especially important for coercions
 * Types are objects and they are easily reusable
-* Has [structs and values](/gems/dry-types/struct-and-value) with *a simple DSL*
 * Has [constrained types](/gems/dry-types/constraints)
 * Has [optional values](/gems/dry-types/optional-values)
 * Has [default values](/gems/dry-types/default-values)
@@ -35,6 +33,7 @@ sections:
 * Has [enums](/gems/dry-types/enum)
 * Has [hash type with type schemas](/gems/dry-types/hash-schemas)
 * Has [array type with members](/gems/dry-types/array-with-member)
+* Provides struct-like objects via [dry-struct](/gems/dry-struct)
 * Suitable for many use-cases while remaining simple, in example:
   * Params coercions
   * Domain "models"

@@ -28,7 +28,7 @@ module Types
   Age = Int.constrained(gt: 18)
 end
 
-class User < Dry::Types::Struct
+class User < Dry::Struct
   attribute :name, Types::String
   attribute :email, Types::Email
   attribute :age, Types::Age

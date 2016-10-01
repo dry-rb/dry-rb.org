@@ -8,7 +8,7 @@ In many cases you may want to define an enum. For example in a blog application 
 ``` ruby
 # assuming we have types loaded into `Types` namespace
 # we can easily define an enum for our post struct
-class Post < Dry::Types::Struct
+class Post < Dry::Struct
   Statuses = Types::Strict::String.enum('draft', 'published', 'archived')
 
   attribute :title, Types::Strict::String

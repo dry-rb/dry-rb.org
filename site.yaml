@@ -22,6 +22,9 @@ gems:
     name: dry-types
     desc: Flexible type system with many built-in types
   -
+    name: dry-struct
+    desc: Attribute DSL for struct-like objects
+  -
     name: dry-transaction
     desc: Business transaction DSL
   -
