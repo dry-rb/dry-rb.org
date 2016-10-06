@@ -4,7 +4,7 @@
   <id>http://dry-rb.org/news</id>
   <link href="http://dry-rb.org/news"/>
   <link href="http://dry-rb.org/feed.xml" rel="self"/>
-  <updated>2016-09-23T02:00:00+02:00</updated>
+  <updated>2016-09-23T03:00:00+03:00</updated>
   <author>
     <name>dry-rb community</name>
   </author>
@@ -12,8 +12,8 @@
     <title>New gem releases</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/09/23/new-gem-releases/"/>
     <id>http://dry-rb.org/news/2016/09/23/new-gem-releases/</id>
-    <published>2016-09-23T02:00:00+02:00</published>
-    <updated>2016-09-23T06:21:00+02:00</updated>
+    <published>2016-09-23T03:00:00+03:00</published>
+    <updated>2016-10-06T23:40:35+03:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -188,8 +188,8 @@
     <title>Introducing dry-system</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/08/15/introducing-dry-system/"/>
     <id>http://dry-rb.org/news/2016/08/15/introducing-dry-system/</id>
-    <published>2016-08-15T02:00:00+02:00</published>
-    <updated>2016-08-25T12:50:45+02:00</updated>
+    <published>2016-08-15T03:00:00+03:00</published>
+    <updated>2016-10-06T23:40:35+03:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -335,8 +335,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>dry-validation 0.8.0 released</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/07/01/dry-validation-0-8-0-released/"/>
     <id>http://dry-rb.org/news/2016/07/01/dry-validation-0-8-0-released/</id>
-    <published>2016-07-01T02:00:00+02:00</published>
-    <updated>2016-08-15T08:50:35+02:00</updated>
+    <published>2016-07-01T03:00:00+03:00</published>
+    <updated>2016-07-04T21:57:56+03:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -542,8 +542,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>dry-transaction 0.6 brings powerful new support for custom step adapters</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/"/>
     <id>http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/</id>
-    <published>2016-04-07T02:00:00+02:00</published>
-    <updated>2016-08-15T08:50:35+02:00</updated>
+    <published>2016-04-07T03:00:00+03:00</published>
+    <updated>2016-05-02T13:01:05+03:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -606,8 +606,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>New releases of dry-types and dry-validation</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/03/31/new-releases-of-dry-types-and-dry-validation/"/>
     <id>http://dry-rb.org/news/2016/03/31/new-releases-of-dry-types-and-dry-validation/</id>
-    <published>2016-03-31T02:00:00+02:00</published>
-    <updated>2016-08-15T08:50:35+02:00</updated>
+    <published>2016-03-31T03:00:00+03:00</published>
+    <updated>2016-05-02T13:01:05+03:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -793,8 +793,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>Announcing dry-rb</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/03/16/announcing-dry-rb/"/>
     <id>http://dry-rb.org/news/2016/03/16/announcing-dry-rb/</id>
-    <published>2016-03-16T01:00:00+01:00</published>
-    <updated>2016-08-15T08:50:35+02:00</updated>
+    <published>2016-03-16T03:00:00+03:00</published>
+    <updated>2016-03-21T02:26:17+03:00</updated>
     <author>
       <name>solnic</name>
     </author>
