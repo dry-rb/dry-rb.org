@@ -3,9 +3,22 @@ title: Readers
 layout: gem-single
 ---
 
-By default `attr_reader` is defined for every param and option.
+By default public attribute reader is defined for every param and option.
 
-To skip it, use `reader: false`:
+You can define private or protected reader instead:
+
+```ruby
+require 'dry-initializer'
+
+class User
+  extend Dry::Initializer::Mixin
+
+  param :name,  reader: :private   # the same as adding `private :name`
+  param :email, reader: :protected # the same as adding `protected :name`
+end
+```
+
+To skip any reader, use `reader: false`:
 
 ```ruby
 require 'dry-initializer'
@@ -23,5 +36,7 @@ user.name  # => 'Luke'
 user.email                         # => #<NoMethodError ...>
 user.instance_variable_get :@email # => 'luke@example.com'
 ```
+
+Notice that any other value except for `false`, `:protected` and `:private` provides a public reader.
 
 No writers are defined. Define them using pure ruby `attr_writer` when necessary.
