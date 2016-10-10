@@ -21,12 +21,12 @@ hash[name: 'Jane', birthdate: '1994-11-11']
 # => { :name => "Jane", :birthdate => #<Date: 1994-11-11 ((2449668j,0s,0n),+0s,2299161j)> }
 ```
 
-### Strict Schema
+### Permissive Schema
 
-Strict hash will raise errors when keys are missing or value types are incorrect.
+Permissive hash will raise errors when keys are missing or value types are incorrect.
 
 ``` ruby
-hash = Types::Hash.strict(name: Types::String, age: Types::Coercible::Int)
+hash = Types::Hash.permissive(name: Types::String, age: Types::Coercible::Int)
 
 hash[email: 'jane@doe.org', name: 'Jane', age: 21]
 # => Dry::Types::SchemaKeyError: :email is missing in Hash input
