@@ -12,6 +12,7 @@ sections:
   - optionals-and-defaults
   - type-constraints
   - readers
+  - shared-settings
   - inheritance
   - rails-support
   - custom-plugins
