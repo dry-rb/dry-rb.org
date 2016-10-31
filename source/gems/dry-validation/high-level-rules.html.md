@@ -54,3 +54,19 @@ end
 ```
 
 Notice that you must add the `:email_absence` message to the configuration if you want to have the error converted to a message.
+
+When the validity of one attribute depends on the value of another attribute, you can use `value`:
+
+```ruby
+schema = Dry::Validation.Schema do
+  required(:started).filled(:date?)
+  required(:ended).filled(:date?)
+
+  rule(started_before_ended: [:started, :ended]) do |started, ended|
+    ended.gt?(value(:started))
+  end
+end
+
+schema.call(started: Date.today, ended: Date.today - 1).success? # => false
+schema.call(started: Date.today, ended: Date.today + 1).success? # => true
+```
