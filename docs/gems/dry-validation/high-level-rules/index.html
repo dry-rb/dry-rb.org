@@ -49,4 +49,18 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 </code></pre>
 
 <p>Notice that you must add the <code>:email_absence</code> message to the configuration if you want to have the error converted to a message.</p>
+
+<p>When the validity of one attribute depends on the value of another attribute, you can use <code>value</code>:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:started</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:date?</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:ended</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:date?</span><span class="p">)</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">started_before_ended: </span><span class="p">[</span><span class="ss">:started</span><span class="p">,</span> <span class="ss">:ended</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">started</span><span class="p">,</span> <span class="n">ended</span><span class="o">|</span>
+    <span class="n">ended</span><span class="p">.</span><span class="nf">gt?</span><span class="p">(</span><span class="n">value</span><span class="p">(</span><span class="ss">:started</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">started: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="p">,</span> <span class="ss">ended: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">started: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="p">,</span> <span class="ss">ended: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+</code></pre>
 </article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
