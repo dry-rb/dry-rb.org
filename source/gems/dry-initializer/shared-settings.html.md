@@ -7,6 +7,7 @@ Instead of repeating settings like `type`, `default`, and `optional` for every s
 
 ```ruby
 require 'dry-initializer'
+require 'dry-types'
 
 class User
   extend Dry::Initializer::Mixin
@@ -21,6 +22,7 @@ you can share them via `#using` method (inside the block shared options can be r
 
 ```ruby
 require 'dry-initializer'
+require 'dry-types'
 
 class User
   extend Dry::Initializer::Mixin

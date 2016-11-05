@@ -7,11 +7,12 @@ Instead of extending a class with the `Dry::Initializer::Mixin`, you can include
 
 ```ruby
 require 'dry-initializer'
+require 'dry-types'
 
 class User
   # notice `-> do .. end` syntax
   include Dry::Initializer.define -> do
-    param  :name,  type: String
+    param  :name,  type:    Dry::Types['strict.string']
     param  :role,  default: proc { 'customer' }
     option :admin, default: proc { false }
   end

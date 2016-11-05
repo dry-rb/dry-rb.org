@@ -24,11 +24,12 @@ sections:
 
 ```ruby
 require 'dry-initializer'
+require 'dry-types'
 
 class User
   extend Dry::Initializer::Mixin
 
-  param  :name,  type: String
+  param  :name,  type: Dry::Types['strict.string']
   param  :role,  default: proc { 'customer' }
   option :admin, default: proc { false }
 end
@@ -46,12 +47,10 @@ This is pretty the same as the following ruby code:
 class User
   attr_reader :name, :role, :admin
 
-  def initialize(name, role = 'customer', admin: false)
-    @name  = name
+  def initialize(name, role = 'customer', **__options__)
+    @name  = Dry::Types['strict.string'][name]
     @role  = role
-    @admin = admin
-
-    fail TypeError unless String === @name
+    @admin = __options__.fetch(:admin, false)
   end
 end
 ```

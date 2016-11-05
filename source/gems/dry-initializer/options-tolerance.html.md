@@ -3,7 +3,7 @@ title: Tolerance to Unknown Options
 layout: gem-single
 ---
 
-By default the initializer is strict - it expects params and options to be defined explicitly.
+By default the initializer is strict for params, expecting them to be defined explicitly.
 
 ```ruby
 require 'dry-initializer'
@@ -12,10 +12,10 @@ class User
   extend Dry::Initializer::Mixin
 end
 
-user = User.new email: 'joe@example.com' # raises ArgumentError
+user = User.new 'joe@example.com' # raises ArgumentError
 ```
 
-Use `tolerant_to_unknown_options` helper to change this behavior and ignore undefined options:
+Before you define an `option` (only `params`), the initializer doesn't accept any:
 
 ```ruby
 require 'dry-initializer'
@@ -23,27 +23,26 @@ require 'dry-initializer'
 class User
   extend Dry::Initializer::Mixin
 
-  tolerant_to_unknown_options
+  param :name
 end
 
-user = User.new email: 'joe@example.com'
-# => <User >
+user = User.new 'Joe', email: 'joe@example.com' # raises ArgumentError
+```
+
+When you define any `option` it will take an ignore any one that hasn't been defined:
+
+```ruby
+require 'dry-initializer'
+
+class User
+  extend Dry::Initializer::Mixin
+
+  option :name
+end
+
+user = User.new name: 'Joe', email: 'joe@example.com'
+user.name # => 'Joe'
 
 # It ignores all unknown options
 user.respond_to? :email # => false
 ```
-
-Use `intolerant_to_unknown_options` to return to strict behaviour in a subclass.
-
-```ruby
-class Customer < User
-  intolerant_to_unknown_options
-end
-
-User.new email: 'joe@example.com'     # => passes
-Customer.new email: 'joe@example.com' # => raises ArgumentError
-```
-
-Be careful with this method because it breaks the [Liskov Substitution Principle][liskov-principle].
-
-[liskov-principle]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
