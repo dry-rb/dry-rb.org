@@ -13,7 +13,7 @@ Built-in types are grouped under 5 categories:
 
 ### Categories
 
-Assuming you included types in `Types` module:
+Assuming you included types in a module called `Types`:
 
 Base definitions:
 
@@ -29,7 +29,21 @@ Base definitions:
 - `Types::Array`
 - `Types::Hash`
 
-Coercible types using kernel coercion methods:
+`Strict` types will raise an error if passed a value of the wrong type:
+
+- `Types::Strict::Nil`
+- `Types::Strict::Symbol`
+- `Types::Strict::Class`
+- `Types::Strict::True`
+- `Types::Strict::False`
+- `Types::Strict::Bool`
+- `Types::Strict::Date`
+- `Types::Strict::DateTime`
+- `Types::Strict::Time`
+- `Types::Strict::Array`
+- `Types::Strict::Hash`
+
+`Coercible` types will attempt to cast values to the correct class using kernel coercion methods:
 
 - `Types::Coercible::String`
 - `Types::Coercible::Int`
@@ -55,6 +69,9 @@ Optional coercible types:
 - `Types::Maybe::Coercible::Decimal`
 - `Types::Maybe::Coercible::Array`
 - `Types::Maybe::Coercible::Hash`
+
+(`Maybe` types are not available by default; they must be loaded using
+`Dry::Types.load_extensions(:maybe)`. See [Optional Values](/gems/dry-types/optional-values) for more information.)
 
 Coercible types suitable for form param processing:
 
