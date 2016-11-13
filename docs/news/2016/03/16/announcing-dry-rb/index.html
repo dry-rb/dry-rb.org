@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - Announcing dry-rb</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - Announcing dry-rb</title><link href="/assets/stylesheets/site-22e55a17.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -55,7 +55,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="p">).</span><span class="nf">messages</span>
 <span class="c1"># {:address=&gt;{:city=&gt;["size cannot be less than 3"], :country=&gt;{:name=&gt;["must be filled"]}}}</span>
 </code></pre>
-
 <h3 id="dry-types-0-6-0">dry-types 0.6.0</h3>
 
 <p>We renamed the former <code>dry-data</code> gem to <code>dry-types</code> and have released version 0.6.0. It went through internal refactoring to make composing types more flexible and simpler. This release also comes with nice new features, like support for default values in hash schemas and ability to pass a block to default values. These features make working with Struct and Value types simpler, as you can configure default values for attributes easily now.</p>
@@ -87,7 +86,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'Hello World'</span><span class="p">,</span> <span class="ss">body: </span><span class="s1">'some text'</span><span class="p">)</span>
 <span class="c1"># =&gt; #&lt;Post:0x007fd042838320 @status="draft", @title="Hello World", @body="some text", @created_at=2016-03-16 11:28:41 +0100&gt;</span>
 </code></pre>
-
 <h2 id="future-plans">Future plans</h2>
 
 <p>We&rsquo;ll continue growing dry-rb, improving the existing gems and adding new ones. Please try out our already released <a href="/gems">gems</a> and let us know what you think.</p>

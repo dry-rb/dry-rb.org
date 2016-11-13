@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Working With Schemas</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Working With Schemas</title><link href="/assets/stylesheets/site-22e55a17.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -41,7 +41,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">result</span><span class="p">.</span><span class="nf">failure?</span>
 <span class="c1"># =&gt; false</span>
 </code></pre>
-
 <h3 id="defining-base-schema-class">Defining Base Schema Class</h3>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">AppSchema</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Schema</span>
   <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
@@ -63,7 +62,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="c1"># define your rules</span>
 <span class="k">end</span>
 </code></pre>
-
 <h3 id="working-with-error-messages">Working With Error Messages</h3>
 
 <p>The result object returned by <code>Schema#call</code> provides an API to convert error objects to human-friendly messages.</p>
@@ -81,7 +79,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">result</span><span class="p">.</span><span class="nf">errors</span><span class="p">(</span><span class="ss">locale: :pl</span><span class="p">)</span>
 <span class="c1"># =&gt; {:email=&gt;['musi być wypełniony']}</span>
 </code></pre>
-
 <h3 id="using-validation-hints">Using Validation Hints</h3>
 
 <p>In addition to error messages, you can also access hints, which are generated from your rules.</p>
@@ -98,7 +95,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">result</span><span class="p">.</span><span class="nf">hints</span>
 <span class="c1"># {:age=&gt;['must be greater than 18']}</span>
 </code></pre>
-
 <blockquote>
 <p>Learn more about customizing <a href="/gems/dry-validation/error-messages">error and hint messages</a></p>
 </blockquote>
@@ -116,7 +112,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>You can also inject objects dynamically at run-time:</p>
 <pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
   <span class="n">configure</span> <span class="k">do</span>
@@ -130,7 +125,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="n">schema</span><span class="p">.</span><span class="nf">with</span><span class="p">(</span><span class="ss">my_thing: </span><span class="no">MyThing</span><span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
 </code></pre>
-
 <blockquote>
 <p>Currently <code>with</code> will cause all rules to be re-built, so keep in mind the impact on performance</p>
 </blockquote>

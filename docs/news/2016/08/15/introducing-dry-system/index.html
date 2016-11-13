@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - Introducing dry-system</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - Introducing dry-system</title><link href="/assets/stylesheets/site-22e55a17.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -31,7 +31,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="no">UserRepo</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Sequel</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="s1">'sqlite::memory'</span><span class="p">))</span>
 </code></pre>
-
 <p>It would be great if nothing else was needed, but unfortunately there are a few things we still need to take care of:</p>
 
 <ul>
@@ -57,13 +56,11 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="n">load_paths!</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>Then, you can ask your system container to provide a DI mixin that you can use in your classes:</p>
 <pre class="syntax ruby"><code><span class="c1"># system/import.rb</span>
 <span class="nb">require_relative</span> <span class="s1">'container'</span>
 <span class="no">Import</span> <span class="o">=</span> <span class="no">MyApp</span><span class="p">.</span><span class="nf">injector</span>
 </code></pre>
-
 <p>Then our previous example with <code>UserRepo</code> can become this:</p>
 <pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'my_app/import'</span>
 
@@ -71,7 +68,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'persistence.db'</span><span class="p">]</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>So, where does that <code>persistence.db</code> come from?</p>
 
 <h2 id="bootable-components">Bootable components</h2>
@@ -98,7 +94,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>This way we have a single place where our <code>persistence.db</code> component is being required and loaded. This comes with a great benefit of <strong>being able to boot a component on demand</strong>.</p>
 
 <p>Let’s say you have a rake task which needs the <code>persistence.db</code> component (effectively a sequel connection). This is all you need to do:</p>
@@ -110,12 +105,10 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="c1"># now you have access to MyApp['persistence.db']</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>There’s a significant benefit of this approach - the minimum amount of code is being required when you boot components on demand. Here’s a real-world effect:</p>
 <pre class="syntax plaintext"><code>% time bundle exec rake db:setup
 bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
 </code></pre>
-
 <p>This means we have <strong>a sub-second boot time</strong>, with no complex preloaders like Spring or Zeus. As you can imagine, you can easily leverage that for test environment, where individual test groups may only require small portion of your system, resulting in sub-second boot times and fast development cycles.</p>
 
 <h2 id="auto-registration">Auto-registration</h2>
@@ -130,7 +123,6 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
   <span class="n">load_paths!</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
-
 <p>Now if you put <code>UserRepo</code> class definition in <code>lib/user_repo.rb</code>, it will be automatically loaded and registered within the system container. This <strong>reduces a lot of boilerplate code</strong> related to object instantiation, you will quickly appreciate how clean your class definitions look like and that you can focus on core logic exclusively without bothering about object construction at all. Since classes specify their dependencies explicitly, it’s also easy to understand which components are being injected.</p>
 
 <h2 id="learn-more">Learn more!</h2>

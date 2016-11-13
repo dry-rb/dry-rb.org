@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - New gem releases</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - New gem releases</title><link href="/assets/stylesheets/site-22e55a17.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -33,7 +33,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">UserSchema</span><span class="o">.</span><span class="p">(</span><span class="ss">login: </span><span class="s1">''</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">17</span><span class="p">).</span><span class="nf">hints</span>
 <span class="c1"># {:login=&gt;["length must be within 3 - 64"], :age=&gt;[]}</span>
 </code></pre>
-
 <h3 id="support-for-or-messages">Support for “OR” messages</h3>
 
 <p>It’s probably safe to say dry-validation is the first validation library in Ruby which supports error messages for “OR” rules. Check it out:</p>
@@ -44,7 +43,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">PostSchema</span><span class="o">.</span><span class="p">(</span><span class="ss">tags: </span><span class="mi">123</span><span class="p">).</span><span class="nf">errors</span>
 <span class="c1"># {:tags=&gt;["must be an array or must be a string"]}</span>
 </code></pre>
-
 <h3 id="support-for-custom-blocks-as-predicates">Support for custom blocks as predicates</h3>
 
 <p>You can now define a rule using a block which is executed in the context of your schema. This is useful for complex rules which need external collaborators provided by the schema. These blocks are treated as high-level rules, which means that they will not be executed if the values they depend on are not valid.</p>
@@ -71,7 +69,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">schema</span><span class="o">.</span><span class="p">(</span><span class="ss">id: </span><span class="mi">4</span><span class="p">).</span><span class="nf">errors</span>
 <span class="c1"># {:valid_id=&gt;["id is not valid"]}</span>
 </code></pre>
-
 <h3 id="optional-extensions">Optional extensions</h3>
 
 <p>We’ve added an API for loading optional extensions, and we already have one - support for dry-monads. If you add <code>dry-monads</code> to your Gemfile, you can load the extension and validation results will become compatible with <code>Either</code> monad.</p>
@@ -90,7 +87,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">result</span><span class="p">.</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span> <span class="n">data</span><span class="p">[</span><span class="ss">:login</span><span class="p">]</span> <span class="p">}.</span><span class="nf">or</span> <span class="p">{</span> <span class="s1">'oops'</span> <span class="p">}.</span><span class="nf">value</span>
 <span class="c1"># "jane"</span>
 </code></pre>
-
 <p>This means if you happen to use <code>dry-transaction</code> or <code>dry-matcher</code> you can easily use validation results with them, without the need to wrap results in <code>Left</code> or <code>Right</code> as it happens automatically.</p>
 
 <h2 id="dry-types-0-9-and-the-new-dry-struct-gem">dry-types 0.9 and the new dry-struct gem</h2>
@@ -124,7 +120,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'hello'</span><span class="p">,</span> <span class="ss">body: </span><span class="s1">'hello, for real'</span><span class="p">)</span>
 <span class="c1"># [Post.new] :status is missing in Hash input (Dry::Struct::Error)</span>
 </code></pre>
-
 <h3 id="permissive-constructor">:permissive constructor</h3>
 
 <p>Previously <code>:strict</code> constructor, which is the default one, would silently ignore unexpected keys, now it will raise an error. If you want to rely on the original behavior, simply configure constructor type to <code>:permissive</code>:</p>
@@ -149,7 +144,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'hello'</span><span class="p">,</span> <span class="ss">body: </span><span class="s1">'hello, for real'</span><span class="p">,</span> <span class="ss">status: </span><span class="n">published</span><span class="s1">', oops: '</span><span class="n">ignored</span><span class="err">'</span><span class="p">)</span>
 <span class="c1"># #&lt;Post title="hello" body="hello, for real" status="published"&gt;</span>
 </code></pre>
-
 <h2 id="dry-logic-0-4">dry-logic 0.4</h2>
 
 <p>Last but not least - the new version of dry-logic is not just few times faster, but also provides a new API for defining and composing Rules. This library is used as the rule engine by dry-validation and dry-types, but you can use it easily standalone too:</p>
@@ -163,7 +157,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">age_rule</span><span class="o">.</span><span class="p">(</span><span class="s1">'19'</span><span class="p">).</span><span class="nf">success?</span>
 <span class="c1"># false</span>
 </code></pre>
-
 <h2 id="thank-you-lt-3">Thank you &lt;3</h2>
 
 <p>Thank you to all contributors who helped finding bugs, testing out new features, providing great feedback and sending pull requests! dry-rb has grown significantly over the last few months and it wouldn’t be possible to achieve that without your help.</p>
