@@ -3,7 +3,7 @@ title: Optional Values
 layout: gem-single
 ---
 
-### `.optional`
+### Optional values
 
 Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
 
@@ -25,11 +25,11 @@ optional_string[123]
 
 Under the hood this creates a [sum type](/gems/dry-types/sum/).  `Types::String.optional` is just syntactic sugar for `Types::Strict::Nil | Types::Strict::String`.
 
-### Maybe
+### Maybe values
 
 For more advanced usage, use types under the `Maybe` namespace to get optional types that return an instance of `Dry::Monads::Maybe::Some` from [dry-monads](/gems/dry-monads/).
 
-This functionality is not available by default; it must be loaded using `Dry::Types.load_extensions(:maybe)`:
+This functionality is not available by default - it must be loaded using `Dry::Types.load_extensions(:maybe)` and you need to add [`dry-monads`](/gems/dry-monads) to your Gemfile:
 
 ``` ruby
 require 'dry-types'
