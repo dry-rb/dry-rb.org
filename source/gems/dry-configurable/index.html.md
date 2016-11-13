@@ -26,6 +26,8 @@ class App
   end
   # Defaults to nil if no default value is given
   setting :adapter
+  # Pre-process values
+  setting(:path, 'test') { |value| Pathname(value) }
 end
 
 App.config.database.dsn
@@ -39,4 +41,6 @@ App.config.database.dsn
 # => "jdbc:sqlite:memory"
 App.config.adapter
 # => nil
+App.config.path
+# => #<Pathname:test>
 ```
