@@ -872,3 +872,23 @@ article ul li {
   left: 15px;
 }
 
+table {
+  border-spacing: 0.5rem;
+  border-collapse: collapse;
+  margin-bottom: 2em;
+  width: 100%;
+
+  td, th {
+    border: 1px solid #3e8188;
+    padding: 0.6em;
+  }
+
+  thead {
+    th {
+      text-transform: capitalize;
+      background-color: #3e8188;
+      font-weight: 900;
+      color: #fff;
+    }
+  }
+}
