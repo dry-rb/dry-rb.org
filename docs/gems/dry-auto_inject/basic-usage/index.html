@@ -8,7 +8,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>You need only one thing before you can use dry-auto_inject: a container to hold your application’s dependencies. These are commonly known as “inversion of control” containers.</p>
 
-<p>A <a href="/gems/dry-container">dry-container</a> will work well, but the only requirement is that the container responds to the <code>#[]</code> interface. For example, <code>my_container[&quot;users_repository&quot;]</code> should return the “foo” object registered with the container.</p>
+<p>A <a href="/gems/dry-container">dry-container</a> will work well, but the only requirement is that the container responds to the <code>#[]</code> interface. For example, <code>my_container[&quot;users_repository&quot;]</code> should return the “users_repository” object registered with the container.</p>
 
 <h3 id="creating-an-injector">Creating an injector</h3>
 
