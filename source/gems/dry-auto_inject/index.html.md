@@ -1,43 +1,53 @@
 ---
-title: Introduction &amp; Usage
+title: Introduction
 description: Container-agnostic dependency resolution mixin
 layout: gem-single
 order: 4
 type: gem
 name: dry-auto_inject
+sections:
+  - basic-usage
 ---
 
 ### Introduction
 
-`dry-auto_inject` is designed to provide low-impact dependency resolution, it was originally implemented to complement [dry-container](/gems/dry-container/), however, it is completely container-agnostic and will resolve dependencies from any container that responds to the `#[]` interface.
+dry-auto\_inject provides low-impact dependency injection and resolution support for your classes.
 
-### Usage
+It’s designed to work with a container that holds your application’s dependencies. It works well with [dry-container](/gems/dry-container), but supports any container that responds to the `#[]` interface.
 
-You can use `dry-auto_inject` with any container that responds to `#[]`, in this example
-we're going to use `dry-container`:
+### Usage example
 
 ```ruby
-# set up your container
-my_container = Dry::Container.new
+# Set up a container (using dry-container here)
+class MyContainer
+  extend Dry::Container::Mixin
 
-my_container.register("data_store", -> { DataStore.new })
-my_container.register("user_repository", -> { my_container["data_store"][:users] })
-my_container.register("persist_user", -> { PersistUser.new })
+  register "users_repository" do
+    UsersRepository.new
+  end
 
-# set up your auto-injection function
-AutoInject = Dry::AutoInject(my_container)
-
-# then simply include it in your class providing which dependencies should be
-# injected automatically from the configured container
-class PersistUser
-  include AutoInject["user_repository"]
-
-  def call(user)
-    user_repository << user
+  register "operations.create_user" do
+    CreateUser.new
   end
 end
 
-persist_user = my_container["persist_user"]
+# Set up your auto-injection mixin
+Import = Dry::AutoInject(MyContainer)
 
-persist_user.call(name: 'Jane')
+class CreateUser
+  include Import["users_repository"]
+
+  def call(user_attrs)
+    users_repository.create(user_attrs)
+  end
+end
+
+create_user = MyContainer["create_user"]
+create_user.call(name: "Jane")
 ```
+
+### Why use dry-auto\_inject?
+
+Splitting your application’s behavior into smaller, more focused units makes for logic that is easier to understand, test, and refactor. Dependency injection is what then allows you to combine these small units to create more sophisticated behavior.
+
+By using a container and dry-auto\_inject, this process becomes easy. You don’t need to worry about building constructors or accessors, and adding extra dependencies is as easy as adding a string to a list.
