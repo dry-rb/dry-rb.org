@@ -40,7 +40,7 @@ class CreateUser
   end
 end
 
-create_user = MyContainer["create_user"]
+create_user = MyContainer["operations.create_user"]
 create_user.call(name: "Jane")
 ```
 
