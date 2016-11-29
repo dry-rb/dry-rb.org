@@ -13,11 +13,11 @@ value = Dry::Monads::Either::Right.new("success!")
 
 result = Dry::Matcher::EitherMatcher.(value) do |m|
   m.success do |v|
-    puts "Yay: #{v}"
+    "Yay: #{v}"
   end
 
   m.failure do |v|
-    puts "Boo: #{v}"
+    "Boo: #{v}"
   end
 end
 
