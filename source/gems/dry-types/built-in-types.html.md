@@ -69,8 +69,6 @@ Assuming you included types in a module called `Types`:
   - `Types::Json::Date`
   - `Types::Json::DateTime`
   - `Types::Json::Time`
-  - `Types::Json::Int`
-  - `Types::Json::Float`
   - `Types::Json::Decimal`
   - `Types::Json::Array`
   - `Types::Json::Hash`
