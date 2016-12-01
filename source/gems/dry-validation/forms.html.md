@@ -6,16 +6,16 @@ layout: gem-single
 Probably the most common use case is to validate form params. This is a special kind of a validation for a couple of reasons:
 
 * The input is a hash with stringified keys
-* The input include values that are strings, hashes or arrays
-* Prior validation, we need to coerce values and symbolize keys based on the information from rules
+* The input can include values that are strings, hashes or arrays
+* Prior to validation, we need to coerce values and symbolize keys based on the information in the rules
 
 For that reason, `dry-validation` ships with `Form` validation:
 
 ``` ruby
 schema = Dry::Validation.Form do
-  key(:email).required
+  required(:email).filled(:str?)
 
-  key(:age).required(:int?, gt?: 18)
+  required(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call('email' => '', 'age' => '18').messages
@@ -27,7 +27,7 @@ puts errors.inspect
 # }
 ```
 
-> Form-specific value coercion is handled by a hash-schema using `dry-types`. It is built automatically for you based on the type expectations and used prior applying validation rules.
+> Form-specific value coercion is handled by a hash-schema using `dry-types`. It is built automatically for you based on the type expectations and used prior to applying the validation rules.
 
 ## Handling Empty Strings
 
@@ -35,9 +35,9 @@ Your schema will automatically coerce empty strings to `nil` provided that you a
 
 ``` ruby
 schema = Dry::Validation.Form do
-  key(:email).required
+  required(:email).filled(:str?)
 
-  key(:age).maybe(:int?, gt?: 18)
+  required(:age).maybe(:int?, gt?: 18)
 end
 
 result = schema.call('email' => 'jane@doe.org', 'age' => '')

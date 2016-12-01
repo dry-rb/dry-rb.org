@@ -28,6 +28,9 @@
 @import "components/code";
 @import "components/syntax";
 
+// Icons
+@import "components/icons";
+
 // Resets ------------------------------------------------------
 @include reset;
 
@@ -277,37 +280,73 @@ footer {
   width: 100%;
 }
 
-.footer__social {
-  @include col(1,3);
-  text-align: right;
-  vertical-align: top;
+.footer__links {
+  display: block;
+  text-align: center;
+}
 
-  @include tablet {
-    @include col(1,2);
+.footer__links ul {
+  display: block;
+
+  @include desktop {
+    display: inline-block;
+  }
+}
+
+.footer__links li {
+  display: block;
+  margin-bottom: 0.5em;
+
+  @include desktop {
+    display: inline-block;
+  }
+}
+
+.footer__links li:after {
+  @include desktop {
+    content: "\00b7";
+  }
+}
+
+.footer__links li:last-of-type:after {
+  @include desktop {
+    content: "";
+  }
+}
+
+.footer__links li a {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.footer__links li a span {
+  border-bottom: 2px solid rgba(255,255,255,0);
+  color: $white;
+  padding-bottom: 3px;
+  transition: border 250ms ease;
+
+  &:hover,
+  &:focus {
+    border-bottom: 2px solid rgba(255,255,255,.3);
   }
 
+  @include tablet {
+    padding-bottom: 1px;
+  }
   @include mobile {
-    @include col(1,1);
-    text-align: center;
+    padding-bottom: 1px;
   }
 }
 
 .footer__credits {
-  @include col(2,3);
+  margin-top: 2em;
+  text-align: center;
 
-  @include tablet {
-    @include col(1,2);
-    br {
-      display: none;
-    }
-  }
-
-  @include mobile {
-    @include col(1,1);
-    margin-bottom: 20px;
-    br {
-      display: none;
-    }
+  p {
+    color: $white;
+    display: inline-block;
+    font-size: 13px;
+    margin-bottom: 0;
   }
 
   a {
@@ -317,12 +356,6 @@ footer {
     &:hover {
       text-decoration: underline;
     }
-  }
-
-  p {
-    color: $white;
-    font-size: 13px;
-    margin-bottom: 0;
   }
 }
 
@@ -388,6 +421,29 @@ hr {
   padding-bottom: 70px;
 }
 
+.content-wrap--news-and-twitter {
+  @include clearfix-micro;
+}
+
+.section-news {
+  @include desktop {
+    float: left;
+    padding-right: 30px;
+    width: 55%;
+  }
+  @include tablet { padding-bottom: 30px; }
+  @include mobile { padding-bottom: 20px; }
+}
+
+.section-twitter {
+  @include desktop {
+    float: left;
+    padding-left: 30px;
+    width: 45%;
+    & > iframe[style] { margin-top: -10px !important; }
+  }
+}
+
 .news-article-meta {
   font-size: 90%;
   a:hover,
@@ -397,16 +453,12 @@ hr {
 }
 
 .news-article {
-  @extend .news-list;
-}
-
-.news-list {
   @include col(2,3);
   margin-left: calc(100% / 12 * 2);
 
   @media (min-width: 320px)
   and (max-width: 1199px) {
-    margin-left: 0;
+   margin-left: 0;
   }
 
   @include tablet {
@@ -415,6 +467,10 @@ hr {
 
   @include mobile {
     @include col (1,1);
+  }
+
+  strong {
+    font-weight: 900;
   }
 }
 
@@ -448,14 +504,13 @@ hr {
 
 .news__list-item-date {
   @include col(2,8);
-
-  @include mobile {
-    @include col(1,1);
-  }
-
   color: #666666;
   font-size: 14px;
   vertical-align: top;
+  @include mobile {
+    @include col(1,1);
+    p { margin-bottom: 10px; }
+  }
 }
 
 pre {
@@ -707,6 +762,10 @@ article h2, .article h3 {
   }
 }
 
+article strong {
+  font-family: work_sansbold;
+}
+
 article ul li:before {
   color: $teal;
   content: "\2022"; /* Insert content that looks like bullets */
@@ -729,4 +788,107 @@ article ul li {
 .sidebar li .active {
   font-weight: 900;
   color: $dark-blue;
+}
+
+
+// Community page
+
+.people {
+  padding-bottom: 30px;
+  @include tablet {
+    padding-bottom: 10px;
+  }
+
+  @include mobile {
+    padding-bottom: 10px;
+  }
+}
+
+.people-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
+.people-list__item {
+  @include col(1,3);
+  display: flex;
+
+  @include mobile {
+    @include col(1,1);
+    display: flex;
+    padding-bottom: 20px;
+  }
+}
+
+.people-list__item:before {
+  content: none;
+}
+
+.person {
+  background: #FFFFFF;
+  display: block;
+  width: 100%;
+
+  .circular {
+    border-radius: 50%;
+  }
+
+  h3 {
+    padding-top: 20px;
+    margin-bottom: 5px;
+    text-align: center;
+
+    @include mobile {
+      padding-top: 30px;
+    }
+  }
+
+  img {
+    width: 100%;
+    @include mobile {
+      margin: 0 auto;
+      max-width: 200px;
+    }
+  }
+}
+
+.person__byline {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.person__github {
+  font-size: 16px;
+  padding-left: 25px;
+}
+
+.octocat {
+  font-size: 20px;
+  position: absolute;
+  left: 15px;
+}
+
+table {
+  border-spacing: 0.5rem;
+  border-collapse: collapse;
+  margin-bottom: 2em;
+  width: 100%;
+
+  td, th {
+    border: 1px solid #3e8188;
+    padding: 0.6em;
+  }
+
+  thead {
+    th {
+      text-transform: capitalize;
+      background-color: #3e8188;
+      font-weight: 900;
+      color: #fff;
+    }
+  }
 }

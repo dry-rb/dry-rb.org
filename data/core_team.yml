@@ -1,0 +1,53 @@
+people:
+  -
+    name: Andy Holland
+    image: andy.png
+    github_handle: AMHOL
+    location: Manchester, UK
+    since: 2015
+    bio: |
+      Andy is a software developer at [Fatsoma](https://fatsoma.com), he has
+      been contributing to open-source since 2015 when he found
+      [rom-rb](http://rom-rb.org).
+  -
+    name: Piotr Solnica
+    image: piotr.jpg
+    github_handle: solnic
+    location: Mountains of Poland
+    since: 2015
+    bio: |
+      Piotr is a software developer at [MojoTech](https://mojotech.com), and an
+      Open-Source hacker working on [rom-rb](http://rom-rb.org) and dry-rb.
+  -
+    name: Tim Riley
+    image: tim.jpg
+    github_handle: timriley
+    location: Canberra, Australia
+    since: 2015
+    bio: |
+      Tim helps run [Icelab](http://icelab.com.au/), where the team has
+      adopted dry-rb and [rom-rb](http://rom-rb.org/) for their prime Ruby web
+      stack. He’s particularly interested in improving (and talking about!)
+      high-level web app architecture in Ruby.
+  -
+    name: Nikita Shilnikov
+    image: nikita.jpg
+    github_handle: flash-gordon
+    location: Moscow, Russia
+    since: 2016
+    bio: |
+      Nikita has been programming in PL/SQL and Ruby for six years,
+      he came to dry-rb through [rom-rb](http://rom-rb.org/). Whenever you see
+      a really weird behavior, feel free to ask him for help.
+  -
+    name: Fran Worley
+    image: fran.jpg
+    github_handle: fran-worley
+    location: London, UK
+    since: 2016
+    bio: |
+      Fran is Technical Director and Co-Founder of [SafetyToolbox](http://safetytoolbox.co.uk).
+      SafetyToolbox made the move to adopt [Trailblazer](http://trailblazer.to) last year and
+      found the dry-rb community as part of that process. Fran is also a member of the
+      Trailblazer core team so should be able to help those of you using dry gems with Trailblazer.
+

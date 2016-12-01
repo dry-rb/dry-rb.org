@@ -3,12 +3,12 @@ title: Enum
 layout: gem-single
 ---
 
-In many cases you may want to define an enum. For example in a blog application a post may have a finite list of statuses. Apart from accessing the current status value it is useful to have all possible values accessible too. Furthermore an enum is a `int => value` map, so you can store integers somewhere and have them mapped to enum values conveniently.
+In many cases you may want to define an enum. For example in a blog application a post may have a finite list of statuses. Apart from accessing the current status value it is useful to have all possible values accessible too. Furthermore an enum is an `int => value` map, so you can store integers somewhere and have them mapped to enum values conveniently.
 
 ``` ruby
 # assuming we have types loaded into `Types` namespace
 # we can easily define an enum for our post struct
-class Post < Dry::Types::Struct
+class Post < Dry::Struct
   Statuses = Types::Strict::String.enum('draft', 'published', 'archived')
 
   attribute :title, Types::Strict::String

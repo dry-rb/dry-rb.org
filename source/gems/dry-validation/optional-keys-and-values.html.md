@@ -5,7 +5,7 @@ layout: gem-single
 
 We make a clear distinction between specifying an optional `key` and an optional `value`. This gives you a way of being very specific about validation rules. You can define a schema which can give you precise errors when a key was missing or key was present but the value was nil.
 
-This also comes with the benefit of being explicit about the type expectation.  In the example below we explicitly state that `:age` *can be nil* or it *can be an integer* and when it *is an integer* we specify that it *must be greater than 18*.
+This also comes with the benefit of being explicit about the type expectation. In the example below we explicitly state that `:age` *can be omitted* or if present it *must be an integer* and it *must be greater than 18*.
 
 You can define which keys are optional and define rules for their values:
 
@@ -13,9 +13,9 @@ You can define which keys are optional and define rules for their values:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
+  required(:email).filled
 
-  optional(:age).required(:int?, gt?: 18)
+  optional(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call(email: 'jane@doe.org').messages
@@ -37,7 +37,7 @@ When it is valid for a given value to be `nil` you can use `maybe` macro:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
+  required(:email).filled
 
   optional(:age).maybe(:int?, gt?: 18)
 end

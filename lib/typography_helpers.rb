@@ -3,20 +3,29 @@ require "lib/redcarpet_renderers"
 
 module TypographyHelpers
   def md(text)
-    renderer = Redcarpet::Render::HTML.new({
-      :hard_wrap => true
-    })
-    output = Redcarpet::Markdown.new(renderer, markdown)
-    output.render(text)
+    text = text.to_s
+
+    renderer = Redcarpet::Render::HTML.new
+
+    markdown = Redcarpet::Markdown.new(
+      renderer,
+      no_intra_emphasis: true
+    )
+
+    markdown.render(text)
   end
 
   def md_line(text)
-    renderer = Redcarpet::Render::HTMLWithoutBlockElements.new({
-      :filter_html => true,
-      :hard_wrap => true
-    })
-    output = Redcarpet::Markdown.new(renderer, markdown)
-    output.render(text)
+    text = text.to_s
+
+    renderer = Redcarpet::Render::HTMLWithoutBlockElements.new(filter_html: true)
+
+    markdown = Redcarpet::Markdown.new(
+      renderer,
+      no_intra_emphasis: true,
+    )
+
+    markdown.render(text)
   end
 
   def underscore(word)

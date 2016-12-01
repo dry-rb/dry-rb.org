@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-types - Constraints</title><link href="/assets/stylesheets/site-5c553101.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-types</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-types/" class="">Introduction</a><li><a href="/gems/dry-types/including-types/" class="">Including Types</a></li><li><a href="/gems/dry-types/built-in-types/" class="">Built-in Types</a></li><li><a href="/gems/dry-types/strict/" class="">Strict</a></li><li><a href="/gems/dry-types/optional-values/" class="">Optional Values</a></li><li><a href="/gems/dry-types/default-values/" class="">Default Values</a></li><li><a href="/gems/dry-types/sum/" class="">Sum</a></li><li><a href="/gems/dry-types/constraints/" class="active">Constraints</a></li><li><a href="/gems/dry-types/hash-schemas/" class="">Hash Schemas</a></li><li><a href="/gems/dry-types/array-with-member/" class="">Array With Member</a></li><li><a href="/gems/dry-types/enum/" class="">Enum</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Constraints</h2><p>You can create constrained types that will use validation rules to check that the input is not violating any of the configured constraints. You can treat it as a lower level guarantee that you&rsquo;re not instantiating objects that are broken.</p>
+
+<p>All types support the constraints API, but not all constraints are suitable for a particular primitive, it&rsquo;s up to you to set up constraints that make sense.</p>
+
+<p>Under the hood it uses <a href="/gems/dry-logic"><code>dry-logic</code></a> and all of its predicates are supported.</p>
+<pre class="syntax ruby"><code><span class="n">string</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span><span class="ss">min_size: </span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">string</span><span class="p">[</span><span class="s1">'foo'</span><span class="p">]</span>
+<span class="c1"># =&gt; "foo"</span>
+
+<span class="n">string</span><span class="p">[</span><span class="s1">'fo'</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::ConstraintError: "fo" violates constraints</span>
+
+<span class="n">email</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span>
+  <span class="ss">format: </span><span class="sr">/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i</span>
+<span class="p">)</span>
+
+<span class="n">email</span><span class="p">[</span><span class="s2">"jane@doe.org"</span><span class="p">]</span>
+<span class="c1"># =&gt; "jane@doe.org"</span>
+
+<span class="n">email</span><span class="p">[</span><span class="s2">"jane"</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::ConstraintError: "jane" violates constraints</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>

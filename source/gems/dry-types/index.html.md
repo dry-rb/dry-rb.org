@@ -14,32 +14,42 @@ sections:
   - hash-schemas
   - array-with-member
   - enum
-  - struct-and-value
 ---
 
-`dry-types` is a simple and extendable type system for Ruby useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a virtus' successor.
+`dry-types` is a simple and extendable type system for Ruby with support for coercions and constraints.
 
-### dry-types vs virtus
+### Features
 
-[Virtus](https://github.com/solnic/virtus) has been a successful library, unfortunately it is "only" a by-product of an ActiveRecord ORM which carries many issues typical to ActiveRecord-like features that we all know from Rails, especially when it comes to very complicated coercion logic, mixing unrelated concerns, polluting application layer with concerns that should be handled at the boundaries etc.
+* Support for [constrained types](/gems/dry-types/constraints)
+* Support for [optional values](/gems/dry-types/optional-values)
+* Support for [default values](/gems/dry-types/default-values)
+* Support for [sum types](/gems/dry-types/sum)
+* Support for [enums](/gems/dry-types/enum)
+* Support for [hash type with type schemas](/gems/dry-types/hash-schemas)
+* Support for [array type with members](/gems/dry-types/array-with-member)
+* Support for arbitrary meta information
+* Support for typed struct objects via [dry-struct](/gems/dry-struct)
+* Types are [categorized](/gems/dry-types/built-in-types), which is especially important for optimized and dedicated coercion logic
+* Types are composable and reusable objects
+* No const-missing magic and complicated const lookups
+* Roughly 6-10 x faster than Virtus
 
-`dry-types` has been created to become a better tool that solves *similar* (but not identical!) problems related to type-safety and coercions. It is a superior solution because:
+### Use cases
 
-* Types are [categorized](/gems/dry-types/built-in-types), which is especially important for coercions
-* Types are objects and they are easily reusable
-* Has [structs and values](/gems/dry-types/struct-and-value) with *a simple DSL*
-* Has [constrained types](/gems/dry-types/constraints)
-* Has [optional values](/gems/dry-types/optional-values)
-* Has [default values](/gems/dry-types/default-values)
-* Has [sum types](/gems/dry-types/sum)
-* Has [enums](/gems/dry-types/enum)
-* Has [hash type with type schemas](/gems/dry-types/hash-schemas)
-* Has [array type with members](/gems/dry-types/array-with-member)
-* Suitable for many use-cases while remaining simple, in example:
-  * Params coercions
-  * Domain "models"
-  * Defining various domain-specific, shared information using enums or values
+`dry-types` is suitable for many use-cases, in example:
+
+  * Value coercions
+  * Processing arrays
+  * Processing hashes with explicit schemas
+  * Defining various domain-specific information shared between multiple parts of your applications
   * Annotating objects
-  * and more...
-* There's no const-missing magic and complicated const lookups like in Virtus
-* AND is roughly 10-12x faster than Virtus
+
+### Other gems using dry-types
+
+`dry-types` is often used as a low-level abstraction, following gems use it already:
+
+* [dry-struct](/gems/dry-struct)
+* [dry-initializer](/gems/dry-initializer)
+* [Hanami](https://hanamirb.org)
+* [rom-rb](http://rom-rb.org)
+* [Trailblazer](http://trailblazer.to)

@@ -3,7 +3,7 @@ title: Working With Schemas
 layout: gem-single
 ---
 
-A schema is an object which contains a list of rules that will be applied to its input when you call a schema. It returns a `result object` which provides an API to retrieve `error messages` and access to the validation `output`.
+A schema is an object which contains a list of rules that will be applied to its input when you call a schema. It returns a `result object` which provides an API to retrieve `error messages` and access to the validation output.
 
 Schema definition best practices:
 
@@ -12,23 +12,24 @@ Schema definition best practices:
 * Specify type expectations for all the values!
 * Use custom predicates to keep things concise when built-in predicates create too much noise
 * Assign schema objects to constants for convenient access
+* Define a base schema for your application with common configuration
 
 ### Calling a Schema
 
-Calling a schema will apply all its rules to the input. High-level rules defined with `rule` API are applied in a second step and they are guarded, which means if the values they depend on are not valid, nothing will crash and a high-level rule will not be applied.
+Calling a schema will apply all its rules to the input. High-level rules defined with the `rule` API are applied in a second step and they are guarded, which means if the values they depend on are not valid, nothing will crash and a high-level rule will not be applied.
 
 Example:
 
 ``` ruby
 schema = Dry::Validation.Schema do
-  key(:email).required
-  key(:age).required
+  required(:email).filled
+  required(:age).filled
 end
 
 result = schema.call(email: 'jane@doe.org', age: 21)
 
 # access validation output data
-result.output
+result.to_h
 # => {:email=>'jane@doe.org', :age=>21}
 
 # check if all rules passed
@@ -40,27 +41,70 @@ result.failure?
 # => false
 ```
 
-### Working With Messages
+### Defining Base Schema Class
+
+``` ruby
+class AppSchema < Dry::Validation::Schema
+  configure do |config|
+    config.messages_file = '/my/app/config/locales/en.yml'
+    config.messages = :i18n
+  end
+
+  def email?(value)
+    true
+  end
+
+  define! do
+    # define common rules, if any
+  end
+end
+
+# now you can build other schemas on top of the base one:
+Dry::Validation.Schema(AppSchema) do
+  # define your rules
+end
+```
+
+### Working With Error Messages
 
 The result object returned by `Schema#call` provides an API to convert error objects to human-friendly messages.
 
 ``` ruby
 result = schema.call(email: nil, age: 21)
 
-# get default messages
-result.messages
+# get default errors
+result.errors
 # => {:email=>['must be filled']}
 
-# get full messages
-result.messages(full: true)
+# get full errors
+result.errors(full: true)
 # => {:email=>['email must be filled']}
 
-# get messages in another language
-result.messages(locale: :pl)
+# get errors in another language
+result.errors(locale: :pl)
 # => {:email=>['musi być wypełniony']}
 ```
 
-> Learn more about [error messages](/gems/dry-validation/error-messages)
+### Using Validation Hints
+
+In addition to error messages, you can also access hints, which are generated from your rules.
+
+``` ruby
+schema = Dry::Validation.Schema do
+  required(:email).filled
+  required(:age).filled(gt?: 18)
+end
+
+result = schema.call(email: 'jane@doe.org', age: '')
+
+result.errors
+# {:age=>['must be filled']}
+
+result.hints
+# {:age=>['must be greater than 18']}
+```
+
+> Learn more about customizing [error and hint messages](/gems/dry-validation/error-messages)
 
 ### Injecting External Dependencies
 

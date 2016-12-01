@@ -13,7 +13,7 @@ Checks that a key's value is nil.
 describe 'none?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { none? }
+      required(:sample).value(:none?)
     end
   end
 
@@ -24,7 +24,7 @@ describe 'none?' do
   end
 
   it 'with dry-validation' do
-    assert schema.call(good_input).success?
+    assert schema.call(input).success?
   end
 end
 ```
@@ -37,42 +37,18 @@ Checks that a key's value is equal to the given value.
 describe 'eql?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { eql?(1234) }
+      required(:sample).value(eql?: 1234)
     end
   end
 
   let(:input) { {sample: 1234} }
 
   it 'as regular ruby' do
-    assert sample[:input] == 1234
+    assert input[:sample] == 1234
   end
 
   it 'with dry-validation' do
      assert schema.call(input).success?
-  end
-end
-```
-
-### `key?`
-
-Checks that a key is present in the input.
-
-```ruby
-describe 'key?' do
-  let(:schema) do
-    Dry::Validation.Schema do
-      key(:sample) { key? }
-    end
-  end
-
-  let(:input) { {sample: 1234} }
-
-  it 'as regular ruby' do
-    assert input[:sample]
-  end
-
-  it 'with dry-validation' do
-    assert schema.call(input).success?
   end
 end
 ```
@@ -87,7 +63,7 @@ Checks that a key's class is equal to the given value.
 describe 'type?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { type?(Integer) }
+      required(:sample).value(type?: Integer)
     end
   end
 
@@ -98,7 +74,7 @@ describe 'type?' do
   end
 
   it 'with dry-validation' do
-    assert schema.call(good_input).success?
+    assert schema.call(input).success?
   end
 end
 ```
@@ -125,17 +101,17 @@ Checks that either the array, string, or hash is empty.
 describe 'empty?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { empty? }
+      required(:sample).value(:empty?)
     end
   end
 
   it 'with regular ruby' do
-    assert !{sample: ""}[:sample].empty?
-    assert !{sample: []}[:sample].empty?
-    assert !{sample: {}}[:sample].empty?
+    assert {sample: ""}[:sample].empty?
+    assert {sample: []}[:sample].empty?
+    assert {sample: {}}[:sample].empty?
   end
 
-  it 'with dry-validatoin' do
+  it 'with dry-validation' do
     assert schema.call(sample: "").success?
     assert schema.call(sample: []).success?
     assert schema.call(sample: {}).success?
@@ -151,7 +127,7 @@ Checks that either the array, string, or hash is filled.
 describe 'filled?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { filled? }
+      required(:sample).value(:filled?)
     end
   end
 
@@ -161,7 +137,7 @@ describe 'filled?' do
     assert !{sample: {k: 3}}[:sample].empty?
   end
 
-  it 'with dry-validatoin' do
+  it 'with dry-validation' do
     assert schema.call(sample: "1").success?
     assert schema.call(sample: [2]).success?
     assert schema.call(sample: {k: 3}).success?
@@ -177,7 +153,7 @@ Checks that the value is greater than the given value.
 describe 'gt?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { gt?(0) }
+      required(:sample).value(gt?: 0)
     end
   end
 
@@ -199,7 +175,7 @@ Checks that the value is greater than or equal to the given value.
 describe 'gteq?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { gteq?(1) }
+      required(:sample).value(gteq?: 1)
     end
   end
 
@@ -221,7 +197,7 @@ Checks that the value is less than the given value.
 describe 'lt?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { lt?(1) }
+      required(:sample).value(lt?: 1)
     end
   end
 
@@ -240,10 +216,10 @@ end
 Checks that the value is less than or equal to the given value.
 
 ```ruby
-describe 'lt?' do
+describe 'lteq?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { lteq?(1) }
+      required(:sample).value(lteq?: 1)
     end
   end
 
@@ -259,13 +235,13 @@ end
 
 ### `max_size?`
 
-Check that an array's size is no less than or equal to the given value.
+Check that an array's size is less than or equal to the given value.
 
 ```ruby
 describe 'max_size?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { max_size?(3) }
+      required(:sample).value(max_size?: 3)
     end
   end
 
@@ -287,7 +263,7 @@ Checks that an array's size is greater than or equal to the given value.
 describe 'min_size?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { min_size?(3) }
+      required(:sample).value(min_size?: 3)
     end
   end
 
@@ -309,12 +285,12 @@ Checks that an array's size is equal to the given value.
 describe 'size?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { size?(3) }
+      required(:sample).value(size?: 3)
     end
   end
 
   it 'with regular ruby' do
-    assert [1, 2, 3].size = 3
+    assert [1, 2, 3].size == 3
   end
 
   it 'with dry-validation' do
@@ -325,13 +301,13 @@ end
 
 ### `size?(range)`
 
-Checks that an array's size is between a range of values.
+Checks that an array's size is within a range of values.
 
 ```ruby
 describe 'size?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { size?(0..3) }
+      required(:sample).value(size?: 0..3)
     end
   end
 
@@ -353,7 +329,7 @@ Checks that a string matches a given regular expression.
 describe 'format?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { format?(/^a/) }
+      required(:sample).value(format?: /^a/)
     end
   end
 
@@ -367,16 +343,16 @@ describe 'format?' do
 end
 ```
 
-### `inclusion?`
+### `included_in?`
 
 
 Checks that a value is included in a given array.
 
 ```ruby
-describe 'inclusion?' do
+describe 'included_in?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { inclusion?([1,3,5]) }
+      required(:sample).value(included_in?: [1,3,5])
     end
   end
 
@@ -390,16 +366,15 @@ describe 'inclusion?' do
 end
 ```
 
-### `exclusion?`
-
+### `excluded_from?`
 
 Checks that a value is excluded from a given array.
 
 ```ruby
-describe 'exclusion?' do
+describe 'excluded_from?' do
   let(:schema) do
     Dry::Validation.Schema do
-      key(:sample) { exclusion?([1,3,5]) }
+      required(:sample).value(excluded_from?: [1,3,5])
     end
   end
 

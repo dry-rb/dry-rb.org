@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-system - Auto-Import</title><link href="/assets/stylesheets/site-5c553101.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-system</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-system/" class="">Introduction</a><li><a href="/gems/dry-system/container/" class="">Container</a></li><li><a href="/gems/dry-system/auto-import/" class="active">Auto-Import</a></li><li><a href="/gems/dry-system/booting/" class="">Booting a Dependency</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Auto-Import</h2><p>After defining a container, we can use its import module that will inject object dependencies automatically.</p>
+
+<p>Let&rsquo;s say we have an <code>Application</code> container and an object that will need a logger:</p>
+<pre class="syntax ruby"><code><span class="c1"># system/import.rb</span>
+<span class="nb">require</span> <span class="s1">'system/container'</span>
+<span class="no">Import</span> <span class="o">=</span> <span class="no">Application</span><span class="p">.</span><span class="nf">injector</span>
+
+<span class="c1"># In a class definition you simply specify what it needs</span>
+<span class="c1"># lib/post_publisher.rb</span>
+<span class="nb">require</span> <span class="s1">'import'</span>
+<span class="k">class</span> <span class="nc">PostPublisher</span>
+  <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'utils.logger'</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+    <span class="c1"># some stuff</span>
+    <span class="n">logger</span><span class="p">.</span><span class="nf">debug</span><span class="p">(</span><span class="s2">"post published: </span><span class="si">#{</span><span class="n">post</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h3 id="directory-structure">Directory Structure</h3>
+
+<p>You need to provide a specific directory/file structure but names of directories are configurable. The default is as follows:</p>
+<pre class="syntax plaintext"><code>#{root}
+  |- system
+    |- boot
+      # arbitrary files that are automatically loaded on finalization
+</code></pre>
+<h3 id="component-identifiers">Component identifiers</h3>
+
+<p>When components are auto-registered, default identifiers are created based on file paths, ie <code>lib/api/client</code> resolves to <code>API::Client</code> class with identifier <code>api.client</code>.<br>
+These identifiers <em>may have special meaning</em> where the first name defines its dependency. This is useful for cases where a group of components needs an additional dependency to be always booted for them.</p>
+
+<p>Let&rsquo;s say we have a group of repository objects that need a <code>persistence</code> component to be booted - all we need to do is to follow a simple naming convention:</p>
+
+<ul>
+<li><code>system/boot/persistence</code> - here we finalize <code>persistence</code> component</li>
+<li><code>lib/persistence/user_repo</code> - here we define components that needs <code>persistence</code></li>
+</ul>
+
+<p>Here&rsquo;s a sample setup for this scenario:</p>
+<pre class="syntax ruby"><code><span class="c1"># system/container.rb</span>
+<span class="nb">require</span> <span class="s1">'dry/system/container'</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="ss">:app</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'/my/app'</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">auto_register</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">load_paths!</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># system/import.rb</span>
+<span class="nb">require_relative</span> <span class="s1">'container'</span>
+
+<span class="no">Import</span> <span class="o">=</span> <span class="no">Application</span><span class="p">.</span><span class="nf">injector</span>
+
+<span class="c1"># system/boot/persistence.rb</span>
+<span class="no">Application</span><span class="p">.</span><span class="nf">finalize</span><span class="p">(</span><span class="ss">:persistence</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">container</span><span class="o">|</span>
+  <span class="n">start</span> <span class="k">do</span>
+    <span class="nb">require</span> <span class="s1">'sequel'</span>
+    <span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="s1">'persistence.db'</span><span class="p">,</span> <span class="no">Sequel</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DB_URL'</span><span class="p">]))</span>
+  <span class="k">end</span>
+
+  <span class="n">stop</span> <span class="k">do</span>
+    <span class="n">db</span><span class="p">.</span><span class="nf">disconnect</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># lib/persistence/user_repo.rb</span>
+<span class="nb">require</span> <span class="s1">'import'</span>
+
+<span class="k">class</span> <span class="nc">UserRepo</span>
+  <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'persistence.db'</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+    <span class="n">db</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">where</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>

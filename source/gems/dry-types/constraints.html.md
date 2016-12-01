@@ -3,9 +3,9 @@ title: Constraints
 layout: gem-single
 ---
 
-You can create constrained types that will use validation rules to check if the input is not violating any of the configured contraints. You can treat it as a lower level guarantee that you're not instantiating objects that are broken.
+You can create constrained types that will use validation rules to check that the input is not violating any of the configured constraints. You can treat it as a lower level guarantee that you're not instantiating objects that are broken.
 
-All types support constraints API, but not all constraints are suitable for a particular primitive, it's up to you to set up constraints that make sense.
+All types support the constraints API, but not all constraints are suitable for a particular primitive, it's up to you to set up constraints that make sense.
 
 Under the hood it uses [`dry-logic`](/gems/dry-logic) and all of its predicates are supported.
 
@@ -26,5 +26,5 @@ email["jane@doe.org"]
 # => "jane@doe.org"
 
 email["jane"]
-# => Dry::Types::ConstraintError: "fo" violates constraints
+# => Dry::Types::ConstraintError: "jane" violates constraints
 ```

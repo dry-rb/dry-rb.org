@@ -22,3 +22,13 @@ PostStatus = Types::Form::String.default('draft')
 PostStatus[''] # "draft"
 PostStatus["published"] # "published"
 ```
+
+It works with a callable value:
+
+``` ruby
+CallableDateTime = Types::DateTime.default { DateTime.now }
+
+CallableDateTime[nil] # Sun, 07 Aug 2016 23:52:04 -0400
+CallableDateTime[nil] # Sun, 07 Aug 2016 23:52:05 -0400
+```
+

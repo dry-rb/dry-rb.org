@@ -3,7 +3,7 @@ title: Predicate Logic
 layout: gem-single
 ---
 
-Schema DSL allows you to define validation rules using predicate logic. All common logic operators are supported and you can use them to **compose rules**. This simple technique is very powerful as it allows you to compose validations in a way where invalid state will not crash one of your rules. Validation is a process that always depends on specific conditions, in that sense, `dry-validation` schemas have rules that are always conditional, they are executed only if defined conditions are met.
+Schema DSL allows you to define validation rules using predicate logic. All common logic operators are supported and you can use them to **compose rules**. This simple technique is very powerful as it allows you to compose validations in such a way that invalid state will not crash one of your rules. Validation is a process that always depends on specific conditions, in that sense, `dry-validation` schemas have rules that are always conditional, they are executed only if defined conditions are met.
 
 This document explains how rule composition works in terms of predicate logic.
 
@@ -11,7 +11,7 @@ This document explains how rule composition works in terms of predicate logic.
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { int? & gt?(18) }
+  required(:age) { int? & gt?(18) }
 end
 ```
 
@@ -21,7 +21,7 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { none? | int? }
+  required(:age) { none? | int? }
 end
 ```
 
@@ -31,7 +31,7 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:age) { filled? > int? }
+  required(:age) { filled? > int? }
 end
 ```
 
@@ -43,8 +43,8 @@ end
 
 ``` ruby
 Dry::Validation.Schema do
-  key(:eat_cookie).required
-  key(:have_cookie).required
+  required(:eat_cookie).filled
+  required(:have_cookie).filled
 
   rule(be_reasonable: [:eat_cookie, :have_cookie]) do |eat_cookie, have_cookie|
     eat_cookie.eql?('yes') ^ have_cookie.eql?('yes')
@@ -52,7 +52,7 @@ Dry::Validation.Schema do
 end
 ```
 
-`:be_reasonable` rule is successful only when one of the values equals to `yes`.
+`:be_reasonable` rule is only successful when one of the values equals to `yes`.
 
 > Learn more about [high-level rules](/gems/dry-validation/high-level-rules)
 

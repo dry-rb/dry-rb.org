@@ -11,20 +11,28 @@ The operations will be resolved from the container via `#[]`. For our examples, 
 
 ```ruby
 require "dry-container"
-require "kleisli"
+require "dry-monads"
 
 class Container
   extend Dry::Container::Mixin
 
-  register :process, -> input { Right(name: input["name"], email: input["email"]) }
-  register :validate, -> input { input[:email].nil? ? Left(:not_valid) : Right(input) }
-  register :persist, -> input { DB << input; Right(:input) }
+  register :process, -> input {
+    Dry::Monads.Right(name: input["name"], email: input["email"])
+  }
+
+  register :validate, -> input {
+    input[:email].nil? ? Dry::Monads.Left(:not_valid) : Dry::Monads.Right(input)
+  }
+
+  register :persist, -> input {
+    DB << input; Dry::Monads.Right(input)
+  }
 end
 ```
 
 ### Defining a transaction
 
-Define a transaction to bring your opererations together:
+Define a transaction to bring your operations together:
 
 ```ruby
 save_user = Dry.Transaction(container: Container) do
@@ -68,6 +76,8 @@ save_user.call(name: "Jane", email: "jane@doe.com") do |m|
 end
 ```
 
+The match cases are executed in order. The first match wins and halts subsequent matching. The result from the match also becomes the method call’s return value.
+
 ### Passing additional step arguments
 
 You can pass additional arguments to step operations at the time of calling your transaction. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the front of the operation’s arguments. This means that transactions can effectively support operations with any sort of `#call(*args, input)` interface.
@@ -78,9 +88,17 @@ DB = []
 class Container
   extend Dry::Container::Mixin
 
-  register :process, -> input { Right(name: input["name"], email: input["email"]) }
-  register :validate, -> allowed, input { input[:email].include?(allowed) ? Left(:not_valid) : Right(input) }
-  register :persist, -> input { DB << input; Right(:input) }
+  register :process, -> input {
+    Dry::Monads.Right(name: input["name"], email: input["email"])
+  }
+
+  register :validate, -> allowed, input {
+    input[:email].include?(allowed) ? Dry::Monads.Left(:not_valid) : Dry::Monads.Right(input)
+  }
+
+  register :persist, -> input {
+    DB << input; Dry::Monads.Right(input)
+  }
 end
 
 save_user = Dry.Transaction(container: Container) do

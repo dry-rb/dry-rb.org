@@ -8,7 +8,7 @@ sections:
   - working-with-schemas
 ---
 
-Here's a basic example where we validate following things:
+Here's a basic example where we validate the following things:
 
 * The input *must have a key* called `:email`
   * Provided the email key is present, its value *must be filled*
@@ -21,8 +21,8 @@ This can be easily expressed through the DSL:
 require 'dry-validation'
 
 schema = Dry::Validation.Schema do
-  key(:email).required
-  key(:age).required(:int?, gt?: 18)
+  required(:email).filled(:str?)
+  required(:age).filled(:int?, gt?: 18)
 end
 
 errors = schema.call(email: 'jane@doe.org', age: 19).messages
@@ -36,6 +36,6 @@ schema.call(email: nil, age: 19).messages
 
 Learn more:
 
-  * [Predicate logic](/gem/dry-validation/basics/predicate-logic)
+  * [Predicate logic](/gems/dry-validation/basics/predicate-logic)
   * [Macros](/gems/dry-validation/basics/macros)
   * [Working With Schemas](/gems/dry-validation/basics/working-with-schemas)

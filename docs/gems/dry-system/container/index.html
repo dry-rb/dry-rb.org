@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-system - Container</title><link href="/assets/stylesheets/site-5c553101.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-system</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-system/" class="">Introduction</a><li><a href="/gems/dry-system/container/" class="active">Container</a></li><li><a href="/gems/dry-system/auto-import/" class="">Auto-Import</a></li><li><a href="/gems/dry-system/booting/" class="">Booting a Dependency</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Container</h2><p>Main API of <code>dry-system</code> is the abstract container that you inherit from. It allows you to configure basic settings and exposes APIs for requiring files easily.</p>
+
+<p>Let&rsquo;s say you want to define an application container that will provide a logger:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/system/container'</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'./my/app'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># now you can register a logger</span>
+<span class="nb">require</span> <span class="s1">'logger'</span>
+<span class="no">Application</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="s1">'utils.logger'</span><span class="p">,</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="vg">$stdout</span><span class="p">))</span>
+
+<span class="c1"># and access it</span>
+<span class="no">Application</span><span class="p">[</span><span class="s1">'utils.logger'</span><span class="p">]</span>
+</code></pre>
+<h3 id="auto-registration">Auto-Registration</h3>
+
+<p>By using simple naming conventions we can automatically register objects within our container.</p>
+
+<p>Let&rsquo;s provide a custom logger object and put it under a custom load-path that we will configure:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/system/container'</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'./my/app'</span><span class="p">)</span>
+
+    <span class="c1"># we set 'lib' relative to `root` as a path which contains class definitions</span>
+    <span class="c1"># that can be auto-registered</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">auto_register</span> <span class="o">=</span> <span class="s1">'lib'</span>
+  <span class="k">end</span>
+
+  <span class="c1"># this alters $LOAD_PATH hence the `!`</span>
+  <span class="n">load_paths!</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># under /my/app/lib/logger.rb we put</span>
+<span class="k">class</span> <span class="nc">Logger</span>
+  <span class="c1"># some neat logger implementation</span>
+<span class="k">end</span>
+
+<span class="c1"># we can finalize the container which triggers auto-registration</span>
+<span class="no">Application</span><span class="p">.</span><span class="nf">finalize!</span>
+
+<span class="c1"># the logger becomes available</span>
+<span class="no">Application</span><span class="p">[</span><span class="s1">'logger'</span><span class="p">]</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>

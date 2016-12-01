@@ -22,6 +22,9 @@ gems:
     name: dry-types
     desc: Flexible type system with many built-in types
   -
+    name: dry-struct
+    desc: Attribute DSL for struct-like objects
+  -
     name: dry-transaction
     desc: Business transaction DSL
   -
@@ -34,14 +37,20 @@ gems:
     name: dry-equalizer
     desc: Simple mixin providing equality methods
   -
-    name: dry-component
+    name: dry-system
     desc: Organize your code into reusable components
   -
     name: dry-configurable
     desc: Thread-safe configuration mixin
   -
+    name: dry-initializer
+    desc: DSL for defining initializer params and options
+  -
     name: dry-logic
     desc: Predicate logic with composable rules
   -
-    name: dry-result_matcher
-    desc: Expressive match API for operating on Either results
+    name: dry-matcher
+    desc: Flexible, expressive pattern matching
+  -
+    name: dry-monads
+    desc: Useful, common monads in idiomatic Ruby
