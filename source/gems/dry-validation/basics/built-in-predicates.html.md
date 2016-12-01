@@ -121,7 +121,7 @@ end
 
 ### `filled?`
 
-Checks that either the array, string, or hash is filled.
+Checks that either the value is non-nil and, in the case of a String, Hash, or Array, non-empty.
 
 ```ruby
 describe 'filled?' do
