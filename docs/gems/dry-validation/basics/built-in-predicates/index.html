@@ -113,7 +113,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 </code></pre>
 <h3 id="filled"><code>filled?</code></h3>
 
-<p>Checks that either the array, string, or hash is filled.</p>
+<p>Checks that either the value is non-nil and, in the case of a String, Hash, or Array, non-empty.</p>
 <pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'filled?'</span> <span class="k">do</span>
   <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
     <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
