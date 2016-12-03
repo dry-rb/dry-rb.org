@@ -41,4 +41,4 @@ class MyClass
 end
 ```
 
-These methods are not defined directly on your class. They're defined in the module that you mix in, which mean you can also override them in your class if you wish to provide custom behavior.
+These methods aren't defined directly on your class. They're defined in the module that you mix in, which means you can override them in your class if you wish to provide custom behavior.
