@@ -7,6 +7,7 @@ type: gem
 name: dry-auto_inject
 sections:
   - basic-usage
+  - how-does-it-work
 ---
 
 dry-auto\_inject provides low-impact dependency injection and resolution support for your classes.
