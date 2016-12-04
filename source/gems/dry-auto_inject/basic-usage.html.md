@@ -57,7 +57,7 @@ end
 
 ### Specifying aliases for dependencies
 
-You can pass dependencies as a hash to provide your own names for each one:
+You can specify dependencies as a hash to provide your own names for each one:
 
 ```ruby
 class MyClass
@@ -82,7 +82,7 @@ end
 
 ### Initializing your object
 
-Initialize your object without any arguments and all the dependencies will be made available from the the container automatically:
+Initialize your object without any arguments and all the dependencies will be resolved from the the container automatically:
 
 ```ruby
 my_obj = MyClass.new
@@ -90,7 +90,7 @@ my_obj = MyClass.new
 
 ### Passing manual dependencies
 
-To provide an alternative object for an object’s dependency, pass it to the initializer with a keyword argument matching the dependency’s name:
+To provide an alternative object for a dependency, pass it to the initializer with a keyword argument matching the dependency’s name:
 
 ```ruby
 class MyClass
