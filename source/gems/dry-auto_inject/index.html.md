@@ -8,6 +8,7 @@ name: dry-auto_inject
 sections:
   - basic-usage
   - how-does-it-work
+  - injection-strategies
 ---
 
 dry-auto\_inject provides low-impact dependency injection and resolution support for your classes.
