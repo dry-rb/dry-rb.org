@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-auto_inject - Injection strategies</title><link href="/assets/stylesheets/site-5c553101.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-auto_inject</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-auto_inject/" class="">Introduction</a><li><a href="/gems/dry-auto_inject/basic-usage/" class="">Basic usage</a></li><li><a href="/gems/dry-auto_inject/how-does-it-work/" class="">How does it work?</a></li><li><a href="/gems/dry-auto_inject/injection-strategies/" class="active">Injection strategies</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Injection strategies</h2><p>dry-auto_inject supports three <em>injection strategies</em>, allowing you to design and integrate with different kinds of classes.</p>
+
+<p>These strategies all provide <em>constructor dependency injection</em>: dependencies are passed when creating your objects. The strategies differ in how they expect dependencies to be passed to the initializer.</p>
+
+<h2 id="choosing-a-strategy">Choosing a strategy</h2>
+
+<p>Choose a strategy when you build the injector:</p>
+<pre class="syntax ruby"><code><span class="c1"># Default keyword arguments strategy</span>
+<span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">)</span>
+
+<span class="c1"># Positional arguments strategy</span>
+<span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">).</span><span class="nf">args</span>
+</code></pre>
+<p>Strategies can also be chained from existing injectors, which means you can set up a single injector for your most commonly used strategy, then use a different strategy directly in particular classes if they have differing requirements. For example:</p>
+<pre class="syntax ruby"><code><span class="c1"># Set up a standard strategy for your app</span>
+<span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+ <span class="c1"># Use the standard strategy here</span>
+ <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s2">"users_repository"</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">SpecialClass</span>
+ <span class="c1"># Use a different strategy in this particular class</span>
+ <span class="kp">include</span> <span class="no">Import</span><span class="p">.</span><span class="nf">args</span><span class="p">[</span><span class="s2">"users_repository"</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+<h2 id="strategies">Strategies</h2>
+
+<h3 id="keyword-arguments-kwargs">Keyword arguments (<code>kwargs</code>)</h3>
+
+<p>This is the default strategy.</p>
+
+<p>Pass dependencies to the initializer using keyword arguments.</p>
+<pre class="syntax ruby"><code><span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+ <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s2">"users_repository"</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">users_repository: </span><span class="n">my_repo</span><span class="p">)</span>
+</code></pre>
+<p>The <code>#initialize</code> method has two possible argument signatures:</p>
+
+<ul>
+<li>If there is no <code>super</code> method for <code>#initialize</code>, or the <code>super</code> method takes no arguments, then the keyword arguments will be explicit, e.g. <code>#initialize(users_repository: nil)</code>.</li>
+<li>If the <code>super</code> method for <code>#initialize</code> takes its own set of keyword arguments, then the arguments will be a single splat, e.g. <code>#initialize(**args)</code>.</li>
+</ul>
+
+<h3 id="options-hash-hash">Options hash (<code>hash</code>)</h3>
+
+<p>Pass the dependencies to the initializer as a single hash.</p>
+<pre class="syntax ruby"><code><span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">).</span><span class="nf">hash</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+ <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s2">"users_repository"</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="c1"># This can also take `{users_repo: my_repo}`</span>
+<span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">users_repository: </span><span class="n">my_repo</span><span class="p">)</span>
+</code></pre>
+<p>The <code>#initialize</code> method has an argument signature of <code>#initialize(options)</code>, where <code>options</code> is expected to be a hash.</p>
+
+<h3 id="positional-arguments-args">Positional arguments (<code>args</code>)</h3>
+
+<p>Pass dependencies to the initializer using standard positional arguments.</p>
+<pre class="syntax ruby"><code><span class="no">Import</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">AutoInject</span><span class="p">(</span><span class="no">MyContainer</span><span class="p">).</span><span class="nf">args</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+ <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s2">"users_repository"</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">my_repo</span><span class="p">)</span>
+</code></pre>
+<p>The <code>#initialize</code> method has an argument signature with a named positional argument for each dependency, e.g. <code>#initialize(users_repository)</code>.</p>
+</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
