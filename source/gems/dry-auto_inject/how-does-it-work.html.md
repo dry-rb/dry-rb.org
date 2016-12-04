@@ -3,11 +3,11 @@ title: How does it work?
 layout: gem-single
 ---
 
-dry-auto\_inject adds _constructor dependency injection_ to your objects. It achieves this by defining two methods in the module that you mix into your class.
+dry-auto\_inject enables _constructor dependency injection_ for your objects. It achieves this by defining two methods in the module that you include in your class.
 
-First, it defines `.new`, which resolves dependencies from the container that you haven’t passed as explicit arguments. It then passes these arguments onto `#initialize`, as per Ruby’s usual behaviour.
+First, it defines `.new`, which resolves your dependencies from the container, if you haven't otherwise provided them as expicit arguments. It then passes these dependencies as arguments onto `#initialize`, as per Ruby’s usual behaviour.
 
-It also defines `#initialize`, which receives these dependencies as arguments, and then assigns them to instance variables. These variables are made available via attr\_readers.
+It also defines `#initialize`, which receives these dependencies as arguments and then assigns them to instance variables. These variables are made available via attr\_readers.
 
 So when you specify dependencies like this:
 
@@ -41,4 +41,4 @@ class MyClass
 end
 ```
 
-These methods aren't defined directly on your class. They're defined in the module that you mix in, which means you can override them in your class if you wish to provide custom behavior.
+Since these methods are defined in the module that you include in your class, you can still override them in your class if you wish to provide custom behavior.
