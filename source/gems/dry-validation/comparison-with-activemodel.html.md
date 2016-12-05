@@ -111,7 +111,7 @@ validates :attr, exclusion: { in: enumerable_object }
 **dry-validation**
 
 ```ruby
-required(:attr).filled(exclusion?: enumerable_object)
+required(:attr).filled(excluded_from?: enumerable_object)
 ```
 
 > Note: As per ActiveModel docs, `:within` option is an alias of `:in`
@@ -143,7 +143,7 @@ validates :attr, format: { without: regex }
 **dry-validation**
 
 ```ruby
-required(:attr) { filled? & !format?(regex) }
+required(:attr) { filled? & format?(regex).not }
 ```
 
 ### 2.6 inclusion
@@ -159,7 +159,7 @@ validates :attr, inclusion: { in: enumerable_object }
 **dry-validation**
 
 ```ruby
-required(:attr).filled(inclusion?: enumerable_object)
+required(:attr).filled(included_in?: enumerable_object)
 ```
 
 > Note: As per ActiveModel docs, `:within` option is an alias of `:in`
@@ -168,7 +168,7 @@ required(:attr).filled(inclusion?: enumerable_object)
 
 This helper validates the length of the attribute's value. ActiveModel relies on a variety of options to specify length constraints in different ways. dry-validation uses different predicates for each constraint.
 
-####Minimum
+#### Minimum
 
 **ActiveModel Validation**
 
@@ -233,9 +233,9 @@ Dry::Validation.Schema do
   required(:attr).filled { word_count?(min_size: 300, max_size: 400) }
 
   configure do
-    def word_count?(value, options={})
+    def word_count?(options={}, value)
       words = value.split(/\s+/).size #split into seperate words
-      words >= options[:min_size] && words <= options[:max_size] #compare no. words with parameters
+      words >= options[:min_size] && words <= options[:max_size] # compare no. words with parameters
     end
   end
 end
@@ -245,24 +245,7 @@ end
 
 ActiveModel determines numericality either by trying to convert the value to a Float, or by using a Regex if you specify `only_integer: true`.
 
-In dry-validation, you can either validate that the value is of type Integer, Float, or Decimal using the `.int?`, `.float?` and `.decimal?` predicates respectively, or you can define a custom predicate that test if the value is numerical regardless of its data type.
-
-You could use the predicate below to achieve this. Copied from rails 'activemodel/lib/active_model/validations/numericality.rb', line 58
-
-```
-def number?(value)
-  case value
-  when %r\A0[xX]/
-    false
-  else
-    begin
-      Kernel.Float(value)
-    rescue ArgumentError, TypeError
-      false
-    end
-  end
-end
-```
+In dry-validation, you can either validate that the value is of type Integer, Float, or Decimal using the `.int?`, `.float?` and `.decimal?` predicates respectively, or you can use `number?` to test if the value is numerical regardless of its specific data type.
 
 **ActiveModel Validation**
 
@@ -386,7 +369,7 @@ validates :attr, numericality: { odd: true }
 
 ```ruby
 Dry::Validation.Schema do
-  required(:attr) { int? & odd? }
+  required(:attr).filled(:int?, :odd?)
 end
 ```
 
@@ -466,8 +449,8 @@ validates :attr, absence: true
 Dry validation includes two predicates (`empty?` and `none?`) for absence. You should use whichever is most applicable to your situation, remembering that an empty string can be turned into nil using `to_nil` coercion.
 
 ```ruby
-required(:attr) { none? }  # only allows nil
-required(:attr) { empty? } # only empty values:  "", [], {}, or nil
+required(:attr).filled(:none?)  # only allows nil
+required(:attr).filled(:empty?) # only empty values:  "", [], {}, or nil
 ```
 
 ####Associations
@@ -481,14 +464,14 @@ If you want to be sure that an association is absent, you'll need create a custo
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
 ```ruby
-required(:attr) { exclusion?([true, false]) }
+required(:attr).filled(excluded_from?: [true, false])
 ```
 
 **Booleans**
 
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-`required(:attr) { none? }`
+`required(:attr).filled(:none?)`
 
 ### 2.11 uniqueness
 
@@ -567,7 +550,7 @@ To achieve this in dry-validation you can use [high-level rules](/gems/dry-valid
 .1. Declare a rule for each of the attributes you need to reference:
 
 ```ruby
-required(:payment_type).filled(inclusion?: ["card", "cash", "cheque"])
+required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
 required(:card_number).maybe
 ```
 
@@ -590,7 +573,7 @@ end
 Put it all together and you get:
 ```ruby
 Dry::Validation.Schema do
-  required(:payment_type).filled(inclusion?: ["card", "cash", "cheque"])
+  required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
   required(:card_number).maybe
 
   rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
