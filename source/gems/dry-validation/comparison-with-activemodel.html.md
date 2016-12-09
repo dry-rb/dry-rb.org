@@ -13,7 +13,7 @@ After reading this guide, you will know:
 - How to use dry-validation to replace built-in ActiveModel validation helpers.
 - How to use dry-validation to create your own custom validation methods.
 
-> Note that there isn't a one-to-one correspondence between ActiveModel validators and Dry predicates.
+> Note that there isn't a one-to-one translation between ActiveModel validators and Dry predicates, this guide shows you to closest match and highlights differences where applicable.
 
 > For the main documentation on dry-validation predicates, see [Built-in Predicates](http://dry-rb.org/gems/dry-validation/basics/built-in-predicates/).
 
@@ -76,9 +76,73 @@ required(:attr).filled(eql?: 'yes')
 
 ### 2.2 validates_associated
 
-You will need to create a custom predicate to achieve this.
+This validates whether the associated object or objects are all valid and works with any kind of association.
 
-TODO expand
+As your dry-validation schema validates the keys and values you provide, it has no idea the structure of model to which this data relates or it's associations.
+
+You could acheive something to ActiveModel's `validates_associated`  by using a nested schema and passing in the attributes for your associated objects:
+
+**For single (`has_one` / `belongs_to`) associations**
+
+**dry-validation**
+
+```ruby
+schema = Dry::Validation.Schema do
+  required(:name).filled
+  required(:email).filled
+
+  required(:spouse).schema do
+    required(:name).filled
+    required(:email).filled
+  end
+end
+
+schema.({
+  name: 'Fred',
+  email: 'fred@somewhere.com',
+  spouse: {
+    name: 'Alex',
+    email: 'alex@somewhere.com'
+  }
+})
+```
+
+**For `has_many` associations**
+
+**dry-validation**
+
+```ruby
+schema = Dry::Validation.Schema do
+  required(:name).filled
+  required(:email).filled
+
+  required(:cars).each do
+    schema do
+      required(:registration_numer).filled
+      required(:make).filled
+      required(:model).filled
+    end
+  end
+end
+
+schema.({
+  name: 'Fred',
+  email: 'fred@somewhere.com',
+  cars: [
+    {
+      registration_number: 'ZX651MU',
+      make: 'Ford',
+      model: 'Mustang'
+    },
+    {
+      registration_number: 'MU65LTX',
+      make: 'Audi',
+      model: 'R8'
+    }
+  ]
+})
+
+```
 
 ### 2.3 confirmation
 
@@ -226,13 +290,13 @@ required(:attr).filled(size?: int)
 
 #### Tokeniser Option
 
-As with ActiveModel Validations, dry-validation counts characters by default. ActiveModel provides a `:tokeniser` option to allow you to customise how the value is split. You can achieve the same thing in dry-validation by creating your own predicate, e.g.:
+As with ActiveModel Validations, dry-validation counts characters by default. ActiveModel provides a `:tokeniser` option to allow you to customise how the value is split. You can achieve the same thing in dry-validation by creating your own predicate e.g.:
 
 ```ruby
 Dry::Validation.Schema do
   configure do
-    def word_count?(options={}, value)
-      words = value.split(/\s+/).size #split into seperate words
+    def word_count?(options, value)
+      words = value.split(/\s+/).size # split into seperate words
       words >= options[:min_size] && words <= options[:max_size] # compare no. words with parameters
     end
   end
@@ -279,8 +343,8 @@ validates :attr, numericality: { only_integer: true }
 **dry-validation**
 
 ```ruby
-required(:attr).filled(format?: /\A[+-]?\d+\Z/) #option 1 - most similar to ActiveModel
-required(:attr).filled(:int?) #option 2 - best practise
+required(:attr).filled(format?: /\A[+-]?\d+\Z/) # option 1 - most similar to ActiveModel
+required(:attr).filled(:int?) # option 2 - best practise
 ```
 
 #### Options - greater_than
@@ -399,7 +463,7 @@ required(:attr).filled(:date?, lteq?: start_date, gteq?: end_date)
 
 ### 2.9 presence
 
-dry-validation has no exact equivalent of ActiveModel's `presence` validation, as in `validates :attr, presence: true`. A first approximation would be `required(:attr).filled`; however there are a few differences.
+dry-validation has no exact equivalent of ActiveModel's `presence` validation (`validates :attr, presence: true`. The closest translation would be `required(:attr).filled`; however there are a few differences.
 
 Internally, ActiveModel's `presence` validation calls the method `present?` on the validated attribute, which is equivalent to `!blank?`. Neither `present?` nor `blank?` are a inbuilt Ruby methods, but a monkey-patch added to every object by ActiveSupport, with the following semantics:
 
@@ -423,9 +487,30 @@ end
 
 **Associations**
 
-If you want to be sure that an association is present, you'll need to create a custom predicate to test whether the associated object itself is present.
+If you want to be sure that an association is present, you'll need to create a custom predicate to test whether the associated object itself is present. Here is a simple example of what such a predicate might look like:
 
-If you want to replicate ActiveModel's presence validation of an object associated via a has_one or has_many relationship (checking `.blank?` and `.marked_for_destruction?`), you will need a custom predicate.
+```ruby
+schema = Dry::Validation.Schema do
+  configure do
+    def is_record?(class, value)
+      class.where(id: value).any?
+    end
+  end
+
+  required(:name).filled
+  required(:email).filled
+  required(:spouse_id).filled(is_record?: Person) # single association
+  required(:car_ids).filled(:array?, is_record?: Car) # many association
+end
+
+schema.({
+  name: 'Fred',
+  email: 'fred@somewhere.com',
+  spouse_id: 1,
+  car_ids: [21, 23, 24, 25]
+})
+
+```
 
 **Booleans**
 
@@ -451,9 +536,30 @@ required(:attr).value(:empty?) # only empty values:  "", [], {}, or nil
 
 ####Associations
 
-If you want to be sure that an association is absent, you'll need create a custom predicate to test whether the associated object itself is absent.
+If you want to be sure that an association is absent, we can do the opposite to checking that the association if present but use none for a single object and empty for may objects.
 
-> TODO: give an example of what such a predicate could looklike
+None in many ways is simpler than its present? equivilent as if the foreign_key / id is nil, then the association would be nil.
+
+We can therefore simply check that our ids are nil/ empty:
+
+**dry-validation**
+
+```ruby
+schema = Dry::Validation.Schema do
+  required(:name).filled
+  required(:email).filled
+  required(:spouse_id).value(:none?) # single association
+  required(:cars).value(:empty?) # many association
+end
+
+schema.({
+  name: 'Fred',
+  email: 'fred@somewhere.com',
+  spouse_id: '',
+  car_ids: []
+})
+
+```
 
 **Booleans**
 
@@ -469,11 +575,47 @@ Rails' `uniqueness` validation is fundamentally different from the other validat
 
 ### 2.12 validates_with
 
-TODO expand
+The validates_with helper takes a class, or a list of classes to use for validation.
+
+In reality by using dry-validation you are effectively doing this as your schema is an independent class.
+
+You can read more about how dry-validation work [here](http://dry-rb.org/gems/dry-validation/basics/working-with-schemas/) and more information on how to reuse your schemas [here](http://dry-rb.org/gems/dry-validation/reusing-schemas/)
 
 ### 2.13 validates_each
 
-TODO expand
+This helper validates attributes against a block.
+
+Example as per the official Active Record Validation Guide
+
+**Active Model Validation**
+
+```ruby
+class Person < ApplicationRecord
+  validates_each :name, :surname do |record, attr, value|
+    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
+  end
+end
+````
+
+**dry-validation**
+
+In dry-validation we don't provide such a helper. You can acheive the same thing by converting the contents of your validates_each block to a custom predicate and
+
+Now for those of you who have been paying attention, for this simple example we could use our `format?` predicate to validate this. However, lets for arguments sake say that we want to do this via a custom predicate what might that look like?
+
+```ruby
+  schema = Dry::Validation.Schema do
+    configure do
+      def starts_with_uppercase?(value)
+        value =~ /^[A-Z]*/ # check that the first character in our string is uppercase
+      end
+    end
+
+    required(:name).filled(:str, :starts_with_uppercase?)
+    required(:surname_name).filled(:str, :starts_with_uppercase?)
+  end
+```
+
 
 ### 3. Common Validation Options
 
@@ -492,11 +634,12 @@ validates :attr, length: { minimum: int, allow_nil: true }
 **dry-validation**
 
 ```ruby
-required(:attr).maybe(int?, min_size?: int)
+required(:attr).maybe(str?, min_size?: int)
 ```
 
 **3.2  `:allow_blank`**
 
+Bareing in mind the differences explained between Ruby's
 In dry-validation you will need to use a block when defining your rule instead of `filled`, and include the `.empty?` predicate into your rule.
 
 **ActiveModel Validation**
@@ -508,9 +651,8 @@ validates :attr, length: { minimum: int, allow_blank: true }
 **dry-validation**
 
 ```ruby
-required(:attr) { empty? | int? & min_size?(int) )
+required(:attr) { empty? | str? & min_size?(int) )
 ```
-
 
 **3.3 `:message`**
 
@@ -523,6 +665,7 @@ In dry-validation, validations are defined in schemas. You can create separate s
 You can keep your schema code nice and DRY by [reusing schemas](gems/dry-validation/reusing-schemas/).
 
 ### 4. Conditional Validation
+
 In ActiveModel you can use `:if` or `:unless` to only perform a validation based on the result of a proc or method.
 
 A simple schema can look like this:
@@ -544,19 +687,11 @@ required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
 required(:card_number).maybe
 ```
 
-.2. Declare a custom predicate to check if `payment_type == 'card'`:
-
-```ruby
-def paid_with_card?(value)
-  value == "card"
-end
-```
-
 .3. Declare a high level rule to require the card number if `payment_type == 'card'`:
 
 ```ruby
 rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
-  payment_type.paid_with_card? > card_number.filled?
+  payment_type.eql?('card') > card_number.filled?
 end
 ```
 
@@ -567,7 +702,7 @@ Dry::Validation.Schema do
   required(:card_number).maybe
 
   rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
-    payment_type == 'card' > card_number.filled?
+    payment_type.eql?('card') > card_number.filled?
   end
 end
 ```
