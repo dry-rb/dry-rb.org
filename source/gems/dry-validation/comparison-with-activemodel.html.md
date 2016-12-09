@@ -538,7 +538,7 @@ required(:attr).value(:empty?) # only empty values:  "", [], {}, or nil
 
 If you want to be sure that an association is absent, we can do the opposite to checking that the association if present but use none for a single object and empty for may objects.
 
-None in many ways is simpler than its present? equivilent as if the foreign_key / id is nil, then the association would be nil.
+Checking that an association is absent is in many ways is simpler than its `present?` equivilent as if the foreign_key / id is nil, then the association would also be nil.
 
 We can therefore simply check that our ids are nil/ empty:
 
@@ -571,7 +571,76 @@ This validates that the value of the `:attr` key is `nil`.
 
 ### 2.11 uniqueness
 
-Rails' `uniqueness` validation is fundamentally different from the other validations because it requires a query against a database. (Accordingly, the uniqueness validation is contained within the `activerecord` gem, while other validations are part of `activemodel`.) TODO does this mean that dry-v can't handle this case? expand
+Rails' `uniqueness` validation is fundamentally different from the other validations because it requires a query against a database. (Accordingly, the uniqueness validation is contained within the `activerecord` gem, while other validations are part of `activemodel`.) You can test if an attribute is unique by creating a custom predicate to run this query to the database.
+
+Let's take the example included in the offical Active Record Validation guide:
+
+**ActiveModel Validations**
+```ruby
+class Account < ApplicationRecord
+  validates :email, uniqueness: true
+end
+```
+
+**dry-validation**
+```ruby
+schema = Dry::Validation.Schema do
+  configure do
+    option :account
+
+    def unique?(attr_name, value)
+      account.class.where.not(id: account.id).where(attr_name => value).empty?
+    end
+  end
+  required(:email).filled(unique?: :email)
+end
+
+schema.with(object: user_account).call(input)
+```
+
+Note that our query checks for any records in our class which have the same value for our attribute and where the id is not equal to the record we are updating. This works for both new and persisted records.
+
+**Scope**
+
+To limit the scope of your query you can simply update your query as needed or as in our example below add a scope paramenter to your custom predicate for example:
+
+```ruby
+schema = Dry::Validation.Schema do
+  configure do
+    option :account
+
+    def scoped_unique?(attr_name, scope, value)
+       account.class.where.not(id: account.id).where(scope).where(attr_name => value).empty?
+    end
+  end
+
+  required(:email).filled(scoped_unique?: :email, scope?: { active: true })
+end
+
+schema.with(object: user_account).call(input)
+```
+
+**Case Sensitive**
+
+There is also a :case_sensitive option that you can use to define whether the uniqueness constraint will be case sensitive or not. In Active Model Validations this option defaults to true.
+
+Depending on your chosen database, you might find that searches are case insensitive anyway. If not then you could simply update your query to perform a case insensitive search. The exact implementation will depend on your database but here's an example that works with PostgreSQL.
+
+```ruby
+schema = Dry::Validation.Schema do
+  configure do
+    option :account
+
+    def case_insensitive_unique?(attr_name, value)
+       account.class.where.not(id: account.id).where("LOWER(#{attr_name}) = ?, value.downcase).empty?
+    end
+  end
+
+  required(:email).filled(case_insensitive_unique?: :email)
+end
+
+schema.with(object: user_account).call(input)
+```
 
 ### 2.12 validates_with
 
