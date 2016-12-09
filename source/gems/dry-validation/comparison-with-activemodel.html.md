@@ -55,7 +55,7 @@ validates :attr, acceptance: true
 **dry-validation**
 
 ```ruby
-required(:attr) { bool? & true? }
+required(:attr).filled(:bool?, :true?)
 ```
 
 When using the `:accepts` option:
@@ -230,14 +230,14 @@ As with ActiveModel Validations, dry-validation counts characters by default. Ac
 
 ```ruby
 Dry::Validation.Schema do
-  required(:attr).filled { word_count?(min_size: 300, max_size: 400) }
-
   configure do
     def word_count?(options={}, value)
       words = value.split(/\s+/).size #split into seperate words
       words >= options[:min_size] && words <= options[:max_size] # compare no. words with parameters
     end
   end
+
+  required(:attr).filled(word_count?: { min_size: 300, max_size: 400 } }
 end
 ```
 
@@ -267,10 +267,6 @@ Dry::Validation.Schema do
   required(:attr).filled(:number?)
 end
 ```
-
-For validations using additional options (`:greater_than`, `:less_than` etc.) you should use the correct type (`.int?`, `.float?`, `.decimal?`) rather than the custom predicate above.
-
-For validations using additional options (`:greater_than`, `:less_than` etc.) you should use the correct type `.int?`, `.float?`, `.decimal?` rather than the custom predicate above.
 
 #### Options - only_integer
 
@@ -354,7 +350,7 @@ validates :attr, numericality: { equal_to: int }
 **dry-validation**
 
 ```ruby
-required(:attr).filled(:int?, eq?: int)
+required(:attr).filled(:int?, eql?: int)
 ```
 
 #### Options - odd
@@ -449,8 +445,8 @@ validates :attr, absence: true
 Dry validation includes two predicates (`empty?` and `none?`) for absence. You should use whichever is most applicable to your situation, remembering that an empty string can be turned into nil using `to_nil` coercion.
 
 ```ruby
-required(:attr).filled(:none?)  # only allows nil
-required(:attr).filled(:empty?) # only empty values:  "", [], {}, or nil
+required(:attr).value(:none?)  # only allows nil
+required(:attr).value(:empty?) # only empty values:  "", [], {}, or nil
 ```
 
 ####Associations
@@ -463,15 +459,9 @@ If you want to be sure that an association is absent, you'll need create a custo
 
 To validate the absence of a boolean field (e.g. not true or false) you should use:
 
-```ruby
-required(:attr).filled(excluded_from?: [true, false])
-```
+`required(:attr).value(:none?)`
 
-**Booleans**
-
-To validate the absence of a boolean field (e.g. not true or false) you should use:
-
-`required(:attr).filled(:none?)`
+This validates that the value of the `:attr` key is `nil`.
 
 ### 2.11 uniqueness
 
@@ -502,7 +492,7 @@ validates :attr, length: { minimum: int, allow_nil: true }
 **dry-validation**
 
 ```ruby
-required(:attr).filled(int?, min_size?: int)
+required(:attr).maybe(int?, min_size?: int)
 ```
 
 **3.2  `:allow_blank`**
@@ -518,7 +508,7 @@ validates :attr, length: { minimum: int, allow_blank: true }
 **dry-validation**
 
 ```ruby
-required(:attr) { empty? | int? & min_size?: int )
+required(:attr) { empty? | int? & min_size?(int) )
 ```
 
 
@@ -577,13 +567,7 @@ Dry::Validation.Schema do
   required(:card_number).maybe
 
   rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
-    payment_type.paid_with_card? > card_number.filled?
-  end
-
-  configure do
-    def paid_with_card?(value)
-      value == "card"
-    end
+    payment_type == 'card' > card_number.filled?
   end
 end
 ```
