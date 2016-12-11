@@ -23,4 +23,4 @@ Run `bundle exec rake build` to generate the latest copy of the site.
 
 ## Contributing
 
-See `CONTRIBUTING.md`.
+See [`CONTRIBUTING.md`](CONTRIBUTING.md).
