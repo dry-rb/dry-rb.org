@@ -91,17 +91,19 @@ require 'dry-initializer'
 
 module Dry::Initializer::Coercion
   class Builder
-    # The `##settings` private method returns a hash of settings for param/option
-    return unless settings.key? :coercer
+    def call
+      # The `##settings` private method returns a hash of settings for param/option
+      return unless settings.key? :coercer
 
-    ivar = :"@#{name}"
-    coercer = settings[:coercer]
+      ivar = :"@#{name}"
+      coercer = settings[:coercer]
 
-    proc do
-      old_value = instance_variable_get(ivar)
-      new_value = old_value.instance_eval(coercer)
+      proc do
+        old_value = instance_variable_get(ivar)
+        new_value = old_value.instance_eval(coercer)
 
-      instance_variable_get(ivar, new_value)
+        instance_variable_get(ivar, new_value)
+      end
     end
   end
 
