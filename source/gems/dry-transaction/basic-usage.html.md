@@ -80,7 +80,7 @@ The match cases are executed in order. The first match wins and halts subsequent
 
 ### Passing additional step arguments
 
-You can pass additional arguments to step operations at the time of calling your transaction. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the front of the operation’s arguments. This means that transactions can effectively support operations with any sort of `#call(*args, input)` interface.
+You can pass additional arguments to step operations at the time of calling your transaction. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the end of the operation’s arguments. This means that transactions can effectively support operations with any sort of `#call(input, *args)` interface including keyword arguments.
 
 ```ruby
 DB = []
@@ -92,12 +92,16 @@ class Container
     Dry::Monads.Right(name: input["name"], email: input["email"])
   }
 
-  register :validate, -> allowed, input {
+  register :validate, -> input, allowed {
     input[:email].include?(allowed) ? Dry::Monads.Left(:not_valid) : Dry::Monads.Right(input)
   }
 
   register :persist, -> input {
     DB << input; Dry::Monads.Right(input)
+  }
+
+  register :notify, -> input, email: {
+    MAILER << email; DR::Monads.Right(input)
   }
 end
 
@@ -105,10 +109,11 @@ save_user = Dry.Transaction(container: Container) do
   step :process
   step :validate
   step :persist
+  step :notify
 end
 
 input = {"name" => "Jane", "email" => "jane@doe.com"}
-save_user.call(input, validate: ["doe.com"])
+save_user.call(input, validate: ["doe.com"], notify: [{ email: 'foo@bar.com' }])
 # => Right({:name=>"Jane", :email=>"jane@doe.com"})
 
 save_user.call(input, validate: ["smith.com"])
