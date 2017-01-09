@@ -586,16 +586,16 @@ end
 ```ruby
 schema = Dry::Validation.Schema do
   configure do
-    option :account
+    option :record
 
     def unique?(attr_name, value)
-      account.class.where.not(id: account.id).where(attr_name => value).empty?
+      record.class.where.not(id: record.id).where(attr_name => value).empty?
     end
   end
   required(:email).filled(unique?: :email)
 end
 
-schema.with(object: user_account).call(input)
+schema.with(record: user_account).call(input)
 ```
 
 Note that our query checks for any records in our class which have the same value for our attribute and where the id is not equal to the record we are updating. This works for both new and persisted records.
@@ -607,17 +607,17 @@ To limit the scope of your query you can simply update your query as needed or a
 ```ruby
 schema = Dry::Validation.Schema do
   configure do
-    option :account
+    option :record
 
     def scoped_unique?(attr_name, scope, value)
-       account.class.where.not(id: account.id).where(scope).where(attr_name => value).empty?
+       record.class.where.not(id: record.id).where(scope).where(attr_name => value).empty?
     end
   end
 
   required(:email).filled(scoped_unique?: :email, scope?: { active: true })
 end
 
-schema.with(object: user_account).call(input)
+schema.with(record: user_account).call(input)
 ```
 
 **Case Sensitive**
