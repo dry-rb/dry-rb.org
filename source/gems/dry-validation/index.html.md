@@ -15,6 +15,7 @@ sections:
   - high-level-rules
   - custom-validation-blocks
   - dynamic-predicate-arguments
+  - input-preprocessing
   - error-messages
   - comparison-with-activemodel
 ---
