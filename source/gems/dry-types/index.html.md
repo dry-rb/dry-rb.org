@@ -36,7 +36,7 @@ sections:
 
 ### Use cases
 
-`dry-types` is suitable for many use-cases, in example:
+`dry-types` is suitable for many use-cases, for example:
 
   * Value coercions
   * Processing arrays
@@ -46,7 +46,7 @@ sections:
 
 ### Other gems using dry-types
 
-`dry-types` is often used as a low-level abstraction, following gems use it already:
+`dry-types` is often used as a low-level abstraction. The following gems use it already:
 
 * [dry-struct](/gems/dry-struct)
 * [dry-initializer](/gems/dry-initializer)
