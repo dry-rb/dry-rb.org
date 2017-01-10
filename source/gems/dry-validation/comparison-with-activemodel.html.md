@@ -614,7 +614,7 @@ schema = Dry::Validation.Schema do
     end
   end
 
-  required(:email).filled(scoped_unique?: :email, scope?: { active: true })
+  required(:email).filled(scoped_unique?: [:email, { active: true }])
 end
 
 schema.with(record: user_account).call(input)
