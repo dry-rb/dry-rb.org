@@ -56,7 +56,7 @@ class Application < Dry::System::Container
   configure do |config|
     config.name = :app
     config.root = Pathname('/my/app')
-    config.auto_register('lib')
+    config.auto_register = %w(lib)
   end
 
   load_paths!('lib')
