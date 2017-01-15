@@ -61,7 +61,7 @@ messages = Dry::Validation::Messages.load('/path/to/our/errors.yml')
 
 # matching arg type for size? predicate
 messages[:size?, rule: :name, arg_type: Fixnum] # => "size must be %{num}"
-messages[:size?, rule: :name, arg_type: Range] # => "size must within %{left} - %{right}"
+messages[:size?, rule: :name, arg_type: Range] # => "size must be within %{left} - %{right}"
 
 # matching val type for size? predicate
 messages[:size?, rule: :name, val_type: String] # => "length must be %{num}"
