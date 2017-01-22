@@ -14,7 +14,7 @@ class User
   extend Dry::Initializer
 
   param :name,  reader: :private   # the same as adding `private :name`
-  param :email, reader: :protected # the same as adding `protected :name`
+  param :email, reader: :protected # the same as adding `protected :email`
 end
 ```
 
