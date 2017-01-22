@@ -10,8 +10,7 @@ require 'dry-initializer'
 require 'dry-types'
 
 class User
-  extend  Dry::Initializer::Mixin
-
+  extend Dry::Initializer
   param :name, type: Dry::Types['strict.string']
 end
 
@@ -25,13 +24,24 @@ require 'dry-initializer'
 require 'dry-types'
 
 class User
-  extend  Dry::Initializer::Mixin
-
+  extend Dry::Initializer
   param :name, type: Dry::Types['coercible.string']
 end
 
 user = User.new :Andrew
 user.name # => "Andrew"
+```
+
+Instead of `:type` option you can send a constraint/coercer as the second argument:
+
+```ruby
+require 'dry-initializer'
+require 'dry-types'
+
+class User
+  extend Dry::Initializer
+  param :name, Dry::Types['coercible.string']
+end
 ```
 
 There're many other ways to use dry types. See the [gem documentation][dry-types-docs] for further details.

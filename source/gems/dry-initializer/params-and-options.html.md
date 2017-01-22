@@ -9,7 +9,7 @@ Use `param` to define plain argument:
 require 'dry-initializer'
 
 class User
-  extend  Dry::Initializer::Mixin
+  extend  Dry::Initializer
 
   param :name
   param :email
@@ -26,7 +26,7 @@ Use `option` to define named (hash) argument:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
   option :name
   option :email
@@ -43,7 +43,7 @@ Options can be renamed using `:as` key:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
   option :name, as: :username
 end
@@ -55,30 +55,18 @@ user.instance_variable_get :@name     # => nil
 user.respond_to? :name                # => false
 ```
 
-All names should be unique:
+You can also define several ways of initializing the same argument via different options:
 
 ```ruby
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
-  param  :name
-  option :name # => raises #<SyntaxError ...>
+  option :phone
+  option :telephone, as: :phone
 end
-```
 
-Uniqueness is controlled separately for params, options, and ultimate attributes:
-
-```ruby
-require 'dry-initializer'
-
-class User
-  extend Dry::Initializer::Mixin
-
-  param  :name
-  option :name,  as: :username # its ok, no conflict occurs
-  option :login, as: :name     # fails (conflicts to param `name`)
-  option :name,  as: :alias    # fails (conflicts to option `name`)
-end
+User.new(phone: '1234567890').phone     # => '1234567890'
+User.new(telephone: '1234567890').phone # => '1234567890'
 ```

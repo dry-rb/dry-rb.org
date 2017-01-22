@@ -9,7 +9,7 @@ By default the initializer is strict for params (positional arguments), expectin
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 end
 
 user = User.new 'Joe' # raises ArgumentError
