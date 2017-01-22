@@ -51,7 +51,7 @@ These identifiers <em>may have special meaning</em> where the first name defines
   <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
     <span class="n">config</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="ss">:app</span>
     <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'/my/app'</span><span class="p">)</span>
-    <span class="n">config</span><span class="p">.</span><span class="nf">auto_register</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">auto_register</span> <span class="o">=</span> <span class="sx">%w(lib)</span>
   <span class="k">end</span>
 
   <span class="n">load_paths!</span><span class="p">(</span><span class="s1">'lib'</span><span class="p">)</span>
