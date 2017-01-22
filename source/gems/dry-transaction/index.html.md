@@ -22,7 +22,7 @@ sections:
 * A business transaction can describe its steps on an abstract level without being coupled to any details about how individual operations work.
 * A business transaction doesn’t have any state.
 * Each operation shouldn’t accumulate state, instead it should receive an input and return an output without causing any side-effects.
-* The only interface of a an operation is `#call(input)`.
+* The only interface of an operation is `#call(input)`.
 * Each operation provides a meaningful piece of functionality and can be reused.
 * Errors in any operation can be easily caught and handled as part of the normal application flow.
 
