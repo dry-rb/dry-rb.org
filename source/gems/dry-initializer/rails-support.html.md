@@ -15,7 +15,7 @@ Add the `:model` setting to `param` or `option`:
 require 'dry-initializer-rails'
 
 class CreateOrder
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
   extend Dry::Initializer::Rails
 
   # Params and options
@@ -64,7 +64,7 @@ You can specify custom `key` for searching model instance:
 require 'dry-initializer-rails'
 
 class CreateOrder
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
   extend Dry::Initializer::Rails
 
   param  :customer, model: 'User', find_by: 'name'
