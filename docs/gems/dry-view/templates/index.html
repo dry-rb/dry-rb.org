@@ -4,7 +4,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-2573270-8', 'auto');
-ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-view</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-view/" class="">Introduction</a><li><a href="/gems/dry-view/configuration/" class="">Configuration</a></li><li><a href="/gems/dry-view/injecting-dependencies/" class="">Injecting dependencies</a></li><li><a href="/gems/dry-view/exposures/" class="">Exposures</a></li><li><a href="/gems/dry-view/context/" class="">Context</a></li><li><a href="/gems/dry-view/templates/" class="active">Templates</a></li><li><a href="/gems/dry-view/rendering/" class="">Rendering</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Templates</h2><p>Every view controller has a template, which receives its data and generates the view output.</p>
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>dry-view</h1></div></div></header><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><ul><li><a href="/gems/dry-view/" class="">Introduction</a><li><a href="/gems/dry-view/configuration/" class="">Configuration</a></li><li><a href="/gems/dry-view/injecting-dependencies/" class="">Injecting dependencies</a></li><li><a href="/gems/dry-view/exposures/" class="">Exposures</a></li><li><a href="/gems/dry-view/context/" class="">Context</a></li><li><a href="/gems/dry-view/templates/" class="active">Templates</a></li></li></ul></li></ul></aside><article class="gem-article"><h2>Templates</h2><p>Every view controller has a template, which receives its data and generates the view output.</p>
 
 <p>Save your template in one of the <code>paths</code> configured in your view controller.</p>
 
@@ -27,9 +27,9 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <p>The template scope evaluates methods sent to it in this order:</p>
 
 <ul>
-<li>If there is a matching exposure, it is returned</li>
-<li>If the context object responds to the method, it is called, along with any arguments passed to the method</li>
-<li>If none of the above match, it attempts to render a partial</li>
+<li>If there is a matching exposure, it is returned.</li>
+<li>If the context object responds to the method, it is called, along with any arguments passed to the method.</li>
+<li>If none of the above match, it attempts to render a partial.</li>
 </ul>
 
 <p>For example:</p>
@@ -80,7 +80,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="p">==</span> <span class="n">location</span>
 <span class="p">==</span> <span class="n">contact_form</span>
 </code></pre>
-<p>Otheriwse, partials accept keywords arguments, which become a new scope for rendering the partial. For example:</p>
+<p>Otherwise, partials accept keywords arguments, which become a new scope for rendering the partial. For example:</p>
 <pre class="syntax slim"><code><span class="nt">h1</span><span class="w"> </span>Our<span class="w"> </span>team
 
 <span class="p">-</span> <span class="n">people</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">person</span><span class="o">|</span>
