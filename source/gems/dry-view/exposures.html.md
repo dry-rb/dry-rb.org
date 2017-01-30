@@ -64,7 +64,7 @@ Parsing of exposure arguments works as follows:
 
 ## Private exposures
 
-You can also create _private exposures_ that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use `private_expose` to do this:
+You can also create _private exposures_ that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use `private_expose` for this:
 
 ```ruby
 class MyView < Dry::View::Controller
@@ -83,5 +83,3 @@ end
 ```
 
 In this example, only the values for `users` and `users_count` will be passed to the view.
-
-##

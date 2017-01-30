@@ -23,9 +23,9 @@ Each template is rendered with its own _scope_, which determines the methods ava
 
 The template scope evaluates methods sent to it in this order:
 
-- If there is a matching exposure, it is returned
-- If the context object responds to the method, it is called, along with any arguments passed to the method
-- If none of the above match, it attempts to render a partial
+- If there is a matching exposure, it is returned.
+- If the context object responds to the method, it is called, along with any arguments passed to the method.
+- If none of the above match, it attempts to render a partial.
 
 For example:
 
@@ -75,7 +75,7 @@ h1 About us
 == contact_form
 ```
 
-Otheriwse, partials accept keywords arguments, which become a new scope for rendering the partial. For example:
+Otherwise, partials accept keywords arguments, which become a new scope for rendering the partial. For example:
 
 ```slim
 h1 Our team

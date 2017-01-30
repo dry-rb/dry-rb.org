@@ -9,7 +9,6 @@ sections:
   - exposures
   - context
   - templates
-  - rendering
 ---
 
 dry-view is a simple, standalone view rendering system built around functional view controllers and templates. dry-view allows you to model your views as stateless _transformations_, accepting user input and returning your rendered view.
@@ -18,6 +17,7 @@ Use dry-view if:
 
 - You want to build and render views consistently in any kind of context (dry-view is standalone, it doesn't require an HTTP request!).
 - You're using a lightweight routing DSL like Roda or Sinatra and you want to keep your routes clean and easy to understand (dry-view handles the integration with your application's objects, all you need to provide from your routes is the user input data).
+- Your application uses dependency injection to make objects available to each other (dry-view fits perfectly with dry-web and dry-system).
 - Want a way to test your views in isolation.
 
 ### Example
