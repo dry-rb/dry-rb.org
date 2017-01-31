@@ -77,11 +77,13 @@ These identifiers <em>may have special meaning</em> where the first name defines
 <span class="c1"># lib/persistence/user_repo.rb</span>
 <span class="nb">require</span> <span class="s1">'import'</span>
 
-<span class="k">class</span> <span class="nc">UserRepo</span>
-  <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'persistence.db'</span><span class="p">]</span>
+<span class="k">module</span> <span class="nn">Persistence</span>
+  <span class="k">class</span> <span class="nc">UserRepo</span>
+    <span class="kp">include</span> <span class="no">Import</span><span class="p">[</span><span class="s1">'persistence.db'</span><span class="p">]</span>
 
-  <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
-    <span class="n">db</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">where</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+      <span class="n">db</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">where</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
