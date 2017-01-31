@@ -82,11 +82,13 @@ end
 # lib/persistence/user_repo.rb
 require 'import'
 
-class UserRepo
-  include Import['persistence.db']
+module Persistence
+  class UserRepo
+    include Import['persistence.db']
 
-  def find(conditions)
-    db[:users].where(conditions)
+    def find(conditions)
+      db[:users].where(conditions)
+    end
   end
 end
 ```
