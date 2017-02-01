@@ -13,7 +13,7 @@ After reading this guide, you will know:
 - How to use dry-validation to replace built-in ActiveModel validation helpers.
 - How to use dry-validation to create your own custom validation methods.
 
-> Note that there isn't a one-to-one translation between ActiveModel validators and Dry predicates, this guide shows you to closest match and highlights differences where applicable.
+> Note that there isn't a one-to-one relationship between ActiveModel validators and Dry predicates. This guide shows you the closest matches, and highlights the differences where applicable.
 
 > For the main documentation on dry-validation predicates, see [Built-in Predicates](http://dry-rb.org/gems/dry-validation/basics/built-in-predicates/).
 
