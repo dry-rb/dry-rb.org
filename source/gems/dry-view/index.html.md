@@ -59,7 +59,7 @@ Then `#call` your view controller to render your view:
 
 ```ruby
 view = HelloView.new
-view.(greeting: "Greetings from dry-rb")
+view.call(greeting: "Greetings from dry-rb")
 # => "<html><body><h1>Hello!</h1><p>Greetings from dry-rb!</p></body></html>
 ```
 
