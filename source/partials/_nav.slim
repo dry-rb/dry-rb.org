@@ -1,10 +1,20 @@
 nav.main-nav
   ul.main-nav__list
     li.main-nav__logo
-      a href="/" Home
+      a href="/" dry-rb
+    li.main-nav__with-dropdown
+      a href="/gems" Gems / Docs
+      .main-nav__dropdown.main-nav__dropdown--gems
+        - per_group = (site.gems.length / 2).ceil
+        - site.gems.each_slice(per_group).each do |group|
+          ul
+            - group.each do |page|
+              li
+                == link_to page.name, "/gems/#{page.name}"
+
     li
-      a href="/gems" Gems
+      a href="/news" News
     li
       a href="/community" Community
-    li
-      a href="http://github.com/dry-rb" Code
+    li.main-nav__code
+      a href="http://github.com/dry-rb" Github

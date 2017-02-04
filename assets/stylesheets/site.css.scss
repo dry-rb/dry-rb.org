@@ -58,12 +58,12 @@
 
 body {
   font-family: $primary-font;
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.45;
 
   @media (min-width: 320px)
   and (max-width: 900px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 }
 
@@ -91,7 +91,7 @@ body {
   background-color: $teal;
   border-radius: 4px;
   color: #FFFFFF;
-  font-weight: bold;
+  font-weight: $primary-font-bold-weight;
   font-size: 14px;
   padding: 12px 20px;
   text-align: center;
@@ -350,7 +350,7 @@ footer {
 
   a {
     color: $white;
-    font-weight: bold;
+    font-weight: $primary-font-bold-weight;
 
     &:hover {
       text-decoration: underline;
@@ -394,16 +394,13 @@ hr {
 }
 
 .intro-home {
-  @include col(2,3);
-
   @include mobile {
-    @include col(1,1);
     padding-bottom: 50px;
     margin-left: 0;
     margin-top: 50px;
   }
+  clear: both;
 
-  margin-left: calc(100% / 12 * 2);
   margin-top: 130px;
   padding-bottom: 160px;
 
@@ -563,8 +560,9 @@ pre code {
 // Navigation ---------------------------------------------------------
 
 .main-nav {
-  padding-left: 30px;
+  font-weight: $primary-font-bold-weight;
   padding-top: 30px;
+  text-align: right;
   @include tablet {
     text-align: center;
   }
@@ -582,43 +580,47 @@ pre code {
   }
 }
 
-.main-nav__list li {
+.main-nav__list>li {
   display: inline-block;
   margin-right: 40px;
-
-  &.main-nav__logo {
-    position: relative;
-    margin-left: -30px;
-    margin-right: 30px;
-    width: 30px;
-    a {
-      background: url('/images/logo-sml.png') no-repeat;
-      display: block;
-      height: 30px;
-      width: 30px;
-      color: transparent;
-      font: 0/0 a;
-      position: absolute;
-      top: -20px;
-      left: 0;
-      @media screen
-      and (min-resolution: 2dppx) {
-        background: url('/images/logo-sml@2x.png') no-repeat;
-        background-size: 100%;
-      }
-      &:hover,
-      &:focus {
-        border-bottom: none;
-      }
-    }
+  position: relative;
+  @include desktop {
+    padding-bottom: 10px;
   }
-
   @include mobile {
     margin-right: 20px;
   }
 }
+.main-nav__logo {
+  float: left;
+  a {
+    display: block;
+    position: relative;
+    margin-left: 45px;
+    &:before {
+      content: '';
+      background-image: url('/images/logo-sml.png');
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 100%;
+      display: block;
+      height: 30px;
+      left: -45px;
+      position: absolute;
+      top: -3px;
+      width: 30px;
+      @media screen and (min-resolution: 2dppx) {
+        background-image: url('/images/logo-sml@2x.png');
+      }
+    }
+    &:hover,
+    &:focus {
+      border-bottom: none;
+    }
+  }
+}
 
-.main-nav__list li a {
+.main-nav__list>li>a {
   @include desktop {
     border-bottom: 2px solid rgba(255,255,255,0);
     padding-bottom: 3px;
@@ -629,13 +631,101 @@ pre code {
       border-bottom: 2px solid rgba(255,255,255,.3);
     }
   }
-
   color: $white;
 }
 
-.main-nav__logo {
-  margin-left: 30px;
+.main-nav__list li.main-nav__code {
+  a {
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 3px;
+    display: block;
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 0.15em;
+    padding: 6px 14px 6px;
+    text-transform: uppercase;
+    &:hover,
+    &:focus {
+      border-color: rgba(255,255,255,.5);
+    }
+  }
 }
+
+.main-nav__with-dropdown {
+  padding-right: 16px;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-color: $white;
+    border-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    right: 0;
+    top: 9px;
+    height: 5px;
+    width: 5px;
+    transform: rotate(45deg);
+  }
+}
+
+.main-nav__dropdown {
+  background-color: rgba(darken($dark-blue, 10%), 0.9);
+  border-radius: 3px;
+  display: none;
+  font-weight: normal;
+  font-size: 0.9em;
+  position: absolute;
+  margin-top: 10px;
+  padding: 17px 25px 22px;
+  margin-left: -25px;
+  text-align: left;
+  left: 0;
+  :after {
+    bottom: 100%;
+    left: 70px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: darken($dark-blue, 10%);
+    border-width: 5px;
+    margin-left: -5px;
+  }
+  li:hover &,
+  li:focus & {
+    display: block;
+    /* @include mobile {
+      display: none;
+    } */
+  }
+}
+  .main-nav__dropdown--gems {
+    min-width: 300px;
+    ul {
+      float: left;
+      width: 50%;
+    }
+  }
+
+  .main-nav__dropdown li {
+    display: block;
+  }
+  .main-nav__dropdown a {
+    color: rgba($white, 0.8);
+    display: block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+      color: $white;
+    }
+  }
 
 
 // Typography
@@ -657,7 +747,7 @@ blockquote {
 code {
   background: $light-blue;
   font-family: $code-font;
-  font-size: 14px;
+  font-size: 0.8em;
   padding-left: 5px;
   padding-right: 5px;
 }
@@ -691,14 +781,14 @@ code {
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
 
   strong {
-    font-weight: bold;
+    font-weight: $primary-font-bold-weight;
   }
 
 }
 
 .intro-page h1 {
   color: #FFFFFF;
-  font-weight: bold;
+  font-weight: $primary-font-bold-weight;
   font-size: 24px;
   margin-bottom: 20px;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
@@ -710,7 +800,7 @@ h2 {
     font-size: 16px;
   }
   color: $teal;
-  font-weight: bold;
+  font-weight: $primary-font-bold-weight;
   font-size: 24px;
   margin-bottom: 12px;
 }
@@ -733,10 +823,10 @@ h2 {
 }
 
 h3 {
-  color: #dark-grey;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 12px;
+  color: $dark-grey;
+  font-weight: $primary-font-bold-weight;
+  font-size: 1.1em;
+  margin-bottom: 0.6em;
 }
 
 .content__additional-features-list-item h3 {
@@ -745,7 +835,7 @@ h3 {
 
 p {
   color: $dark-grey;
-  margin-bottom: 20px;
+  margin-bottom: 1.2em;
 }
 
 .intro-home p {
@@ -761,11 +851,17 @@ article h2, .article h3 {
 }
 
 article strong {
-  font-weight: bold;
+  font-weight: $primary-font-bold-weight;
+}
+
+
+article ul,
+article ol {
+  margin-bottom: 1.2em;
 }
 
 article ul li:before {
-  color: $teal;
+  color: $dark-teal;
   content: "\2022"; /* Insert content that looks like bullets */
   position: absolute;
   top: 0;
@@ -775,8 +871,12 @@ article ul li:before {
 article ul li {
   color: #666;
   margin-bottom: 8px;
-  padding-left: 24px;
+  padding-left: 1em;
   position: relative;
+}
+
+article a {
+  text-decoration: underline;
 }
 
 .sidebar li {
