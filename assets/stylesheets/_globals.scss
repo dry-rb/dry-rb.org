@@ -1,29 +1,40 @@
 // Mixins
-
 $mobile-width: 320px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
 
 @mixin mobile {
-  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
-    @content;
+  @media (min-width: # {
+    $mobile-width
   }
+  ) and (max-width: # {
+    $tablet-width - 1px
+  }
+  ) {
+    @content;
+ }
 }
-
 @mixin tablet {
-  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
-    @content;
+  @media (min-width: # {
+    $tablet-width
   }
+  ) and (max-width: # {
+    $desktop-width - 1px
+  }
+  ) {
+    @content;
+ }
 }
-
 @mixin desktop {
-  @media (min-width: #{$desktop-width}) {
+  @media (min-width: # {
+    $desktop-width
+  }
+  ) {
     @content;
   }
 }
 
 // Colors
-
 $light-blue: #E9F7FB;
 $dark-blue: #277785;
 $dark-grey: #4A4A4A;
@@ -32,15 +43,14 @@ $teal: #24B9D0;
 $white: #fff;
 
 ::selection {
-  background: $teal; /* WebKit/Blink Browsers */
-  color: $white;
+  background: $teal;
+  color: $white; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-  background: $teal; /* Gecko Browsers */
-  color: $white
+  background: $teal;
+  color: $white; /* Gecko Browsers */
 }
 
 // Fonts
-$primary-font-bold: "work_sansbold", Helvetica Neue, Helvetica, sans-serif;
-$primary-font-regular: "work_sansregular", Helvetica Neue, Helvetica, sans-serif;
-$code-font: "source_code_proregular", sans-serif;
+$primary-font: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$code-font: "Source Code Pro", "Liberation Mono", Menlo, Courier, monospace;

@@ -22,7 +22,6 @@
 
 // Libraries and patterns ------------------------------------------------------
 @import "patterns/all";
-@import "components/webfonts";
 
 // Syntax highlighting
 @import "components/code";
@@ -58,7 +57,7 @@
 @include standard-links-no-underline;
 
 body {
-  font-family: $primary-font-regular;
+  font-family: $primary-font;
   font-size: 16px;
   line-height: 1.4;
 
@@ -92,7 +91,7 @@ body {
   background-color: $teal;
   border-radius: 4px;
   color: #FFFFFF;
-  font-family: $primary-font-bold;
+  font-weight: bold;
   font-size: 14px;
   padding: 12px 20px;
   text-align: center;
@@ -351,7 +350,7 @@ footer {
 
   a {
     color: $white;
-    font-family: work_sansbold;
+    font-weight: bold;
 
     &:hover {
       text-decoration: underline;
@@ -685,21 +684,21 @@ code {
   }
 
   color: #FFFFFF;
-  font-family: $primary-font-regular;
+  font-family: $primary-font;
   font-size: 24px;
   margin-bottom: 20px;
   margin-top: 30px;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
 
   strong {
-    font-family: work_sansbold;
+    font-weight: bold;
   }
 
 }
 
 .intro-page h1 {
   color: #FFFFFF;
-  font-family: work_sansbold;
+  font-weight: bold;
   font-size: 24px;
   margin-bottom: 20px;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
@@ -711,14 +710,13 @@ h2 {
     font-size: 16px;
   }
   color: $teal;
-  font-family: work_sansbold;
+  font-weight: bold;
   font-size: 24px;
   margin-bottom: 12px;
 }
 
 .content__home-intro h2 {
   color: #999;
-  font-family: work_sansregular;
   text-align: center;
 }
 
@@ -736,7 +734,7 @@ h2 {
 
 h3 {
   color: #dark-grey;
-  font-family: work_sansbold;
+  font-weight: bold;
   font-size: 16px;
   margin-bottom: 12px;
 }
@@ -763,7 +761,7 @@ article h2, .article h3 {
 }
 
 article strong {
-  font-family: work_sansbold;
+  font-weight: bold;
 }
 
 article ul li:before {
