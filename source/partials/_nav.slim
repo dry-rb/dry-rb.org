@@ -1,8 +1,8 @@
 nav.main-nav
   ul.main-nav__list
-    li.main-nav__logo
+    li.main-nav__logo class=("main-nav__item--selected" if /\Aindex.html/.match(current_page.path))
       a href="/" dry-rb
-    li.main-nav__with-dropdown
+    li.main-nav__with-dropdown class=("main-nav__item--selected" if /\Agems/.match(current_page.path))
       a href="/gems" Gems / Docs
       .main-nav__dropdown.main-nav__dropdown--gems
         - per_group = (site.gems.length / 2).ceil
@@ -12,9 +12,9 @@ nav.main-nav
               li
                 == link_to page.name, "/gems/#{page.name}"
 
-    li
+    li class=("main-nav__item--selected" if /\Anews/.match(current_page.path))
       a href="/news" News
-    li
+    li class=("main-nav__item--selected" if /\Acommunity/.match(current_page.path))
       a href="/community" Community
     li.main-nav__code
       a href="http://github.com/dry-rb" Github

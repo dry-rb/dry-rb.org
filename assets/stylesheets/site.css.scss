@@ -561,6 +561,8 @@ pre code {
 
 .main-nav {
   font-weight: $primary-font-bold-weight;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
   padding-top: 30px;
   text-align: right;
   @include tablet {
@@ -621,6 +623,8 @@ pre code {
 }
 
 .main-nav__list>li>a {
+  color: $white;
+  color: rgba($white, 0.7);
   @include desktop {
     border-bottom: 2px solid rgba(255,255,255,0);
     padding-bottom: 3px;
@@ -629,14 +633,20 @@ pre code {
     &:hover,
     &:focus {
       border-bottom: 2px solid rgba(255,255,255,.3);
+      color: $white;
     }
   }
+}
+.main-nav__list>.main-nav__item--selected>a {
   color: $white;
 }
 
 .main-nav__list li.main-nav__code {
+  font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
   a {
     border: 1px solid rgba(255,255,255,.3);
+    background-color: rgba(255,255,255,0);
     border-radius: 3px;
     display: block;
     font-size: 13px;
@@ -644,9 +654,11 @@ pre code {
     letter-spacing: 0.15em;
     padding: 6px 14px 6px;
     text-transform: uppercase;
+    transition: border, background-color 250ms;
     &:hover,
     &:focus {
       border-color: rgba(255,255,255,.5);
+      background-color: rgba(255,255,255,.08);
     }
   }
 }
