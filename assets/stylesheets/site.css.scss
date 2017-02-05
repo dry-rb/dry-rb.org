@@ -59,7 +59,7 @@
 body {
   font-family: $primary-font;
   font-size: 17px;
-  line-height: 1.45;
+  line-height: 1.5;
 
   @media (min-width: 320px)
   and (max-width: 900px) {
@@ -371,6 +371,7 @@ header {
   background-image: url(/images/bg-header.png);
   background-position: center center;
   color: $white;
+  padding-bottom: 25px;
   width: 100%;
 }
 
@@ -394,27 +395,49 @@ hr {
 }
 
 .intro-home {
+  clear: both;
+  margin-top: 130px;
+  padding-bottom: 160px;
+  text-align: center;
   @include mobile {
     padding-bottom: 50px;
     margin-left: 0;
     margin-top: 50px;
   }
-  clear: both;
-
-  margin-top: 130px;
-  padding-bottom: 160px;
-
-  text-align: center;
 }
 
 .intro-page {
-  @extend .intro-home;
-
-  @include mobile {
+  border-bottom: 1px solid $light-blue;
+  padding-top: 15px;
+  padding-bottom: 17px;
+  h1 {
+    color: $dark-teal;
+    font-weight: $primary-font-bold-weight;
+    font-size: 24px;
+    a {
+      color: $dark-teal;
+    }
+  }
+}
+  .intro-page--content {
+    padding-top: 30px;
     padding-bottom: 30px;
+    h1 {
+      font-size: 31px;
+      line-height: 1.25;
+    }
   }
 
-  padding-bottom: 70px;
+.intro-page__inner {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  .intro-page--content & {
+    @include desktop {
+      max-width: 66.66667%;
+    }
+  }
 }
 
 .content-wrap--news-and-twitter {
@@ -440,8 +463,38 @@ hr {
   }
 }
 
+.news-index {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.news-pagination {
+  float: right;
+  font-size: 15px;
+  padding-top: 8px;
+}
+  .news-pagination__links {
+    display: inline-block;
+    margin-left: 20px;
+    a {
+      display: inline-block;
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+      &:last-child {
+        padding-left: 15px;
+      }
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
 .news-article-meta {
-  font-size: 90%;
+  color: #999;
+  font-size: 0.8em;
+  margin-top: 5px;
   a:hover,
   a:focus {
     color: $light-blue;
@@ -450,12 +503,10 @@ hr {
 
 .news-article {
   @include col(2,3);
-  margin-left: calc(100% / 12 * 2);
 
-  @media (min-width: 320px)
-  and (max-width: 1199px) {
-   margin-left: 0;
-  }
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
   @include tablet {
     @include col (1,1);
@@ -466,12 +517,12 @@ hr {
   }
 
   strong {
-    font-weight: 900;
+    font-weight: $primary-font-bold-weight;
   }
 }
 
 .news__list-item {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $light-blue;
   padding-bottom: 20px;
   padding-top: 30px;
 
@@ -488,6 +539,12 @@ hr {
 
 .news__list-item-anchor {
   display: block;
+  &:hover,
+  &:focus {
+    h2 {
+      text-decoration: underline;
+    }
+  }
 }
 
 .news__list-item-content {
@@ -502,6 +559,7 @@ hr {
   @include col(2,8);
   color: #666666;
   font-size: 14px;
+  margin-top: 7px;
   vertical-align: top;
   @include mobile {
     @include col(1,1);
@@ -522,7 +580,7 @@ pre code {
 
 .row {
   padding-bottom: 100px;
-  padding-top: 100px;
+  padding-top: 30px;
   width: 100%;
 
   @include tablet {
@@ -543,18 +601,39 @@ pre code {
 
 .sidebar {
   @include col(1,4);
+  font-size: 16px;
+  vertical-align: top;
 
   @include mobile {
     @include col(1,1);
     margin-bottom: 30px;
   }
-
-  vertical-align: top;
+  a {
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
 }
 
-.sidebar ul li ul {
+.sidebar li {
+  padding: 0.25em 0;
+}
+
+.sidebar li .active {
+  color: $dark-blue;
+  font-weight: 900;
+  text-decoration: underline;
+}
+
+.sidebar ul ul {
   border-left: 2px solid $light-blue;
+  font-size: 14px;
+  margin-top: 10px;
   padding-left: 15px;
+  a {
+    color: $dark-blue;
+  }
 }
 
 // Navigation ---------------------------------------------------------
@@ -588,6 +667,9 @@ pre code {
   position: relative;
   @include desktop {
     padding-bottom: 10px;
+    &:last-child {
+      margin-right: 10px;
+    }
   }
   @include mobile {
     margin-right: 20px;
@@ -595,6 +677,7 @@ pre code {
 }
 .main-nav__logo {
   float: left;
+  padding-left: 15px;
   a {
     display: block;
     position: relative;
@@ -683,7 +766,7 @@ pre code {
 }
 
 .main-nav__dropdown {
-  background-color: rgba(darken($dark-blue, 10%), 0.9);
+  background-color: rgba(darken($dark-blue, 10%), 0.95);
   border-radius: 3px;
   display: none;
   font-weight: normal;
@@ -798,23 +881,15 @@ code {
 
 }
 
-.intro-page h1 {
-  color: #FFFFFF;
-  font-weight: $primary-font-bold-weight;
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
-  @include desktop { font-size: 32px; }
-}
-
 h2 {
+  color: $teal;
+  font-weight: $primary-font-bold-weight;
+  font-size: 23px;
+  line-height: 1.35;
+  margin-bottom: 12px;
   @include mobile {
     font-size: 16px;
   }
-  color: $teal;
-  font-weight: $primary-font-bold-weight;
-  font-size: 24px;
-  margin-bottom: 12px;
 }
 
 .content__home-intro h2 {
@@ -847,7 +922,7 @@ h3 {
 
 p {
   color: $dark-grey;
-  margin-bottom: 1.2em;
+  margin-bottom: 0.9em;
 }
 
 .intro-home p {
@@ -890,16 +965,6 @@ article ul li {
 article a {
   text-decoration: underline;
 }
-
-.sidebar li {
-  padding: 0.25em 0;
-}
-
-.sidebar li .active {
-  font-weight: 900;
-  color: $dark-blue;
-}
-
 
 // Community page
 
