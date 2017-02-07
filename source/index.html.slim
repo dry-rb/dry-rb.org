@@ -2,50 +2,66 @@
 title: Home
 ---
 
-.row
-  .content-wrap
-    .content__home-intro
-      h2 Libraries belonging to the dry-rb organisation try to follow a few basic principles
-      hr
-      ul.content__feature-list
-        li.content__features-list-item
-          .features-list-img-door
-          h3 Non-intrusive
-        li.content__features-list-item
-          .features-list-img-flexible
-          h3 Flexible
-        li.content__features-list-item
-          .features-list-img-lightning
-          h3 Fast!
-.row-blue
-  .content-wrap
-    h2.section-heading Gems
-    - site.gems.take(8).in_groups_of(4).each do |group|
-      ul.content__gems-list
-        - group.compact.each do |gem|
-          li.content__gems-list-item
-            a href="/gems/#{gem.name}"
-              h3 = gem.name
-              p = gem.desc
-    a.btn-view-gems href="/gems"
-      ' View all gems
 
 .row
-  .content-wrap.content-wrap--news-and-twitter
-    h2.section-heading News
-    .section-news
-      ul.news-list
-        - blog.articles[0...5].each do |article|
-          li.news__list-item
-            a.news__list-item-anchor href= article.url
-              .news__list-item-date
-                p = article.date.strftime('%e %B %Y')
-              .news__list-item-content
-                h3 = article.title
-                = sanitize article.summary
-    .section-twitter
-      / Twitter widget
-      a class="twitter-timeline" href="https://twitter.com/dry_rb" data-widget-id="712518119412117504"
-        | Tweets by @dry_rb
-      javascript:
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  .content-wrap
+    .home-taster
+      p.home-taster__intro Check out the examples below to get a taste for how our libraries work
+      .home-taster__code
+        .taster#eg-dry-validation
+          .taster__header
+            h3
+              a href="/gems/dry-validation" dry-validation
+            a.taster__link href="/gems/dry-validation" View docs
+          .taster__content
+            .taster__summary
+              markdown:
+                Offers powerful data validation based on predicate logic. Unlike other, well known, validation solutions in Ruby, dry-validation takes a different approach and focuses a lot on explicitness, clarity and precision of validation logic.
+            .taster__example
+              markdown:
+                ```ruby
+                Dry::Validation.Schema do
+                  required(:age) { int? & gt?(18) }
+                end
+                ```
+              p.code-caption This is a caption
+              markdown:
+                ```ruby
+                Dry::Validation.Schema do
+                  required(:age) { int? & gt?(18) }
+                end
+                ```
+        .taster#eg-dry-validation
+          .taster__header
+            h3
+              a href="/gems/dry-validation" dry-validation
+            a.taster__link href="/gems/dry-validation" View docs
+          .taster__content
+            .taster__summary
+              markdown:
+                Offers powerful data validation based on predicate logic. Unlike other, well known, validation solutions in Ruby, dry-validation takes a different approach and focuses a lot on explicitness, clarity and precision of validation logic.
+            .taster__example
+              markdown:
+                ```ruby
+                Dry::Validation.Schema do
+                  required(:age) { int? & gt?(18) }
+                end
+                ```
+              p.code-caption This is a caption
+              markdown:
+                With normal text around.
+
+                ```ruby
+                module Types
+                  include Dry::Types.module
+
+                  Email = String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
+                  Age = Int.constrained(gt: 18)
+                end
+
+                class User < Dry::Struct
+                  attribute :name, Types::String
+                  attribute :email, Types::Email
+                  attribute :age, Types::Age
+                end
+                ```

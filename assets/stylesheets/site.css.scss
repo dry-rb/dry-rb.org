@@ -273,6 +273,9 @@ body {
 
 footer {
   background-color: $dark-teal;
+  background-image: url(/images/bg-header.png);
+  background-position: center center;
+  background-size: cover;
   color: $white;
   padding-bottom: 40px;
   padding-top: 40px;
@@ -367,10 +370,13 @@ footer {
 }
 
 header {
-  background-color: $teal;
+  background-color: $dark-teal;
   background-image: url(/images/bg-header.png);
   background-position: center center;
+  background-size: cover;
   color: $white;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
   padding-bottom: 25px;
   width: 100%;
 }
@@ -396,8 +402,8 @@ hr {
 
 .intro-home {
   clear: both;
-  margin-top: 130px;
-  padding-bottom: 160px;
+  margin-top: 60px;
+  padding-bottom: 60px;
   text-align: center;
   @include mobile {
     padding-bottom: 50px;
@@ -501,21 +507,11 @@ hr {
   }
 }
 
+.content-article,
 .news-article {
-  @include col(2,3);
-
-  display: block;
   margin-left: auto;
   margin-right: auto;
-
-  @include tablet {
-    @include col (1,1);
-  }
-
-  @include mobile {
-    @include col (1,1);
-  }
-
+  max-width: 66.666667%;
   strong {
     font-weight: $primary-font-bold-weight;
   }
@@ -539,6 +535,15 @@ hr {
 
 .news__list-item-anchor {
   display: block;
+  .intro-home__news & {
+    font-size: 15px;
+    h3 {
+      color: $white;
+    }
+    &:hover h3 {
+      text-decoration: underline;
+    }
+  }
   &:hover,
   &:focus {
     h2 {
@@ -549,6 +554,9 @@ hr {
 
 .news__list-item-content {
   @include col(6,8);
+  .intro-home__news & {
+    @include col(8,10);
+  }
 
   @include mobile {
     @include col(1,1);
@@ -557,10 +565,13 @@ hr {
 
 .news__list-item-date {
   @include col(2,8);
-  color: #666666;
   font-size: 14px;
   margin-top: 7px;
   vertical-align: top;
+  .intro-home__news & {
+    @include col(2,10);
+    margin-top: 0;
+  }
   @include mobile {
     @include col(1,1);
     p { margin-bottom: 10px; }
@@ -568,7 +579,7 @@ hr {
 }
 
 pre {
-  background: #4A4A4A;
+  background: $very-light-blue;
   border-radius: 4px;
   padding: 20px;
 }
@@ -577,6 +588,15 @@ pre code {
   background: none;
   color: #999;
 }
+
+.code-caption {
+  color: lighten($dark-grey, 15%);
+  font-size: 0.88em;
+}
+  pre + .code-caption {
+    margin-top: -12px;
+    margin-bottom: 15px;
+  }
 
 .row {
   padding-bottom: 100px;
@@ -640,8 +660,6 @@ pre code {
 
 .main-nav {
   font-weight: $primary-font-bold-weight;
-  font-smoothing: antialiased;
-  -webkit-font-smoothing: antialiased;
   padding-top: 30px;
   text-align: right;
   @include tablet {
@@ -824,7 +842,6 @@ pre code {
 
 
 // Typography
-
 blockquote {
   border-left: 4px solid $teal;
   padding-left: 26px;
@@ -848,41 +865,159 @@ code {
 }
 
 .intro-home__heading {
-  background-image: url('/images/logo.png');
-  background-repeat: no-repeat;
-  color: transparent;
-  font: 0/0 a;
-  margin-left: auto;
-  margin-right: auto;
-  width: 48px;
-  height: 48px;
-  @media screen
-  and (min-resolution: 2dppx) {
-    background-image: url('/images/logo@2x.png');
-    background-size: 100%;
+  font-size: 33px;
+  strong {
+    font-weight: $primary-font-bold-weight;
   }
 }
 
 .intro-home__sub-heading {
-  @include mobile {
-    font-size: 20px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  @include desktop {
+    max-width: 66.66667%;
   }
-
-  color: #FFFFFF;
-  font-family: $primary-font;
-  font-size: 24px;
-  margin-bottom: 20px;
-  margin-top: 30px;
-  text-shadow: 0px 1px 1px rgba(0,0,0,0.20);
-
-  strong {
-    font-weight: $primary-font-bold-weight;
+  h2 {
+    color: $white;
+    line-height: 1.5;
+    font-family: $primary-font;
+    font-size: 19px;
+    font-weight: normal;
   }
-
 }
 
+.intro-home__actions {
+  font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
+  margin-bottom: 60px;
+  a {
+    border: 1px solid $teal;
+    background-color: $teal;
+    border-radius: 3px;
+    color: $white;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    letter-spacing: 0.15em;
+    padding: 13px 20px 14px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    transition: border, background-color 250ms;
+    &:hover,
+    &:focus {
+      border-color: rgba(255,255,255,.5);
+      background-color: rgba(255,255,255,.08);
+    }
+  }
+  .intro-home__code {
+    border: 1px solid rgba($teal,.8);
+    background-color: rgba($teal,0);
+    color: lighten($teal, 30%);
+    transition: border, background-color, color 250ms;
+    &:hover,
+    &:focus {
+      border-color: rgba(255,255,255,.5);
+      background-color: rgba(255,255,255,.08);
+      color: $white;
+    }
+  }
+}
+
+.intro-home__news {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  @include desktop {
+    max-width: 66.66667%;
+  }
+}
+
+.home-taster {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+
+  @include tablet {
+    padding-top: 0;
+  }
+  @include mobile {
+    padding-top: 0;
+  }
+}
+
+.home-taster__intro {
+  color: $mid-teal;
+  font-size: 24px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  @include desktop {
+    max-width: 50%;
+  }
+}
+
+.taster__header {
+  position: relative;
+  margin-bottom: 20px;
+  &:before {
+    border-bottom: 1px solid darken($light-blue, 8%);
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+  }
+  h3 {
+    background-color: $white;
+    display: inline-block;
+    font-size: 24px;
+    margin-bottom: 0;
+    padding-right: 10px;
+    position: relative;
+  }
+  .taster__link {
+    background-color: $white;
+    display: inline-block;
+    float: right;
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+    padding-left: 10px;
+    position: relative;
+    text-transform: uppercase;
+  }
+}
+
+.taster__content {
+  overflow: hidden;
+  // Offset cols
+  margin-left: -15px;
+  margin-right: -15px;
+}
+  .taster__summary {
+    @include col(2,5)
+    vertical-align: top;
+    @include mobile {
+      @include col(1,1)
+    }
+  }
+  .taster__example {
+    @include col(3,5)
+    vertical-align: top;
+    @include mobile {
+      @include col(1,1)
+    }
+  }
+
 h2 {
-  color: $teal;
+  color: $mid-blue;
   font-weight: $primary-font-bold-weight;
   font-size: 23px;
   line-height: 1.35;
@@ -890,11 +1025,6 @@ h2 {
   @include mobile {
     font-size: 16px;
   }
-}
-
-.content__home-intro h2 {
-  color: #999;
-  text-align: center;
 }
 
 .section-heading {
@@ -969,6 +1099,7 @@ article a {
 // Community page
 
 .people {
+  margin-top: 40px;
   padding-bottom: 30px;
   @include tablet {
     padding-bottom: 10px;
@@ -982,7 +1113,6 @@ article a {
 .people-list {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 10px;
   padding-top: 20px;
 }
 
@@ -1002,10 +1132,7 @@ article a {
 }
 
 .person {
-  background: #FFFFFF;
-  display: block;
-  width: 100%;
-
+  position: relative;
   .circular {
     border-radius: 50%;
   }
@@ -1029,6 +1156,12 @@ article a {
   }
 }
 
+.person__image {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 120px;
+}
+
 .person__byline {
   color: #aaa;
   font-size: 13px;
@@ -1036,15 +1169,23 @@ article a {
   text-align: center;
 }
 
-.person__github {
+.person__bio {
   font-size: 16px;
-  padding-left: 25px;
 }
+
+.person__github {
+  font-size: 14px;
+  font-family: $code-font;
+  padding-left: 27px;
+}
+
+.person
 
 .octocat {
   font-size: 20px;
   position: absolute;
-  left: 15px;
+  left: 0;
+  margin-top: 1px;
 }
 
 table {
