@@ -59,6 +59,21 @@ set :markdown,        fenced_code_blocks: true,
                       with_toc_data: true,
                       tables: true
 
+Slim::Embedded.set_default_options(
+  markdown: {
+    autolink: true,
+    fenced_code_blocks: true,
+    hard_wrap: true,
+    lax_spacing: true,
+    no_intra_emphasis: true,
+    smart: true,
+    smartypants: true,
+    superscript: true,
+    tables: true,
+    with_toc_data: true
+  }
+)
+
 # Activate various extensions --------------------------------------------------
 
 # Make sure that livereload uses the host FQDN so we can use it across network
