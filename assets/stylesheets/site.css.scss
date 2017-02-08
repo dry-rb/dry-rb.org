@@ -148,13 +148,12 @@ body {
 .content-wrap {
   margin-left: auto;
   margin-right: auto;
-  width: 1200px;
-
-  @media (min-width: 320px)
-  and (max-width: 1199px) {
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 100%;
+  max-width: 1200px;
+  @include mobile {
+    max-width: 100%;
+  }
+  @include tablet {
+    max-width: 900px;
   }
 }
 
@@ -380,7 +379,7 @@ header {
   color: $white;
   font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 25px;
+  padding-bottom: 20px;
   width: 100%;
 }
 
@@ -440,6 +439,8 @@ hr {
 .intro-page__inner {
   margin-left: auto;
   margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
   .intro-page--content & {
     @include desktop {
       max-width: 66.66667%;
@@ -512,6 +513,8 @@ hr {
 .news-article {
   margin-left: auto;
   margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
   @include desktop {
     max-width: 66.666667%;
   }
@@ -792,6 +795,7 @@ pre code {
 
 .main-nav__with-dropdown {
   padding-right: 16px;
+  height: 40px;
   &:before {
     content: '';
     display: block;
