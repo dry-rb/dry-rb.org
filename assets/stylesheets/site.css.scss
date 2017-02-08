@@ -1130,9 +1130,23 @@ article strong {
 }
 
 
+article {
+  color: $dark-grey;
+}
+
 article ul,
 article ol {
   margin-bottom: 1.2em;
+}
+
+article ol {
+  list-style: decimal;
+}
+article ol li {
+  display: list-item;
+  list-style-type: decimal;
+  margin-left: 1em;
+  padding-left: 0.5em;
 }
 
 article ul li:before {
@@ -1144,8 +1158,8 @@ article ul li:before {
 }
 
 article ul li {
-  color: #666;
   margin-bottom: 8px;
+  margin-left: 0.5em;
   padding-left: 1em;
   position: relative;
 }
