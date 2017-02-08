@@ -35,6 +35,11 @@
 
 // Layout ----------------------------------------------------------------------
 
+.hide-mobile {
+  @include mobile {
+    display: none;
+  }
+}
 
 *, *:before, *:after {
   -moz-box-sizing: border-box;
@@ -68,12 +73,10 @@ body {
 }
 
 .article-list {
-  @include col(1,2);
-  margin-left: calc(100% / 12 * 3);
-
-  @include mobile {
-    @include col(1,1);
-    margin-left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  @include desktop {
+    max-width: 66.666667%;
   }
 }
 
@@ -435,8 +438,6 @@ hr {
   }
 
 .intro-page__inner {
-  padding-left: 15px;
-  padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
   .intro-page--content & {
@@ -511,7 +512,9 @@ hr {
 .news-article {
   margin-left: auto;
   margin-right: auto;
-  max-width: 66.666667%;
+  @include desktop {
+    max-width: 66.666667%;
+  }
   strong {
     font-weight: $primary-font-bold-weight;
   }
@@ -556,6 +559,9 @@ hr {
   @include col(6,8);
   .intro-home__news & {
     @include col(8,10);
+    @include mobile {
+      @include col(1,1);
+    }
   }
 
   @include mobile {
@@ -571,6 +577,9 @@ hr {
   .intro-home__news & {
     @include col(2,10);
     margin-top: 0;
+    @include mobile {
+      @include col(1,1);
+    }
   }
   @include mobile {
     @include col(1,1);
@@ -691,11 +700,17 @@ pre code {
   }
   @include mobile {
     margin-right: 20px;
+    &.main-nav__logo {
+      display: block;
+      float: none;
+      margin-bottom: 10px;
+    }
   }
 }
 .main-nav__logo {
   float: left;
   padding-left: 15px;
+  padding-top: 3px;
   a {
     display: block;
     position: relative;
@@ -719,6 +734,17 @@ pre code {
     &:hover,
     &:focus {
       border-bottom: none;
+    }
+  }
+  @include mobile {
+    a {
+      margin-left: auto;
+      margin-top: 45px;
+      &:before {
+        top: -45px;
+        left: 50%;
+        margin-left: -15px;
+      }
     }
   }
 }
@@ -781,6 +807,12 @@ pre code {
     width: 5px;
     transform: rotate(45deg);
   }
+  @include mobile {
+    padding-right: 0;
+    &:before {
+      display: none;
+    }
+  }
 }
 
 .main-nav__dropdown {
@@ -795,6 +827,9 @@ pre code {
   margin-left: -25px;
   text-align: left;
   left: 0;
+  @include mobile {
+    display: none !important;
+  }
   :after {
     bottom: 100%;
     left: 70px;
@@ -866,6 +901,10 @@ code {
 
 .intro-home__heading {
   font-size: 33px;
+  @include mobile {
+    font-size: 29px;
+    line-height: 1.4;
+  }
   strong {
     font-weight: $primary-font-bold-weight;
   }
@@ -975,11 +1014,19 @@ code {
   }
   h3 {
     background-color: $white;
+    color: $mid-blue;
     display: inline-block;
     font-size: 24px;
     margin-bottom: 0;
     padding-right: 10px;
     position: relative;
+    @include mobile {
+      font-size: 19px;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+    }
   }
   .taster__link {
     background-color: $white;
@@ -992,6 +1039,9 @@ code {
     padding-left: 10px;
     position: relative;
     text-transform: uppercase;
+    @include mobile {
+      font-size: 12px;
+    }
   }
 }
 

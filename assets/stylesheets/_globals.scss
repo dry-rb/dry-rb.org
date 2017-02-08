@@ -4,7 +4,7 @@ $tablet-width: 768px;
 $desktop-width: 1024px;
 
 @mixin mobile {
-  @media (min-width: #{$mobile-width}) and (max-width: #{$tablet-width - 1px}) {
+  @media (max-width: #{$tablet-width - 1px}) {
     @content;
  }
 }

@@ -3,7 +3,10 @@ nav.main-nav
     li.main-nav__logo class=("main-nav__item--selected" if /\Aindex.html/.match(current_page.path))
       a href="/" dry-rb
     li.main-nav__with-dropdown class=("main-nav__item--selected" if /\Agems/.match(current_page.path))
-      a href="/gems" Gems / Docs
+      a href="/gems"
+        ' Gems
+        span.hide-mobile
+          ' / Docs
       .main-nav__dropdown.main-nav__dropdown--gems
         - per_group = (site.gems.length / 2).ceil
         - site.gems.each_slice(per_group).each do |group|
