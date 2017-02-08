@@ -363,6 +363,10 @@ footer {
   }
 }
 
+.gem-header {
+  margin-bottom: 0;
+}
+
 .gem-article {
   @include col(3,4);
 
