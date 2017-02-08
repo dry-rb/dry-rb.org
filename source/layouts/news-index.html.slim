@@ -1,0 +1,9 @@
+doctype html
+html lang="en"
+  head = partial "head"
+  body
+    = partial "header-news-index"
+    .row
+      .content-wrap
+        = yield
+    = partial "footer"

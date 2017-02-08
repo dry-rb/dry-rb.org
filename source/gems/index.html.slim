@@ -6,6 +6,5 @@ layout: listing
 ul
   - site.gems.each do |page|
     li
-      == link_to page.name, "/gems/#{page.name}"
-      br
-      == page.desc
+      h3.gem-header == link_to page.name, "/gems/#{page.name}"
+      p== page.desc

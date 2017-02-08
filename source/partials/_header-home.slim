@@ -1,10 +1,21 @@
 header
- .content-wrap
-   = partial "nav"
-   .intro-home
-     h1.intro-home__heading dry-rb
-     h2.intro-home__sub-heading
-       strong dry-rb
-       |&nbsp;is a collection of next-generation Ruby libraries,
-       br
-       |each intended to encapsulate a common task
+  .content-wrap
+    = partial "nav"
+    .intro-home
+      h1.intro-home__heading
+        strong> dry-rb
+        ' is a collection of next-generation Ruby libraries
+      .intro-home__sub-heading
+        h2
+         ' dry-rb helps you write clear, flexible, and more maintainable Ruby code. Each dry-rb gem fulfils a common task, and together they make a powerful platform for any kind of Ruby application.
+      .intro-home__actions
+        a href="/gems" View the gems
+        a.intro-home__code href="http://github.com/dry-rb" Github
+      .intro-home__news
+        - article = blog.articles.first
+        a.news__list-item-anchor href= article.url
+          .news__list-item-date
+            p = article.date.strftime('%e %B %Y')
+          .news__list-item-content
+            h3 = article.title
+            p = sanitize article.summary, "i em strong br code"

@@ -59,6 +59,21 @@ set :markdown,        fenced_code_blocks: true,
                       with_toc_data: true,
                       tables: true
 
+Slim::Embedded.set_default_options(
+  markdown: {
+    autolink: true,
+    fenced_code_blocks: true,
+    hard_wrap: true,
+    lax_spacing: true,
+    no_intra_emphasis: true,
+    smart: true,
+    smartypants: true,
+    superscript: true,
+    tables: true,
+    with_toc_data: true
+  }
+)
+
 # Activate various extensions --------------------------------------------------
 
 # Make sure that livereload uses the host FQDN so we can use it across network
@@ -92,9 +107,9 @@ activate :blog do |blog|
   # blog.calendar_template = "calendar.html"
 
   # Enable pagination
-  # blog.paginate = true
-  # blog.per_page = 10
-  # blog.page_link = "page/{num}"
+  blog.paginate = true
+  blog.per_page = 3
+  blog.page_link = "page/{num}"
 end
 
 page "/feed.xml", layout: false

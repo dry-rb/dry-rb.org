@@ -1,0 +1,10 @@
+doctype html
+html lang="en"
+  head = partial("head")
+  body
+    = partial "header-listing"
+    .row
+      .content-wrap
+        article.content-article
+          = yield
+    = partial "footer"
