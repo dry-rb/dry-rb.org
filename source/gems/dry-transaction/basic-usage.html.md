@@ -84,6 +84,7 @@ You can pass additional arguments to step operations at the time of calling your
 
 ```ruby
 DB = []
+MAILER = []
 
 class Container
   extend Dry::Container::Mixin
@@ -93,7 +94,7 @@ class Container
   }
 
   register :validate, -> input, allowed {
-    input[:email].include?(allowed) ? Dry::Monads.Left(:not_valid) : Dry::Monads.Right(input)
+    input[:email].include?(allowed) ? Dry::Monads.Right(input) : Dry::Monads.Left(:not_valid)
   }
 
   register :persist, -> input {
@@ -101,7 +102,7 @@ class Container
   }
 
   register :notify, -> input, email: {
-    MAILER << email; DR::Monads.Right(input)
+    MAILER << email; Dry::Monads.Right(input)
   }
 end
 
