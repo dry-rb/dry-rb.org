@@ -23,6 +23,12 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="n">setting</span> <span class="ss">:adapter</span>
   <span class="c1"># Pre-process values</span>
   <span class="n">setting</span><span class="p">(</span><span class="ss">:path</span><span class="p">,</span> <span class="s1">'test'</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span> <span class="no">Pathname</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">}</span>
+  <span class="c1"># Passing the reader option as true will create attr_reader method for the class</span>
+  <span class="n">setting</span> <span class="ss">:pool</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="ss">reader: </span><span class="kp">true</span>
+  <span class="c1"># Passing the reader attributes works with nested configuration</span>
+  <span class="n">setting</span> <span class="ss">:uploader</span><span class="p">,</span> <span class="ss">reader: </span><span class="kp">true</span> <span class="k">do</span>
+    <span class="n">setting</span> <span class="ss">:bucket</span><span class="p">,</span> <span class="s1">'dev'</span>
+  <span class="k">end</span>
 <span class="k">end</span>
 
 <span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">database</span><span class="p">.</span><span class="nf">dsn</span>
@@ -38,4 +44,8 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="c1"># =&gt; nil</span>
 <span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">path</span>
 <span class="c1"># =&gt; #&lt;Pathname:test&gt;</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">pool</span>
+<span class="c1"># =&gt; 5</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">uploader</span><span class="p">.</span><span class="nf">bucket</span>
+<span class="c1"># =&gt; 'dev'</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
