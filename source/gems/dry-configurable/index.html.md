@@ -28,6 +28,12 @@ class App
   setting :adapter
   # Pre-process values
   setting(:path, 'test') { |value| Pathname(value) }
+  # Passing the reader option as true will create attr_reader method for the class
+  setting :pool, 5, reader: true
+  # Passing the reader attributes works with nested configuration
+  setting :uploader, reader: true do
+    setting :bucket, 'dev'
+  end
 end
 
 App.config.database.dsn
@@ -43,4 +49,8 @@ App.config.adapter
 # => nil
 App.config.path
 # => #<Pathname:test>
+App.pool
+# => 5
+App.uploader.bucket
+# => 'dev'
 ```
