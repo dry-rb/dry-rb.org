@@ -28,7 +28,7 @@ include Dry::Logic
 user_present = Rule::Predicate.new(Predicates[:key?]).curry(:user)
 # here curry simply curries arguments, so we can prepare
 # predicates with args without the input
-# translating this into words: check the the input has the key `:user`
+# translating this into words: check the if input has the key `:user`
 
 min_18 = Rule::Predicate.new(Predicates[:gt?]).curry(18)
 # check the value is greater than 18

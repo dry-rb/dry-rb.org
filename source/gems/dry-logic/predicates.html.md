@@ -19,18 +19,11 @@ Predicates[:key?]
 => #<Method: Module(Dry::Logic::Predicates::Methods)#key?>
 ```
 
-In the end predicates return a called method:
+In the end predicates return true or false.
 
 ```ruby
 Predicates[:key?].(:name, {name: 'John'})
 => true
-
-# You can even create your predicates at runtime
-Predicates[:predicate].(:coll_eh) { puts 'Woow 0_o' }
-=> :coll_eh
-Predicates[:coll_eh].()
-Woow 0_o
- => nil
 ```
 
 * Built-in:
@@ -74,7 +67,7 @@ Woow 0_o
   - `predicate`
 
 With predicates you can build more composable and complex operations:
-For example, let say we want to check that a given input is a hash and has a specify key.
+For example, let's say we want to check that a given input is a hash and has a specify key.
 
 ``` ruby
 require 'dry/logic'
@@ -90,10 +83,10 @@ name_key = Rule::Predicate.new(Predicates[:key?]).curry(:name)
 hash_with_key = is_hash & name_key
 => #<Dry::Logic::Operations::And rules=[#<Dry::Logic::Rule::Predicate predicate=#<Method: Module(Dry::Logic::Predicates::Methods)#type?> options={:args=>[:hash]}>, #<Dry::Logic::Rule::Predicate predicate=#<Method: Module(Dry::Logic::Predicates::Methods)#key?> options={:args=>[:name]}>] options={}>
 
-hash_with_key.({name: 'John'}).success?
+hash_with_key.(name: 'John').success?
 => true
 
-hash_with_key.({not_valid: 'John'}).success?
+hash_with_key.(not_valid: 'John').success?
 => false
 
 hash_with_key.([1,2]).success?
