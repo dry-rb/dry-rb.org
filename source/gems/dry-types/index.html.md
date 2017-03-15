@@ -50,6 +50,6 @@ sections:
 
 * [dry-struct](/gems/dry-struct)
 * [dry-initializer](/gems/dry-initializer)
-* [Hanami](https://hanamirb.org)
+* [Hanami](http://hanamirb.org)
 * [rom-rb](http://rom-rb.org)
 * [Trailblazer](http://trailblazer.to)
