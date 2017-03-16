@@ -57,7 +57,7 @@ en:
 Given the yaml file above, messages lookup works as follows:
 
 ``` ruby
-messages = Dry::Validation::Messages.load('/path/to/our/errors.yml')
+messages = Dry::Validation::Messages::YAML.load(%w(/path/to/our/errors.yml))
 
 # matching arg type for size? predicate
 messages[:size?, rule: :name, arg_type: Fixnum] # => "size must be %{num}"
@@ -122,4 +122,3 @@ schema.call(email: '').messages(full: true)
 
 - `key?`: a required parameter is missing in the `params` hash.
 - `filled?`: a required parameter is in the `params` hash but has an empty value.
-
