@@ -34,9 +34,9 @@ class Employee < User
   param :name,     default:  proc { 'Unknown' }
 end
 
-User.new
-# => Boom! because User#name is required
+user = User.new         # => Boom! because User#name is required
+employee = Employee.new # passes because who cares on employee's name
 
-Employee.new.name
-# => 'Unknown' (name is positioned first like in User)
+employee.name
+# => 'Unknown' because it is the name that positioned first like in User
 ```

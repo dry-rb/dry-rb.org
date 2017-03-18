@@ -13,6 +13,7 @@ sections:
   - type-constraints
   - readers
   - inheritance
+  - skip-undefined
   - rails-support
 ---
 
@@ -30,6 +31,7 @@ class User
   param  :name,  Dry::Types['strict.string']
   param  :role,  default: proc { 'customer' }
   option :admin, default: proc { false }
+  option :phone, optional: true
 end
 
 user = User.new 'Vladimir', 'admin', admin: true
@@ -37,18 +39,5 @@ user = User.new 'Vladimir', 'admin', admin: true
 user.name  # => 'Vladimir'
 user.role  # => 'admin'
 user.admin # => true
-```
-
-This is pretty the same as the following ruby code:
-
-```ruby
-class User
-  attr_reader :name, :role, :admin
-
-  def initialize(name = Dry::Initializer::UNDEFINED, role = 'customer', **__options__)
-    @name  = Dry::Types['strict.string'][name]
-    @role  = role
-    @admin = __options__.fetch(:admin, Dry::Initializer::UNDEFINED)
-  end
-end
+user.phone # => nil
 ```
