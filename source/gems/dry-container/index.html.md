@@ -87,6 +87,21 @@ end
 container.import(ns)
 container.resolve('repositories.authentication.users')
 # => []
+
+# Also, you can import namespaces in container class
+Repositories = Dry::Container::Namespace.new('repositories') do
+  namespace('authentication') do
+    register('users') { ThreadSafe::Array.new }
+  end
+end
+
+class Container
+  extend Dry::Container::Mixin
+  import Repositories
+end
+
+Container.resolve('repositories.authentication.users')
+# => []
 ```
 
 You can also get container behaviour at both the class and instance level via the mixin:
