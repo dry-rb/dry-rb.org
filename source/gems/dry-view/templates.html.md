@@ -19,11 +19,11 @@ dry-view uses [Tilt](https://github.com/rtomayko/tilt) to render its templates, 
 
 ## Scope
 
-Each template is rendered with its own _scope_, which determines the methods available within the template. The scope is made from two things: the data from the [exposures](/gems/dry-view/exposures/), and the [context object](/gems/dry-view/context/).
+Each template is rendered with its own _scope_, which determines the methods available within the template. The scope is made from two things: the template's _locals_ (the [view parts](/gems/dry-view/view-parts/) from the [exposures](/gems/dry-view/exposures/)), and the [context object](/gems/dry-view/context/).
 
 The template scope evaluates methods sent to it in this order:
 
-- If there is a matching exposure, it is returned.
+- If there is a matching local, it is returned.
 - If the context object responds to the method, it is called, along with any arguments passed to the method.
 - If none of the above match, it attempts to render a partial.
 
@@ -75,7 +75,7 @@ h1 About us
 == contact_form
 ```
 
-Otherwise, partials accept keywords arguments, which become a new scope for rendering the partial. For example:
+Otherwise, partials accept keywords arguments, which become the locals when for rendering the partial. For example:
 
 ```slim
 h1 Our team
