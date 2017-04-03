@@ -7,8 +7,9 @@ sections:
   - configuration
   - injecting-dependencies
   - exposures
-  - context
   - templates
+  - view-parts
+  - context
 ---
 
 dry-view is a simple, standalone view rendering system built around functional view controllers and templates. dry-view allows you to model your views as _transformations_, accepting user input and returning your rendered view.
@@ -50,7 +51,7 @@ Write a layout (`templates/layouts/app.html.erb`):
 
 And a template (`templates/hello.html.erb`):
 
-```
+```erb
 <h1>Hello!</h1>
 <p><%= greeting %></p>
 ```
@@ -63,4 +64,4 @@ view.(greeting: "Greetings from dry-rb")
 # => "<html><body><h1>Hello!</h1><p>Greetings from dry-rb!</p></body></html>
 ```
 
-`Dry::View::Controller#call` expects keyword arguments for input data. These arguments are handled by your [exposures](/gems/dry-view/exposures/), which prepare the objects that are passed to your [template](/gems/dry-view/) for rendering.
+`Dry::View::Controller#call` expects keyword arguments for input data. These arguments are handled by your [exposures](/gems/dry-view/exposures/), which prepare [view parts](/gems/dry-view/view-parts) that are passed to your [template](/gems/dry-view/templates) for rendering.
