@@ -196,7 +196,7 @@ validates :attr, format: { with: regex }
 required(:attr).required(format?: regex)
 ```
 
-####Doesn't Match
+#### Doesn't Match
 
 **ActiveModel Validation**
 
@@ -246,7 +246,7 @@ validates :attr, length: { minimum: int }
 required(:attr).filled(min_size?: int)
 ```
 
-####Maximum
+#### Maximum
 
 **ActiveModel Validation**
 
@@ -260,7 +260,7 @@ validates :attr, length: { maximum: int }
 required(:attr).filled(max_size?: int)
 ```
 
-####In
+#### In
 
 **ActiveModel Validation**
 
@@ -274,7 +274,7 @@ validates :attr, length: { in: range }
 required(:attr).filled(size?: range)
 ```
 
-####Is
+#### Is
 
 **ActiveModel Validation**
 
@@ -534,7 +534,7 @@ required(:attr).value(:none?)  # only allows nil
 required(:attr).value(:empty?) # only empty values:  "", [], {}, or nil
 ```
 
-####Associations
+#### Associations
 
 If you want to be sure that an association is absent, we can do the opposite to checking that the association if present but use none for a single object and empty for may objects.
 
@@ -735,6 +735,8 @@ You can keep your schema code nice and DRY by [reusing schemas](gems/dry-validat
 
 ### 4. Conditional Validation
 
+**ActiveModel Validation**
+
 In ActiveModel you can use `:if` or `:unless` to only perform a validation based on the result of a proc or method.
 
 A simple schema can look like this:
@@ -747,16 +749,18 @@ def paid_with_card?
 end
 ```
 
+**dry-validation**
+
 To achieve this in dry-validation you can use [high-level rules](/gems/dry-validation/high-level-rules/).
 
-.1. Declare a rule for each of the attributes you need to reference:
+Declare a rule for each of the attributes you need to reference:
 
 ```ruby
 required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
 required(:card_number).maybe
 ```
 
-.3. Declare a high level rule to require the card number if `payment_type == 'card'`:
+Declare a high level rule to require the card number if `payment_type == 'card'`:
 
 ```ruby
 rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
