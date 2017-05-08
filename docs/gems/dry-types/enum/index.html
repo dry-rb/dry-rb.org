@@ -31,4 +31,11 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="c1"># nil is considered as something silly too</span>
 <span class="no">Post</span><span class="o">::</span><span class="no">Statuses</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span>
 <span class="c1"># =&gt; Dry::Types::ConstraintError: nil violates constraints</span>
+</code></pre>
+<p>Note that if you want to define an enum type with a default, you must call <code>.default</code> <em>before</em> calling <code>.enum</code>, not the other way around:</p>
+<pre class="syntax ruby"><code><span class="c1"># this is the correct usage:</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">default</span><span class="p">(</span><span class="s1">'red'</span><span class="p">).</span><span class="nf">enum</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">)</span>
+
+<span class="c1"># this will raise an error:</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">enum</span><span class="p">(</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">).</span><span class="nf">default</span><span class="p">(</span><span class="s1">'red'</span><span class="p">)</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
