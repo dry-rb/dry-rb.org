@@ -5,6 +5,8 @@ layout: gem-single
 order: 3
 type: gem
 name: dry-container
+sections:
+  - testing
 ---
 
 ### Introduction
