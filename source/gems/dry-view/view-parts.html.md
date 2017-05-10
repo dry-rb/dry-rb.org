@@ -56,11 +56,19 @@ class UserPart < Dry::View::Part
 end
 ```
 
-Associate your part class with your value via an [exposure](/gems/dry-view/exposures):
+Associate your part class with your value via an `:as` option on your [exposure](/gems/dry-view/exposures):
 
 ```ruby
 class MyView < Dry::View::Controller
   expose :user, as: UserPart
+end
+```
+
+For arrays, the `:as` part class will wrap the members of the array. To wrap the array itself as well as its members, pass both part classes in hash form:
+
+```ruby
+class MyView < Dry::View::Controller
+  expose :users, as: {MyArrayPart => MyUserPart}
 end
 ```
 
