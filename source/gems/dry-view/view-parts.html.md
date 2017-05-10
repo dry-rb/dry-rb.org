@@ -46,7 +46,7 @@ You can also provide additional locals for the partial:
 
 View parts become especially useful when you provide your own custom part classes. This allows you to cleanly encapsulate custom view-specific behavior for your values.
 
-Your part class should inherit from `Dry::View::Part`. It can access all the value's methods, and can also access the value directly via a `#_value` accessor.
+Your part class should inherit from `Dry::View::Part`. It can access all the value's methods, and can also access the value directly via a `#value` accessor (or `#_value` if your value object responds to `#value`).
 
 ```ruby
 class UserPart < Dry::View::Part
@@ -64,7 +64,7 @@ class MyView < Dry::View::Controller
 end
 ```
 
-In your part classes, you can also access the view's [context object](/gems/dry-view/context) as `#_context` and the low-level renderer as `#_renderer`.
+In your part classes, you can access the view's [context object](/gems/dry-view/context) as `#context` (or `#_context` if your value object responds to `#context`).
 
 This makes it possible to design view parts that encapsulate value-specific and view-specific behavior that would otherwise need to be handled by a messy collection of helpers.
 
