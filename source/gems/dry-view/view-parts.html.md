@@ -5,8 +5,6 @@ layout: gem-single
 
 All values passed to your templates are wrapped in _view parts_, which add view-specific behaviour to your application's domain objects.
 
-<!--All values passed to your templates are wrapped in _view parts_ and given view-specific behavior.-->
-
 ## Accessing your values
 
 You can access your value's methods through the part via standard `#method_missing` behavior:
