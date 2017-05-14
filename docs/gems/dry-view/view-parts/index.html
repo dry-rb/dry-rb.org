@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-view - View parts</title><link href="/assets/stylesheets/site-9441ccd1.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li></ul><ul><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-view">dry-view</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="http://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-view</h1></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-view/" class="">Introduction</a><li><a href="/gems/dry-view/configuration/" class="">Configuration</a></li><li><a href="/gems/dry-view/injecting-dependencies/" class="">Injecting dependencies</a></li><li><a href="/gems/dry-view/exposures/" class="">Exposures</a></li><li><a href="/gems/dry-view/templates/" class="">Templates</a></li><li><a href="/gems/dry-view/view-parts/" class="active">View parts</a></li><li><a href="/gems/dry-view/context/" class="">Context</a></li></li></ul></aside><article class="gem-article"><h2>View parts</h2><p>All values passed to your templates are wrapped in <em>view parts</em>, which add view-specific behaviour to your application&rsquo;s domain objects.</p>
+
+<h2 id="accessing-your-values">Accessing your values</h2>
+
+<p>You can access your value&rsquo;s methods through the part via standard <code>#method_missing</code> behavior:</p>
+<pre class="syntax erb"><code><span class="c">&lt;%# All the methods on "user" are still available: %&gt;
+&lt;p&gt;&lt;%= user.name %&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre>
+<p>Direct string conversion is also available via your value&rsquo;s <code>#to_s</code> behavior:</p>
+<pre class="syntax erb"><code><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">user</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre>
+<h2 id="rendering-partials">Rendering partials</h2>
+
+<p>You can also render partials with the part included in the partial&rsquo;s locals:</p>
+<pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span> <span class="ss">:info_box</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>This renders an <code>_info_box</code> partial template (via the standard <a href="/gems/dry-view/templates/">partial lookup rules</a>) with the user part still available as <code>user</code>.</p>
+
+<p>If you need to make the part available by another name, use the <code>as</code> option:</p>
+<pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span> <span class="ss">:info_box</span><span class="p">,</span> <span class="ss">as: :account</span> <span class="cp">%&gt;</span>
+</code></pre>
+<p>You can also provide additional locals for the partial:</p>
+<pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span> <span class="ss">:info_box</span><span class="p">,</span> <span class="ss">as: :account</span><span class="p">,</span> <span class="ss">title_label: </span><span class="s2">"Your account"</span> <span class="cp">%&gt;</span>
+</code></pre>
+<h2 id="using-custom-parts">Using custom parts</h2>
+
+<p>View parts become especially useful when you provide your own custom part classes. This allows you to cleanly encapsulate custom view-specific behavior for your values.</p>
+
+<p>Your part class should inherit from <code>Dry::View::Part</code>. It can access all the value&rsquo;s methods, and can also access the value directly via a <code>#value</code> accessor (or <code>#_value</code> if your value object responds to <code>#value</code>).</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserPart</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">display_name</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="n">full_name</span><span class="si">}</span><span class="s2"> &lt;</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&gt;"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Associate your part class with your value via an <code>:as</code> option on your <a href="/gems/dry-view/exposures">exposure</a>:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">expose</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">as: </span><span class="no">UserPart</span>
+<span class="k">end</span>
+</code></pre>
+<p>For arrays, the <code>:as</code> part class will wrap the members of the array. To wrap the array itself as well as its members, pass both part classes in hash form:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">expose</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">as: </span><span class="p">{</span><span class="no">MyArrayPart</span> <span class="o">=&gt;</span> <span class="no">MyUserPart</span><span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+<p>In your part classes, you can access the view&rsquo;s <a href="/gems/dry-view/context">context object</a> as <code>#context</code> (or <code>#_context</code> if your value object responds to <code>#context</code>).</p>
+
+<p>This makes it possible to design view parts that encapsulate value-specific and view-specific behavior that would otherwise need to be handled by a messy collection of helpers.</p>
+
+<p>For example, if your &ldquo;user&rdquo; values contained raw markup for &ldquo;bio&rdquo; content, you could offer a method to provide the fully rendered content, while also passing view-only information to the renderer from your context object (like a CSRF token, for example). If this rendering was an expensive operation, you could also memoize it so it isn&rsquo;t re-run if used in more than one place.</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserPart</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">bio</span>
+    <span class="vi">@bio</span> <span class="o">||=</span> <span class="n">rich_text</span><span class="p">(</span><span class="n">bio_markup</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">rich_text</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+    <span class="n">rich_text_renderer</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="ss">csrf_token: </span><span class="n">_context</span><span class="p">.</span><span class="nf">csrf_token</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">rich_text_renderer</span>
+    <span class="vi">@rich_text_renderer</span> <span class="o">||=</span> <span class="no">MyRenderer</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>You could also encapsulate the rendering of partials, and thanks to the <a href="/gems/dry-view/templates/">partial lookup rules</a>, you can provide different partials to be used based on the location of the top-level template.</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserPart</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">profile</span>
+    <span class="n">render</span> <span class="ss">:profile</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Providing custom view parts like this ensures more of your view logic is properly encapsulated and easier to test.</p>
+
+<h2 id="providing-a-custom-decorator">Providing a custom decorator</h2>
+
+<p>You can control the wrapping of all your values in view parts by providing a custom <em>decorator</em> to your view controllers.</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">decorator</span> <span class="o">=</span> <span class="no">MyDecorator</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>A decorator must respond to <code>#call(name, value, renderer:, context:, **options)</code> and return <code>Dry::View::Part</code> objects (or equivalent). The arguments to <code>#call</code> are as follows,</p>
+
+<ul>
+<li><strong>name</strong>: the name of the exposure</li>
+<li><strong>value</strong>: the object returned from the exposure. This should be provided when initializing the part object.</li>
+<li><strong>renderer</strong>: the current low-level renderer. This should be provided when initializing the part object.</li>
+<li><strong>context</strong>: the current <a href="/gems/dry-view/context/">context object</a>. This should be  provided when initializing the part object.</li>
+<li><strong>options</strong>: a hash of any other options provided to the exposure. These can be used, for example, to determine what part class to use, or to pass extra data when initializing custom parts.</li>
+</ul>
+
+<p>Your custom decorator must also take care of handling plain values as well as arrays of values (see the implementation of the default <code>Dry::View::Decorator</code> for detail).</p>
+
+<p>If you&rsquo;d like to keep this standard behaviour, you can instead inherit from <code>Dry::View::Decorator</code> and provide a simpler <code>#part_class(name, value, **options)</code> method, which only has to return the part class based on the passed arguments.</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyDecorator</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Decorator</span>
+  <span class="k">def</span> <span class="nf">part_class</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="c1"># some logic to automatically determine a part class based on name, value, or options</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
