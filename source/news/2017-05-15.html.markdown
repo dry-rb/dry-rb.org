@@ -4,8 +4,6 @@ date: 2017-05-15
 author: timriley
 ---
 
-# dry-view 0.3.0: another step towards solving the view layer mess
-
 We’re excited to announce the release of dry-view 0.3.0, which introduces two concepts for better organising your views: view parts and decorators.
 
 How do these work? Every dry-view controller now comes configured with a **decorator** (you can use our default or provide your own), whose job is to wrap up your values in **view parts** before passing them to the template. View parts give you a place to cleanly combine view-specific behaviour with your application’s values.
