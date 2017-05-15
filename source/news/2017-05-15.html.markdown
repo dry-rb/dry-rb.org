@@ -8,7 +8,7 @@ author: timriley
 
 We’re excited to announce the release of dry-view 0.3.0, which introduces two concepts for better organising your views: view parts and decorators.
 
-How do these work? Every dry-view controller now comes configured with a **decorator** (you can use our default or provide your own), whose job it is to wrap up your values in **view parts** before passing them to the template. View parts give you a place to cleanly combine view-specific behaviour with your application’s values.
+How do these work? Every dry-view controller now comes configured with a **decorator** (you can use our default or provide your own), whose job is to wrap up your values in **view parts** before passing them to the template. View parts give you a place to cleanly combine view-specific behaviour with your application’s values.
 
 By default, every view part is a plain `Dry::View::Part` instance. This gives you access to a `#render` method for rendering a partial with the view part included in the partial’s scope:
 
@@ -37,7 +37,7 @@ This is just the beginning. Things get interesting when you specify your own vie
 expose :account, as: AccountPart
 ```
 
-Since view parts are designed as wrappers, you have access to every method on the value, made easily available via `method_missing` behaviour:
+Since view parts are designed as wrappers, you have access to every method on the value:
 
 ```ruby
 class AccountPart < Dry::View::Part
