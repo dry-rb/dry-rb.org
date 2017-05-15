@@ -13,13 +13,11 @@
     <link rel="alternate" href="http://dry-rb.org/news/2017/05/15/dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess/"/>
     <id>http://dry-rb.org/news/2017/05/15/dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess/</id>
     <published>2017-05-15T10:00:00+10:00</published>
-    <updated>2017-05-15T16:40:36+10:00</updated>
+    <updated>2017-05-15T16:47:41+10:00</updated>
     <author>
       <name>timriley</name>
     </author>
-    <content type="html">&lt;h1 id="dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess"&gt;dry-view 0.3.0: another step towards solving the view layer mess&lt;/h1&gt;
-
-&lt;p&gt;We’re excited to announce the release of dry-view 0.3.0, which introduces two concepts for better organising your views: view parts and decorators.&lt;/p&gt;
+    <content type="html">&lt;p&gt;We’re excited to announce the release of dry-view 0.3.0, which introduces two concepts for better organising your views: view parts and decorators.&lt;/p&gt;
 
 &lt;p&gt;How do these work? Every dry-view controller now comes configured with a &lt;strong&gt;decorator&lt;/strong&gt; (you can use our default or provide your own), whose job is to wrap up your values in &lt;strong&gt;view parts&lt;/strong&gt; before passing them to the template. View parts give you a place to cleanly combine view-specific behaviour with your application’s values.&lt;/p&gt;
 
