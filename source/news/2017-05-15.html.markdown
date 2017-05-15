@@ -1,5 +1,5 @@
 ---
-title: dry-view 0.3.0: another step towards solving the view layer mess
+title: "dry-view 0.3.0: another step towards solving the view layer mess"
 date: 2017-05-15
 author: timriley
 ---
