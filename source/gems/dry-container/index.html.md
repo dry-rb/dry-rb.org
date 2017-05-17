@@ -6,6 +6,7 @@ order: 3
 type: gem
 name: dry-container
 sections:
+  - registry-and-resolver
   - testing
 ---
 
@@ -124,33 +125,3 @@ container.register(:item, :my_item)
 container.resolve(:item)
 # => :my_item
 ```
-### Using a custom registry/resolver
-
-You can configure how items are registered and resolved from the container:
-
-```ruby
-Dry::Container.configure do |config|
-  config.registry = ->(container, key, item, options) { container[key] = item }
-  config.resolver = ->(container, key) { container[key] }
-end
-
-class Container
-  extend Dry::Container::Mixin
-
-  configure do |config|
-    config.registry = ->(container, key, item, options) { container[key] = item }
-    config.resolver = ->(container, key) { container[key] }
-  end
-end
-
-class ContainerObject
-  include Dry::Container::Mixin
-
-  configure do |config|
-    config.registry = ->(container, key, item, options) { container[key] = item }
-    config.resolver = ->(container, key) { container[key] }
-  end
-end
-```
-
-This allows you to customise the behaviour of Dry::Container, for example, the default registry (Dry::Container::Registry) will raise a Dry::Container::Error exception if you try to register under a key that is already used, you may want to just overwrite the existing value in that scenario, configuration allows you to do so.
