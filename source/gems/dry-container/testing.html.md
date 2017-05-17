@@ -23,7 +23,7 @@ container[:redis] # => "Stubbed redis instance"
 ```
 
 Also, you can unstub container:
-```
+```ruby
 container = Dry::Container.new
 container.register(:redis) { "Redis instance" }
 container[:redis] # => "Redis instance"
