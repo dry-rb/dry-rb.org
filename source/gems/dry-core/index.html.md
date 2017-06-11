@@ -7,12 +7,12 @@ type: gem
 name: dry-core
 ---
 
-`dry-core` is a simple toolset that can be used in any places.
+`dry-core` is a simple toolset that can be used in many places.
 
 ## Usage
 
 ### Cache
-llows you to cache call results that are solely determined by arguments.
+Allows you to cache call results that are solely determined by arguments.
 
 ```ruby
 require 'dry/core/cache'
@@ -74,11 +74,14 @@ A list of constants you can use to avoid memory allocations or identity checks.
 
 ### Deprecations
 
+For deprecate ruby methods you need to extend `Dry::Core::Deprecations` module
+with a tag that will be displayed in the output. For example:
+
 ```ruby
 require 'dry/core/deprecations'
 
 class Foo
-  extend Dry::Core::Deprecations
+  extend Dry::Core::Deprecations[:tag]
 
   def self.old_class_api; end
   def self.new_class_api; end
@@ -88,8 +91,18 @@ class Foo
   def old_api; end
   def new_api; end
 
-  deprecate_method :old_api, :new_api, "old_api is no-no"
+  deprecate :old_api, :new_api
 end
+
+Foo.old_class_api
+# => [tag] Foo.old_class_api is deprecated and will be removed in the next major version
+# => Please use Foo.new_class_api instead.
+# => file.rb:9:in `<class:Foo>'
+
+Foo.new.old_api
+# => [tag] Foo#old_api is deprecated and will be removed in the next major version
+# => Please use Foo#new_api instead.
+# => file.rb:14:in `<class:Foo>'
 ```
 
 ### Extensions
