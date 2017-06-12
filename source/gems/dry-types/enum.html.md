@@ -33,3 +33,13 @@ Post::Statuses['something silly']
 Post::Statuses[nil]
 # => Dry::Types::ConstraintError: nil violates constraints
 ```
+
+Note that if you want to define an enum type with a default, you must call `.default` *before* calling `.enum`, not the other way around:
+
+```ruby
+# this is the correct usage:
+Dry::Types::String.default('red').enum('blue', 'green', 'red')
+
+# this will raise an error:
+Dry::Types::String.enum('blue', 'green', 'red').default('red')
+```

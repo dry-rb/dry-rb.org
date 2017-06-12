@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Comparison With ActiveModel</title><link href="/assets/stylesheets/site-9441ccd1.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Comparison With ActiveModel</title><link href="/assets/stylesheets/site-d0f46643.css" rel="stylesheet" /><script src="/assets/javascripts/site-b5250171.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
@@ -16,7 +16,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 </ul>
 
 <blockquote>
-<p>Note that there isn&rsquo;t a one-to-one translation between ActiveModel validators and Dry predicates, this guide shows you to closest match and highlights differences where applicable.</p>
+<p>Note that there isn&rsquo;t a one-to-one relationship between ActiveModel validators and Dry predicates. This guide shows you the closest matches, and highlights the differences where applicable.</p>
 
 <p>For the main documentation on dry-validation predicates, see <a href="http://dry-rb.org/gems/dry-validation/basics/built-in-predicates/">Built-in Predicates</a>.</p>
 </blockquote>
@@ -572,6 +572,8 @@ In dry-validation you will need to use a block when defining your rule instead o
 
 <h3 id="4-conditional-validation">4. Conditional Validation</h3>
 
+<p><strong>ActiveModel Validation</strong></p>
+
 <p>In ActiveModel you can use <code>:if</code> or <code>:unless</code> to only perform a validation based on the result of a proc or method.</p>
 
 <p>A simple schema can look like this:</p>
@@ -581,13 +583,15 @@ In dry-validation you will need to use a block when defining your rule instead o
   <span class="n">payment_type</span> <span class="o">==</span> <span class="s2">"card"</span>
 <span class="k">end</span>
 </code></pre>
+<p><strong>dry-validation</strong></p>
+
 <p>To achieve this in dry-validation you can use <a href="/gems/dry-validation/high-level-rules/">high-level rules</a>.</p>
 
-<p>.1. Declare a rule for each of the attributes you need to reference:</p>
+<p>Declare a rule for each of the attributes you need to reference:</p>
 <pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">included_in?</span><span class="p">:</span> <span class="p">[</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span>
 <span class="n">required</span><span class="p">(</span><span class="ss">:card_number</span><span class="p">).</span><span class="nf">maybe</span>
 </code></pre>
-<p>.3. Declare a high level rule to require the card number if <code>payment_type == &#39;card&#39;</code>:</p>
+<p>Declare a high level rule to require the card number if <code>payment_type == &#39;card&#39;</code>:</p>
 <pre class="syntax ruby"><code><span class="n">rule</span><span class="p">(</span><span class="ss">require_card_number: </span><span class="p">[</span><span class="ss">:card_number</span><span class="p">,</span> <span class="ss">:payment_type</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">card_number</span><span class="p">,</span> <span class="n">payment_type</span><span class="o">|</span>
   <span class="n">payment_type</span><span class="p">.</span><span class="nf">eql?</span><span class="p">(</span><span class="s1">'card'</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">filled?</span>
 <span class="k">end</span>

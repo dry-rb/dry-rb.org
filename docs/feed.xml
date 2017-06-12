@@ -4,16 +4,78 @@
   <id>http://dry-rb.org/news</id>
   <link href="http://dry-rb.org/news"/>
   <link href="http://dry-rb.org/feed.xml" rel="self"/>
-  <updated>2017-01-30T03:00:00+03:00</updated>
+  <updated>2017-05-15T02:00:00+02:00</updated>
   <author>
     <name>dry-rb community</name>
   </author>
   <entry>
+    <title>dry-view 0.3.0: another step towards solving the view layer mess</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2017/05/15/dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess/"/>
+    <id>http://dry-rb.org/news/2017/05/15/dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess/</id>
+    <published>2017-05-15T02:00:00+02:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
+    <author>
+      <name>timriley</name>
+    </author>
+    <content type="html">&lt;p&gt;We’re excited to announce the release of dry-view 0.3.0, which introduces two concepts for better organising your views: view parts and decorators.&lt;/p&gt;
+
+&lt;p&gt;How do these work? Every dry-view controller now comes configured with a &lt;strong&gt;decorator&lt;/strong&gt; (you can use our default or provide your own), whose job is to wrap up your values in &lt;strong&gt;view parts&lt;/strong&gt; before passing them to the template. View parts give you a place to cleanly combine view-specific behaviour with your application’s values.&lt;/p&gt;
+
+&lt;p&gt;By default, every view part is a plain &lt;code&gt;Dry::View::Part&lt;/code&gt; instance. This gives you access to a &lt;code&gt;#render&lt;/code&gt; method for rendering a partial with the view part included in the partial’s scope:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AccountView&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;View&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Controller&lt;/span&gt;
+  &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;template&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"account"&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;expose&lt;/span&gt; &lt;span class="ss"&gt;:account&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="c1"&gt;# fetch the account value&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;pre class="syntax erb"&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;Your account&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;&amp;lt;%# Renders "account/_info_box.html.erb" with `account` in scope %&amp;gt;
+&amp;lt;%= account.render :info_box %&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is just the beginning. Things get interesting when you specify your own view part classes:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;expose&lt;/span&gt; &lt;span class="ss"&gt;:account&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;as: &lt;/span&gt;&lt;span class="no"&gt;AccountPart&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since view parts are designed as wrappers, you have access to every method on the value:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AccountPart&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;View&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Part&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;display_name&lt;/span&gt;
+    &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;full_name&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; &amp;lt;&lt;/span&gt;&lt;span class="si"&gt;#{&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;gt;"&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is nice, but so far it’s just typical delegator-style behaviour. We can do more: these things are called &lt;em&gt;view&lt;/em&gt; parts for a reason! Every view part is initialised with the view’s current &lt;a href="http://dry-rb.org/gems/dry-view/context/"&gt;context object&lt;/a&gt; and renderer. This means the view part can now encapsulate much of the logic you’d otherwise have to scatter around your templates.&lt;/p&gt;
+
+&lt;p&gt;Let’s say our context object has &lt;code&gt;#attachment_url&lt;/code&gt; and &lt;code&gt;#asset_url&lt;/code&gt; methods, for generating URLs for user-uploaded files and application assets respectively. If you wanted to start showing a profile image for your “account” value, you could now do this:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AccountPart&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;View&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Part&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;profile_image_url&lt;/span&gt;
+    &lt;span class="c1"&gt;# profile_image_path is an attribute on the wrapped value&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;profile_image_path&lt;/span&gt;
+      &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;attachment_url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;profile_image_path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"80x80"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+      &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;asset_url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"images/default_user_profile.jpg"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then all you have left to do is add this one-liner to your template:&lt;/p&gt;
+&lt;pre class="syntax erb"&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;img&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;%=&lt;/span&gt; &lt;span class="n"&gt;account&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;profile_image_url&lt;/span&gt; &lt;span class="cp"&gt;%&amp;gt;&lt;/span&gt;&lt;span class="err"&gt;&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The result? A cleaner template, and your view logic properly named and encapsulated in its own class, which you can also test  independently.&lt;/p&gt;
+
+&lt;p&gt;In this way, view parts provide a critical new layer for placing the majority of your complex view logic. They make your templates easier to understand and easier to work with, and they help ensure that your view layer isn’t where good code structure has to stop.&lt;/p&gt;
+
+&lt;p&gt;Want to learn more? Check out &lt;a href="http://dry-rb.org/gems/dry-view/view-parts/"&gt;view parts in the dry-view documentation&lt;/a&gt; and give dry-view 0.3.0 a try!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>Announcing dry-view, a functional view rendering system for Ruby</title>
     <link rel="alternate" href="http://dry-rb.org/news/2017/01/30/announcing-dry-view-a-functional-view-rendering-system-for-ruby/"/>
     <id>http://dry-rb.org/news/2017/01/30/announcing-dry-view-a-functional-view-rendering-system-for-ruby/</id>
-    <published>2017-01-30T03:00:00+03:00</published>
-    <updated>2017-03-15T15:43:35+03:00</updated>
+    <published>2017-01-30T01:00:00+01:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -100,8 +162,8 @@
     <title>New gem releases</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/09/23/new-gem-releases/"/>
     <id>http://dry-rb.org/news/2016/09/23/new-gem-releases/</id>
-    <published>2016-09-23T03:00:00+03:00</published>
-    <updated>2016-10-06T23:40:35+03:00</updated>
+    <published>2016-09-23T02:00:00+02:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -269,8 +331,8 @@
     <title>Introducing dry-system</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/08/15/introducing-dry-system/"/>
     <id>http://dry-rb.org/news/2016/08/15/introducing-dry-system/</id>
-    <published>2016-08-15T03:00:00+03:00</published>
-    <updated>2016-10-06T23:40:35+03:00</updated>
+    <published>2016-08-15T02:00:00+02:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -408,8 +470,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>dry-validation 0.8.0 released</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/07/01/dry-validation-0-8-0-released/"/>
     <id>http://dry-rb.org/news/2016/07/01/dry-validation-0-8-0-released/</id>
-    <published>2016-07-01T03:00:00+03:00</published>
-    <updated>2016-07-04T21:57:56+03:00</updated>
+    <published>2016-07-01T02:00:00+02:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -602,8 +664,8 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
     <title>dry-transaction 0.6 brings powerful new support for custom step adapters</title>
     <link rel="alternate" href="http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/"/>
     <id>http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/</id>
-    <published>2016-04-07T03:00:00+03:00</published>
-    <updated>2016-05-02T13:01:05+03:00</updated>
+    <published>2016-04-07T02:00:00+02:00</published>
+    <updated>2017-06-02T08:17:16+02:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -657,185 +719,6 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
 &lt;p&gt;And there we have it! With the new infrastructure in place, we could change just two words in our transaction and have long-running jobs pushed into the background queue, while keeping everything just as easy to understand in a single glance.&lt;/p&gt;
 
 &lt;p&gt;You can &lt;a href="http://dry-rb.org/gems/dry-transaction/custom-step-adapters/"&gt;read more about custom step adapters&lt;/a&gt; in the &lt;a href="http://dry-rb.org/gems/dry-transaction/"&gt;dry-transaction documentation&lt;/a&gt; and get started using them with the 0.6.0 release now available on RubyGems. Enjoy!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>New releases of dry-types and dry-validation</title>
-    <link rel="alternate" href="http://dry-rb.org/news/2016/03/31/new-releases-of-dry-types-and-dry-validation/"/>
-    <id>http://dry-rb.org/news/2016/03/31/new-releases-of-dry-types-and-dry-validation/</id>
-    <published>2016-03-31T03:00:00+03:00</published>
-    <updated>2016-05-02T13:01:05+03:00</updated>
-    <author>
-      <name>solnic</name>
-    </author>
-    <content type="html">&lt;p&gt;What a busy week! New versions of &lt;a href="http://dry-rb.org/gems/dry-types"&gt;dry-types&lt;/a&gt; and &lt;a href="http://dry-rb.org/gems/dry-types"&gt;dry-validation&lt;/a&gt; have been released and there are really exciting new features awaiting for you. We&amp;rsquo;re also very excited to see &lt;a href="http://trailblazer.to"&gt;Trailblazer&lt;/a&gt; adopting some dry-rb libraries - Reform will soon support latest dry-validation, and Disposable has already replaced Virtus with dry-types for its coercion functionality.&lt;/p&gt;
-
-&lt;h2 id="new-dry-validation-features"&gt;New dry-validation features&lt;/h2&gt;
-
-&lt;p&gt;The major highlight of the new 0.7.3 dry-validation release is improved integration with dry-types, a feature that we haven&amp;rsquo;t revealed until now. Both dry-validation and dry-types are based on the same foundational library called dry-logic. Validation rules and type constraints are handled by dry-logic, which means we can use constrained types to share common constraints between type definitions and validation schemas to reduce information duplication. This will DRY-up your code (see what I did there?).&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s what it means in practice:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry-validation'&lt;/span&gt;
-&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry-types'&lt;/span&gt;
-
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;module&lt;/span&gt;
-
-  &lt;span class="no"&gt;Age&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Int&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;constrained&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;gt: &lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Form&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Age&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'Jane'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { age: ["must be greater than 18"] }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This way you can encapsulate important constraints and completely avoid duplication.&lt;/p&gt;
-
-&lt;p&gt;We are not stopping here!&lt;/p&gt;
-
-&lt;h3 id="custom-constructor-types"&gt;Custom constructor types!&lt;/h3&gt;
-
-&lt;p&gt;Another fantastic improvement is support for custom constructor types in validation schemas. You can now define types that can encapsulate custom coercion logic and dry-validation will infer an input processor from it and apply it to the input data before validation.&lt;/p&gt;
-
-&lt;p&gt;Simple example:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry-validation'&lt;/span&gt;
-&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry-types'&lt;/span&gt;
-
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;module&lt;/span&gt;
-
-  &lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;DataImport&lt;/span&gt;
-    &lt;span class="no"&gt;StrippedString&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;constructor&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;strip&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserImport&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;input_processor&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="ss"&gt;:sanitizer&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;DataImport&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;StrippedString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:email&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;DataImport&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;StrippedString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'   Jane  '&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org  '&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
-&lt;span class="c1"&gt;# { name: "Jane", email: "jane@doe.org" }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This is a clean way of encapsulating custom coercion or sanitization logic. Notice that your type objects are small and reusable. You can also use them manually anywhere in your application, e.g. &lt;code&gt;Types::DataImport::StrippedString[&amp;quot; foo &amp;quot;] # =&amp;gt; &amp;quot;foo&amp;quot;&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;dry-validation infers both validation rules and value constructors from your types, notice that &lt;code&gt;Types::DataImport::StrippedString&lt;/code&gt; is a strict string, which means a proper validation rule is set too:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'   Jane  '&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="kp"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { email: ["must be filled", "must be String"] }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id="applying-external-schemas-conditionally"&gt;Applying external schemas conditionally&lt;/h3&gt;
-
-&lt;p&gt;When defining a high-level rule, you can now delegate validation to an external schema. Why would you want to do that? Let&amp;rsquo;s say you have a nested data structure, and parts of that structure should be validated using different schemas based on other values from that data structure. In example:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;CreateCommandSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:email&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UpdateCommandSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:id&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:int?&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:data&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;schema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;CreateCommandSchema&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;CommandSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:command&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;maybe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:str?&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:inclusion?&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="sx"&gt;%w(Create Update)&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:args&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;maybe&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:hash?&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;create_command: &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:args&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-    &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;eql?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'Create'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;schema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;CreateCommandSchema&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;update_command: &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:args&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-    &lt;span class="n"&gt;command&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;eql?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'Update'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;schema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;UpdateCommandSchema&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;CommandSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;command: &lt;/span&gt;&lt;span class="s1"&gt;'Oops'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;inspect&lt;/span&gt;
-&lt;span class="c1"&gt;# { command: ["must be one of: Create, Update"], args: ["is missing"] }&lt;/span&gt;
-
-&lt;span class="no"&gt;CommandSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-  &lt;span class="ss"&gt;command: &lt;/span&gt;&lt;span class="s1"&gt;'Create'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;args: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'Jane'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="kp"&gt;nil&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { args: { email: ["must be filled"] } }&lt;/span&gt;
-
-&lt;span class="no"&gt;CommandSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-  &lt;span class="ss"&gt;command: &lt;/span&gt;&lt;span class="s1"&gt;'Update'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;args: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;id: &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;data: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="kp"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org'&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { data: { name: ["must be filled"] } }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Notice that our high-level rules explicitly define which values they rely on. It means we don&amp;rsquo;t have to worry about validation rules from external schemas crashing due to invalid state. If &lt;code&gt;args&lt;/code&gt; is &lt;code&gt;nil&lt;/code&gt;, nothing will crash. Furthermore, if &lt;code&gt;command&lt;/code&gt; is not one of the allowed values, we won&amp;rsquo;t even bother trying to apply external schemas.&lt;/p&gt;
-
-&lt;h3 id="new-predicate-number"&gt;New predicate: :number?&lt;/h3&gt;
-
-&lt;p&gt;You can now specify that a value must be a number, in case of &lt;code&gt;Form&lt;/code&gt; schemas a proper coercion is applied:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;UserSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Form&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:number?&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:int?&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="s1"&gt;'1'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
-&lt;span class="c1"&gt;# { age: 1 }&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="s1"&gt;'one'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { age: ["must be a number"] }&lt;/span&gt;
-
-&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="s1"&gt;'1.5'&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;messages&lt;/span&gt;
-&lt;span class="c1"&gt;# { age: ["must be an integer"] }&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id="new-dry-types-features"&gt;New dry-types features&lt;/h2&gt;
-
-&lt;p&gt;dry-types 0.7.0 focused on improving support for complex types and better exception messages. You can now specify complex types, like arrays or hashes, along with constraints.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s say you want to specify &lt;code&gt;Options&lt;/code&gt; type which is an array with either strings or string pairs inside nested arrays:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry-types'&lt;/span&gt;
-
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;module&lt;/span&gt;
-
-  &lt;span class="no"&gt;StringList&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Array&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="no"&gt;StringPair&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Array&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;constrained&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;size: &lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="no"&gt;StringPairs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Array&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;StringPair&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-  &lt;span class="no"&gt;Options&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;StringList&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="no"&gt;StringPairs&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s2"&gt;"one"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"two"&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-&lt;span class="c1"&gt;# ["one", "two"]&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;([[&lt;/span&gt;&lt;span class="s2"&gt;"a"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"one"&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"b"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"two"&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
-&lt;span class="c1"&gt;# [["a", "one"], ["b", "two"]]&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="s2"&gt;"one"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;nil&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
-&lt;span class="c1"&gt;# Dry::Types::ConstraintError&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;([[&lt;/span&gt;&lt;span class="s2"&gt;"a"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"one"&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"b"&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
-&lt;span class="c1"&gt;# Dry::Types::ConstraintError&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Exception messages have been improved too; however, they&amp;rsquo;re still a work in progress, and complex types like in the previous example still need some work.&lt;/p&gt;
-
-&lt;p&gt;Here&amp;rsquo;s what you&amp;rsquo;d get if a simple constraint was violated:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;Password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Strict&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;constrained&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;size: &lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="no"&gt;Password&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"foo"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="c1"&gt;# Dry::Types::ConstraintError: "foo" violates constraints (size?(10) failed)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id="enjoy"&gt;Enjoy!&lt;/h2&gt;
-
-&lt;p&gt;We hope you&amp;rsquo;ll find new features useful. In case of any issues, please report them on GitHub or chat with us on &lt;a href="https://gitter.im/dry-rb/chat"&gt;Gitter&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you want to use new features, just add latest versions to your Gemfile:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-types"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 0.7.0"&lt;/span&gt;
-&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-validation"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 0.7.3"&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Detailed CHANGELOGs:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;dry-validation &lt;a href="https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v072-2016-03-28"&gt;v0.7.2&lt;/a&gt; and quick follow-up &lt;a href="https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v073-2016-03-30"&gt;v0.7.3&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;dry-types &lt;a href="https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#v070-2016-03-30"&gt;v0.7.0&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
   </entry>
 </feed>
