@@ -17,12 +17,17 @@ Built-in types are grouped under 5 categories:
 Assuming you included types in a module called `Types`:
 
 * Base definitions:
+  - `Types::Any`
   - `Types::Nil`
   - `Types::Symbol`
   - `Types::Class`
   - `Types::True`
   - `Types::False`
   - `Types::Bool`
+  - `Types::Int`
+  - `Types::Float`
+  - `Types::Decimal`
+  - `Types::String`
   - `Types::Date`
   - `Types::DateTime`
   - `Types::Time`
@@ -36,6 +41,10 @@ Assuming you included types in a module called `Types`:
   - `Types::Strict::True`
   - `Types::Strict::False`
   - `Types::Strict::Bool`
+  - `Types::Strict::Int`
+  - `Types::Strict::Float`
+  - `Types::Strict::Decimal`
+  - `Types::Strict::String`
   - `Types::Strict::Date`
   - `Types::Strict::DateTime`
   - `Types::Strict::Time`
@@ -74,10 +83,17 @@ Assuming you included types in a module called `Types`:
   - `Types::Json::Hash`
 
 * `Maybe` strict types:
+  - `Types::Maybe::Strict::Class`
   - `Types::Maybe::Strict::String`
+  - `Types::Maybe::Strict::Symbol`
+  - `Types::Maybe::Strict::True`
+  - `Types::Maybe::Strict::False`
   - `Types::Maybe::Strict::Int`
   - `Types::Maybe::Strict::Float`
   - `Types::Maybe::Strict::Decimal`
+  - `Types::Maybe::Strict::Date`
+  - `Types::Maybe::Strict::DateTime`
+  - `Types::Maybe::Strict::Time`
   - `Types::Maybe::Strict::Array`
   - `Types::Maybe::Strict::Hash`
 
