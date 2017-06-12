@@ -757,7 +757,7 @@ Declare a rule for each of the attributes you need to reference:
 
 ```ruby
 required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
-required(:card_number).maybe
+optional(:card_number).maybe
 ```
 
 Declare a high level rule to require the card number if `payment_type == 'card'`:
@@ -770,12 +770,25 @@ end
 
 Put it all together and you get:
 ```ruby
-Dry::Validation.Schema do
+schema = Dry::Validation.Schema do
   required(:payment_type).filled(included_in?: ["card", "cash", "cheque"])
-  required(:card_number).maybe
+  optional(:card_number).maybe
 
   rule(require_card_number: [:card_number, :payment_type]) do |card_number, payment_type|
     payment_type.eql?('card') > card_number.filled?
   end
 end
+
+schema.({
+  payment_type: 'cash',
+}).success? # true
+
+schema.({
+  payment_type: 'card',
+}).success? # false
+
+schema.({
+  payment_type: 'card',
+  card_number: '4242424242424242',
+}).success? # true
 ```
