@@ -16,7 +16,7 @@ people:
     location: Mountains of Poland
     since: 2015
     bio: |
-      Piotr is a software developer at [MojoTech](https://mojotech.com), and an
+      Piotr is Technical Lead at [Icelab](https://www.icelab.com.au/), and an
       Open-Source hacker working on [rom-rb](http://rom-rb.org) and dry-rb.
   -
     name: Tim Riley
@@ -50,4 +50,23 @@ people:
       SafetyToolbox made the move to adopt [Trailblazer](http://trailblazer.to) last year and
       found the dry-rb community as part of that process. Fran is also a member of the
       Trailblazer core team so should be able to help those of you using dry gems with Trailblazer.
-
+  -
+    name: Gustavo Caso
+    image: gus.jpg
+    github_handle: GustavoCaso
+    location: Barcelona, Spain
+    since: 2017
+    bio: |
+      Gustavo is software developer at [Xing](https://www.xing.com/), where he works with Rails.
+      Looking for different options, he found dry-rb and discovered a new world of possibilities.
+  -
+    name: You?
+    image: you.jpg
+    github_handle: dry-rb
+    location: Anywhere
+    since: 2017
+    bio: |
+      dry-rb is a FOSS organisation, maintained by individuals working for free
+      in their spare time, as such, we're always happy to welcome new
+      contributors, if you'd like to help out you can look for issues tagged
+      with "help-wanted" on any of [our Github repositories](https://github.com/dry-rb).

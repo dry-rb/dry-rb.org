@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - New gem releases</title><link href="/assets/stylesheets/site-4de2b566.css" rel="stylesheet" /><script src="/assets/javascripts/site-0d519fe1.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - New gem releases</title><link href="/assets/stylesheets/site-d0f46643.css" rel="stylesheet" /><script src="/assets/javascripts/site-b5250171.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-2573270-8', 'auto');
-ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">Home</a></li><li><a href="/gems">Gems</a></li><li><a href="/community">Community</a></li><li><a href="http://github.com/dry-rb">Code</a></li></ul></nav><div class="intro-page"><h1>New gem releases</h1><span class="news-article-meta">Published on September 23, 2016 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></span></div></div></header><div class="row"><div class="content-wrap"><article class="news-article"><p>We’re happy to announce not one, but four big releases today - dry-validation 0.10, dry-types 0.9, dry-logic 0.4 and the new dry-struct gem! These releases are focused on bug fixes, performance improvements, internal refactorings, and new features, too.</p>
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li></ul><ul><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-view">dry-view</a></li></ul></div></li><li class="main-nav__item--selected"><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="http://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>New gem releases</h1><div class="news-article-meta">Published on September 23, 2016 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></div></div></div></div><div class="row"><div class="content-wrap"><article class="news-article"><p>We’re happy to announce not one, but four big releases today - dry-validation 0.10, dry-types 0.9, dry-logic 0.4 and the new dry-struct gem! These releases are focused on bug fixes, performance improvements, internal refactorings, and new features, too.</p>
 
 <p>There are a couple of breaking changes, please refer to the changelogs for detailed information:</p>
 
@@ -33,7 +33,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">UserSchema</span><span class="o">.</span><span class="p">(</span><span class="ss">login: </span><span class="s1">''</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">17</span><span class="p">).</span><span class="nf">hints</span>
 <span class="c1"># {:login=&gt;["length must be within 3 - 64"], :age=&gt;[]}</span>
 </code></pre>
-
 <h3 id="support-for-or-messages">Support for “OR” messages</h3>
 
 <p>It’s probably safe to say dry-validation is the first validation library in Ruby which supports error messages for “OR” rules. Check it out:</p>
@@ -44,7 +43,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">PostSchema</span><span class="o">.</span><span class="p">(</span><span class="ss">tags: </span><span class="mi">123</span><span class="p">).</span><span class="nf">errors</span>
 <span class="c1"># {:tags=&gt;["must be an array or must be a string"]}</span>
 </code></pre>
-
 <h3 id="support-for-custom-blocks-as-predicates">Support for custom blocks as predicates</h3>
 
 <p>You can now define a rule using a block which is executed in the context of your schema. This is useful for complex rules which need external collaborators provided by the schema. These blocks are treated as high-level rules, which means that they will not be executed if the values they depend on are not valid.</p>
@@ -71,7 +69,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">schema</span><span class="o">.</span><span class="p">(</span><span class="ss">id: </span><span class="mi">4</span><span class="p">).</span><span class="nf">errors</span>
 <span class="c1"># {:valid_id=&gt;["id is not valid"]}</span>
 </code></pre>
-
 <h3 id="optional-extensions">Optional extensions</h3>
 
 <p>We’ve added an API for loading optional extensions, and we already have one - support for dry-monads. If you add <code>dry-monads</code> to your Gemfile, you can load the extension and validation results will become compatible with <code>Either</code> monad.</p>
@@ -90,7 +87,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">result</span><span class="p">.</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">data</span><span class="o">|</span> <span class="n">data</span><span class="p">[</span><span class="ss">:login</span><span class="p">]</span> <span class="p">}.</span><span class="nf">or</span> <span class="p">{</span> <span class="s1">'oops'</span> <span class="p">}.</span><span class="nf">value</span>
 <span class="c1"># "jane"</span>
 </code></pre>
-
 <p>This means if you happen to use <code>dry-transaction</code> or <code>dry-matcher</code> you can easily use validation results with them, without the need to wrap results in <code>Left</code> or <code>Right</code> as it happens automatically.</p>
 
 <h2 id="dry-types-0-9-and-the-new-dry-struct-gem">dry-types 0.9 and the new dry-struct gem</h2>
@@ -124,7 +120,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'hello'</span><span class="p">,</span> <span class="ss">body: </span><span class="s1">'hello, for real'</span><span class="p">)</span>
 <span class="c1"># [Post.new] :status is missing in Hash input (Dry::Struct::Error)</span>
 </code></pre>
-
 <h3 id="permissive-constructor">:permissive constructor</h3>
 
 <p>Previously <code>:strict</code> constructor, which is the default one, would silently ignore unexpected keys, now it will raise an error. If you want to rely on the original behavior, simply configure constructor type to <code>:permissive</code>:</p>
@@ -149,7 +144,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="no">Post</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'hello'</span><span class="p">,</span> <span class="ss">body: </span><span class="s1">'hello, for real'</span><span class="p">,</span> <span class="ss">status: </span><span class="n">published</span><span class="s1">', oops: '</span><span class="n">ignored</span><span class="err">'</span><span class="p">)</span>
 <span class="c1"># #&lt;Post title="hello" body="hello, for real" status="published"&gt;</span>
 </code></pre>
-
 <h2 id="dry-logic-0-4">dry-logic 0.4</h2>
 
 <p>Last but not least - the new version of dry-logic is not just few times faster, but also provides a new API for defining and composing Rules. This library is used as the rule engine by dry-validation and dry-types, but you can use it easily standalone too:</p>
@@ -163,10 +157,9 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">age_rule</span><span class="o">.</span><span class="p">(</span><span class="s1">'19'</span><span class="p">).</span><span class="nf">success?</span>
 <span class="c1"># false</span>
 </code></pre>
-
 <h2 id="thank-you-lt-3">Thank you &lt;3</h2>
 
 <p>Thank you to all contributors who helped finding bugs, testing out new features, providing great feedback and sending pull requests! dry-rb has grown significantly over the last few months and it wouldn’t be possible to achieve that without your help.</p>
 
 <p>Special thanks go to <a href="https://github.com/backus">John Backus</a> for the dry-struct extraction with new features and improving dry-types at the same time.</p>
-</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="http://twitter.com/icelab">@icelab</a>.</p></div></div></footer></body></html>
+</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>

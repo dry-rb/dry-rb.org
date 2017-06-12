@@ -9,7 +9,7 @@ You can offer a match block API from your own methods using `Dry::Matcher.for`:
 require "dry-matcher"
 
 # First, build a matcher or use an existing one (like dry-matcher's EitherMatcher)
-MyMatcher = DryMatcher.new(...)
+MyMatcher = Dry::Matcher.new(...)
 
 # Offer it from your class with `Dry::Matcher.for`
 class MyOperation

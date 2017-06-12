@@ -1,0 +1,17 @@
+---
+title: News
+pageable: true
+per_page: 20
+layout: news-index
+---
+
+.news-index
+  ul.news-list
+    - page_articles.each_with_index do |article|
+      li.news__list-item
+        a.news__list-item-anchor href= article.url
+          .news__list-item-date
+            p = article.date.strftime('%e %B %Y')
+          .news__list-item-content
+            h2 = article.title
+            = sanitize article.summary

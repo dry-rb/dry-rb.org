@@ -54,3 +54,9 @@ gems:
   -
     name: dry-monads
     desc: Useful, common monads in idiomatic Ruby
+  -
+    name: dry-view
+    desc: Functional, standalone view rendering
+  -
+    name: dry-core
+    desc: A toolset of small support modules used throughout the @dry-rb & @rom-rb ecosystems

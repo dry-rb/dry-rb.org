@@ -1,10 +1,23 @@
 nav.main-nav
   ul.main-nav__list
-    li.main-nav__logo
-      a href="/" Home
-    li
-      a href="/gems" Gems
-    li
+    li.main-nav__logo class=("main-nav__item--selected" if /\Aindex.html/.match(current_page.path))
+      a href="/" dry-rb
+    li.main-nav__with-dropdown class=("main-nav__item--selected" if /\Agems/.match(current_page.path))
+      a href="/gems"
+        ' Gems
+        span.hide-mobile
+          ' / Docs
+      .main-nav__dropdown.main-nav__dropdown--gems
+        - per_group = (site.gems.length / 2).ceil
+        - site.gems.each_slice(per_group).each do |group|
+          ul
+            - group.each do |page|
+              li
+                == link_to page.name, "/gems/#{page.name}"
+
+    li class=("main-nav__item--selected" if /\Anews/.match(current_page.path))
+      a href="/news" News
+    li class=("main-nav__item--selected" if /\Acommunity/.match(current_page.path))
       a href="/community" Community
-    li
-      a href="http://github.com/dry-rb" Code
+    li.main-nav__code
+      a href="http://github.com/dry-rb" Github

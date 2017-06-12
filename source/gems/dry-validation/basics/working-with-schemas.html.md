@@ -87,13 +87,16 @@ result.errors(locale: :pl)
 
 ### Using Validation Hints
 
-In addition to error messages, you can also access hints, which are generated from your rules.
+In addition to error messages you can also access hints, which are generated from your rules. While `errors` tells you which predicate checks failed, `hints` tells you which additional predicate checks weren't evaluated at all because an earlier predicate failed:
 
 ``` ruby
 schema = Dry::Validation.Schema do
   required(:email).filled
   required(:age).filled(gt?: 18)
 end
+result = schema.call(email: 'jane@doe.org', age: '')
+result.hints
+# {:age=>['must be greater than 18']}
 
 result = schema.call(email: 'jane@doe.org', age: '')
 
@@ -102,6 +105,17 @@ result.errors
 
 result.hints
 # {:age=>['must be greater than 18']}
+# hints takes the same options as errors:
+result.hints(full: true)
+# {:age=>['age must be greater than 18']}
+```
+
+You can also use `messages` to get a combination of both errors and hints:
+
+```ruby
+result = schema.call(email: 'jane@doe.org', age: '')
+result.messages
+# {:age=>["must be filled", "must be greater than 18"]}
 ```
 
 > Learn more about customizing [error and hint messages](/gems/dry-validation/error-messages)

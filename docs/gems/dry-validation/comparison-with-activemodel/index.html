@@ -1,0 +1,608 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation - Comparison With ActiveModel</title><link href="/assets/stylesheets/site-d0f46643.css" rel="stylesheet" /><script src="/assets/javascripts/site-b5250171.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li></ul><ul><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-view">dry-view</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="http://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-validation</h1></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-validation/" class="">Introduction</a><li><a href="/gems/dry-validation/basics/" class="">Basics</a><ul><li><a href="/gems/dry-validation/basics/predicate-logic/" class="">Predicate Logic</a></li><li><a href="/gems/dry-validation/basics/built-in-predicates/" class="">Built-in Predicates</a></li><li><a href="/gems/dry-validation/basics/macros/" class="">Macros</a></li><li><a href="/gems/dry-validation/basics/working-with-schemas/" class="">Working With Schemas</a></li></ul></li><li><a href="/gems/dry-validation/custom-predicates/" class="">Custom Predicates</a></li><li><a href="/gems/dry-validation/optional-keys-and-values/" class="">Optional Keys and Values</a></li><li><a href="/gems/dry-validation/nested-data/" class="">Nested Data</a></li><li><a href="/gems/dry-validation/array-as-input/" class="">Array As Input</a></li><li><a href="/gems/dry-validation/reusing-schemas/" class="">Reusing Schemas</a></li><li><a href="/gems/dry-validation/forms/" class="">Form Validation</a></li><li><a href="/gems/dry-validation/high-level-rules/" class="">High-level Rules</a></li><li><a href="/gems/dry-validation/custom-validation-blocks/" class="">Custom Validation Blocks</a></li><li><a href="/gems/dry-validation/dynamic-predicate-arguments/" class="">Dynamic Predicate Arguments</a></li><li><a href="/gems/dry-validation/input-preprocessing/" class="">Input Preprocessing</a></li><li><a href="/gems/dry-validation/error-messages/" class="">Error Messages</a></li><li><a href="/gems/dry-validation/comparison-with-activemodel/" class="active">Comparison With ActiveModel</a></li></li></ul></aside><article class="gem-article"><h2>Comparison With ActiveModel</h2><p>As explained in the <a href="/gems/dry-validation">introduction</a>, dry-validation focuses on explicitness, clarity and precision of validation logic. For those of us used to ActiveModel validations with their numerous options, ifs, ons and unlesses, dry-validation is a way to make even the most complex validation cases easy to read and understand.</p>
+
+<p>But, how would we go about converting our ActiveModel validation code into dry-validation?</p>
+
+<p>After reading this guide, you will know:</p>
+
+<ul>
+<li>How to use dry-validation to replace built-in ActiveModel validation helpers.</li>
+<li>How to use dry-validation to create your own custom validation methods.</li>
+</ul>
+
+<blockquote>
+<p>Note that there isn&rsquo;t a one-to-one relationship between ActiveModel validators and Dry predicates. This guide shows you the closest matches, and highlights the differences where applicable.</p>
+
+<p>For the main documentation on dry-validation predicates, see <a href="http://dry-rb.org/gems/dry-validation/basics/built-in-predicates/">Built-in Predicates</a>.</p>
+</blockquote>
+
+<h2 id="1-validation-overview">1. Validation Overview</h2>
+
+<p>When using ActiveModel validation, validations are declared in the model in the following format:</p>
+
+<p><code>validates :name, :email, presence: true</code></p>
+
+<p>You then update the model&rsquo;s state and call <code>valid?</code> on the model to see if the state is correct.  (In the opinion of the dry-rb team, this is a design flaw of ActiveModel. See <a href="http://solnic.eu/2015/12/28/invalid-object-is-an-anti-pattern.html">this blog post</a> for more information).</p>
+
+<p>When using dry-validation, you declare your validation in a separate schema class using predicates to build up rules.</p>
+
+<p>A predicate is a simple stateless method which receives some input and returns either <code>true</code> or <code>false</code>.</p>
+
+<p>A simple schema can look like this:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+<span class="k">end</span>
+</code></pre>
+<h2 id="2-validation-helpers">2. Validation Helpers</h2>
+
+<h3 id="2-1-acceptance">2.1 acceptance</h3>
+
+<p>In ActiveModel validations this helper is used to validate that a checkbox on the user interface was checked when a form was submitted. This is typically used when the user needs to agree to your application&rsquo;s terms of service, confirm reading some text, or any similar concept.</p>
+
+<p>In its simplest form:</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">acceptance: </span><span class="kp">true</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:bool?</span><span class="p">,</span> <span class="ss">:true?</span><span class="p">)</span>
+</code></pre>
+<p>When using the <code>:accepts</code> option:</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">acceptance: </span><span class="p">{</span> <span class="ss">accept: </span><span class="s1">'yes'</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="nb">eql?</span><span class="p">:</span> <span class="s1">'yes'</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>Note: ActiveModel automatically creates a virtual acceptance attribute for you. If you are using Protected Parameters you will need to add this attribute yourself.</p>
+</blockquote>
+
+<h3 id="2-2-validates_associated">2.2 validates_associated</h3>
+
+<p>This validates whether the associated object or objects are all valid and works with any kind of association.</p>
+
+<p>As your dry-validation schema validates the keys and values you provide, it has no idea the structure of model to which this data relates or it&rsquo;s associations.</p>
+
+<p>You could acheive something to ActiveModel&rsquo;s <code>validates_associated</code>  by using a nested schema and passing in the attributes for your associated objects:</p>
+
+<p><strong>For single (<code>has_one</code> / <code>belongs_to</code>) associations</strong></p>
+
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:spouse</span><span class="p">).</span><span class="nf">schema</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">({</span>
+  <span class="ss">name: </span><span class="s1">'Fred'</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s1">'fred@somewhere.com'</span><span class="p">,</span>
+  <span class="ss">spouse: </span><span class="p">{</span>
+    <span class="ss">name: </span><span class="s1">'Alex'</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="s1">'alex@somewhere.com'</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+<p><strong>For <code>has_many</code> associations</strong></p>
+
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:cars</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span>
+    <span class="n">schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:registration_numer</span><span class="p">).</span><span class="nf">filled</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:make</span><span class="p">).</span><span class="nf">filled</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:model</span><span class="p">).</span><span class="nf">filled</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">({</span>
+  <span class="ss">name: </span><span class="s1">'Fred'</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s1">'fred@somewhere.com'</span><span class="p">,</span>
+  <span class="ss">cars: </span><span class="p">[</span>
+    <span class="p">{</span>
+      <span class="ss">registration_number: </span><span class="s1">'ZX651MU'</span><span class="p">,</span>
+      <span class="ss">make: </span><span class="s1">'Ford'</span><span class="p">,</span>
+      <span class="ss">model: </span><span class="s1">'Mustang'</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="ss">registration_number: </span><span class="s1">'MU65LTX'</span><span class="p">,</span>
+      <span class="ss">make: </span><span class="s1">'Audi'</span><span class="p">,</span>
+      <span class="ss">model: </span><span class="s1">'R8'</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">})</span>
+
+</code></pre>
+<h3 id="2-3-confirmation">2.3 confirmation</h3>
+
+<p>This helper is used when you have two text fields that should receive exactly the same content. Common use cases include email addresses and passwords.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">confirmation: </span><span class="kp">true</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">confirmation</span>
+</code></pre>
+<blockquote>
+<p>Note: ActiveModel automatically creates a virtual confirmation attribute for you whose name is the name of the field that has to be confirmed with &ldquo;_confirmation&rdquo; appended. If you are using Protected Parameters you will need to add this attribute yourself.</p>
+</blockquote>
+
+<h3 id="2-4-exclusion">2.4 exclusion</h3>
+
+<p>This helper validates that the attributes&rsquo; values are not included in a given enumerable object.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">exclusion: </span><span class="p">{</span> <span class="ss">in: </span><span class="n">enumerable_object</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">excluded_from?</span><span class="p">:</span> <span class="n">enumerable_object</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>Note: As per ActiveModel docs, <code>:within</code> option is an alias of <code>:in</code></p>
+</blockquote>
+
+<h3 id="2-5-format">2.5 format</h3>
+
+<p>This helper validates the attributes&rsquo; values by testing whether they match or doesn&rsquo;t match a given regular expression.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">with: </span><span class="n">regex</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">required</span><span class="p">(</span><span class="nb">format</span><span class="p">?:</span> <span class="n">regex</span><span class="p">)</span>
+</code></pre>
+<h4 id="doesn-39-t-match">Doesn&rsquo;t Match</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">without: </span><span class="n">regex</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">)</span> <span class="p">{</span> <span class="n">filled?</span> <span class="o">&amp;</span> <span class="nb">format</span><span class="p">?(</span><span class="n">regex</span><span class="p">).</span><span class="nf">not</span> <span class="p">}</span>
+</code></pre>
+<h3 id="2-6-inclusion">2.6 inclusion</h3>
+
+<p>This helper validates that the attributes&rsquo; values are included in a given enumerable object.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">inclusion: </span><span class="p">{</span> <span class="ss">in: </span><span class="n">enumerable_object</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">included_in?</span><span class="p">:</span> <span class="n">enumerable_object</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>Note: As per ActiveModel docs, <code>:within</code> option is an alias of <code>:in</code></p>
+</blockquote>
+
+<h3 id="2-7-length">2.7 length</h3>
+
+<p>This helper validates the length of the attribute&rsquo;s value. ActiveModel relies on a variety of options to specify length constraints in different ways. dry-validation uses different predicates for each constraint.</p>
+
+<h4 id="minimum">Minimum</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">minimum: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">min_size?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="maximum">Maximum</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">max_size?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="in">In</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">in: </span><span class="n">range</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">size?</span><span class="p">:</span> <span class="n">range</span><span class="p">)</span>
+</code></pre>
+<h4 id="is">Is</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">is: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">size?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="tokeniser-option">Tokeniser Option</h4>
+
+<p>As with ActiveModel Validations, dry-validation counts characters by default. ActiveModel provides a <code>:tokeniser</code> option to allow you to customise how the value is split. You can achieve the same thing in dry-validation by creating your own predicate e.g.:</p>
+<pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">word_count?</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+      <span class="n">words</span> <span class="o">=</span> <span class="n">value</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sr">/\s+/</span><span class="p">).</span><span class="nf">size</span> <span class="c1"># split into seperate words</span>
+      <span class="n">words</span> <span class="o">&gt;=</span> <span class="n">options</span><span class="p">[</span><span class="ss">:min_size</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">words</span> <span class="o">&lt;=</span> <span class="n">options</span><span class="p">[</span><span class="ss">:max_size</span><span class="p">]</span> <span class="c1"># compare no. words with parameters</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">word_count?</span><span class="p">:</span> <span class="p">{</span> <span class="ss">min_size: </span><span class="mi">300</span><span class="p">,</span> <span class="ss">max_size: </span><span class="mi">400</span> <span class="p">}</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre>
+<h3 id="2-8-numericality">2.8 numericality</h3>
+
+<p>ActiveModel determines numericality either by trying to convert the value to a Float, or by using a Regex if you specify <code>only_integer: true</code>.</p>
+
+<p>In dry-validation, you can either validate that the value is of type Integer, Float, or Decimal using the <code>.int?</code>, <code>.float?</code> and <code>.decimal?</code> predicates respectively, or you can use <code>number?</code> to test if the value is numerical regardless of its specific data type.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="kp">true</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="c1"># if you know what type of number you require then simply use one of the options below:</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:float?</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:decimal?</span><span class="p">)</span>
+
+  <span class="c1"># For anything which represents a number (e.g. '1', 15, '12.345' etc.)</span>
+  <span class="c1"># you can simply use:</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:number?</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<h4 id="options-only_integer">Options - only_integer</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">only_integer: </span><span class="kp">true</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="nb">format</span><span class="p">?:</span> <span class="sr">/\A[+-]?\d+\Z/</span><span class="p">)</span> <span class="c1"># option 1 - most similar to ActiveModel</span>
+<span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">)</span> <span class="c1"># option 2 - best practise</span>
+</code></pre>
+<h4 id="options-greater_than">Options - greater_than</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">greater_than: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="options-greater_than_or_equal_to">Options - greater_than_or_equal_to</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">greater_than_or_equal_to: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gteq?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="options-less_than">Options - less_than</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">less_than: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">lt?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="options-less_than_or_equal_to">Options - less_than_or_equal_to</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">less_than_or_equal_to: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">lteq?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="options-equal_to">Options - equal_to</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">equal_to: </span><span class="n">int</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="nb">eql?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<h4 id="options-odd">Options - odd</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">odd: </span><span class="kp">true</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="ss">:odd?</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<h4 id="options-even">Options - even</h4>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">numericality: </span><span class="p">{</span> <span class="ss">even: </span><span class="kp">true</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="ss">:even?</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<blockquote>
+<p>Note: <code>odd?</code> and <code>even?</code> predicates can only be used on integers.</p>
+</blockquote>
+
+<p><strong>Additional Uses:</strong></p>
+
+<p>dry-validation&rsquo;s predicates uses basic Ruby equality operators (<code>&lt;</code>, <code>&gt;</code>, <code>==</code> etc.) which means that they can be used to validate anything that&rsquo;s comparable.</p>
+
+<p>For example you can use these predicates to validate dates straight out of the box:</p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:date?</span><span class="p">,</span> <span class="n">lteq?</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">gteq?</span><span class="p">:</span> <span class="n">end_date</span><span class="p">)</span>
+</code></pre>
+<h3 id="2-9-presence">2.9 presence</h3>
+
+<p>dry-validation has no exact equivalent of ActiveModel&rsquo;s <code>presence</code> validation (<code>validates :attr, presence: true</code>. The closest translation would be <code>required(:attr).filled</code>; however there are a few differences.</p>
+
+<p>Internally, ActiveModel&rsquo;s <code>presence</code> validation calls the method <code>present?</code> on the validated attribute, which is equivalent to <code>!blank?</code>. Neither <code>present?</code> nor <code>blank?</code> are a inbuilt Ruby methods, but a monkey-patch added to every object by ActiveSupport, with the following semantics:</p>
+
+<ul>
+<li><code>nil</code> and <code>false</code> are blank</li>
+<li>strings composed only of whitespace are blank</li>
+<li>empty arrays and hashes are blank</li>
+<li>any object that responds to <code>empty?</code> and is empty is blank.</li>
+<li>everything else is present.</li>
+</ul>
+
+<p>dry-validation&rsquo;s <code>filled?</code> predicate is simpler than this, and considers everything to be filled except <code>nil</code>, empty Strings, empty Arrays, and empty Hashes.</p>
+
+<p>If you want to validate that a string key contains non-whitespace characters (like ActiveSupport&rsquo;s <code>String#present?</code>, you can use a custom predicate such as:</p>
+<pre class="syntax ruby"><code><span class="no">WHITESPACE_PATTERN</span> <span class="o">=</span> <span class="sr">/\A[[:space:]</span><span class="si">#{</span><span class="s2">"</span><span class="se">\u</span><span class="s2">200B</span><span class="se">\u</span><span class="s2">200C</span><span class="se">\u</span><span class="s2">200D</span><span class="se">\u</span><span class="s2">2060</span><span class="se">\u</span><span class="s2">FEFF"</span><span class="si">}</span><span class="sr">]*\z/</span>
+
+<span class="k">def</span> <span class="nf">non_blank?</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="o">!</span><span class="p">(</span><span class="no">WHITESPACE_PATTERN</span> <span class="o">=~</span> <span class="n">input</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>Associations</strong></p>
+
+<p>If you want to be sure that an association is present, you&rsquo;ll need to create a custom predicate to test whether the associated object itself is present. Here is a simple example of what such a predicate might look like:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">is_record?</span><span class="p">(</span><span class="k">class</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+      <span class="k">class</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">id: </span><span class="n">value</span><span class="p">).</span><span class="nf">any?</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:spouse_id</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">is_record?</span><span class="p">:</span> <span class="no">Person</span><span class="p">)</span> <span class="c1"># single association</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:car_ids</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:array?</span><span class="p">,</span> <span class="n">is_record?</span><span class="p">:</span> <span class="no">Car</span><span class="p">)</span> <span class="c1"># many association</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">({</span>
+  <span class="ss">name: </span><span class="s1">'Fred'</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s1">'fred@somewhere.com'</span><span class="p">,</span>
+  <span class="ss">spouse_id: </span><span class="mi">1</span><span class="p">,</span>
+  <span class="ss">car_ids: </span><span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="p">})</span>
+
+</code></pre>
+<p><strong>Booleans</strong></p>
+
+<p>If you want to validate the presence of a boolean field (e.g. true or false) you should use the built in predicate <code>.bool?</code>.<br>
+E.g. <code>required(:attr).filled(:bool?)</code></p>
+
+<h3 id="2-10-absence">2.10 absence</h3>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">absence: </span><span class="kp">true</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+
+<p>Dry validation includes two predicates (<code>empty?</code> and <code>none?</code>) for absence. You should use whichever is most applicable to your situation, remembering that an empty string can be turned into nil using <code>to_nil</code> coercion.</p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:none?</span><span class="p">)</span>  <span class="c1"># only allows nil</span>
+<span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:empty?</span><span class="p">)</span> <span class="c1"># only empty values:  "", [], {}, or nil</span>
+</code></pre>
+<h4 id="associations">Associations</h4>
+
+<p>If you want to be sure that an association is absent, we can do the opposite to checking that the association if present but use none for a single object and empty for may objects.</p>
+
+<p>Checking that an association is absent is in many ways is simpler than its <code>present?</code> equivilent as if the foreign_key / id is nil, then the association would also be nil.</p>
+
+<p>We can therefore simply check that our ids are nil/ empty:</p>
+
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:spouse_id</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:none?</span><span class="p">)</span> <span class="c1"># single association</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:cars</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:empty?</span><span class="p">)</span> <span class="c1"># many association</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">({</span>
+  <span class="ss">name: </span><span class="s1">'Fred'</span><span class="p">,</span>
+  <span class="ss">email: </span><span class="s1">'fred@somewhere.com'</span><span class="p">,</span>
+  <span class="ss">spouse_id: </span><span class="s1">''</span><span class="p">,</span>
+  <span class="ss">car_ids: </span><span class="p">[]</span>
+<span class="p">})</span>
+
+</code></pre>
+<p><strong>Booleans</strong></p>
+
+<p>To validate the absence of a boolean field (e.g. not true or false) you should use:</p>
+
+<p><code>required(:attr).value(:none?)</code></p>
+
+<p>This validates that the value of the <code>:attr</code> key is <code>nil</code>.</p>
+
+<h3 id="2-11-uniqueness">2.11 uniqueness</h3>
+
+<p>Rails&rsquo; <code>uniqueness</code> validation is fundamentally different from the other validations because it requires a query against a database. (Accordingly, the uniqueness validation is contained within the <code>activerecord</code> gem, while other validations are part of <code>activemodel</code>.) You can test if an attribute is unique by creating a custom predicate to run this query to the database.</p>
+
+<p>Let&rsquo;s take the example included in the offical Active Record Validation guide:</p>
+
+<p><strong>ActiveModel Validations</strong></p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Account</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">uniqueness: </span><span class="kp">true</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="n">option</span> <span class="ss">:record</span>
+
+    <span class="k">def</span> <span class="nf">unique?</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+      <span class="n">record</span><span class="p">.</span><span class="nf">class</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="n">record</span><span class="p">.</span><span class="nf">id</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">attr_name</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">).</span><span class="nf">empty?</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">unique?</span><span class="p">:</span> <span class="ss">:email</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="p">.</span><span class="nf">with</span><span class="p">(</span><span class="ss">record: </span><span class="n">user_account</span><span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+</code></pre>
+<p>Note that our query checks for any records in our class which have the same value for our attribute and where the id is not equal to the record we are updating. This works for both new and persisted records.</p>
+
+<p><strong>Scope</strong></p>
+
+<p>To limit the scope of your query you can simply update your query as needed or as in our example below add a scope paramenter to your custom predicate for example:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="n">option</span> <span class="ss">:record</span>
+
+    <span class="k">def</span> <span class="nf">scoped_unique?</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+       <span class="n">record</span><span class="p">.</span><span class="nf">class</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="n">record</span><span class="p">.</span><span class="nf">id</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">scope</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="n">attr_name</span> <span class="o">=&gt;</span> <span class="n">value</span><span class="p">).</span><span class="nf">empty?</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">scoped_unique?</span><span class="p">:</span> <span class="p">[</span><span class="ss">:email</span><span class="p">,</span> <span class="p">{</span> <span class="ss">active: </span><span class="kp">true</span> <span class="p">}])</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="p">.</span><span class="nf">with</span><span class="p">(</span><span class="ss">record: </span><span class="n">user_account</span><span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+</code></pre>
+<p><strong>Case Sensitive</strong></p>
+
+<p>There is also a :case_sensitive option that you can use to define whether the uniqueness constraint will be case sensitive or not. In Active Model Validations this option defaults to true.</p>
+
+<p>Depending on your chosen database, you might find that searches are case insensitive anyway. If not then you could simply update your query to perform a case insensitive search. The exact implementation will depend on your database but here&rsquo;s an example that works with PostgreSQL.</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="n">option</span> <span class="ss">:account</span>
+
+    <span class="k">def</span> <span class="nf">case_insensitive_unique?</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+       <span class="n">account</span><span class="p">.</span><span class="nf">class</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="n">account</span><span class="p">.</span><span class="nf">id</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"LOWER(</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">) = ?, value.downcase).empty?
+    end
+  end
+
+  required(:email).filled(case_insensitive_unique?: :email)
+end
+
+schema.with(object: user_account).call(input)
+</span></code></pre>
+<h3 id="2-12-validates_with">2.12 validates_with</h3>
+
+<p>The validates_with helper takes a class, or a list of classes to use for validation.</p>
+
+<p>In reality by using dry-validation you are effectively doing this as your schema is an independent class.</p>
+
+<p>You can read more about how dry-validation work <a href="http://dry-rb.org/gems/dry-validation/basics/working-with-schemas/">here</a> and more information on how to reuse your schemas <a href="http://dry-rb.org/gems/dry-validation/reusing-schemas/">here</a></p>
+
+<h3 id="2-13-validates_each">2.13 validates_each</h3>
+
+<p>This helper validates attributes against a block.</p>
+
+<p>Example as per the official Active Record Validation Guide</p>
+
+<p><strong>Active Model Validation</strong></p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Person</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">validates_each</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:surname</span> <span class="k">do</span> <span class="o">|</span><span class="n">record</span><span class="p">,</span> <span class="kp">attr</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+    <span class="n">record</span><span class="p">.</span><span class="nf">errors</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="kp">attr</span><span class="p">,</span> <span class="s1">'must start with upper case'</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="o">=~</span> <span class="sr">/\A[[:lower:]]/</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+
+<p>In dry-validation we don&rsquo;t provide such a helper. You can acheive the same thing by converting the contents of your validates_each block to a custom predicate and</p>
+
+<p>Now for those of you who have been paying attention, for this simple example we could use our <code>format?</code> predicate to validate this. However, lets for arguments sake say that we want to do this via a custom predicate what might that look like?</p>
+<pre class="syntax ruby"><code>  <span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+    <span class="n">configure</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="nf">starts_with_uppercase?</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=~</span> <span class="sr">/^[A-Z]*/</span> <span class="c1"># check that the first character in our string is uppercase</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+    <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:str</span><span class="p">,</span> <span class="ss">:starts_with_uppercase?</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:surname_name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:str</span><span class="p">,</span> <span class="ss">:starts_with_uppercase?</span><span class="p">)</span>
+  <span class="k">end</span>
+</code></pre>
+<h3 id="3-common-validation-options">3. Common Validation Options</h3>
+
+<p>These are the common options allowed by ActiveModel validations, and their equivalents in dry-validation</p>
+
+<p><strong>3.1 <code>:allow_nil</code></strong></p>
+
+<p>Simply use <code>maybe</code> instead of <code>required</code> when defining your rules.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">minimum: </span><span class="n">int</span><span class="p">,</span> <span class="ss">allow_nil: </span><span class="kp">true</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="n">str?</span><span class="p">,</span> <span class="n">min_size?</span><span class="p">:</span> <span class="n">int</span><span class="p">)</span>
+</code></pre>
+<p><strong>3.2  <code>:allow_blank</code></strong></p>
+
+<p>Bareing in mind the differences explained between Ruby&rsquo;s<br>
+In dry-validation you will need to use a block when defining your rule instead of <code>filled</code>, and include the <code>.empty?</code> predicate into your rule.</p>
+
+<p><strong>ActiveModel Validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:attr</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">minimum: </span><span class="n">int</span><span class="p">,</span> <span class="ss">allow_blank: </span><span class="kp">true</span> <span class="p">}</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:attr</span><span class="p">)</span> <span class="p">{</span> <span class="n">empty?</span> <span class="o">|</span> <span class="n">str?</span> <span class="o">&amp;</span> <span class="n">min_size?</span><span class="p">(</span><span class="n">int</span><span class="p">)</span> <span class="p">)</span>
+</code></pre>
+<p><strong>3.3 <code>:message</code></strong></p>
+
+<p>Custom messages are implemented through a separate YAMl file. See <a href="http://dry-rb.org/gems/dry-validation/error-messages/">Error Messages</a> for full instructions.</p>
+
+<p><strong>3.4 <code>:on</code></strong></p>
+
+<p>In dry-validation, validations are defined in schemas. You can create separate schemas for various states (e.g UserCreateSchema, UserUpdateSchema) and then choose the correct schema to run in the relevant action.</p>
+
+<p>You can keep your schema code nice and DRY by <a href="gems/dry-validation/reusing-schemas/">reusing schemas</a>.</p>
+
+<h3 id="4-conditional-validation">4. Conditional Validation</h3>
+
+<p><strong>ActiveModel Validation</strong></p>
+
+<p>In ActiveModel you can use <code>:if</code> or <code>:unless</code> to only perform a validation based on the result of a proc or method.</p>
+
+<p>A simple schema can look like this:</p>
+<pre class="syntax ruby"><code><span class="n">validates</span> <span class="ss">:card_number</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">if: :paid_with_card?</span>
+
+<span class="k">def</span> <span class="nf">paid_with_card?</span>
+  <span class="n">payment_type</span> <span class="o">==</span> <span class="s2">"card"</span>
+<span class="k">end</span>
+</code></pre>
+<p><strong>dry-validation</strong></p>
+
+<p>To achieve this in dry-validation you can use <a href="/gems/dry-validation/high-level-rules/">high-level rules</a>.</p>
+
+<p>Declare a rule for each of the attributes you need to reference:</p>
+<pre class="syntax ruby"><code><span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">included_in?</span><span class="p">:</span> <span class="p">[</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span>
+<span class="n">required</span><span class="p">(</span><span class="ss">:card_number</span><span class="p">).</span><span class="nf">maybe</span>
+</code></pre>
+<p>Declare a high level rule to require the card number if <code>payment_type == &#39;card&#39;</code>:</p>
+<pre class="syntax ruby"><code><span class="n">rule</span><span class="p">(</span><span class="ss">require_card_number: </span><span class="p">[</span><span class="ss">:card_number</span><span class="p">,</span> <span class="ss">:payment_type</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">card_number</span><span class="p">,</span> <span class="n">payment_type</span><span class="o">|</span>
+  <span class="n">payment_type</span><span class="p">.</span><span class="nf">eql?</span><span class="p">(</span><span class="s1">'card'</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">filled?</span>
+<span class="k">end</span>
+</code></pre>
+<p>Put it all together and you get:</p>
+<pre class="syntax ruby"><code><span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:payment_type</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">included_in?</span><span class="p">:</span> <span class="p">[</span><span class="s2">"card"</span><span class="p">,</span> <span class="s2">"cash"</span><span class="p">,</span> <span class="s2">"cheque"</span><span class="p">])</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:card_number</span><span class="p">).</span><span class="nf">maybe</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">require_card_number: </span><span class="p">[</span><span class="ss">:card_number</span><span class="p">,</span> <span class="ss">:payment_type</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">card_number</span><span class="p">,</span> <span class="n">payment_type</span><span class="o">|</span>
+    <span class="n">payment_type</span><span class="p">.</span><span class="nf">eql?</span><span class="p">(</span><span class="s1">'card'</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">card_number</span><span class="p">.</span><span class="nf">filled?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>

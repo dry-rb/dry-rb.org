@@ -34,3 +34,12 @@ class User < Dry::Struct
   attribute :age, Types::Age
 end
 ```
+
+You can also use dry-structs themselves as types:
+
+```ruby
+class Message < Dry::Struct
+  attribute :body, Types::String
+  attribute :to, User
+end
+```

@@ -4,6 +4,7 @@ echo "building the site"
 bundle exec middleman build > /dev/null
 
 echo "pushing the build"
-git commit -am "Deploy" && git push origin master
+git add -A
+git commit -m "Deploy" && git push origin master
 
 echo "done!"

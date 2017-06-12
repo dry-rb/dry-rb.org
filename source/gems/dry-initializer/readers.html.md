@@ -11,10 +11,10 @@ You can define private or protected reader instead:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
   param :name,  reader: :private   # the same as adding `private :name`
-  param :email, reader: :protected # the same as adding `protected :name`
+  param :email, reader: :protected # the same as adding `protected :email`
 end
 ```
 
@@ -24,7 +24,7 @@ To skip any reader, use `reader: false`:
 require 'dry-initializer'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
   param :name
   param :email, reader: false

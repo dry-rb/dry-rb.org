@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-logic - Predicates</title><link href="/assets/stylesheets/site-d0f46643.css" rel="stylesheet" /><script src="/assets/javascripts/site-b5250171.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li></ul><ul><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-view">dry-view</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="http://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-logic</h1></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-logic/" class="">Introduction</a><li><a href="/gems/dry-logic/predicates/" class="active">Predicates</a></li><li><a href="/gems/dry-logic/operations/" class="">Operations</a></li></li></ul></aside><article class="gem-article"><h2>Predicates</h2><p>Dry-logic comes with a lot predicates to compose multiple rules:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/logic'</span>
+<span class="nb">require</span> <span class="s1">'dry/logic/predicates'</span>
+
+<span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Logic</span>
+</code></pre>
+<p>Now you can access all built-in predicates:</p>
+<pre class="syntax ruby"><code><span class="no">Predicates</span><span class="p">[</span><span class="ss">:key?</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Method: Module(Dry::Logic::Predicates::Methods)#key?&gt;</span>
+</code></pre>
+<p>In the end predicates return true or false.</p>
+<pre class="syntax ruby"><code><span class="no">Predicates</span><span class="p">[</span><span class="ss">:key?</span><span class="p">]</span><span class="o">.</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="p">{</span><span class="ss">name: </span><span class="s1">'John'</span><span class="p">})</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+<ul>
+<li>Built-in:
+
+<ul>
+<li><code>type?</code></li>
+<li><code>none?</code></li>
+<li><code>key?</code></li>
+<li><code>attr?</code></li>
+<li><code>empty?</code></li>
+<li><code>filled?</code></li>
+<li><code>bool?</code></li>
+<li><code>date?</code></li>
+<li><code>date_time?</code></li>
+<li><code>time?</code></li>
+<li><code>number?</code></li>
+<li><code>int?</code></li>
+<li><code>float?</code></li>
+<li><code>decimal?</code></li>
+<li><code>str?</code></li>
+<li><code>hash?</code></li>
+<li><code>array?</code></li>
+<li><code>odd?</code></li>
+<li><code>even?</code></li>
+<li><code>lt?</code></li>
+<li><code>gt?</code></li>
+<li><code>lteq?</code></li>
+<li><code>gteq?</code></li>
+<li><code>size?</code></li>
+<li><code>min_size?</code></li>
+<li><code>max_size?</code></li>
+<li><code>inclusion?</code></li>
+<li><code>exclusion?</code></li>
+<li><code>included_in?</code></li>
+<li><code>excluded_from?</code></li>
+<li><code>includes?</code></li>
+<li><code>excludes?</code></li>
+<li><code>eql?</code></li>
+<li><code>not_eql?</code></li>
+<li><code>true?</code></li>
+<li><code>false?</code></li>
+<li><code>format?</code></li>
+<li><code>predicate</code></li>
+</ul></li>
+</ul>
+
+<p>With predicates you can build more composable and complex operations:<br>
+For example, let&rsquo;s say we want to check that a given input is a hash and has a specify key.</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/logic'</span>
+<span class="nb">require</span> <span class="s1">'dry/logic/predicates'</span>
+
+<span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Logic</span>
+
+<span class="n">is_hash</span> <span class="o">=</span> <span class="no">Rule</span><span class="o">::</span><span class="no">Predicate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Predicates</span><span class="p">[</span><span class="ss">:type?</span><span class="p">]).</span><span class="nf">curry</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Dry::Logic::Rule::Predicate predicate=#&lt;Method: Module(Dry::Logic::Predicates::Methods)#type?&gt; options={:args=&gt;[:hash]}&gt;</span>
+<span class="n">name_key</span> <span class="o">=</span> <span class="no">Rule</span><span class="o">::</span><span class="no">Predicate</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Predicates</span><span class="p">[</span><span class="ss">:key?</span><span class="p">]).</span><span class="nf">curry</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Dry::Logic::Rule::Predicate predicate=#&lt;Method: Module(Dry::Logic::Predicates::Methods)#key?&gt; options={:args=&gt;[:name]}&gt;</span>
+
+<span class="n">hash_with_key</span> <span class="o">=</span> <span class="n">is_hash</span> <span class="o">&amp;</span> <span class="n">name_key</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Dry::Logic::Operations::And rules=[#&lt;Dry::Logic::Rule::Predicate predicate=#&lt;Method: Module(Dry::Logic::Predicates::Methods)#type?&gt; options={:args=&gt;[:hash]}&gt;, #&lt;Dry::Logic::Rule::Predicate predicate=#&lt;Method: Module(Dry::Logic::Predicates::Methods)#key?&gt; options={:args=&gt;[:name]}&gt;] options={}&gt;</span>
+
+<span class="n">hash_with_key</span><span class="o">.</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'John'</span><span class="p">).</span><span class="nf">success?</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="n">hash_with_key</span><span class="o">.</span><span class="p">(</span><span class="ss">not_valid: </span><span class="s1">'John'</span><span class="p">).</span><span class="nf">success?</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+
+<span class="n">hash_with_key</span><span class="o">.</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]).</span><span class="nf">success?</span>
+<span class="o">=&gt;</span> <span class="kp">false</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="http://github.com/dry-rb"><span>Code</span></a></li><li><a href="http://discuss.dry-rb.org"><span>Discussion</span></a></li><li><a href="http://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="http://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>

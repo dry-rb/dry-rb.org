@@ -121,7 +121,7 @@ end
 
 ### `filled?`
 
-Checks that either the array, string, or hash is filled.
+Checks that either the value is non-nil and, in the case of a String, Hash, or Array, non-empty.
 
 ```ruby
 describe 'filled?' do
@@ -235,7 +235,7 @@ end
 
 ### `max_size?`
 
-Check that an array's size is less than or equal to the given value.
+Check that an array's size (or a string's length) is less than or equal to the given value.
 
 ```ruby
 describe 'max_size?' do
@@ -247,17 +247,19 @@ describe 'max_size?' do
 
   it 'with regular ruby' do
     assert [1, 2, 3].size <= 3
+    assert 'foo'.size <= 3
   end
 
   it 'with dry-validation' do
     assert schema.call(sample: [1, 2, 3]).success?
+    assert schema.call(sample: 'foo').success?
   end
 end
 ```
 
 ### `min_size?`
 
-Checks that an array's size is greater than or equal to the given value.
+Checks that an array's size (or a string's length) is greater than or equal to the given value.
 
 ```ruby
 describe 'min_size?' do
@@ -269,17 +271,19 @@ describe 'min_size?' do
 
   it 'with regular ruby' do
     assert [1, 2, 3].size >= 3
+    assert 'foo'.size >= 3
   end
 
   it 'with dry-validation' do
     assert schema.call(sample: [1, 2, 3]).success?
+    assert schema.call(sample: 'foo').success?
   end
 end
 ```
 
 ### `size?(int)`
 
-Checks that an array's size is equal to the given value.
+Checks that an array's size (or a string's length) is equal to the given value.
 
 ```ruby
 describe 'size?' do
@@ -291,17 +295,19 @@ describe 'size?' do
 
   it 'with regular ruby' do
     assert [1, 2, 3].size == 3
+    assert 'foo'.size == 3
   end
 
   it 'with dry-validation' do
     assert schema.call(sample: [1, 2, 3]).success?
+    assert schema.call(sample: 'foo').success?
   end
 end
 ```
 
 ### `size?(range)`
 
-Checks that an array's size is within a range of values.
+Checks that an array's size (or a string's length) is within a range of values.
 
 ```ruby
 describe 'size?' do
@@ -313,10 +319,12 @@ describe 'size?' do
 
   it 'with regular ruby' do
     assert (0..3).include?([1, 2, 3].size)
+    assert (0..3).include?('foo'.size)
   end
 
   it 'with dry-validation' do
     assert schema.call(sample: [1, 2, 3]).success?
+    assert schema.call(sample: 'foo').success?
   end
 end
 ```

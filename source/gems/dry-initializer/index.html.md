@@ -12,10 +12,9 @@ sections:
   - optionals-and-defaults
   - type-constraints
   - readers
-  - shared-settings
   - inheritance
+  - skip-undefined
   - rails-support
-  - custom-plugins
 ---
 
 `dry-initializer` is a simple mixin of class methods `params` and `options` for instances.
@@ -24,13 +23,15 @@ sections:
 
 ```ruby
 require 'dry-initializer'
+require 'dry-types'
 
 class User
-  extend Dry::Initializer::Mixin
+  extend Dry::Initializer
 
-  param  :name,  type: String
+  param  :name,  Dry::Types['strict.string']
   param  :role,  default: proc { 'customer' }
   option :admin, default: proc { false }
+  option :phone, optional: true
 end
 
 user = User.new 'Vladimir', 'admin', admin: true
@@ -38,20 +39,5 @@ user = User.new 'Vladimir', 'admin', admin: true
 user.name  # => 'Vladimir'
 user.role  # => 'admin'
 user.admin # => true
-```
-
-This is pretty the same as the following ruby code:
-
-```ruby
-class User
-  attr_reader :name, :role, :admin
-
-  def initialize(name, role = 'customer', admin: false)
-    @name  = name
-    @role  = role
-    @admin = admin
-
-    fail TypeError unless String === @name
-  end
-end
+user.phone # => nil
 ```

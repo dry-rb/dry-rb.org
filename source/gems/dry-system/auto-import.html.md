@@ -56,7 +56,7 @@ class Application < Dry::System::Container
   configure do |config|
     config.name = :app
     config.root = Pathname('/my/app')
-    config.auto_register('lib')
+    config.auto_register = %w(lib)
   end
 
   load_paths!('lib')
@@ -82,11 +82,13 @@ end
 # lib/persistence/user_repo.rb
 require 'import'
 
-class UserRepo
-  include Import['persistence.db']
+module Persistence
+  class UserRepo
+    include Import['persistence.db']
 
-  def find(conditions)
-    db[:users].where(conditions)
+    def find(conditions)
+      db[:users].where(conditions)
+    end
   end
 end
 ```

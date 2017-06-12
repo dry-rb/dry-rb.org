@@ -4,48 +4,152 @@ title: Home
 
 .row
   .content-wrap
-    .content__home-intro
-      h2 Libraries belonging to the dry-rb organisation try to follow a few basic principles
-      hr
-      ul.content__feature-list
-        li.content__features-list-item
-          .features-list-img-door
-          h3 Non-intrusive
-        li.content__features-list-item
-          .features-list-img-flexible
-          h3 Flexible
-        li.content__features-list-item
-          .features-list-img-lightning
-          h3 Fast!
-.row-blue
-  .content-wrap
-    h2.section-heading Gems
-    - site.gems.take(8).in_groups_of(4).each do |group|
-      ul.content__gems-list
-        - group.compact.each do |gem|
-          li.content__gems-list-item
-            a href="/gems/#{gem.name}"
-              h3 = gem.name
-              p = gem.desc
-    a.btn-view-gems href='/gems'
-      | View all gems
+    .home-taster
+      p.home-taster__intro Check out the examples below to get a taste for how our libraries work
+      .home-taster__code
+        .taster#eg-validation
+          .taster__header
+            h3
+              a href="/gems/dry-validation" dry-validation
+            a.taster__link href="/gems/dry-validation" View docs
+          .taster__content
+            .taster__summary
+              markdown:
+                Use predicate logic to validate any kind of data with explicitness, clarity and precision.
+            .taster__example
+              markdown:
+                ```ruby
+                schema = Dry::Validation.Form do
+                  required(:name).filled
+                  required(:age).filled(:int?, gt?: 18)
+                end
 
-.row
-  .content-wrap.content-wrap--news-and-twitter
-    h2.section-heading News
-    .section-news
-      ul.news-list
-        - blog.articles[0...5].each do |article|
-          li.news__list-item
-            a.news__list-item-anchor href= article.url
-              .news__list-item-date
-                p = article.date.strftime('%e %B %Y')
-              .news__list-item-content
-                h3 = article.title
-                = sanitize article.summary
-    .section-twitter
-      / Twitter widget
-      a class="twitter-timeline" href="https://twitter.com/dry_rb" data-widget-id="712518119412117504"
-        | Tweets by @dry_rb
-      javascript:
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                schema.("name" => "Jane", "age" => "30").to_h
+                # => {name: "Jane", age: 30}
+
+                schema.("name" => "Jane", "age" => "17").messages
+                # => {:age=>["must be greater than 18"]}
+                ```
+
+        .taster#eg-types
+          .taster__header
+            h3
+              a href="/gems/dry-types" dry-types
+            a.taster__link href="/gems/dry-types" View docs
+          .taster__content
+            .taster__summary
+              markdown:
+                Build your own strict data types, constraints and coercsions with dry-types.
+            .taster__example
+              markdown:
+                ```ruby
+                module Types
+                  include Dry::Types.module
+
+                  Greeting = Strict::String.enum("Hello", "Hola")
+                end
+
+                Types::Greeting["Hello"]
+                # => "Hello"
+
+                Types::Greeting["Goodbye"]
+                # Dry::Types::ConstraintError: "Goodbye" violates constraints...
+                ```
+              p.code-caption Define types with constraints
+
+              markdown:
+                ```ruby
+                class Person < Dry::Struct
+                  attribute :name, Types::Strict::String
+                  attribute :age, Types::Strict::Int
+                end
+
+                Person.new(name: "Jane", age: 30)
+                # => #<Person name="Jane" age=30>
+                ```
+              p.code-caption Define strictly typed structs
+
+        .taster#eg-dependency-management
+          .taster__header
+            h3
+              ' Dependency management
+          .taster__content
+            .taster__summary
+              markdown:
+                Use [dry-system](/gems/dry-system) to build your application from a collection of discrete, single-purpose components. Compose these objects and easily achieve larger functionality with [auto-injection](/gems/dry-auto_inject).
+            .taster__example
+              markdown:
+                ```ruby
+                class App < Dry::System::Container
+                  configure do |config|
+                    config.auto_register = %w[lib]
+                  end
+
+                  load_paths! "lib"
+                end
+                ```
+              p.code-caption Manage your app’s objects in a system
+
+              markdown:
+                ```ruby
+                require "app/import"
+
+                class CreateArticle
+                  include App::Import[repo: "repositories.articles"]
+
+                  def call(input)
+                    # Work with the injected dependency
+                    repo.create(input)
+                  end
+                end
+                ```
+              p.code-caption Build callable functional objects with automatic dependency resolution
+
+        .taster#eg-monads-patterns
+          .taster__header
+            h3
+              a href="/gems/dry-system" Monads & pattern matching
+          .taster__content
+            .taster__summary
+              markdown:
+                Safely and gracefully model complex transformations with [monads](/gems/dry-monads), and use [pattern matching](/gems/dry-matcher) to make robust error handling a first-class feature of your application.
+            .taster__example
+              markdown:
+                ```ruby
+                Dry::Monads::Maybe(user).fmap(&:address).fmap(&:street)
+
+                # If user with address exists
+                # => Some("Street Address")
+                # If user or address is nil
+                # => None()
+                ```
+              p.code-caption Safely model complex, chained transformations
+
+              markdown:
+                ```ruby
+                class CreateArticle
+                  include Dry::Monads::Either::Mixin
+                  include Dry::Matcher.for(:call, with: Dry::Matcher::EitherMatcher)
+
+                  def call(input)
+                    if success?(input)
+                      output = some_action(input)
+                      Right(output)
+                    else
+                      Left(input)
+                    end
+                  end
+                end
+
+                create = CreateArticle.new
+                create.(input) do |m|
+                  m.success do |output|
+                    # Handle success
+                  end
+
+                  m.failure do |err|
+                    # Handle failure
+                  end
+                end
+                ```
+              p.code-caption Use the Either monad to model success and failure and match on the result
