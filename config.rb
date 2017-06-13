@@ -59,7 +59,7 @@ set :markdown,        fenced_code_blocks: true,
                       with_toc_data: true,
                       tables: true
 
-Slim::Embedded.set_default_options(
+Slim::Embedded.set_options(
   markdown: {
     autolink: true,
     fenced_code_blocks: true,
@@ -174,6 +174,12 @@ helpers do
     return page.data.name if page.data.name
 
     recursive_name(page.parent)
+  end
+
+  def github_link
+    content_tag(:a, href: "http://github.com/dry-rb/#{current_page.data.name}") do
+      "View #{current_page.data.name} on Github"
+    end
   end
 
   def nav
