@@ -178,7 +178,7 @@ helpers do
 
   def github_link
     content_tag(:a, href: "https://github.com/dry-rb/#{current_page.data.name}") do
-      "View #{current_page.data.name} on Github"
+      "View #{current_page.data.name} on GitHub"
     end
   end
 
