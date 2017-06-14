@@ -7,6 +7,7 @@ type: gem
 name: dry-transaction
 sections:
   - basic-usage
+  - wrapping-operations
   - step-notifications
   - step-adapters
   - custom-step-adapters
