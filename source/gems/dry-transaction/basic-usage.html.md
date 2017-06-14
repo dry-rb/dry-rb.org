@@ -103,7 +103,7 @@ Once you have a container, you can pass it to your transaction mixin and refer t
 
 ```ruby
 class CreateUser
-  include Dry::Transaction
+  include Dry::Transaction(container: Container)
 
   step :process, with: "operations.process"
   step :validate, with: "operations.validate"
