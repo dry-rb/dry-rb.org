@@ -111,6 +111,23 @@ class CreateUser
 end
 ```
 
+### Creating a reusable transction module
+
+You can create a reusable transaction module if you want to share configuration (i.e. container or step adapters) across multiple transaction classes.
+
+```ruby
+module MyApp
+  Transaction = Dry::Transaction(container: Container)
+end
+
+class CreateUser
+  include MyApp::Transaction
+
+  # Operations will be resolved from the `Container` specified above
+  step :process, with: "operations.process"
+end
+```
+
 ### Calling a transaction
 
 Calling a transaction will run its operations in their specified order, with the output of each operation becoming the input for the next.
