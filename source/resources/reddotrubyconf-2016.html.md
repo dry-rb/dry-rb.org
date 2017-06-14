@@ -29,22 +29,22 @@ And be sure to check out Piotr Solnica’s upcoming book, [Web Development with 
 
 ## Open source examples
 
-Check out [icelab/berg](https://github.com/icelab/berg), a live, working example of a dry-web app, powering the brand-new [Icelab company website](http://icelab.com.au).
+Check out [icelab/berg](https://github.com/icelab/berg), a live, working example of a dry-web app, powering the brand-new [Icelab company website](https://icelab.com.au).
 
 ## Further reading
 
 Tim has been blogging about “next-generation” Ruby apps for the past few months. Follow along to see some of the ideas from his talk in more detail:
 
-* [My past and future Ruby](http://icelab.com.au/articles/my-past-and-future-ruby/)
-* [Inactive records: the value objects your app deserves](http://icelab.com.au/articles/inactive-records-the-value-objects-your-app-deserves/)
-* [Functional command objects in Ruby](http://icelab.com.au/articles/functional-command-objects-in-ruby/)
-* [Effective Ruby dependency injection at scale](http://icelab.com.au/articles/effective-ruby-dependency-injection-at-scale/)
-* [Better code with an inversion of control container](http://icelab.com.au/articles/better-code-with-an-inversion-of-control-container/)
-* [A change-positive Ruby web application architecture](http://icelab.com.au/articles/a-change-positive-ruby-web-application-architecture/)
-* [Put HTTP in its place with Roda](http://icelab.com.au/articles/put-http-in-its-place-with-roda/)
-* [A conversational introduction to rom-rb](http://icelab.com.au/articles/a-conversational-introduction-to-rom-rb/)
-* [Conversational rom-rb, part 2: types, associations, and update commands](http://icelab.com.au/articles/conversational-rom-rb-part-2-types-associations-and-update-commands/)
+* [My past and future Ruby](https://icelab.com.au/articles/my-past-and-future-ruby/)
+* [Inactive records: the value objects your app deserves](https://icelab.com.au/articles/inactive-records-the-value-objects-your-app-deserves/)
+* [Functional command objects in Ruby](https://icelab.com.au/articles/functional-command-objects-in-ruby/)
+* [Effective Ruby dependency injection at scale](https://icelab.com.au/articles/effective-ruby-dependency-injection-at-scale/)
+* [Better code with an inversion of control container](https://icelab.com.au/articles/better-code-with-an-inversion-of-control-container/)
+* [A change-positive Ruby web application architecture](https://icelab.com.au/articles/a-change-positive-ruby-web-application-architecture/)
+* [Put HTTP in its place with Roda](https://icelab.com.au/articles/put-http-in-its-place-with-roda/)
+* [A conversational introduction to rom-rb](https://icelab.com.au/articles/a-conversational-introduction-to-rom-rb/)
+* [Conversational rom-rb, part 2: types, associations, and update commands](https://icelab.com.au/articles/conversational-rom-rb-part-2-types-associations-and-update-commands/)
 
 ## Get involved!
 
-Questions? Join our friendly [dry-rb chat](http://gitter.im/dry-rb/chat) and [rom-rb chat](http://gitter.im/dry-rb/chat). We’d love to see you there!
+Questions? Join our friendly [dry-rb chat](https://gitter.im/dry-rb/chat) and [rom-rb chat](https://gitter.im/dry-rb/chat). We’d love to see you there!

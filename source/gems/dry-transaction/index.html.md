@@ -38,6 +38,6 @@ View the [full API documentation](http://www.rubydoc.info/github/dry-rb/dry-tran
 
 ## Credits
 
-`dry-transaction` is developed and maintained by [Icelab](http://icelab.com.au/).
+`dry-transaction` is developed and maintained by [Icelab](https://icelab.com.au/).
 
-`dry-transaction`’s error handling is based on Scott Wlaschin’s [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/), found via Zohaib Rauf’s [Railway Oriented Programming in Elixir](http://zohaib.me/railway-programming-pattern-in-elixir/) blog post. dry-transaction’s behavior as a business transaction library draws heavy inspiration from Piotr Solnica’s [Transflow](http://github.com/solnic/transflow) and Gilbert B Garza’s [Solid Use Case](https://github.com/mindeavor/solid_use_case). Thank you all!
+`dry-transaction`’s error handling is based on Scott Wlaschin’s [Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/), found via Zohaib Rauf’s [Railway Oriented Programming in Elixir](http://zohaib.me/railway-programming-pattern-in-elixir/) blog post. dry-transaction’s behavior as a business transaction library draws heavy inspiration from Piotr Solnica’s [Transflow](https://github.com/solnic/transflow) and Gilbert B Garza’s [Solid Use Case](https://github.com/mindeavor/solid_use_case). Thank you all!
