@@ -8,6 +8,7 @@ name: dry-transaction
 sections:
   - basic-usage
   - wrapping-operations
+  - injecting-operations-via-initializer
   - step-notifications
   - step-adapters
   - custom-step-adapters
