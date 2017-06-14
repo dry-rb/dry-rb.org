@@ -3,42 +3,128 @@ title: Basic usage
 layout: gem-single
 ---
 
-### Providing a container
+### Defining a transaction with local operations
 
-All you need to use dry-transaction is a container to hold your application’s operations. Each operation must respond to `#call(input)`.
+You can define a standalone transaction based around a single class and its own instance methods. Each instance method must accept an input argument and return an output wrapped in a `Right` (for success) or `Left` (for failure):
 
-The operations will be resolved from the container via `#[]`. For our examples, we’ll use a [`dry-container`](http://dry-rb.org/gems/dry-container):
+```ruby
+require "dry/transaction"
+
+class CreateUser
+  include Dry::Transaction
+
+  step :process
+  step :validate
+  step :persist
+
+  def process(input)
+    Right(name: input["name"], email: input["email"])
+  end
+
+  def validate(input)
+    if input[:email].nil?
+      Left(:not_valid)
+    else
+      Right(input)
+    end
+  end
+
+  def persist(input)
+    DB << input
+
+    Right(input)
+  end
+end
+```
+
+### Defining a transaction with an operations container
+
+You can also define a transaction that relies upon operation objects in a container. Each operation must respond to `#call(input)`.
+
+The operations will be resolved from the container via `#[]`. For this example, we’ll use [dry-container](/gems/dry-container):
 
 ```ruby
 require "dry-container"
-require "dry-monads"
+require "dry/transaction"
+require "dry/transaction/operation"
+
+class Process
+  include Dry::Transaction::Operation
+
+  def call(input)
+    Right(name: input["name"], email: input["email"])
+  end
+end
+
+class Validate
+  include Dry::Transaction::Operation
+
+  def call(input)
+    if input[:email].nil?
+      Left(:not_valid)
+    else
+      Right(input)
+    end
+  end
+end
+
+class Persist
+  include Dry::Transaction::Operation
+
+  def call(input)
+    DB << input
+
+    Right(input)
+  end
+end
 
 class Container
   extend Dry::Container::Mixin
 
-  register :process, -> input {
-    Dry::Monads.Right(name: input["name"], email: input["email"])
-  }
+  namespace "operations" do |ops|
+    ops.register "process" do
+      Process.new
+    end
 
-  register :validate, -> input {
-    input[:email].nil? ? Dry::Monads.Left(:not_valid) : Dry::Monads.Right(input)
-  }
+    ops.register "validate" do
+      Validate.new
+    end
 
-  register :persist, -> input {
-    DB << input; Dry::Monads.Right(input)
-  }
+    ops.register "persist" do
+      Persist.new
+    end
+  end
 end
 ```
 
-### Defining a transaction
+n.b. this is a small, contrived container setup. In a real app, you should consider using [dry-system](/gems/dry-system) to make it easier to populate a container with your own objects.
 
-Define a transaction to bring your operations together:
+Once you have a container, you can pass it to your transaction mixin and refer to the registered operations.
 
 ```ruby
-save_user = Dry.Transaction(container: Container) do
-  step :process
-  step :validate
-  step :persist
+class CreateUser
+  include Dry::Transaction(container: Container)
+
+  step :process, with: "operations.process"
+  step :validate, with: "operations.validate"
+  step :persist, with: "operations.persist"
+end
+```
+
+### Creating a reusable transction module
+
+You can create a reusable transaction module if you want to share configuration (i.e. container or step adapters) across multiple transaction classes.
+
+```ruby
+module MyApp
+  Transaction = Dry::Transaction(container: Container)
+end
+
+class CreateUser
+  include MyApp::Transaction
+
+  # Operations will be resolved from the `Container` specified above
+  step :process, with: "operations.process"
 end
 ```
 
@@ -49,17 +135,18 @@ Calling a transaction will run its operations in their specified order, with the
 ```ruby
 DB = []
 
-save_user.call("name" => "Jane", "email" => "jane@doe.com")
+create_user = CreateUser.new
+create_user.call("name" => "Jane", "email" => "jane@doe.com")
 # => Right({:name=>"Jane", :email=>"jane@doe.com"})
 
 DB
 # => [{:name=>"Jane", :email=>"jane@doe.com"}]
 ```
 
-Each transaction returns a result value wrapped in a `Left` or `Right` object (based on the output of its final step). You can handle these results (including errors arising from particular steps) with a match block:
+Each transaction returns a result value wrapped in a `Left` or `Right` object, based on the output of its final step. You can handle these results (including errors arising from particular steps) with a match block:
 
 ```ruby
-save_user.call(name: "Jane", email: "jane@doe.com") do |m|
+create_user.call(name: "Jane", email: "jane@doe.com") do |m|
   m.success do |value|
     puts "Succeeded!"
   end
@@ -71,7 +158,7 @@ save_user.call(name: "Jane", email: "jane@doe.com") do |m|
 
   m.failure do |error|
     # Runs for any failure (including :validate failures)
-    puts "Couldn’t save this user."
+    puts "Couldn’t create this user."
   end
 end
 ```
@@ -106,29 +193,22 @@ class Container
   }
 end
 
-save_user = Dry.Transaction(container: Container) do
+class CreateUser
+  include Dry::Transaction(container: Container)
+
   step :process
   step :validate
   step :persist
   step :notify
 end
 
+create_user = CreateUser.new
+
 input = {"name" => "Jane", "email" => "jane@doe.com"}
-save_user.call(input, validate: ["doe.com"], notify: [{ email: 'foo@bar.com' }])
+
+create_user.call(input, validate: ["doe.com"], notify: [{ email: 'foo@bar.com' }])
 # => Right({:name=>"Jane", :email=>"jane@doe.com"})
 
-save_user.call(input, validate: ["smith.com"])
+create_user.call(input, validate: ["smith.com"])
 # => Left(:not_valid)
-```
-
-### Working with a larger container
-
-In practice, your container won’t be a trivial collection of generically named operations. You can keep your transaction step names simple by using the `with:` option to provide the identifiers for the operations within your container:
-
-```ruby
-save_user = Dry.Transaction(container: LargeAppContainer) do
-  step :process, with: "processors.process_user"
-  step :validate, with: "validation.validate_user"
-  step :persist, with: "persistance.commands.update_user"
-end
 ```

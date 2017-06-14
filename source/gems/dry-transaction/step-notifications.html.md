@@ -8,7 +8,9 @@ As well as matching on the final transaction result, you can subscribe to indivi
 ```ruby
 NOTIFICATIONS = []
 
-save_user = Dry.Transaction(container: Container) do
+class CreateUser
+  include Dry::Transaction(container: Container)
+
   step :process
   step :validate
   step :persist
@@ -26,10 +28,12 @@ module UserPersistListener
   end
 end
 
+create_user = CreateUser.new
+
 input = {"name" => "Jane", "email" => "jane@doe.com"}
 
-save_user.subscribe(persist: UserPersistListener)
-save_user.call(input, validate: ["doe.com"])
+create_user.subscribe(persist: UserPersistListener)
+create_user.call(input, validate: ["doe.com"])
 
 NOTIFICATIONS
 # => ["jane@doe.com persisted"]

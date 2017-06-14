@@ -12,7 +12,9 @@ layout: gem-single
 These step adapters in use look like this:
 
 ```ruby
-save_user = Dry.Transaction(container: Container) do
+class CreateUser
+  include Dry::Transaction(container: Container)
+
   map :process
   try :validate, catch: ValidationError
   tee :persist

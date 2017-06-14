@@ -18,7 +18,9 @@ class MyStepAdapters < Dry::Transaction::StepAdapters
   register :custom_adapter, MyAdapter.new
 end
 
-save_user = Dry.Transaction(container: Container, step_adapters: MyStepAdapters) do
+class CreateUser
+  include Dry::Transaction(container: Container, step_adapters: MyStepAdapters)
+
   # ...
 end
 ```
@@ -37,7 +39,9 @@ class MyStepAdapters < Dry::Transaction::StepAdapters
   }
 end
 
-save_user = Dry.Transaction(container: Container, step_adapters: MyStepAdapters) do
+class CreateUser
+  include Dry::Transaction(container: Container, step_adapters: MyStepAdapters)
+
   step :persist
   enqueue :send_welcome_email
 end
