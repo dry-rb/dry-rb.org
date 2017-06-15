@@ -296,6 +296,89 @@ Use `value` for unlifting a `Success` and `exception` for getting error object f
 
 `Try`'s `Success` and `Failure` can be transformed to `Right` and `Left` correspondingly by calling `to_either` and to `Some` and `None` by calling `to_maybe`. Keep in mind that by transforming `Try` to `Maybe` you loose information about an exception so be sure that you've processed the error before doing so.
 
+### List monad
+
+#### `bind`
+
+Lifts a block/proc and runs it against each member of the list. The block must return a value coercible to a list. As in other monads if no block given the first argument will be treated as callable and used instead.
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[1, 2].bind { |x| [x + 1] } # => List[2, 3]
+M::List[1, 2].bind(-> x { [x, x + 1] }) # => List[1, 2, 2, 3]
+
+M::List[1, nil].bind { |x| [x + 1] } # => error
+```
+
+#### `fmap`
+
+Maps a block over the list. Acts as `Array#map`. As in other monads if no block given the first argument will be treated as callable and used instead.
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[1, 2].fmap { |x| x + 1 } # => List[2, 3]
+```
+
+#### `value`
+
+You always can unlift the result by calling `value`.
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[1, 2].value # => [1, 2]
+```
+
+#### Concatenates
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[1, 2] + M::List[3, 4] # => [1, 2, 3, 4]
+```
+
+#### `head` and `tail`
+
+`head` returns the first element wrapped with a `Maybe`.
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[1, 2, 3, 4].head # => Some(1)
+M::List[1, 2, 3, 4].tail # => List[2, 3, 4]
+```
+
+#### `traverse`
+Traverses the list with a block (or without it). This methods "flips" List structure with the given monad (obtained from the type).
+
+**Note that traversing requires the list to be types.**
+
+```ruby
+require 'dry-monads'
+
+M = Dry::Monads
+
+M::List[M::Right(1), M::Right(2)].typed(M::Either).traverse # => Right([1, 2])
+M::List[M::Maybe(1), M::Maybe(nil), M::Maybe(3)].typed(M::Maybe).traverse # => None
+
+# also, you can use fmap with #traverse
+
+M::List[1, 2].fmap { |x| M::Right(x) }.typed(M::Either).traverse # => Right([1, 2])
+M::List[1, nil, 3].fmap { |x| M::Maybe(x) }.typed(M::Maybe).traverse # => None
+```
+
 ## Credits
 
 `dry-monads` is inspired by Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem and its usage by [`dry-transactions`](http://dry-rb.org/gems/dry-transaction/) and [`dry-types`](http://dry-rb.org/gems/dry-types/).
