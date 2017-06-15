@@ -73,6 +73,19 @@ User.new(name: "Jane", age: 31)
 
 User.new(name: "Jane", age: 31, unexpected: "attribute")
 # Dry::Struct::Error: [User.new] unexpected keys [:unexpected] in Hash input
+
+class Admin < Dry::Struct
+  constructor_type :schema
+
+  attribute :name, Types::Strict::String.default('John Doe')
+  attribute :age, Types::Strict::Int
+end
+
+Admin.new(name: "Jane")        #=> #<User name="Jane" age=nil>
+Admin.new(age: 31)             #=> #<User name="John Doe" age=31>
+Admin.new(name: nil, age: 31)  #=> #<User name="John Doe" age=31>
+Admin.new(name: "Jane", age: 31, unexpected: "attribute")
+  #=> #<User name="Jane" age=31>
 ```
 
 Common constructor types include:
