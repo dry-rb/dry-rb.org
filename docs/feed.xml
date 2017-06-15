@@ -4,10 +4,128 @@
   <id>http://dry-rb.org/news</id>
   <link href="http://dry-rb.org/news"/>
   <link href="http://dry-rb.org/feed.xml" rel="self"/>
-  <updated>2017-05-15T10:00:00+10:00</updated>
+  <updated>2017-06-15T10:00:00+10:00</updated>
   <author>
     <name>dry-rb community</name>
   </author>
+  <entry>
+    <title>dry-transaction 0.10.0 brings class-based transactions and a whole lot more flexibility</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-lot-more-flexibility/"/>
+    <id>http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-lot-more-flexibility/</id>
+    <published>2017-06-15T10:00:00+10:00</published>
+    <updated>2017-06-15T10:41:12+10:00</updated>
+    <author>
+      <name>timriley</name>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;rsquo;re thrilled to announce the release of dry-transaction 0.10.0, which offers a huge improvement in ease-of-use and flexibility around designing your application&amp;rsquo;s business transactions.&lt;/p&gt;
+
+&lt;p&gt;dry-transaction has been around for long enough now that it&amp;rsquo;s really been put through its paces across many different apps and use cases. We&amp;rsquo;d begun to notice one big deficiency in its design: apart from defining the steps, we couldn&amp;rsquo;t customize any other aspect of transaction behavior.&lt;/p&gt;
+
+&lt;p&gt;This all changes with dry-transaction 0.10.0 and the introduction of &lt;strong&gt;class-based transactions&lt;/strong&gt;. Instead of defining a transaction in a special DSL block, you can now define it within your own class:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;my_trans&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;MyTransaction&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+&lt;span class="n"&gt;my_trans&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;some_input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Transactions may resolve their operations from containers as before, but they can also now work entirely with local methods (&amp;ldquo;look ma, no container!&amp;rdquo;):&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;one&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="no"&gt;Right&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;do_something&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="no"&gt;Right&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;do_another_thing&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This isn&amp;rsquo;t an either/or proposition, either. You can &lt;em&gt;mix&lt;/em&gt; steps using instance methods and container operations:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:local&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;local&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# Do something between steps one and two&lt;/span&gt;
+    &lt;span class="no"&gt;Right&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;my_trans&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;MyTransaction&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can also use local methods to &lt;em&gt;wrap&lt;/em&gt; external operations and provide some custom behaviour that is specific to their particular transaction. For example, this would be useful if you need to massage the input/output arguments to suit the requirements of individual operations.&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;two&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;adjusted_input&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;do_something_with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Call super to run the original operation&lt;/span&gt;
+    &lt;span class="k"&gt;super&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;adjusted_input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Of course, this is just one example. We can&amp;rsquo;t pretend to know all the possible use cases here, but the exciting thing is that all of this is now possible!&lt;/p&gt;
+
+&lt;p&gt;Another benefit of building transactions into classes is that we can now inject alternative step operations via the initializer. This allows you to modify the behavior of your transactions at runtime, and would be especially helpful for testing, since you can supply test doubles to simulate various different conditions.&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;my_trans&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;MyTransaction&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;one: &lt;/span&gt;&lt;span class="n"&gt;alternative_operation_for_one&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that our transaction builder is a module, we can much more naturally provide common behavior across multiple transactions, like be defining a reusable module for a particular configuration:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;MyApp&lt;/span&gt;
+  &lt;span class="no"&gt;Transaction&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;
+
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or even by building a base class for defining additional, common transaction behavior:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;MyApp&lt;/span&gt;
+  &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Transaction&lt;/span&gt;
+    &lt;span class="nb"&gt;self&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;inherited&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;klass&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="n"&gt;klass&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;send&lt;/span&gt; &lt;span class="ss"&gt;:include&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="c1"&gt;# Provide custom behaviour for calling transactions&lt;/span&gt;
+      &lt;span class="k"&gt;super&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Or add common methods for all your transactions here&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:one&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.one"&lt;/span&gt;
+  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We&amp;rsquo;re really excited to see what you can do with the new dry-transaction. Please give it a try and &lt;a href="http://discuss.dry-rb.org"&gt;share your experiences in the forum&lt;/a&gt;!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>dry-view 0.3.0: another step towards solving the view layer mess</title>
     <link rel="alternate" href="http://dry-rb.org/news/2017/05/15/dry-view-0-3-0-another-step-towards-solving-the-view-layer-mess/"/>
@@ -658,67 +776,6 @@ bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
 &lt;p&gt;Yes, there’s more :) For detailed information about the changes and improvements please read the &lt;a href="https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v080-2016-07-01"&gt;CHANGELOG&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Check out dry-validation and &lt;a href="https://gitter.im/dry-rb/chat"&gt;tell us what you think&lt;/a&gt;!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>dry-transaction 0.6 brings powerful new support for custom step adapters</title>
-    <link rel="alternate" href="http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/"/>
-    <id>http://dry-rb.org/news/2016/04/07/dry-transaction-0-6-brings-powerful-new-support-for-custom-step-adapters/</id>
-    <published>2016-04-07T10:00:00+10:00</published>
-    <updated>2016-04-07T10:07:17+10:00</updated>
-    <author>
-      <name>timriley</name>
-    </author>
-    <content type="html">&lt;p&gt;&lt;a href="http://dry-rb.org/gems/dry-transaction"&gt;dry-transaction&lt;/a&gt; is dry-rb&amp;rsquo;s answer to modelling complex business transactions in your applications. With dry-transaction, you can arrange multiple processing operations into a linear pipeline, with the output of each step becoming the input of the next. dry-transaction also elevates error handling to a first-class concern. Any error will halt the flow of operations, and you have powerful APIs for matching and acting on errors.&lt;/p&gt;
-
-&lt;p&gt;dry-transaction 0.6.0 is out today, and it brings a powerful new feature to your application&amp;rsquo;s business transactions: support for defining your own custom step adapters. This allows you to encode powerful application-specific behaviours into  steps that can be invoked with just a single word inside your transaction definitions.&lt;/p&gt;
-
-&lt;p&gt;Let&amp;rsquo;s see this in action with a common sort of transaction:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;publish_article&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:publish&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"admin.articles.operations.publish_article"&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:index&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"search.operations.index_article"&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:generate_pdf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"admin.articles.operations.generate_pdf"&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:notify_contributors&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"admin.articles.operations.notify_contributors"&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Here we have a series of operations we want to run whenever we publish an article. The beauty of managing them via a transaction here is that it&amp;rsquo;s easy to see what will run, and each step is kept loosely coupled, with each only expecting an article object as input.&lt;/p&gt;
-
-&lt;p&gt;However, you might notice some of these steps look like they could be quite slow-running, namely &lt;code&gt;generate_pdf&lt;/code&gt; and &lt;code&gt;notify_contributors&lt;/code&gt;. We won&amp;rsquo;t want to keep the user waiting for these steps to run before their browser request completes.&lt;/p&gt;
-
-&lt;p&gt;These are exactly the kind of steps we would want to push into a queue of background jobs. Here&amp;rsquo;s where a custom step adapter comes in handy. Let&amp;rsquo;s put one together:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"kleisli"&lt;/span&gt;
-&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"admin/import"&lt;/span&gt;
-
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Admin&lt;/span&gt;
-  &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;TransactionStepAdapters&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;StepAdapters&lt;/span&gt;
-    &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Enqueue&lt;/span&gt;
-      &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Admin&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Import&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"admin.enqueue_background_job"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-      &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;step&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="n"&gt;enqueue_background_job&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;step&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;operation_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-        &lt;span class="no"&gt;Right&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-      &lt;span class="k"&gt;end&lt;/span&gt;
-    &lt;span class="k"&gt;end&lt;/span&gt;
-
-    &lt;span class="n"&gt;register&lt;/span&gt; &lt;span class="ss"&gt;:enqueue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;Enqueue&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As you can see, dry-transaction step adapters only need to implement a single method: &lt;code&gt;#call(step, *args, input)&lt;/code&gt;. In this case, we get the step&amp;rsquo;s &lt;code&gt;operation_name&lt;/code&gt; (its identifier within the container), and pass that name along with the step&amp;rsquo;s input arguments to the &lt;code&gt;enqueue_background_job&lt;/code&gt; object, whose purpose is to push that operation into the background queue. I won&amp;rsquo;t go into detail about this object in this article, since it will be specific to your app and its queueing system.&lt;/p&gt;
-
-&lt;p&gt;Once we have this adapter in place, the next thing we need to do is make sure it&amp;rsquo;s available to our transactions. You can see above that we&amp;rsquo;ve done this by making our own &lt;code&gt;TransactionStepAdapters&lt;/code&gt; container that inherits from &lt;code&gt;Dry::Transaction::StepAdapters&lt;/code&gt; (which means we keep dry-transaction&amp;rsquo;s default adapters), and then registering our &lt;code&gt;enqueue&lt;/code&gt; adapter with it.&lt;/p&gt;
-
-&lt;p&gt;Now we can pass the container to our transaction and start using the new adapter:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;publish_article&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;step_adapters: &lt;/span&gt;&lt;span class="no"&gt;Admin&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;TransactionStepAdapters&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:publish&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"admin.articles.operations.publish_article"&lt;/span&gt;
-  &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:index&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"search.operations.index_article"&lt;/span&gt;
-  &lt;span class="n"&gt;enqueue&lt;/span&gt; &lt;span class="ss"&gt;:generate_pdf&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"admin.articles.operations.generate_pdf"&lt;/span&gt;
-  &lt;span class="n"&gt;enqueue&lt;/span&gt; &lt;span class="ss"&gt;:notify_contributors&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"admin.articles.operations.notify_contributors"&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And there we have it! With the new infrastructure in place, we could change just two words in our transaction and have long-running jobs pushed into the background queue, while keeping everything just as easy to understand in a single glance.&lt;/p&gt;
-
-&lt;p&gt;You can &lt;a href="http://dry-rb.org/gems/dry-transaction/custom-step-adapters/"&gt;read more about custom step adapters&lt;/a&gt; in the &lt;a href="http://dry-rb.org/gems/dry-transaction/"&gt;dry-transaction documentation&lt;/a&gt; and get started using them with the 0.6.0 release now available on RubyGems. Enjoy!&lt;/p&gt;
 </content>
   </entry>
 </feed>
