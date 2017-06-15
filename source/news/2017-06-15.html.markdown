@@ -41,7 +41,7 @@ class MyTransaction
 end
 ```
 
-This isn't an either/or proposition, either. You can _mix_ steps using instance methods and container operations:
+This isn't an either/or proposition. You can _mix_ steps using instance methods and container operations:
 
 ```ruby
 class MyTransaction

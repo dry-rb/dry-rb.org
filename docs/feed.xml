@@ -13,7 +13,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/"/>
     <id>http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/</id>
     <published>2017-06-15T10:00:00+10:00</published>
-    <updated>2017-06-15T10:46:22+10:00</updated>
+    <updated>2017-06-15T10:47:57+10:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -48,7 +48,7 @@
   &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This isn&amp;rsquo;t an either/or proposition, either. You can &lt;em&gt;mix&lt;/em&gt; steps using instance methods and container operations:&lt;/p&gt;
+&lt;p&gt;This isn&amp;rsquo;t an either/or proposition. You can &lt;em&gt;mix&lt;/em&gt; steps using instance methods and container operations:&lt;/p&gt;
 &lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
   &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Transaction&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;container: &lt;/span&gt;&lt;span class="no"&gt;MyContainer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
