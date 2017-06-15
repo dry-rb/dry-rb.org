@@ -13,11 +13,11 @@
     <link rel="alternate" href="http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/"/>
     <id>http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/</id>
     <published>2017-06-15T10:00:00+10:00</published>
-    <updated>2017-06-15T10:47:57+10:00</updated>
+    <updated>2017-06-15T12:43:40+10:00</updated>
     <author>
       <name>timriley</name>
     </author>
-    <content type="html">&lt;p&gt;We&amp;rsquo;re thrilled to announce the release of dry-transaction 0.10.0, which offers a huge improvement in ease-of-use and flexibility around designing your application&amp;rsquo;s business transactions.&lt;/p&gt;
+    <content type="html">&lt;p&gt;We&amp;rsquo;re thrilled to announce the release of &lt;a href="/gems/dry-transaction"&gt;dry-transaction 0.10.0&lt;/a&gt;, which offers a huge improvement in ease-of-use and flexibility around designing your application&amp;rsquo;s business transactions.&lt;/p&gt;
 
 &lt;p&gt;dry-transaction has been around for long enough now that it&amp;rsquo;s really been put through its paces across many different apps and use cases. We&amp;rsquo;d begun to notice one big deficiency in its design: apart from defining the steps, we couldn&amp;rsquo;t customize any other aspect of transaction behavior.&lt;/p&gt;
 
