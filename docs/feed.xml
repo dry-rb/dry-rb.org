@@ -9,11 +9,11 @@
     <name>dry-rb community</name>
   </author>
   <entry>
-    <title>dry-transaction 0.10.0 brings class-based transactions and a whole lot more flexibility</title>
-    <link rel="alternate" href="http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-lot-more-flexibility/"/>
-    <id>http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-lot-more-flexibility/</id>
+    <title>dry-transaction 0.10.0 brings class-based transactions and a whole new level of flexibility</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/"/>
+    <id>http://dry-rb.org/news/2017/06/15/dry-transaction-0-10-0-brings-class-based-transactions-and-a-whole-new-level-of-flexibility/</id>
     <published>2017-06-15T10:00:00+10:00</published>
-    <updated>2017-06-15T10:41:12+10:00</updated>
+    <updated>2017-06-15T10:46:22+10:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -79,7 +79,7 @@
   &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Of course, this is just one example. We can&amp;rsquo;t pretend to know all the possible use cases here, but the exciting thing is that all of this is now possible!&lt;/p&gt;
+&lt;p&gt;Of course, this is just one example. We can&amp;rsquo;t pretend to know everything you might do here, but what&amp;rsquo;s exciting is that anything is now possible!&lt;/p&gt;
 
 &lt;p&gt;Another benefit of building transactions into classes is that we can now inject alternative step operations via the initializer. This allows you to modify the behavior of your transactions at runtime, and would be especially helpful for testing, since you can supply test doubles to simulate various different conditions.&lt;/p&gt;
 &lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyTransaction&lt;/span&gt;
@@ -123,7 +123,9 @@
   &lt;span class="n"&gt;step&lt;/span&gt; &lt;span class="ss"&gt;:two&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;with: &lt;/span&gt;&lt;span class="s2"&gt;"operations.two"&lt;/span&gt;
 &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We&amp;rsquo;re really excited to see what you can do with the new dry-transaction. Please give it a try and &lt;a href="http://discuss.dry-rb.org"&gt;share your experiences in the forum&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;This release wouldn&amp;rsquo;t have happened without the efforts of &lt;a href="https://github.com/GustavoCaso"&gt;Gustavo Caso&lt;/a&gt;, our newly-minted dry-rb core team member. Gracias, Gustavo 🙏🏻&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re really excited to see what you can do with the new dry-transaction. Please give it a try and &lt;a href="http://discuss.dry-rb.org"&gt;share your experiences with us&lt;/a&gt;!&lt;/p&gt;
 </content>
   </entry>
   <entry>
