@@ -363,7 +363,7 @@ M::List[1, 2, 3, 4].tail # => List[2, 3, 4]
 #### `traverse`
 Traverses the list with a block (or without it). This methods "flips" List structure with the given monad (obtained from the type).
 
-**Note that traversing requires the list to be types.**
+**Note that traversing requires the list to be typed.**
 
 ```ruby
 require 'dry-monads'
