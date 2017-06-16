@@ -5,6 +5,7 @@ name: dry-system
 type: gem
 sections:
   - container
+  - namespaces
   - auto-register
   - auto-import
   - booting
