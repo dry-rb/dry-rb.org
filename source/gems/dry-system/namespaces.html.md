@@ -8,7 +8,7 @@ In complex system where you have a huge hierarchy accessing you registered compo
 ```ruby
 class Application < Dry::System::Container
   configure do |config|
-    config.root = Pathname('./my/app')
+    config.root = './my/app'
     config.default_namespace = 'user.services'
   end
 

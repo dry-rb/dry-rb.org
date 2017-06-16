@@ -30,7 +30,7 @@ After defining the finalization block our container will not call it until its o
 # under /my/app/boot/container.rb
 class Application < Dry::System::Container
   configure do |config|
-    config.root = Pathname('/my/app')
+    config.root = '/my/app'
   end
 end
 
