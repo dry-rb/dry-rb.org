@@ -64,6 +64,19 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Jane"</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">31</span><span class="p">,</span> <span class="ss">unexpected: </span><span class="s2">"attribute"</span><span class="p">)</span>
 <span class="c1"># Dry::Struct::Error: [User.new] unexpected keys [:unexpected] in Hash input</span>
+
+<span class="k">class</span> <span class="nc">Admin</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">constructor_type</span> <span class="ss">:schema</span>
+
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">default</span><span class="p">(</span><span class="s1">'John Doe'</span><span class="p">)</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span>
+<span class="k">end</span>
+
+<span class="no">Admin</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Jane"</span><span class="p">)</span>        <span class="c1">#=&gt; #&lt;User name="Jane" age=nil&gt;</span>
+<span class="no">Admin</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">age: </span><span class="mi">31</span><span class="p">)</span>             <span class="c1">#=&gt; #&lt;User name="John Doe" age=31&gt;</span>
+<span class="no">Admin</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">31</span><span class="p">)</span>  <span class="c1">#=&gt; #&lt;User name="John Doe" age=31&gt;</span>
+<span class="no">Admin</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Jane"</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">31</span><span class="p">,</span> <span class="ss">unexpected: </span><span class="s2">"attribute"</span><span class="p">)</span>
+  <span class="c1">#=&gt; #&lt;User name="Jane" age=31&gt;</span>
 </code></pre>
 <p>Common constructor types include:</p>
 

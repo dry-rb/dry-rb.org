@@ -256,6 +256,72 @@ can be thought of as &ldquo;everything went right&rdquo; and the <code>Left</cod
 
 <p><code>Try</code>&rsquo;s <code>Success</code> and <code>Failure</code> can be transformed to <code>Right</code> and <code>Left</code> correspondingly by calling <code>to_either</code> and to <code>Some</code> and <code>None</code> by calling <code>to_maybe</code>. Keep in mind that by transforming <code>Try</code> to <code>Maybe</code> you loose information about an exception so be sure that you&rsquo;ve processed the error before doing so.</p>
 
+<h3 id="list-monad">List monad</h3>
+
+<h4 id="bind"><code>bind</code></h4>
+
+<p>Lifts a block/proc and runs it against each member of the list. The block must return a value coercible to a list. As in other monads if no block given the first argument will be treated as callable and used instead.</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">bind</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="p">}</span> <span class="c1"># =&gt; List[2, 3]</span>
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">bind</span><span class="p">(</span><span class="o">-&gt;</span> <span class="n">x</span> <span class="p">{</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="p">})</span> <span class="c1"># =&gt; List[1, 2, 2, 3]</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kp">nil</span><span class="p">].</span><span class="nf">bind</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="p">}</span> <span class="c1"># =&gt; error</span>
+</code></pre>
+<h4 id="fmap"><code>fmap</code></h4>
+
+<p>Maps a block over the list. Acts as <code>Array#map</code>. As in other monads if no block given the first argument will be treated as callable and used instead.</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span> <span class="c1"># =&gt; List[2, 3]</span>
+</code></pre>
+<h4 id="value"><code>value</code></h4>
+
+<p>You always can unlift the result by calling <code>value</code>.</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">value</span> <span class="c1"># =&gt; [1, 2]</span>
+</code></pre>
+<h4 id="concatenates">Concatenates</h4>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="c1"># =&gt; [1, 2, 3, 4]</span>
+</code></pre>
+<h4 id="head-and-tail"><code>head</code> and <code>tail</code></h4>
+
+<p><code>head</code> returns the first element wrapped with a <code>Maybe</code>.</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">].</span><span class="nf">head</span> <span class="c1"># =&gt; Some(1)</span>
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">].</span><span class="nf">tail</span> <span class="c1"># =&gt; List[2, 3, 4]</span>
+</code></pre>
+<h4 id="traverse"><code>traverse</code></h4>
+
+<p>Traverses the list with a block (or without it). This methods &ldquo;flips&rdquo; List structure with the given monad (obtained from the type).</p>
+
+<p><strong>Note that traversing requires the list to be typed.</strong></p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+
+<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="no">M</span><span class="o">::</span><span class="no">Right</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="no">M</span><span class="o">::</span><span class="no">Right</span><span class="p">(</span><span class="mi">2</span><span class="p">)].</span><span class="nf">typed</span><span class="p">(</span><span class="no">M</span><span class="o">::</span><span class="no">Either</span><span class="p">).</span><span class="nf">traverse</span> <span class="c1"># =&gt; Right([1, 2])</span>
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">(</span><span class="kp">nil</span><span class="p">),</span> <span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">(</span><span class="mi">3</span><span class="p">)].</span><span class="nf">typed</span><span class="p">(</span><span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">).</span><span class="nf">traverse</span> <span class="c1"># =&gt; None</span>
+
+<span class="c1"># also, you can use fmap with #traverse</span>
+
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="no">M</span><span class="o">::</span><span class="no">Right</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}.</span><span class="nf">typed</span><span class="p">(</span><span class="no">M</span><span class="o">::</span><span class="no">Either</span><span class="p">).</span><span class="nf">traverse</span> <span class="c1"># =&gt; Right([1, 2])</span>
+<span class="no">M</span><span class="o">::</span><span class="no">List</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}.</span><span class="nf">typed</span><span class="p">(</span><span class="no">M</span><span class="o">::</span><span class="no">Maybe</span><span class="p">).</span><span class="nf">traverse</span> <span class="c1"># =&gt; None</span>
+</code></pre>
 <h2 id="credits">Credits</h2>
 
 <p><code>dry-monads</code> is inspired by Josep M. Bach’s <a href="https://github.com/txus/kleisli">Kleisli</a> gem and its usage by <a href="http://dry-rb.org/gems/dry-transaction/"><code>dry-transactions</code></a> and <a href="http://dry-rb.org/gems/dry-types/"><code>dry-types</code></a>.</p>
