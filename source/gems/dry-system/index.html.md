@@ -5,6 +5,7 @@ name: dry-system
 type: gem
 sections:
   - container
+  - auto-register
   - auto-import
   - booting
 ---
@@ -45,4 +46,3 @@ There's no dedicated railtie for `dry-system` yet but we'd like to provide one a
 
 * `dry-system` has been extracted from an experimental project called Rodakase created by [solnic](https://github.com/solnic). Later on Rodakase was renamed to [dry-web](https://github.com/dry-rb/dry-web).
 * System/Component and lifecycle triggers are inspired by Clojure's [component](https://github.com/stuartsierra/component) library by [Stuart Sierra](https://github.com/stuartsierra)
-
