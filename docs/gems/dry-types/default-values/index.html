@@ -61,7 +61,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">default</span> <span class="o">=</span> <span class="n">default</span><span class="p">.</span><span class="nf">dup</span>
 <span class="n">default</span> <span class="o">&lt;&lt;</span> <span class="s2">"this time it'll work"</span>
 </code></pre>
-<p><strong>Warning on using with constrained types</strong>: If the value passed to the <code>.default</code> block does not match the type constraints, this will not throw an exception, because it not pass to the constructor and will be used as is.</p>
+<p><strong>Warning on using with constrained types</strong>: If the value passed to the <code>.default</code> block does not match the type constraints, this will not throw an exception, because it is not passed to the constructor and will be used as is.</p>
 <pre class="syntax ruby"><code><span class="no">CallableDateTime</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">DateTime</span><span class="p">.</span><span class="nf">constructor</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_datetime</span><span class="p">).</span><span class="nf">default</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span> <span class="p">}</span>
 
 <span class="no">CallableDateTime</span><span class="p">[</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">]</span>
