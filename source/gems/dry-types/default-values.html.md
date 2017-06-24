@@ -78,7 +78,7 @@ default = default.dup
 default << "this time it'll work"
 ```
 
-**Warning on using with constrained types**: If the value passed to the `.default` block does not match the type constraints, this will not throw an exception, because it not pass to the constructor and will be used as is.
+**Warning on using with constrained types**: If the value passed to the `.default` block does not match the type constraints, this will not throw an exception, because it is not passed to the constructor and will be used as is.
 
 ```ruby
 CallableDateTime = Types::DateTime.constructor(&:to_datetime).default { Time.now }
