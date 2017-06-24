@@ -3,7 +3,7 @@ title: Operations
 layout: gem-single
 ---
 
-Dry-logic use operations to interact with the input passed to the different rules.
+Dry-logic uses operations to interact with the input passed to the different rules.
 
 ``` ruby
 require 'dry/logic'
