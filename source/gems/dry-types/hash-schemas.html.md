@@ -3,7 +3,7 @@ title: Hash Schemas
 layout: gem-single
 ---
 
-The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different uses cases that involve unexpected keys, missing keys, default values, and key coercion.
+The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.
 
 Hash schemas are typically used under the hood of other libraries. In example dry-validation uses `:symbolized` schema in `Form` validations, which safely processes values in a hash and returns output with symbolized keys or dry-struct uses hash schemas to process struct attributes. If you want to use hash schemas standalone, or configure them for your dry structs, it's important to understand differences in behavior:
 
