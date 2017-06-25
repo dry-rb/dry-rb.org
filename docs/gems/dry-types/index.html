@@ -27,59 +27,66 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <p>By themselves, the basic type definitions like <code>Types::String</code> and <code>Types::Int</code> don&rsquo;t do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:</p>
 
 <ul>
-<li><p>&lsquo;Strict&rsquo; types will raise an error if passed an attribute of the wrong type:</p>
-<pre class="syntax plaintext"><code>class User &lt; Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int
-end
-
-User.new(name: 'Bob', age: '18')
-# =&gt; Dry::Struct::Error: [User.new] "18" (String) has invalid type for :age
-</code></pre></li>
-<li><p>&#39;Coercible&rsquo; types will attempt to convert an attribute to the correct class<br>
-using Ruby&rsquo;s inbuilt coercion methods:</p>
-<pre class="syntax plaintext"><code>class User &lt; Dry::Struct
-  attribute :name, Types::Coercible::String
-  attribute :age,  Types::Coercible::Int
-end
-
-User.new(name: 'Bob', age: '18')
-# =&gt; #&lt;User name="Bob" age=18&gt;
-User.new(name: 'Bob', age: 'not coercible')
-# =&gt; ArgumentError: invalid value for Integer(): "not coercible"
-</code></pre></li>
-<li><p>Use <code>.optional</code> to denote that an attribute can be <code>nil</code> (see <a href="/gems/dry-types/optional-values">Optional Values</a>):</p>
-<pre class="syntax plaintext"><code>class User &lt; Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int.optional
-end
-
-User.new(name: 'Bob', age: nil)
-# =&gt; #&lt;User name="Bob" age=nil&gt;
-# name is not optional:
-User.new(name: nil, age: 18)
-# =&gt; Dry::Struct::Error: [User.new] nil (NilClass) has invalid type for :name
-# keys must still be present:
-User.new(name: 'Bob')
-Dry::Struct::Error: [User.new] :age is missing in Hash input
-</code></pre></li>
-<li><p>You can add your own custom constraints (see <a href="/gems/dry-types/constraints/">Constraints</a>:</p>
-<pre class="syntax plaintext"><code>class User &lt; Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int.constrained(gteq: 18)
-end
-
-User.new(name: 'Bob', age: 17)
-# =&gt; Dry::Struct::Error: [User.new] 17 (Fixnum) has invalid type for :age
-</code></pre></li>
-<li><p>Add custom metadata to a type:</p>
-<pre class="syntax plaintext"><code>class User &lt; Dry::Struct
-  attribute :name, Types::String
-  attribute :age,  Types::Int.meta(info: 'extra info about age')
-end
-</code></pre></li>
+<li>&lsquo;Strict&rsquo; types will raise an error if passed an attribute of the wrong type:</li>
 </ul>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span>  <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span>
+<span class="k">end</span>
 
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'18'</span><span class="p">)</span>
+<span class="c1"># =&gt; Dry::Struct::Error: [User.new] "18" (String) has invalid type for :age</span>
+</code></pre>
+<ul>
+<li>&#39;Coercible&rsquo; types will attempt to convert an attribute to the correct class
+using Ruby&rsquo;s inbuilt coercion methods:</li>
+</ul>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">String</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span>  <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span>
+<span class="k">end</span>
+
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'18'</span><span class="p">)</span>
+<span class="c1"># =&gt; #&lt;User name="Bob" age=18&gt;</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'not coercible'</span><span class="p">)</span>
+<span class="c1"># =&gt; ArgumentError: invalid value for Integer(): "not coercible"</span>
+</code></pre>
+<ul>
+<li>Use <code>.optional</code> to denote that an attribute can be <code>nil</code> (see <a href="/gems/dry-types/optional-values">Optional Values</a>):</li>
+</ul>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span>  <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span><span class="p">.</span><span class="nf">optional</span>
+<span class="k">end</span>
+
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">,</span> <span class="ss">age: </span><span class="kp">nil</span><span class="p">)</span>
+<span class="c1"># =&gt; #&lt;User name="Bob" age=nil&gt;</span>
+<span class="c1"># name is not optional:</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">18</span><span class="p">)</span>
+<span class="c1"># =&gt; Dry::Struct::Error: [User.new] nil (NilClass) has invalid type for :name</span>
+<span class="c1"># keys must still be present:</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">)</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span><span class="o">::</span><span class="no">Error</span><span class="p">:</span> <span class="p">[</span><span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">]</span> <span class="ss">:age</span> <span class="n">is</span> <span class="n">missing</span> <span class="k">in</span> <span class="no">Hash</span> <span class="n">input</span>
+</code></pre>
+<ul>
+<li>You can add your own custom constraints (see <a href="/gems/dry-types/constraints/">Constraints</a>):</li>
+</ul>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span>  <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span><span class="ss">gteq: </span><span class="mi">18</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">17</span><span class="p">)</span>
+<span class="c1"># =&gt; Dry::Struct::Error: [User.new] 17 (Fixnum) has invalid type for :age</span>
+</code></pre>
+<ul>
+<li>Add custom metadata to a type:</li>
+</ul>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">String</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span>  <span class="no">Types</span><span class="o">::</span><span class="no">Int</span><span class="p">.</span><span class="nf">meta</span><span class="p">(</span><span class="ss">info: </span><span class="s1">'extra info about age'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
 <p>&hellip; and more.</p>
 
 <p>Note that you don&rsquo;t have to use <code>Dry::Struct</code>. You can interact with your<br>
