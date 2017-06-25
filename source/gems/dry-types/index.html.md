@@ -80,7 +80,7 @@ By themselves, the basic type definitions like `Types::String` and `Types::Int` 
   User.new(name: 'Bob')
   Dry::Struct::Error: [User.new] :age is missing in Hash input
   ```
-- You can add your own custom constraints (see [Constraints](/gems/dry-types/constraints.html):
+- You can add your own custom constraints (see [Constraints](/gems/dry-types/constraints.html)):
   ```ruby
   class User < Dry::Struct
     attribute :name, Types::Strict::String
