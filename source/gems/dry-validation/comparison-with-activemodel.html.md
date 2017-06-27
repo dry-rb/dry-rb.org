@@ -1,6 +1,7 @@
 ---
 title: Comparison With ActiveModel
 layout: gem-single
+name: dry-validation
 order: 10
 ---
 

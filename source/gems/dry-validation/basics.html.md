@@ -1,6 +1,7 @@
 ---
 title: Basics
 layout: gem-single
+name: dry-validation
 sections:
   - predicate-logic
   - built-in-predicates

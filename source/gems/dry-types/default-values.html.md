@@ -1,6 +1,7 @@
 ---
 title: Default Values
 layout: gem-single
+name: dry-types
 ---
 
 A type with a default value will return the configured value when the input is `nil`:

@@ -1,6 +1,7 @@
 ---
 title: Sum
 layout: gem-single
+name: dry-types
 order: 7
 ---
 

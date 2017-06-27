@@ -1,6 +1,7 @@
 ---
 title: Injecting operations
 layout: gem-single
+name: dry-transaction
 ---
 
 You can inject operation objects into transactions to adjust their behavior at runtime. This could be helpful to substitute operations with test doubles to simulate various conditions in testing.

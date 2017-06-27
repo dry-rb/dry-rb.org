@@ -1,6 +1,7 @@
 ---
 title: Registry &amp; Resolver
 layout: gem-single
+name: dry-container
 ---
 
 ### Register options

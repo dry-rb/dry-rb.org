@@ -1,6 +1,7 @@
 ---
 title: Type Constraints
 layout: gem-single
+name: dry-initializer
 ---
 
 Use `:type` key in a `param` or `option` declarations to set one of [dry types][dry-types] as a constraint.

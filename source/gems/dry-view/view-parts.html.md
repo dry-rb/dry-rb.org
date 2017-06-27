@@ -1,6 +1,7 @@
 ---
 title: View parts
 layout: gem-single
+name: dry-view
 ---
 
 All values passed to your templates are wrapped in _view parts_, which add view-specific behaviour to your application's domain objects.

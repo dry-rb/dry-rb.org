@@ -1,6 +1,7 @@
 ---
 title: Optional Values
 layout: gem-single
+name: dry-types
 ---
 
 ### Optional values

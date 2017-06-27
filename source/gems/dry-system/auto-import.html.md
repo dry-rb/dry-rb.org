@@ -1,6 +1,7 @@
 ---
 title: Auto-Import
 layout: gem-single
+name: dry-system
 ---
 
 After defining a container, we can use its import module that will inject object dependencies automatically.

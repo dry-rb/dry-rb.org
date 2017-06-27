@@ -1,6 +1,7 @@
 ---
 title: Constraints
 layout: gem-single
+name: dry-types
 ---
 
 You can create constrained types that will use validation rules to check that the input is not violating any of the configured constraints. You can treat it as a lower level guarantee that you're not instantiating objects that are broken.

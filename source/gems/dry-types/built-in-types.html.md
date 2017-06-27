@@ -1,6 +1,7 @@
 ---
 title: Built-in Types
 layout: gem-single
+name: dry-types
 ---
 
 Built-in types are grouped under 5 categories:

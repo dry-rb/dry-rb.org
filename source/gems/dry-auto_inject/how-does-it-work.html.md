@@ -1,6 +1,7 @@
 ---
 title: How does it work?
 layout: gem-single
+name: dry-auto_inject
 ---
 
 dry-auto\_inject enables _constructor dependency injection_ for your objects. It achieves this by defining two methods in the module that you include in your class.

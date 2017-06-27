@@ -1,6 +1,7 @@
 ---
 title: Dynamic Predicate Arguments
 layout: gem-single
+name: dry-validation
 ---
 
 It's often the case that arguments that are passed to predicates are not known

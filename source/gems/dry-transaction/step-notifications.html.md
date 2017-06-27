@@ -1,6 +1,7 @@
 ---
 title: Step notifications
 layout: gem-single
+name: dry-transaction
 ---
 
 As well as matching on the final transaction result, you can subscribe to individual steps and trigger specific behaviours based on their success or failure:

@@ -1,6 +1,7 @@
 ---
 title: Booting a Dependency
 layout: gem-single
+name: dry-system
 ---
 
 In some cases a dependency can be huge, so huge it needs to load some additional files (often 3rd party code) and it may rely on custom configuration.

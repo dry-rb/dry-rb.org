@@ -1,6 +1,7 @@
 ---
 title: Strict
 layout: gem-single
+name: dry-types
 order: 3
 ---
 

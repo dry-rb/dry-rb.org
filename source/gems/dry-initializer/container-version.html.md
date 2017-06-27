@@ -1,6 +1,7 @@
 ---
 title: Container Version
 layout: gem-single
+name: dry-initializer
 ---
 
 Instead of extending a class with the `Dry::Initializer`, you can include a container with the `initializer` method only. This method should be preferred when you don't need subclassing.

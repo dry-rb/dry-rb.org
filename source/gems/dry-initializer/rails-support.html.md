@@ -1,6 +1,7 @@
 ---
 title: Rails Support
 layout: gem-single
+name: dry-initializer
 ---
 
 Rails plugin is implemented in a separate [dry-initializer-rails][dry-initializer-rails] gem.

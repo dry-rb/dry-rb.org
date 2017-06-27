@@ -1,6 +1,7 @@
 ---
 title: Basic usage
 layout: gem-single
+name: dry-transaction
 ---
 
 ### Defining a transaction with local operations

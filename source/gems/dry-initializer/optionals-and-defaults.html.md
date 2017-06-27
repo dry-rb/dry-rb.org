@@ -1,6 +1,7 @@
 ---
 title: Optional Attributes and Default Values
 layout: gem-single
+name: dry-initializer
 ---
 
 By default both params and options are mandatory. Use `:default` key to make them optional:

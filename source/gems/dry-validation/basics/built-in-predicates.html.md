@@ -1,6 +1,7 @@
 ---
 title: Built-in Predicates
 layout: gem-single
+name: dry-validation
 ---
 
 ## Basic

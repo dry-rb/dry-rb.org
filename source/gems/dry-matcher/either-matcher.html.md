@@ -1,6 +1,7 @@
 ---
 title: Either matcher
 layout: gem-single
+name: dry-matcher
 ---
 
 dry-matcher provides a ready-to-use `EitherMatcher` for working with `Either` or `Try` monads from [dry-monads](/gems/dry-monads) or any other compatible gems.
@@ -23,4 +24,3 @@ end
 
 result # => "Yay: success!"
 ```
-

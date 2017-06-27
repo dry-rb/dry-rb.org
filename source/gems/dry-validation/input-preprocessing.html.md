@@ -1,6 +1,7 @@
 ---
 title: Input Preprocessing
 layout: gem-single
+name: dry-validation
 ---
 
 Sometimes, the data coming from outside needs to be preprocessed before being validated. Think of extraneous spaces before or after a string, for example.

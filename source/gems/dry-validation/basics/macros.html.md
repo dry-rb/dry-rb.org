@@ -1,6 +1,7 @@
 ---
 title: Macros
 layout: gem-single
+name: dry-validation
 ---
 
 Rule composition using blocks is very flexible and powerful; however, in many common cases repeatedly defining the same rules leads to boilerplate code. That's why `dry-validation`'s DSL provides convenient macros to reduce that boilerplate. Every macro can be expanded to its block-based equivalent.

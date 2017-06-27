@@ -1,6 +1,7 @@
 ---
 title: Step adapters
 layout: gem-single
+name: dry-transaction
 ---
 
 `step` adds operations to your transaction that already return an `Either` object. If you have to work with other types of operations, you can use an alternative _step adapter_. Step adapters can wrap the output of your operations to make them easier to integrate into a transaction. The following adapters are available:

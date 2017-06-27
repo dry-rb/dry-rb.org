@@ -1,6 +1,7 @@
 ---
 title: Configuration
 layout: gem-single
+name: dry-view
 ---
 
 You can configure your view controller classes inside a `configure` block. Basic configuration looks like this:

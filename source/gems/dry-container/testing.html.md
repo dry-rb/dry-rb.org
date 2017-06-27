@@ -1,6 +1,7 @@
 ---
 title: Testing
 layout: gem-single
+name: dry-container
 ---
 
 ### Stub

@@ -1,6 +1,7 @@
 ---
 title: Operations
 layout: gem-single
+name: dry-logic
 ---
 
 Dry-logic uses operations to interact with the input passed to the different rules.

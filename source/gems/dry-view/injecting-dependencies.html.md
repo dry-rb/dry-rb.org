@@ -1,6 +1,7 @@
 ---
 title: Injecting dependencies
 layout: gem-single
+name: dry-view
 ---
 
 Most real view controllers will need access to other parts of your application to prepare data for the view. Since view controllers follow the "functional object" pattern (local state for config and collaborators only, with any variable data passed to `#call`), it's easy to use dependency injection to make your application's objects available to your view controllers.

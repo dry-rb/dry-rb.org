@@ -1,6 +1,7 @@
 ---
 title: Templates
 layout: gem-single
+name: dry-view
 ---
 
 Every view controller has a template, which receives its data and generates the view output.

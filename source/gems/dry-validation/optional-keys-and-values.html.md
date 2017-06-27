@@ -1,6 +1,7 @@
 ---
 title: Optional Keys and Values
 layout: gem-single
+name: dry-validation
 ---
 
 We make a clear distinction between specifying an optional `key` and an optional `value`. This gives you a way of being very specific about validation rules. You can define a schema which can give you precise errors when a key was missing or key was present but the value was nil.

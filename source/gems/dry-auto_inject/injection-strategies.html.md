@@ -1,6 +1,7 @@
 ---
 title: Injection strategies
 layout: gem-single
+name: dry-auto_inject
 ---
 
 dry-auto\_inject supports three _injection strategies_, allowing you to design and integrate with different kinds of classes.
@@ -91,5 +92,3 @@ MyClass.new(my_repo)
 ```
 
 The `#initialize` method has an argument signature with a named positional argument for each dependency, e.g. `#initialize(users_repository)`.
-
-

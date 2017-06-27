@@ -1,6 +1,7 @@
 ---
 title: Custom Predicates
 layout: gem-single
+name: dry-validation
 ---
 
 You can simply define predicate methods on your schema object:

@@ -1,6 +1,7 @@
 ---
 title: Reusing Schemas
 layout: gem-single
+name: dry-validation
 ---
 
 You can easily reuse existing schemas using nested-schema syntax:

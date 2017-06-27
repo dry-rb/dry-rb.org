@@ -1,6 +1,7 @@
 ---
 title: Skip Undefined
 layout: gem-single
+name: dry-initializer
 ---
 
 The initializer uses special constant `Dry::Initializer::UNDEFINED` to distinguish variables that are set to `nil` from those that are not set at all.

@@ -1,6 +1,7 @@
 ---
 title: Hash Schemas
 layout: gem-single
+name: dry-types
 ---
 
 The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.

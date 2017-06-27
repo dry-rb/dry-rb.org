@@ -1,6 +1,7 @@
 ---
 title: Form Validation
 layout: gem-single
+name: dry-validation
 ---
 
 Probably the most common use case is to validate form params. This is a special kind of a validation for a couple of reasons:

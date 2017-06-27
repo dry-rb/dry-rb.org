@@ -1,6 +1,7 @@
 ---
 title: Container
 layout: gem-single
+name: dry-system
 ---
 
 Main API of `dry-system` is the abstract container that you inherit from. It allows you to configure basic settings and exposes APIs for requiring files easily.

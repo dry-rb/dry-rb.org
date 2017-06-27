@@ -1,6 +1,7 @@
 ---
 title: Class enhancement
 layout: gem-single
+name: dry-matcher
 ---
 
 You can offer a match block API from your own methods using `Dry::Matcher.for`:

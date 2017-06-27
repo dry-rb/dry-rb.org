@@ -1,6 +1,7 @@
 ---
 title: Wrapping operations
 layout: gem-single
+name: dry-transaction
 ---
 
 For transactions using operations in a container, you can wrap those operations with instance methods. This is helpful for adjusting the behavior of various operations to better suit the overall flow of your transaction.

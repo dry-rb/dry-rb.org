@@ -1,6 +1,7 @@
 ---
 title: Predicates
 layout: gem-single
+name: dry-logic
 ---
 
 Dry-logic comes with a lot predicates to compose multiple rules:

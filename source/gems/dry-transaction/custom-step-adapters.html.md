@@ -1,6 +1,7 @@
 ---
 title: Custom step adapters
 layout: gem-single
+name: dry-transaction
 ---
 
 You can provide your own step adapters to add custom behaviour to transaction steps. Your step adapters must provide a single `#call(step, *args, input)` method, which should return the step’s result wrapped in an `Either` object.

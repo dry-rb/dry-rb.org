@@ -1,6 +1,7 @@
 ---
 title: High-level Rules
 layout: gem-single
+name: dry-validation
 ---
 
 Often it is not enough to define simple type-checking rules. In addition to those you need to be able to specify higher-level rules that rely on other rules. This can be achieved using the `rule` interface which can access already defined rules for specific keys.

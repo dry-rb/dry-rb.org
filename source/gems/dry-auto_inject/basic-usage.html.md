@@ -1,6 +1,7 @@
 ---
 title: Basic usage
 layout: gem-single
+name: dry-auto_inject
 ---
 
 ### Requirements

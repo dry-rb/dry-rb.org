@@ -1,6 +1,7 @@
 ---
 title: Exposures
 layout: gem-single
+name: dry-view
 ---
 
 Use _exposures_ to declare and prepare the data for your view controller's template.

@@ -1,6 +1,7 @@
 ---
 title: Predicate Logic
 layout: gem-single
+name: dry-validation
 ---
 
 Schema DSL allows you to define validation rules using predicate logic. All common logic operators are supported and you can use them to **compose rules**. This simple technique is very powerful as it allows you to compose validations in such a way that invalid state will not crash one of your rules. Validation is a process that always depends on specific conditions, in that sense, `dry-validation` schemas have rules that are always conditional, they are executed only if defined conditions are met.

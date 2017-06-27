@@ -1,6 +1,7 @@
 ---
 title: Readers
 layout: gem-single
+name: dry-initializer
 ---
 
 By default public attribute reader is defined for every param and option.
