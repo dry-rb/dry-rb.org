@@ -8,6 +8,7 @@ sections:
   - basics
   - predicates
   - optional-keys-and-values
+  - type-specs
   - nested-data
   - array-as-input
   - reusing-schemas
