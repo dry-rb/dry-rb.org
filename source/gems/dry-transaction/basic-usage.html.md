@@ -168,7 +168,7 @@ The match cases are executed in order. The first match wins and halts subsequent
 
 ### Passing additional step arguments
 
-You can pass additional arguments to step operations at the time of calling your transaction. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the end of the operation’s arguments. This means that transactions can effectively support operations with any sort of `#call(input, *args)` interface including keyword arguments.
+You can pass additional arguments to step operations using the `with_step_args`. Provide these arguments as an array, and they’ll be [splatted](https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/) into the end of the operation’s arguments.
 
 ```ruby
 DB = []
@@ -207,9 +207,9 @@ create_user = CreateUser.new
 
 input = {"name" => "Jane", "email" => "jane@doe.com"}
 
-create_user.call(input, validate: ["doe.com"], notify: [{ email: 'foo@bar.com' }])
+create_user.with_step_args(validate: ["doe.com"], notify: [{ email: 'foo@bar.com' }]).call(input)
 # => Right({:name=>"Jane", :email=>"jane@doe.com"})
 
-create_user.call(input, validate: ["smith.com"])
+create_user.with_step_args(validate: ["smith.com"]).call(ipput)
 # => Left(:not_valid)
 ```
