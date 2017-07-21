@@ -633,7 +633,7 @@ schema = Dry::Validation.Schema do
     option :account
 
     def case_insensitive_unique?(attr_name, value)
-       account.class.where.not(id: account.id).where("LOWER(#{attr_name}) = ?, value.downcase).empty?
+       account.class.where.not(id: account.id).where("LOWER(#{attr_name}) = ?", value.downcase).empty?
     end
   end
 
