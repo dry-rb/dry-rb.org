@@ -150,7 +150,9 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <h3 id="passing-additional-step-arguments">Passing additional step arguments</h3>
 
-<p>You can pass additional arguments to step operations at the time of calling your transaction. Provide these arguments as an array, and they’ll be <a href="https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/">splatted</a> into the end of the operation’s arguments. This means that transactions can effectively support operations with any sort of <code>#call(input, *args)</code> interface including keyword arguments.</p>
+<p>You can pass additional arguments to step operations using <code>#with_step_args</code>. Provide the operations as keys, and the arguments as an array. The arguments array will be <a href="https://endofline.wordpress.com/2011/01/21/the-strange-ruby-splat/">splatted</a> into the end of the operation’s arguments.</p>
+
+<p>By using <code>#with_step_args</code> to pass additional step arguments, you can include operations in a transaction with any sort of <code>#call(input, *args)</code> interface, including keyword arguments.</p>
 <pre class="syntax ruby"><code><span class="no">DB</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="no">MAILER</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -187,9 +189,15 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="n">input</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jane"</span><span class="p">,</span> <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"jane@doe.com"</span><span class="p">}</span>
 
-<span class="n">create_user</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="ss">validate: </span><span class="p">[</span><span class="s2">"doe.com"</span><span class="p">],</span> <span class="ss">notify: </span><span class="p">[{</span> <span class="ss">email: </span><span class="s1">'foo@bar.com'</span> <span class="p">}])</span>
+<span class="n">create_user</span><span class="p">.</span><span class="nf">with_step_args</span><span class="p">(</span>
+  <span class="ss">validate: </span><span class="p">[</span><span class="s2">"doe.com"</span><span class="p">],</span>
+  <span class="ss">notify: </span><span class="p">[</span><span class="ss">email: </span><span class="s1">'foo@bar.com'</span><span class="p">],</span>
+<span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
 <span class="c1"># =&gt; Right({:name=&gt;"Jane", :email=&gt;"jane@doe.com"})</span>
 
-<span class="n">create_user</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="ss">validate: </span><span class="p">[</span><span class="s2">"smith.com"</span><span class="p">])</span>
+<span class="n">create_user</span><span class="p">.</span><span class="nf">with_step_args</span><span class="p">(</span>
+  <span class="ss">validate: </span><span class="p">[</span><span class="s2">"smith.com"</span><span class="p">],</span>
+  <span class="ss">notify: </span><span class="p">[</span><span class="ss">email: </span><span class="s1">'foo@bar.com'</span><span class="p">],</span>
+<span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">ipput</span><span class="p">)</span>
 <span class="c1"># =&gt; Left(:not_valid)</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
