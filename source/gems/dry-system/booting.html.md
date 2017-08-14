@@ -35,7 +35,7 @@ class Application < Dry::System::Container
   end
 end
 
-Application.boot!(:persistence)
+Application.start(:persistence)
 
 # and now `database` becomes available
 Application['database']
