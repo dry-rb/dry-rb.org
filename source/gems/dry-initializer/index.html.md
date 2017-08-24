@@ -14,6 +14,7 @@ sections:
   - readers
   - inheritance
   - skip-undefined
+  - attributes
   - rails-support
 ---
 
@@ -23,12 +24,11 @@ sections:
 
 ```ruby
 require 'dry-initializer'
-require 'dry-types'
 
 class User
   extend Dry::Initializer
 
-  param  :name,  Dry::Types['strict.string']
+  param  :name,  proc(&:to_s)
   param  :role,  default: proc { 'customer' }
   option :admin, default: proc { false }
   option :phone, optional: true
