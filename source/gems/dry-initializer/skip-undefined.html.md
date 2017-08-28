@@ -23,9 +23,6 @@ user.email
 
 user.instance_variable_get :@email
 # => Dry::Initializer::UNDEFINED
-
-user.instance_variable_get :@__options__
-# => {}
 ```
 
 This gives you full control of the real state of the attributes. However, all that checks cost about >30% of instantiation time, and make attribute readers 2 times slower.
@@ -59,7 +56,4 @@ user.email
 
 user.instance_variable_get :@email
 # => nil
-
-user.instance_variable_get :@__options__
-# => { email: nil }
 ```

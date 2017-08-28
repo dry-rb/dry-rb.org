@@ -72,16 +72,3 @@ end
 User.new(phone: '1234567890').phone     # => '1234567890'
 User.new(telephone: '1234567890').phone # => '1234567890'
 ```
-
-Under the hood the initializer also sets the `@__options__` hash. It has no reader; you should provide it by youself when necessary.
-
-The hash collects coerced values with defaults under the keys of attributes (renamed). Undefined values are skipped, so in the last example it would contain:
-
-```ruby
-user = User.new(telephone: '1234567890')
-
-user.instance_variable_get(:@__options__)
-# => { phone: '1234567890' }
-```
-
-Params are not included, only options are.
