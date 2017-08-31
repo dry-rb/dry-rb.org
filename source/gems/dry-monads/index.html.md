@@ -344,7 +344,7 @@ require 'dry-monads'
 
 M = Dry::Monads
 
-M::List[1, 2] + M::List[3, 4] # => [1, 2, 3, 4]
+M::List[1, 2] + M::List[3, 4] # => List[1, 2, 3, 4]
 ```
 
 #### `head` and `tail`
