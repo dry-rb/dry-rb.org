@@ -218,6 +218,6 @@ create_user.with_step_args(
 create_user.with_step_args(
   validate: ["smith.com"],
   notify: [email: 'foo@bar.com'],
-).call(ipput)
+).call(input)
 # => Left(:not_valid)
 ```
