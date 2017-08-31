@@ -489,15 +489,15 @@ E.g. <code>required(:attr).filled(:bool?)</code></p>
     <span class="n">option</span> <span class="ss">:account</span>
 
     <span class="k">def</span> <span class="nf">case_insensitive_unique?</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-       <span class="n">account</span><span class="p">.</span><span class="nf">class</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="n">account</span><span class="p">.</span><span class="nf">id</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"LOWER(</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">) = ?, value.downcase).empty?
-    end
-  end
+       <span class="n">account</span><span class="p">.</span><span class="nf">class</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="n">account</span><span class="p">.</span><span class="nf">id</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"LOWER(</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">) = ?"</span><span class="p">,</span> <span class="n">value</span><span class="p">.</span><span class="nf">downcase</span><span class="p">).</span><span class="nf">empty?</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  required(:email).filled(case_insensitive_unique?: :email)
-end
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="n">case_insensitive_unique?</span><span class="p">:</span> <span class="ss">:email</span><span class="p">)</span>
+<span class="k">end</span>
 
-schema.with(object: user_account).call(input)
-</span></code></pre>
+<span class="n">schema</span><span class="p">.</span><span class="nf">with</span><span class="p">(</span><span class="ss">object: </span><span class="n">user_account</span><span class="p">).</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+</code></pre>
 <h3 id="2-12-validates_with">2.12 validates_with</h3>
 
 <p>The validates_with helper takes a class, or a list of classes to use for validation.</p>
