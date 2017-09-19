@@ -46,5 +46,29 @@ class User
 end
 ```
 
+Sometimes you need to refer back to the initialized instance. In this case use a second argument to explicitly give the instance to a coercer:
+
+```ruby
+class Location < String
+  attr_reader :parameter # refers back to its parameter
+
+  def initialize(name, parameter)
+    super(name)
+    @parameter = parameter
+  end
+end
+
+class Parameter
+  extend Dry::Initializer
+  param :name
+  param :location, ->(value, param) { Location.new(value, param) }
+end
+
+offset = Parameter.new "offset", location: "query"
+offset.name     # => "offset"
+offset.location # => "query"
+offset.location.parameter == offset # true
+```
+
 [dry-types]: https://github.com/dry-rb/dry-types
 [dry-types-docs]: http://dry-rb.org/gems/dry-types/
