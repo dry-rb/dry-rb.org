@@ -14,6 +14,7 @@ sections:
   - hash-schemas
   - array-with-member
   - enum
+  - custom-types
 ---
 
 `dry-types` is a simple and extendable type system for Ruby; useful for value coercions, applying constraints, defining complex structs or value objects and more. It was created as a successor to [Virtus](https://github.com/solnic/virtus).
