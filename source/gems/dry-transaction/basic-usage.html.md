@@ -112,7 +112,7 @@ class CreateUser
 end
 ```
 
-### Creating a reusable transction module
+### Creating a reusable transaction module
 
 You can create a reusable transaction module if you want to share configuration (i.e. container or step adapters) across multiple transaction classes.
 
