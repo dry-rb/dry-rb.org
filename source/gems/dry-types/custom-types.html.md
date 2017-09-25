@@ -28,11 +28,11 @@ valid['invalid']
 
 ### `Types.Constant`
 
-`Types.Value` builds a type that checks a value for identity (using `equal?`).
+`Types.Constant` builds a type that checks a value for identity (using `equal?`).
 
 ```ruby
-valid = Types.Value(:valid)
-valid[:valid] # => 'valid'
+valid = Types.Constant(:valid)
+valid[:valid] # => :valid
 valid[:invalid]
 # => Dry::Types::ConstraintError: :invalid violates constraints (is?(:valid, :invalid) failed)
 ```
