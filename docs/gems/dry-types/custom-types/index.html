@@ -22,9 +22,9 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 </code></pre>
 <h3 id="types-constant"><code>Types.Constant</code></h3>
 
-<p><code>Types.Value</code> builds a type that checks a value for identity (using <code>equal?</code>).</p>
-<pre class="syntax ruby"><code><span class="n">valid</span> <span class="o">=</span> <span class="no">Types</span><span class="o">.</span><span class="no">Value</span><span class="p">(</span><span class="ss">:valid</span><span class="p">)</span>
-<span class="n">valid</span><span class="p">[</span><span class="ss">:valid</span><span class="p">]</span> <span class="c1"># =&gt; 'valid'</span>
+<p><code>Types.Constant</code> builds a type that checks a value for identity (using <code>equal?</code>).</p>
+<pre class="syntax ruby"><code><span class="n">valid</span> <span class="o">=</span> <span class="no">Types</span><span class="o">.</span><span class="no">Constant</span><span class="p">(</span><span class="ss">:valid</span><span class="p">)</span>
+<span class="n">valid</span><span class="p">[</span><span class="ss">:valid</span><span class="p">]</span> <span class="c1"># =&gt; :valid</span>
 <span class="n">valid</span><span class="p">[</span><span class="ss">:invalid</span><span class="p">]</span>
 <span class="c1"># =&gt; Dry::Types::ConstraintError: :invalid violates constraints (is?(:valid, :invalid) failed)</span>
 </code></pre>
