@@ -20,6 +20,8 @@ layout: news-single
 * [rom-rb on GitHub](https://github.com/rom-rb)
 * [roda documentation](http://roda.jeremyevans.net)
 * [roda on GitHub](https://github.com/jeremyevans/roda)
+* [Hanami](http://hanamirb.org)
+* [Trailblazer](http://trailblazer.to)
 
 rom-rb is very close to its 4.0 release right now, so if you'd like to explore it, please go ahead and install the release candidates: `gem install rom rom-sql --pre`.
 
