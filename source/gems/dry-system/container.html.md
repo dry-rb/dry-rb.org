@@ -13,7 +13,7 @@ require 'dry/system/container'
 
 class Application < Dry::System::Container
   configure do |config|
-    config.root = Pathname('./my/app')
+    config.root = './my/app'
   end
 end
 
@@ -36,7 +36,7 @@ require 'dry/system/container'
 
 class Application < Dry::System::Container
   configure do |config|
-    config.root = Pathname('./my/app')
+    config.root = './my/app'
 
     # we set 'lib' relative to `root` as a path which contains class definitions
     # that can be auto-registered
