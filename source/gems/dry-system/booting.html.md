@@ -13,7 +13,7 @@ The convention is pretty simple. You put files under `system/boot` directory and
 Here's a simple example:
 
 ``` ruby
-# under /my/app/boot/heavy_dep.rb
+# system/boot/persistence.rb
 
 Application.boot(:persistence) do
   init do
@@ -57,7 +57,7 @@ Here's a simple example:
 
 Application.boot(:db) do
   init do
-    require 3rd_party/db'
+    require '3rd_party/db'
 
     register(:db, 3rdParty::Db.configure(ENV['DB_URL']))
   end
