@@ -11,7 +11,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <p>The convention is pretty simple. You put files under <code>system/boot</code> directory and use your container to register dependencies with the ability to postpone finalization. This gives us a way to define what&rsquo;s needed but load it and boot it on demand.</p>
 
 <p>Here&rsquo;s a simple example:</p>
-<pre class="syntax ruby"><code><span class="c1"># under /my/app/boot/heavy_dep.rb</span>
+<pre class="syntax ruby"><code><span class="c1"># system/boot/persistence.rb</span>
 
 <span class="no">Application</span><span class="p">.</span><span class="nf">boot</span><span class="p">(</span><span class="ss">:persistence</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">init</span> <span class="k">do</span>
@@ -51,9 +51,9 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <span class="no">Application</span><span class="p">.</span><span class="nf">boot</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">init</span> <span class="k">do</span>
-    <span class="nb">require</span> <span class="mi">3</span><span class="n">rd_party</span><span class="o">/</span><span class="n">db</span><span class="s1">'
+    <span class="nb">require</span> <span class="s1">'3rd_party/db'</span>
 
-    register(:db, 3rdParty::Db.configure(ENV['</span><span class="no">DB_URL</span><span class="err">'</span><span class="p">]))</span>
+    <span class="n">register</span><span class="p">(</span><span class="ss">:db</span><span class="p">,</span> <span class="mi">3</span><span class="n">rdParty</span><span class="o">::</span><span class="no">Db</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="no">ENV</span><span class="p">[</span><span class="s1">'DB_URL'</span><span class="p">]))</span>
   <span class="k">end</span>
 
   <span class="n">start</span> <span class="k">do</span>
