@@ -7,6 +7,7 @@ sections:
   - container
   - booting
   - auto-import
+  - component-providers
   - test-mode
 ---
 
