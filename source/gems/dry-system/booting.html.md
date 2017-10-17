@@ -15,12 +15,13 @@ Here's a simple example:
 ``` ruby
 # under /my/app/boot/heavy_dep.rb
 
-Application.finalize(:persistence) do |container|
-  # some 3rd-party dependency
-  require '3rd-party/database'
+Application.boot(:persistence) do
+  init do
+    require '3rd_party/db
+  end
 
-  container.register('database') do
-    # some code which initializes this thing
+  start do
+    register(:database, 3rdParty::Db.new)
   end
 end
 ```
@@ -28,7 +29,7 @@ end
 After defining the finalization block our container will not call it until its own finalization. This means we can require file that defines our container and ask it to boot *just that one :persistence dependency*:
 
 ``` ruby
-# under /my/app/boot/container.rb
+# system/application/container.rb
 class Application < Dry::System::Container
   configure do |config|
     config.root = Pathname('/my/app')
@@ -54,11 +55,11 @@ Here's a simple example:
 ``` ruby
 # system/boot/db.rb
 
-Application.finalize(:db) do |container|
+Application.boot(:db) do
   init do
-    require 'some/3rd/party/db'
+    require 3rd_party/db'
 
-    container.register(:db, DB.configure(ENV['DB_URL']))
+    register(:db, 3rdParty::Db.configure(ENV['DB_URL']))
   end
 
   start do
@@ -78,14 +79,22 @@ and make it available in the booting context:
 
 ``` ruby
 # system/boot/logger.rb
-Application.finalize(:logger) do |container|
-  require 'logger'
-  container.register(:logger, Logger.new($stdout))
+Application.boot(:logger) do
+  init do
+    require 'logger'
+  end
+  
+  start do
+    register(:logger, Logger.new($stdout))
+  end
 end
 
 # system/boot/db.rb
-Application.finalize(:db) do |container|
-  use :logger
-  container.register(DB.new(ENV['DB_URL'], logger: logger))
+Application.boot(:db) do |app|
+  start do
+    use :logger
+
+    register(DB.new(ENV['DB_URL'], logger: app[:logger]))
+  end
 end
 ```

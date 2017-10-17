@@ -5,8 +5,9 @@ name: dry-system
 type: gem
 sections:
   - container
-  - auto-import
   - booting
+  - auto-import
+  - test-mode
 ---
 
 Object dependency management system based on [dry-container](/gems/dry-container) and [dry-auto_inject](/gems/dry-auto_inject) allowing you to configure reusable components in any environment, set up their load-paths, require needed files and instantiate objects automatically with the ability to have them injected as dependencies.
