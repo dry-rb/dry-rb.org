@@ -23,6 +23,8 @@ It does a couple of things for you:
 * Resolves object dependencies automatically
 * Supports auto-registration of dependencies via file/dir naming conventions
 * Supports multi-system setups (ie your application is split into multiple sub-systems)
+* Supports configuring component providers, which can be used to share common components between many systems
+* Supports test-mode with convenient stubbing API
 
 To put it all together, this allows you to configure your system in a way where you have full control over dependencies and it's very easy to draw the boundaries between individual components.
 
