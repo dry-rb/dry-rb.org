@@ -77,7 +77,7 @@ Slim::Embedded.set_options(
 # Activate various extensions --------------------------------------------------
 
 # Make sure that livereload uses the host FQDN so we can use it across network
-activate :livereload, host: Socket.gethostbyname(Socket.gethostname).first
+activate :livereload, host: 'localhost'
 
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
