@@ -84,7 +84,7 @@ User.new(name: nil, age: 18)
 # => Dry::Struct::Error: [User.new] nil (NilClass) has invalid type for :name
 # keys must still be present:
 User.new(name: 'Bob')
-Dry::Struct::Error: [User.new] :age is missing in Hash input
+# => Dry::Struct::Error: [User.new] :age is missing in Hash input
 ```
 
 - You can add your own custom constraints (see [Constraints](/gems/dry-types/constraints.html)):
