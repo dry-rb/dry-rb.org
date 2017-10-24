@@ -9,7 +9,7 @@ Default behavior for coercions is to automatically infer it from rule definition
 To enable explicit type specifications, which will be used to configure coercion, you need to configure your schema:
 
 ``` ruby
-UserSchema = Dry::Validation.Form do
+UserSchema = Dry::Validation.Params do
   # enable type specs
   configure { config.type_specs = true }
 
@@ -23,7 +23,7 @@ UserSchema = Dry::Validation.Form do
   required(:nums, [:int]).value(size?: 3)
 
   # dry-types can be used too
-  required(:login_time, Types::Form::DateTime).filled(:date_time?)
+  required(:login_time, Types::Params::DateTime).filled(:date_time?)
 end
 ```
 

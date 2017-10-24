@@ -19,7 +19,7 @@ title: Home
             .taster__example
               markdown:
                 ```ruby
-                schema = Dry::Validation.Form do
+                schema = Dry::Validation.Params do
                   required(:name).filled
                   required(:age).filled(:int?, gt?: 18)
                 end

@@ -17,9 +17,9 @@ PostStatus[true] # raises ConstraintError
 It respects type coercions too:
 
 ``` ruby
-PostStatus = Types::Form::String.default('draft')
+PostStatus = Types::Params::String.default('draft')
 
-# this works because an empty string in `form` category is coerced to `nil`
+# this works because an empty string in `params` category is coerced to `nil`
 PostStatus[''] # "draft"
 PostStatus["published"] # "published"
 ```
@@ -69,7 +69,7 @@ PostStatus.(nil)
 You can guard against these kind of errors by calling `freeze` when setting the default:
 
 ```ruby
-PostStatus = Types::Form::String.default('draft'.freeze)
+PostStatus = Types::Params::String.default('draft'.freeze)
 default = PostStatus.(nil)
 default << 'attempt to mutate default'
 # => RuntimeError: can't modify frozen string
