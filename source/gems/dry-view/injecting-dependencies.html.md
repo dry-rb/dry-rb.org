@@ -10,16 +10,16 @@ To setting up the injection manually:
 
 ```ruby
 class UsersIndex < Dry::View::Controller
-  attr_reader :users_repo
+  attr_reader :user_repo
 
-  def initialize(users_repo:)
+  def initialize(user_repo:)
     super()
 
-    @users_repo = users_repo
+    @user_repo = user_repo
   end
 
   expose :users do
-    users_repo.listing
+    user_repo.listing
   end
 end
 ```
@@ -31,10 +31,10 @@ Or if your app uses [dry-system](/gems/dry-system) or [dry-auto_inject](/gems/dr
 require "my_app/import"
 
 class UsersIndex < Dry::View::Controller
-  include MyApp::Import[users_repo: "repositories.users"]
+  include MyApp::Import["user_repo"]
 
   expose :users do
-    users_repo.listing
+    user_repo.listing
   end
 end
 ```
