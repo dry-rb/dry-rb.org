@@ -66,7 +66,7 @@ using Ruby&rsquo;s inbuilt coercion methods:</li>
 <span class="c1"># =&gt; Dry::Struct::Error: [User.new] nil (NilClass) has invalid type for :name</span>
 <span class="c1"># keys must still be present:</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bob'</span><span class="p">)</span>
-<span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span><span class="o">::</span><span class="no">Error</span><span class="p">:</span> <span class="p">[</span><span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">]</span> <span class="ss">:age</span> <span class="n">is</span> <span class="n">missing</span> <span class="k">in</span> <span class="no">Hash</span> <span class="n">input</span>
+<span class="c1"># =&gt; Dry::Struct::Error: [User.new] :age is missing in Hash input</span>
 </code></pre>
 <ul>
 <li>You can add your own custom constraints (see <a href="/gems/dry-types/constraints/">Constraints</a>):</li>

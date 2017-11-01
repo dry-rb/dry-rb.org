@@ -8,8 +8,8 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>An exposure can take a block:</p>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
-  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">input</span><span class="o">|</span>
-    <span class="n">users_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">input</span><span class="p">[</span><span class="ss">:page</span><span class="p">])</span>
+  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
@@ -19,8 +19,8 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
   <span class="kp">private</span>
 
-  <span class="k">def</span> <span class="nf">users</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
-    <span class="n">users_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">input</span><span class="p">[</span><span class="ss">:page</span><span class="p">])</span>
+  <span class="k">def</span> <span class="nf">users</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
@@ -31,44 +31,78 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="n">expose</span> <span class="ss">:users</span>
 <span class="k">end</span>
 </code></pre>
+<h2 id="using-input-data">Using input data</h2>
+
+<p>If your exposure needs to work with input data (i.e. the arguments passed to the view controller’s <code>#call</code>), specify these as keyword arguments for your exposure block. Make this a required keyword argument if you require the data passed to the view controller’s <code>#call</code>:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">page</span><span class="ss">:|</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">page</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>The same applies to instance methods acting as exposures:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">expose</span> <span class="ss">:users</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">users</span><span class="p">(</span><span class="n">page</span><span class="p">:)</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">page</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<h2 id="specifying-defaults">Specifying defaults</h2>
+
+<p>If you want input data to be optional, provide a default value for the keyword argument (either <code>nil</code> or something more meaningful):</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="ss">page: </span><span class="mi">1</span><span class="o">|</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">page</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>If your exposure passes data passes through input data directly, use the <code>default:</code> option:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
+  <span class="c1"># With no matching instance method, passes the `users` key from the `#call`</span>
+  <span class="c1"># input straight to the view</span>
+  <span class="n">expose</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">default: </span><span class="p">[]</span>
+<span class="k">end</span>
+</code></pre>
 <h2 id="depending-on-other-exposures">Depending on other exposures</h2>
 
-<p>Sometimes, you want to prepare input data for other exposures to use. You can <em>depend</em> on another exposure by naming it in your exposure block or method&rsquo;s argument list.</p>
+<p>Sometimes you may want to prepare data for other exposures to use. You can <em>depend</em> on another exposure by naming it as a positional argument for your exposure block or method.</p>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
-  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">input</span><span class="o">|</span>
-    <span class="n">users_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">input</span><span class="p">[</span><span class="ss">:page</span><span class="p">])</span>
+  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">page</span><span class="ss">:|</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span><span class="p">(</span><span class="ss">page: </span><span class="n">page</span><span class="p">)</span>
   <span class="k">end</span>
 
-  <span class="n">expose</span> <span class="ss">:users_count</span> <span class="k">do</span> <span class="o">|</span><span class="n">users</span><span class="o">|</span>
+  <span class="n">expose</span> <span class="ss">:user_count</span> <span class="k">do</span> <span class="o">|</span><span class="n">users</span><span class="o">|</span>
     <span class="n">users</span><span class="p">.</span><span class="nf">to_a</span><span class="p">.</span><span class="nf">length</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-<p>In this example, the <code>users_count</code> exposure has access to the value of the <code>users</code> exposure since it named the exposure in its arguments list.</p>
+<p>In this example, the <code>user_count</code> exposure has access to the value of the <code>users</code> exposure since it named the exposure as a positional argument.</p>
 
-<p>Parsing of exposure arguments works as follows:</p>
-
-<ul>
-<li>For the first argument, if there is no matching exposure, then it receives the full input hash.</li>
-<li>Subsequent arguments must correspond to other exposures.</li>
-</ul>
-
+<p>Exposure dependencies (positional arguments) and input data (keyword arguments) can be provided together:</p>
+<pre class="syntax ruby"><code><span class="n">expose</span> <span class="ss">:user_count</span> <span class="k">do</span> <span class="o">|</span><span class="n">users</span><span class="p">,</span> <span class="ss">prefix: </span><span class="s2">"Users: "</span><span class="o">|</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="n">prefix</span><span class="si">}#{</span><span class="n">users</span><span class="p">.</span><span class="nf">to_a</span><span class="p">.</span><span class="nf">length</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre>
 <h2 id="private-exposures">Private exposures</h2>
 
-<p>You can also create <em>private exposures</em> that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use <code>private_expose</code> for this:</p>
+<p>You can create <em>private exposures</em> that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use <code>private_expose</code> for this:</p>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Controller</span>
-  <span class="n">private_expose</span> <span class="ss">:users_listing</span> <span class="k">do</span>
-    <span class="n">users_repo</span><span class="p">.</span><span class="nf">listing</span>
+  <span class="n">private_expose</span> <span class="ss">:user_listing</span> <span class="k">do</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">listing</span>
   <span class="k">end</span>
 
-  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">users_listing</span><span class="o">|</span>
-    <span class="c1"># does something with users_listing</span>
+  <span class="n">expose</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">user_listing</span><span class="o">|</span>
+    <span class="c1"># does something with user_listing</span>
   <span class="k">end</span>
 
-  <span class="n">expose</span> <span class="ss">:users_count</span> <span class="k">do</span> <span class="o">|</span><span class="n">users_listing</span><span class="o">|</span>
-    <span class="c1"># also needs to work with users_listing</span>
+  <span class="n">expose</span> <span class="ss">:user_count</span> <span class="k">do</span> <span class="o">|</span><span class="n">user_listing</span><span class="o">|</span>
+    <span class="c1"># also needs to work with user_listing</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
-<p>In this example, only the values for <code>users</code> and <code>users_count</code> will be passed to the view.</p>
+<p>In this example, only <code>users</code> and <code>user_count</code> will be passed to the view.</p>
 </article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
