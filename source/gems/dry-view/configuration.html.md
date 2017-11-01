@@ -26,7 +26,7 @@ end
 
 ## Sharing configuration with inheritance
 
-In an app with many views, it is helpful to use inheritance to share common settings. Create a base view controller class for your app's default settings, then inherit from it in each individual view.
+In an app with many views, it’s helpful to use inheritance to share common settings. Create a base view controller class for your app's default settings and inherit from it for each individual view.
 
 ```ruby
 module MyApp

@@ -10,8 +10,8 @@ An exposure can take a block:
 
 ```ruby
 class MyView < Dry::View::Controller
-  expose :users do |input|
-    users_repo.listing(page: input[:page])
+  expose :users do
+    user_repo.listing
   end
 end
 ```
@@ -24,8 +24,8 @@ class MyView < Dry::View::Controller
 
   private
 
-  def users(input)
-    users_repo.listing(page: input[:page])
+  def users
+    user_repo.listing
   end
 end
 ```
@@ -40,47 +40,98 @@ class MyView < Dry::View::Controller
 end
 ```
 
-## Depending on other exposures
+## Using input data
 
-Sometimes, you want to prepare input data for other exposures to use. You can _depend_ on another exposure by naming it in your exposure block or method's argument list.
+If your exposure needs to work with input data (i.e. the arguments passed to the view controller’s `#call`), specify these as keyword arguments for your exposure block. Make this a required keyword argument if you require the data passed to the view controller’s `#call`:
 
 ```ruby
 class MyView < Dry::View::Controller
-  expose :users do |input|
-    users_repo.listing(page: input[:page])
+  expose :users do |page:|
+    user_repo.listing(page: page)
+  end
+end
+```
+
+The same applies to instance methods acting as exposures:
+
+```ruby
+class MyView < Dry::View::Controller
+  expose :users
+
+  private
+
+  def users(page:)
+    user_repo.listing(page: page)
+  end
+end
+```
+
+## Specifying defaults
+
+If you want input data to be optional, provide a default value for the keyword argument (either `nil` or something more meaningful):
+
+```ruby
+class MyView < Dry::View::Controller
+  expose :users do |page: 1|
+    user_repo.listing(page: page)
+  end
+end
+```
+
+If your exposure passes data passes through input data directly, use the `default:` option:
+
+```ruby
+class MyView < Dry::View::Controller
+  # With no matching instance method, passes the `users` key from the `#call`
+  # input straight to the view
+  expose :users, default: []
+end
+```
+
+## Depending on other exposures
+
+Sometimes you may want to prepare data for other exposures to use. You can _depend_ on another exposure by naming it as a positional argument for your exposure block or method.
+
+```ruby
+class MyView < Dry::View::Controller
+  expose :users do |page:|
+    user_repo.listing(page: page)
   end
 
-  expose :users_count do |users|
+  expose :user_count do |users|
     users.to_a.length
   end
 end
 ```
 
-In this example, the `users_count` exposure has access to the value of the `users` exposure since it named the exposure in its arguments list.
+In this example, the `user_count` exposure has access to the value of the `users` exposure since it named the exposure as a positional argument.
 
-Parsing of exposure arguments works as follows:
+Exposure dependencies (positional arguments) and input data (keyword arguments) can be provided together:
 
-- For the first argument, if there is no matching exposure, then it receives the full input hash.
-- Subsequent arguments must correspond to other exposures.
+```ruby
+expose :user_count do |users, prefix: "Users: "|
+  "#{prefix}#{users.to_a.length}"
+end
+```
 
 ## Private exposures
 
-You can also create _private exposures_ that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use `private_expose` for this:
+You can create _private exposures_ that are not passed to the view. This is helpful if you have an exposure that others will depend on, but is not otherwise needed in the view. Use `private_expose` for this:
 
 ```ruby
 class MyView < Dry::View::Controller
-  private_expose :users_listing do
-    users_repo.listing
+  private_expose :user_listing do
+    user_repo.listing
   end
 
-  expose :users do |users_listing|
-    # does something with users_listing
+  expose :users do |user_listing|
+    # does something with user_listing
   end
 
-  expose :users_count do |users_listing|
-    # also needs to work with users_listing
+  expose :user_count do |user_listing|
+    # also needs to work with user_listing
   end
 end
 ```
 
-In this example, only the values for `users` and `users_count` will be passed to the view.
+In this example, only `users` and `user_count` will be passed to the view.
