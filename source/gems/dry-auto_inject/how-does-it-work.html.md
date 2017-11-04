@@ -6,9 +6,9 @@ name: dry-auto_inject
 
 dry-auto\_inject enables _constructor dependency injection_ for your objects. It achieves this by defining two methods in the module that you include in your class.
 
-First, it defines `.new`, which resolves your dependencies from the container, if you haven't otherwise provided them as expicit arguments. It then passes these dependencies as arguments onto `#initialize`, as per Ruby’s usual behaviour.
+First, it defines `.new`, which resolves your dependencies from the container, if you haven't otherwise provided them as explicit arguments. It then passes these dependencies as arguments onto `#initialize`, as per Ruby’s usual behaviour.
 
-It also defines `#initialize`, which receives these dependencies as arguments and then assigns them to instance variables. These variables are made available via attr\_readers.
+It also defines `#initialize`, which receives these dependencies as arguments and then assigns them to instance variables. These variables are made available via `attr_reader`s.
 
 So when you specify dependencies like this:
 
