@@ -37,6 +37,9 @@ gems:
     name: dry-equalizer
     desc: Simple mixin providing equality methods
   -
+    name: dry-inflector
+    desc: Standalone inflections
+  -
     name: dry-system
     desc: Organize your code into reusable components
   -
