@@ -32,3 +32,19 @@ p
             a.person__github href="https://github.com/#{person.github_handle}"
               span.ss-icon.ss-social.octocat octocat
               = person.github_handle
+
+h2 Past Members
+
+.people
+  - data.past_members.people.in_groups_of(3).each do |group|
+    ul.people-list
+      - group.compact.each do |person|
+        li.people-list__item
+          .person
+            .person__image
+              img.circular src="/images/past_members/#{person.image}"
+            h3.person__name = person.name
+            p.person__byline = "#{person.since} — #{person.until}"
+            a.person__github href="https://github.com/#{person.github_handle}"
+              span.ss-icon.ss-social.octocat octocat
+              = person.github_handle
