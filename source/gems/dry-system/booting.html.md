@@ -17,7 +17,7 @@ Here's a simple example:
 
 Application.boot(:persistence) do
   init do
-    require '3rd_party/db
+    require '3rd_party/db'
   end
 
   start do
