@@ -14,7 +14,7 @@ Bootable components are handled by component providers, which can register thems
 
 Dry::System.register_provider(
   :common,
-  boot_path: Pathname(__dir__).join('boot).realpath)
+  boot_path: Pathname(__dir__).join('boot').realpath()
 )
 ```
 
