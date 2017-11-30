@@ -36,7 +36,7 @@ class MyStepAdapters < Dry::Transaction::StepAdapters
     # In a real app, this would push the operation into a background worker queue
     QUEUE << step.operation.call(*args, input)
 
-    Right(input)
+    Dry::Monads.Right(input)
   }
 end
 
