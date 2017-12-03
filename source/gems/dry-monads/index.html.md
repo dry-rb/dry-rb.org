@@ -145,7 +145,7 @@ The result of this piece of code can be one of `Success(user)`, `Failure(:user_n
 
 ## A word of warning
 
-If you're new to monads don't over-use them. You can use [`dry-transaction`](/gems/dry-transaction') as a robust wrapper that utilizes the `Result` monad, it's a good start for diving in. Remember that monads are not a first-class concept in Ruby and with writing safer code you may end up with way too complex one which is not great either, so use them judiciously.
+If you're new to monads don't over-use them. You can use [`dry-transaction`](/gems/dry-transaction) as a robust wrapper that utilizes the `Result` monad, it's a good start for diving in. Remember that monads are not a first-class concept in Ruby and with writing safer code you may end up with way too complex one which is not great either, so use them judiciously.
 
 In any case, if you're interested in functional programming in general consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that `dry-monads` will become another instrument in your Ruby toolbox :)
 
