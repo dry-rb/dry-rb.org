@@ -1,383 +1,153 @@
 ---
-title: Introduction & Usage
+title: Introduction
 description: Common monads for Ruby
 layout: gem-single
 type: gem
 name: dry-monads
+sections:
+  - maybe
+  - result
+  - try
+  - list
 ---
 
-## Introduction
-
 `dry-monads` is a set of common monads for Ruby.
+Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`s and `else`s. The gem was inspired by [Kleisli](https://github.com/txus/kleisli) gem.
 
-Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`'s and `else`'s. The gem was inspired by [Kleisli](https://github.com/txus/kleisli) gem.
+What is a monad, anyway? Simply, [a monoid in the category of endofunctors](https://stackoverflow.com/questions/3870088/a-monad-is-just-a-monoid-in-the-category-of-endofunctors-whats-the-proble%E2%85%BF). The term comes from Category Theory and there are beliefs monads are tough to understand or explain. It's hard to say why people think so because you certainly don't need to know Category Theory for using them, just like you don't need it for, say, using functions.
 
-See [dry-matcher](/gems/dry-matcher/) for an example of how to use monads for controlling the flow of code with a result.
+Moreover, the best way to develop intuition about monads is looking at examples rather than learning theories.
 
-## Usage
+## How to use it?
 
-### Maybe monad
-
-The `Maybe` monad is used when a series of computations could return `nil` at any point.
-
-#### `bind`
-
-Applies a block to a monadic value. If the value is `Some` then calls the block passing unwrapped value as an argument. Returns itself if the value is `None`.
+Let's say you have code like this
 
 ```ruby
-require 'dry-monads'
+user = User.find(params[:id])
 
-M = Dry::Monads
+if user
+  address = user.address
+end
 
-maybe_user = M.Maybe(user).bind do |u|
-  M.Maybe(u.address).bind do |a|
-    M.Maybe(a.street)
+if address
+  city = address.city
+end
+
+if city
+  state = city.state
+end
+
+if state
+  state_name = state.name
+end
+
+user_state = state_name || "No state"
+```
+
+Writing code in this style is tedious and error-prone. There were created several "cutting-corners" means to work around this issue. The first is ActiveSupport's `.try` which is a plain global monkey patch on `NilClass` and `Object`. Another solution is using the Safe Navigation Operator `&.` introduced in Ruby 2.3 which is a bit better because this is a language feature rather than an opinionated runtime environment pollution. However, some people think these solutions are hacks and the problem reveals a missing abstraction. What kind of abstraction?
+
+When all objects from the chain of objects are there we could have this instead:
+
+```ruby
+state_name = User.find(params[:id]).address.city.state.name
+user_state = state_name || "No state"
+```
+
+By using the `Maybe` monad you can preserve the structure of this code at a cost of introducing a notion of `nil`-able result:
+
+```ruby
+state_name = Maybe(User.find(params[:id]).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
+user_state = state_name.value_or("No state")
+```
+
+`Maybe(...)` wraps the first value and returns a monadic value which either can be a `Some(user)` or `None` if `user` is `nil`. `fmap(&:address)` transforms `Some(user)` to `Some(address)` but leaves `None` intact. To get the final value you can use `value_or` which is a safe way to unwrap a `nil`-able value. In other words, once you've used `Maybe` you _cannot_ hit `nil` with a missing method. This is remarkable because even `&.` doesn't save you from omitting `|| "No state"` at the end of the computation. Basically, that's what they call "Type Safety".
+
+A more expanded example is based on _composing_ different monadic values. Suppose, we have a user and address, both can be `nil`, and we want to associate the address with the user:
+
+```ruby
+user = User.find(params[:user_id)
+address = Address.find(params[:address_id)
+
+if user && address
+  user.update(address_id: address.id)
+end
+```
+
+Again, this implies direct work with `nil`-able values which may end up with errors. A monad-way would be using another method, `bind`:
+
+```ruby
+maybe_user = Maybe(User.find(params[:user_id))
+
+maybe_user.bind do |user|
+  maybe_address = Maybe(Address.find(params[:address_id))
+
+  maybe_address.bind do |address|
+    user.update(address_id: address.id)
+  end
+end
+```
+
+One can say this code is opaque compared to the previous example but keep in mind that in _real code_ it often happens to call methods returning `Maybe` values. In this case, it might look like this:
+
+```ruby
+find_user(params[:user_id]).bind do |user|
+  find_address(params[:address_id]).bind do |address|
+    user.update(address_id: address.id)
+  end
+end
+```
+
+Another widely spread monad is `Result` (also known as `Either`) that serves a similar purpose. A notable downside of `Maybe` is plain `None` which carries no information about where this value was produced. `Result` solves exactly this problem by having two constructors for `Success` and `Failure` cases:
+
+```ruby
+def find_user(user_id)
+  user = User.find(user_id)
+
+  if user
+    Success(user)
+  else
+    Failure(:user_not_found)
   end
 end
 
-# If user with address exists
-# => Some("Street Address")
-# If user or address is nil
-# => None()
+def find_address(address_id)
+  address = Address.find(address_id)
 
-# You also can pass a proc to #bind
-
-add_two = -> (x) { M.Maybe(x + 2) }
-
-M.Maybe(5).bind(add_two).bind(add_two) # => Some(9)
-M.Maybe(nil).bind(add_two).bind(add_two) # => None()
-
-```
-
-#### `fmap`
-
-Similar to `bind` but lifts the result for you.
-
-```ruby
-require 'dry-monads'
-
-Dry::Monads::Maybe(user).fmap(&:address).fmap(&:street)
-
-# If user with address exists
-# => Some("Street Address")
-# If user or address is nil
-# => None()
-```
-
-
-#### `value`
-
-You always can unlift the result by calling `value`.
-
-```ruby
-require 'dry-monads'
-
-Dry::Monads::Some(5).fmap(&:succ).value # => 6
-
-Dry::Monads::None().fmap(&:succ).value # => nil
-
-```
-
-#### `or`
-
-The opposite of `bind`.
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-add_two = -> (x) { M.Maybe(x + 2) }
-
-M.Maybe(5).bind(add_two).bind(add_two).or(M.Some(1)) # => Some(9)
-M.Maybe(nil).bind(add_two).bind(add_two).or(M.Some(1)) # => Some(1)
-```
-
-### Either monad
-
-The `Either` monad is useful to express a series of computations that might
-return an error object with additional information.
-
-The `Either` mixin has two type constructors: `Right` and `Left`. The `Right`
-can be thought of as "everything went right" and the `Left` is used when
-"something has gone wrong".
-
-#### `Either::Mixin`
-
-```ruby
-require 'dry-monads'
-
-class EitherCalculator
-  include Dry::Monads::Either::Mixin
-
-  attr_accessor :input
-
-  def calculate
-    i = Integer(input)
-
-    Right(i).bind do |value|
-      if value > 1
-        Right(value + 3)
-      else
-        Left("value was less than 1")
-      end
-    end.bind do |value|
-      if value % 2 == 0
-        Right(value * 2)
-      else
-        Left("value was not even")
-      end
-    end
+  if address
+    Success(address)
+  else
+    Failure(:address_not_found)
   end
 end
-
-# EitherCalculator instance
-c = EitherCalculator.new
-
-# If everything went right
-c.input = 3
-result = c.calculate
-result # => Right(12)
-result.value # => 12
-
-# If it failed in the first block
-c.input = 0
-result = c.calculate
-result # => Left("value was less than 1")
-result.value # => "value was less than 1"
-
-# if it failed in the second block
-c.input = 2
-result = c.calculate
-result # => Left("value was not even")
-result.value # => "value was not even"
 ```
 
-#### `fmap`
-
-An example of using `fmap` with `Right` and `Left`.
+You can compose `find_user` and `find_address` with `bind`:
 
 ```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-result = if foo > bar
-  M.Right(10)
-else
-  M.Left("wrong")
-end.fmap { |x| x * 2 }
-
-# If everything went right
-result # => Right(20)
-# If it did not
-result # => Left("wrong")
-
-# #fmap accepts a proc, just like #bind
-
-upcase = :upcase.to_proc
-
-M.Right('hello').fmap(upcase) # => Right("HELLO")
-```
-
-#### `value`
-
-Unlift the result by calling `value`.
-
-```ruby
-M = Dry::Monads
-
-M.Right(10).value # => 10
-M.Left('Error').value # => 'Error'
-
-```
-
-#### `or`
-
-An example of using `or` with `Right` and `Left`.
-
-```ruby
-M = Dry::Monads
-
-M.Right(10).or(M.Right(99)) # => Right(10)
-M.Left("error").or(M.Left("new error")) # => Left("new error")
-M.Left("error").or { |err| M.Left("new #{err}") } # => Left("new error")
-```
-
-#### `to_maybe`
-
-Sometimes it's useful to turn an `Either` into a `Maybe`.
-
-```ruby
-require 'dry-monads'
-
-result = if foo > bar
-  Dry::Monads.Right(10)
-else
-  Dry::Monads.Left("wrong")
-end.to_maybe
-
-# If everything went right
-result # => Some(10)
-# If it did not
-result # => None()
-```
-
-#### `left?` and `right?`
-
-You can explicitly check the type by calling `left?` or `right?` on a monadic value. Also `left?` has `failure?` alias and `right?` has `success?`.
-
-### Try monad
-
-Rescues a block from an exception. `Try` monad is useful when you want to wrap some code that can raise exceptions of certain types. A common example is making HTTP request or querying a database.
-
-```ruby
-require 'dry-monads'
-
-module ExceptionalLand
-  extend Dry::Monads::Try::Mixin
-
-  res = Try() { 10 / 2 }
-  res.value if res.success?
-  # => 5
-
-  res = Try() { 10 / 0 }
-  res.exception if res.failure?
-  # => #<ZeroDivisionError: divided by 0>
-
-  # By default Try catches all exceptions inherited from StandardError.
-  # However you can catch only certain exceptions like this
-  Try(NoMethodError, NotImplementedError) { 10 / 0 }
-  # => raised ZeroDivisionError: divided by 0 exception
+find_user(params[:user_id]).bind do |user|
+  find_address(params[:address_id]).bind |address|
+    Success(user.update(address_id: address.id))
+  end
 end
 ```
 
-It is better if you pass a list of expected exceptions which you are sure you can process. Catching exceptions of all types is considered bad practice.
-
-`Try` monad consists of two types: `Success` and `Failure`. The first is returned when code did not raise an error and the second is returned when the error was captured.
-
-
-#### `bind`
-
-Works exactly the same as `Either#bind` does.
+The inner block can be simplified with `fmap`:
 
 ```ruby
-require 'dry-monads'
-
-module ExceptionalLand
-  extend Dry::Monads::Try::Mixin
-
-  Try() { 10 / 2 }.bind { |x| x * 3 }
-  # => 15
-
-  Try(ZeroDivisionError) { 10 / 0 }.bind { |x| x * 3 }
-  # => Failure(ZeroDivisionError: divided by 0)
+find_user(params[:user_id]).bind do |user|
+  find_address(params[:address_id]).fmap |address|
+    user.update(address_id: address.id)
+  end
 end
 ```
 
-#### `fmap`
+The result of this piece of code can be one of `Success(user)`, `Failure(:user_not_found)`, or `Failure(:address_not_found)`. This style of programming called "Railway Oriented Programming" and can check out [dry-transaction](/gems/dry-transaction) and watch a [nice video](https://fsharpforfunandprofit.com/rop/) on the subject. Also, see [dry-matcher](/gems/dry-matcher/) for an example of how to use monads for controlling the flow of code with a result.
 
-Allows you to chain blocks that can raise exceptions.
+## A word of warning
 
-```ruby
-Try(NetworkError, DBError) { grap_user_by_making_request }.fmap { |user| user_repo.save(user) }
+If you're new to monads don't over-use them. You can use [`dry-transaction`](/gems/dry-transaction') as a robust wrapper that utilizes the `Result` monad, it's a good start for diving in. Remember that monads are not a first-class concept in Ruby and with writing safer code you may end up with way too complex one which is not great either, so use them judiciously.
 
-# Possible outcomes:
-# => Success(persisted_user)
-# => Failure(NetworkError: request timeout)
-# => Failure(DBError: unique constraint violated)
-```
-
-#### `value` and `exception`
-
-Use `value` for unlifting a `Success` and `exception` for getting error object from a `Failure`.
-
-#### `to_either` and `to_maybe`
-
-`Try`'s `Success` and `Failure` can be transformed to `Right` and `Left` correspondingly by calling `to_either` and to `Some` and `None` by calling `to_maybe`. Keep in mind that by transforming `Try` to `Maybe` you loose information about an exception so be sure that you've processed the error before doing so.
-
-### List monad
-
-#### `bind`
-
-Lifts a block/proc and runs it against each member of the list. The block must return a value coercible to a list. As in other monads if no block given the first argument will be treated as callable and used instead.
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[1, 2].bind { |x| [x + 1] } # => List[2, 3]
-M::List[1, 2].bind(-> x { [x, x + 1] }) # => List[1, 2, 2, 3]
-
-M::List[1, nil].bind { |x| [x + 1] } # => error
-```
-
-#### `fmap`
-
-Maps a block over the list. Acts as `Array#map`. As in other monads if no block given the first argument will be treated as callable and used instead.
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[1, 2].fmap { |x| x + 1 } # => List[2, 3]
-```
-
-#### `value`
-
-You always can unlift the result by calling `value`.
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[1, 2].value # => [1, 2]
-```
-
-#### Concatenates
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[1, 2] + M::List[3, 4] # => List[1, 2, 3, 4]
-```
-
-#### `head` and `tail`
-
-`head` returns the first element wrapped with a `Maybe`.
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[1, 2, 3, 4].head # => Some(1)
-M::List[1, 2, 3, 4].tail # => List[2, 3, 4]
-```
-
-#### `traverse`
-Traverses the list with a block (or without it). This methods "flips" List structure with the given monad (obtained from the type).
-
-**Note that traversing requires the list to be typed.**
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-M::List[M::Right(1), M::Right(2)].typed(M::Either).traverse # => Right([1, 2])
-M::List[M::Maybe(1), M::Maybe(nil), M::Maybe(3)].typed(M::Maybe).traverse # => None
-
-# also, you can use fmap with #traverse
-
-M::List[1, 2].fmap { |x| M::Right(x) }.typed(M::Either).traverse # => Right([1, 2])
-M::List[1, nil, 3].fmap { |x| M::Maybe(x) }.typed(M::Maybe).traverse # => None
-```
+In any case, if you're interested in functional programming in general consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that `dry-monads` will become another instrument in your Ruby toolbox :)
 
 ## Credits
 
