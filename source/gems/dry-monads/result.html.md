@@ -83,7 +83,7 @@ class AssociateUser
     user = User.find(id)
 
     if user
-      Sucess(user)
+      Success(user)
     else
       Failure(:user_not_found)
     end
@@ -93,7 +93,7 @@ class AssociateUser
     address = Address.find(id)
 
     if address
-      Sucess(address)
+      Success(address)
     else
       Failure(:address_not_found)
     end
