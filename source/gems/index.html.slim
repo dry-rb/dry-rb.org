@@ -4,7 +4,7 @@ layout: listing
 ---
 
 ul
-  - site.gems.each do |page|
+  - site.gems.sort_by(&:name).each do |page|
     li
       h3.gem-header == link_to page.name, "/gems/#{page.name}"
       p== page.desc

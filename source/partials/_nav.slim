@@ -9,7 +9,7 @@ nav.main-nav
           ' / Docs
       .main-nav__dropdown.main-nav__dropdown--gems
         - per_group = (site.gems.length / 2).ceil
-        - site.gems.each_slice(per_group).each do |group|
+        - site.gems.sort_by(&:name).each_slice(per_group).each do |group|
           ul
             - group.each do |page|
               li
