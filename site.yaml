@@ -66,3 +66,6 @@ gems:
   -
     name: dry-web-roda
     desc: A simple web stack combining Roda with the dry-rb and rom-rb gems
+  -
+    name: dry-events
+    desc: Standalone pub/sub API
