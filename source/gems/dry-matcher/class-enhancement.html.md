@@ -9,7 +9,7 @@ You can offer a match block API from your own methods using `Dry::Matcher.for`:
 ```ruby
 require "dry-matcher"
 
-# First, build a matcher or use an existing one (like dry-matcher's EitherMatcher)
+# First, build a matcher or use an existing one (like dry-matcher's ResultMatcher)
 MyMatcher = Dry::Matcher.new(...)
 
 # Offer it from your class with `Dry::Matcher.for`

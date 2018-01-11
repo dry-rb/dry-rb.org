@@ -128,15 +128,15 @@ title: Home
               markdown:
                 ```ruby
                 class CreateArticle
-                  include Dry::Monads::Either::Mixin
-                  include Dry::Matcher.for(:call, with: Dry::Matcher::EitherMatcher)
+                  include Dry::Monads::Result::Mixin
+                  include Dry::Matcher.for(:call, with: Dry::Matcher::ResultMatcher)
 
                   def call(input)
                     if success?(input)
                       output = some_action(input)
-                      Right(output)
+                      Success(output)
                     else
-                      Left(input)
+                      Failure(input)
                     end
                   end
                 end
@@ -152,4 +152,4 @@ title: Home
                   end
                 end
                 ```
-              p.code-caption Use the Either monad to model success and failure and match on the result
+              p.code-caption Use the Result monad to model success and failure and match on the result

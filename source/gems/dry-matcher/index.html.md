@@ -1,17 +1,17 @@
 ---
 title: Introduction
-description: Expressive match API for operating on Either results
+description: Expressive match API for operating on computation results
 layout: gem-single
 type: gem
 name: dry-matcher
 sections:
   - class-enhancement
-  - either-matcher
+  - result-matcher
 ---
 
 dry-matcher offers flexible, expressive pattern matching for Ruby.
 
-You can build your own matcher or use the out-of-the-box support for matching on [dry-monads](/gems/dry-monads) `Either` results.
+You can build your own matcher or use the out-of-the-box support for matching on [dry-monads](/gems/dry-monads) `Result` values.
 
 ## Building a matcher
 
