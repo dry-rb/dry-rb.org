@@ -115,7 +115,7 @@ Providing custom view parts like this ensures more of your view logic is properl
 
 ## Decorating part attributes
 
-Your values may have their own attributes that you also want decorated by view parts. Declare these using `decorate` in your own view part classes:
+Your values may have their own attributes that you also want decorated as view parts. Declare these using `decorate` in your own view part classes:
 
 ```ruby
 class UserPart < Dry::View::Part
