@@ -125,7 +125,6 @@ end
 
 You can pass the same options to `decorate` as you do to `expose` in your view controllers.
 
-
 ## Providing a custom decorator
 
 Provide a custom _decorator_ to a view controller to control its behaviour of decorating the exposed values.
