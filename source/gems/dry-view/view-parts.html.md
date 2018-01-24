@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-view
 ---
 
-All values passed to your templates are wrapped in _view parts_, which add view-specific behaviour to your application's domain objects.
+All values exposed by a view controller are decorated and passed to your templates as _view parts_, which add view-specific behaviour to your application's domain objects.
 
 ## Accessing your values
 
@@ -65,7 +65,7 @@ class MyView < Dry::View::Controller
 end
 ```
 
-For arrays, the `:as` part class will wrap the members of the array. To wrap the array itself as well as its members, pass both part classes in hash form:
+For arrays, the `:as` part class will decorate the members of the array. To decorate the array itself, as well as its members, pass both part classes in hash form:
 
 ```ruby
 class MyView < Dry::View::Controller
@@ -73,22 +73,26 @@ class MyView < Dry::View::Controller
 end
 ```
 
+## Accessing view context
+
 In your part classes, you can access the view's [context object](/gems/dry-view/context) as `#context` (or `#_context` if your value object responds to `#context`).
 
-This makes it possible to design view parts that encapsulate value-specific and view-specific behavior that would otherwise need to be handled by a messy collection of helpers.
+This makes it possible to design view parts that encapsulate value-specific along with view-specific behavior. This is the kind of thing that would otherwise need to be handled by a messy collection of helpers.
 
-For example, if your "user" values contained raw markup for "bio" content, you could offer a method to provide the fully rendered content, while also passing view-only information to the renderer from your context object (like a CSRF token, for example). If this rendering was an expensive operation, you could also memoize it so it isn't re-run if used in more than one place.
+For example, if your "user" contains a `#bio_markup` attribute with raw markup for "bio" content, your part can offer a `#bio_html` method that returns the fully rendered content, using the context object to pass whatever view-specific information the renderer may require (like a CSRF token, for example).
+
+Since view parts object live for the entirety of the template rendering, you can memoize expensive operations like this rendering to ensure it only runs once.
 
 ```ruby
 class UserPart < Dry::View::Part
-  def bio
+  def bio_html
     @bio ||= rich_text(bio_markup)
   end
 
   private
 
   def rich_text(str)
-    rich_text_renderer.render(str, csrf_token: _context.csrf_token)
+    rich_text_renderer.render(str, csrf_token: context.csrf_token)
   end
 
   def rich_text_renderer
@@ -102,16 +106,29 @@ You could also encapsulate the rendering of partials, and thanks to the [partial
 ```ruby
 class UserPart < Dry::View::Part
   def profile
-    render :profile
+    render(:profile)
   end
 end
 ```
 
 Providing custom view parts like this ensures more of your view logic is properly encapsulated and easier to test.
 
+## Decorating part attributes
+
+Your values may have their own attributes that you also want decorated by view parts. Declare these using `decorate` in your own view part classes:
+
+```ruby
+class UserPart < Dry::View::Part
+  decorate :address, as: AddressPart
+end
+```
+
+You can pass the same options to `decorate` as you do to `expose` in your view controllers.
+
+
 ## Providing a custom decorator
 
-You can control the wrapping of all your values in view parts by providing a custom _decorator_ to your view controllers.
+Provide a custom _decorator_ to a view controller to control its behaviour of decorating the exposed values.
 
 ```ruby
 class MyView < Dry::View::Controller
@@ -140,3 +157,4 @@ class MyDecorator < Dry::View::Decorator
   end
 end
 ```
+
