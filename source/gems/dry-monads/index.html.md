@@ -56,7 +56,7 @@ user_state = state_name || "No state"
 By using the `Maybe` monad you can preserve the structure of this code at a cost of introducing a notion of `nil`-able result:
 
 ```ruby
-state_name = Maybe(User.find(params[:id]).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
+state_name = Maybe(User.find(params[:id])).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
 user_state = state_name.value_or("No state")
 ```
 
