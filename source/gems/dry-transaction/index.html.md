@@ -10,6 +10,7 @@ sections:
   - wrapping-operations
   - injecting-operations
   - step-notifications
+  - around-steps
   - step-adapters
   - custom-step-adapters
 ---
