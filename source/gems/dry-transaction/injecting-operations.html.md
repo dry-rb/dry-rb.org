@@ -19,10 +19,10 @@ class CreateUser
   step :persist, with: "operations.persist"
 end
 
-substitute_validate_step = -> input { Left(:definitely_not_valid) }
+substitute_validate_step = -> input { Failure(:definitely_not_valid) }
 
 create_user = CreateUser.new(validate: substitute_validate_step)
 
 create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Left(:definitely_not_valid)
+# => Failure(:definitely_not_valid)
 ```

@@ -6,7 +6,7 @@ name: dry-transaction
 
 ### Defining a transaction with local operations
 
-You can define a standalone transaction based around a single class and its own instance methods. Each instance method must accept an input argument and return an output wrapped in a `Right` (for success) or `Left` (for failure):
+You can define a standalone transaction based around a single class and its own instance methods. Each instance method must accept an input argument and return an output wrapped in a `Success` or `Failure`:
 
 ```ruby
 require "dry/transaction"
@@ -19,21 +19,21 @@ class CreateUser
   step :persist
 
   def process(input)
-    Right(name: input["name"], email: input["email"])
+    Success(name: input["name"], email: input["email"])
   end
 
   def validate(input)
     if input[:email].nil?
-      Left(:not_valid)
+      Failure(:not_valid)
     else
-      Right(input)
+      Success(input)
     end
   end
 
   def persist(input)
     DB << input
 
-    Right(input)
+    Success(input)
   end
 end
 ```
@@ -53,7 +53,7 @@ class Process
   include Dry::Transaction::Operation
 
   def call(input)
-    Right(name: input["name"], email: input["email"])
+    Success(name: input["name"], email: input["email"])
   end
 end
 
@@ -62,9 +62,9 @@ class Validate
 
   def call(input)
     if input[:email].nil?
-      Left(:not_valid)
+      Failure(:not_valid)
     else
-      Right(input)
+      Success(input)
     end
   end
 end
@@ -75,7 +75,7 @@ class Persist
   def call(input)
     DB << input
 
-    Right(input)
+    Success(input)
   end
 end
 
@@ -138,13 +138,13 @@ DB = []
 
 create_user = CreateUser.new
 create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Right({:name=>"Jane", :email=>"jane@doe.com"})
+# => Success({:name=>"Jane", :email=>"jane@doe.com"})
 
 DB
 # => [{:name=>"Jane", :email=>"jane@doe.com"}]
 ```
 
-Each transaction returns a result value wrapped in a `Left` or `Right` object, based on the output of its final step. You can handle these results (including errors arising from particular steps) with a match block:
+Each transaction returns a result value wrapped in a `Success` or `Failure` object, based on the output of its final step. You can handle these results (including errors arising from particular steps) with a match block:
 
 ```ruby
 create_user.call(name: "Jane", email: "jane@doe.com") do |m|
@@ -180,19 +180,19 @@ class Container
   extend Dry::Container::Mixin
 
   register :process, -> input {
-    Dry::Monads.Right(name: input["name"], email: input["email"])
+    Dry::Monads.Success(name: input["name"], email: input["email"])
   }
 
   register :validate, -> input, allowed {
-    input[:email].include?(allowed) ? Dry::Monads.Right(input) : Dry::Monads.Left(:not_valid)
+    input[:email].include?(allowed) ? Dry::Monads.Success(input) : Dry::Monads.Failure(:not_valid)
   }
 
   register :persist, -> input {
-    DB << input; Dry::Monads.Right(input)
+    DB << input; Dry::Monads.Success(input)
   }
 
   register :notify, -> input, email: {
-    MAILER << email; Dry::Monads.Right(input)
+    MAILER << email; Dry::Monads.Success(input)
   }
 end
 
@@ -213,11 +213,11 @@ create_user.with_step_args(
   validate: ["doe.com"],
   notify: [email: 'foo@bar.com'],
 ).call(input)
-# => Right({:name=>"Jane", :email=>"jane@doe.com"})
+# => Success({:name=>"Jane", :email=>"jane@doe.com"})
 
 create_user.with_step_args(
   validate: ["smith.com"],
   notify: [email: 'foo@bar.com'],
 ).call(input)
-# => Left(:not_valid)
+# => Failure(:not_valid)
 ```

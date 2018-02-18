@@ -4,7 +4,17 @@ layout: gem-single
 name: dry-transaction
 ---
 
-As well as matching on the final transaction result, you can subscribe to individual steps and trigger specific behaviours based on their success or failure:
+As well as matching on the final transaction result, you can subscribe to individual steps and trigger specific behaviours based on their success or failure.
+
+You can subscribe to events from specific steps using `#subscribe(step_name: listener)`, or subscribe to all steps via `#subscribe(listener)`.
+
+The transaction will broadcast the following events for each step:
+
+- `step` (with `step_name:` and `args:`, representing the name of the step and an array of arguments passed to the step)
+- `step_succeeded` (with `step_name:`, `args:`, and `value:`, which is the return value of the step)
+- `step_failed` (with `step_name:`, `args:`, and `value:`)
+
+For example:
 
 ```ruby
 NOTIFICATIONS = []
@@ -20,11 +30,17 @@ end
 module UserPersistListener
   extend self
 
-  def persist_success(user)
+  def on_step(event)
+    NOTIFICATIONS << "Started persistence of #{user[:email]}"
+  end
+
+  def on_step_succeeded(event)
+    user = event[:value]
     NOTIFICATIONS << "#{user[:email]} persisted"
   end
 
-  def persist_failure(user)
+  def on_step_failure(event)
+    user = event[:value]
     NOTIFICATIONS << "#{user[:email]} failed to persist"
   end
 end
@@ -34,10 +50,10 @@ create_user = CreateUser.new
 input = {"name" => "Jane", "email" => "jane@doe.com"}
 
 create_user.subscribe(persist: UserPersistListener)
-create_user.call(input, validate: ["doe.com"])
+create_user.with_step_args(validate: "doe.com").call(input)
 
 NOTIFICATIONS
-# => ["jane@doe.com persisted"]
+# => ["Started persistence of jane@doe.com", "jane@doe.com persisted"]
 ```
 
-This pub/sub mechanism is provided by the [Wisper](https://github.com/krisleech/wisper) gem. You can subscribe to specific steps using the `#subscribe(step_name: listener)` API, or subscribe to all steps via `#subscribe(listener)`.
+This pub/sub mechanism is provided by [dry-events](/gems/dry-events).
