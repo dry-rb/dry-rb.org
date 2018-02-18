@@ -30,5 +30,5 @@ end
 
 create_user = CreateUser.new
 create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Right({:name=>"JANE", :email=>"JANE@DOE.COM"})
+# => Success({:name=>"JANE", :email=>"JANE@DOE.COM"})
 ```

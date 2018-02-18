@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-transaction
 ---
 
-You can provide your own step adapters to add custom behaviour to transaction steps. Your step adapters must provide a single `#call(step, input, *args)` method, which should return the step’s result wrapped in an `Either` object.
+You can provide your own step adapters to add custom behaviour to transaction steps. Your step adapters must provide a single `#call(step, input, *args)` method, which should return the step’s result wrapped in a `Result` object.
 
 You can provide your step adapter in a few different ways. You can add it to the built-in `StepAdapters` container (a [`dry-container`](http://dry-rb.org/gems/dry-container)) to make it available to all transactions in your codebase:
 
@@ -36,7 +36,7 @@ class MyStepAdapters < Dry::Transaction::StepAdapters
     # In a real app, this would push the operation into a background worker queue
     QUEUE << step.operation.call(input, *args)
 
-    Dry::Monads.Right(input)
+    Dry::Monads.Success(input)
   }
 end
 

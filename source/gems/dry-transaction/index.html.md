@@ -31,7 +31,7 @@ sections:
 
 Requiring a business transaction’s steps to be independent operations directly addressable via a container means that they can be tested in isolation and easily reused throughout your application. The business transaction can then become a simple series of declarative steps, which ensures that it’s easy to understand at a glance.
 
-The output of each step is a [dry-monads](https://github.com/dry-rb/dry-monads) `Either` object (`Right` for success or `Left` for failure). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning an `Either` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic.
+The output of each step is a [dry-monads](https://github.com/dry-rb/dry-monads) `Result` object (either a `Success` or `Failure`). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning a `Result` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic.
 
 ## Links
 
