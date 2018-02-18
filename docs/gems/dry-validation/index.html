@@ -8,7 +8,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>It is based on the idea that each validation is encapsulated by a simple, stateless predicate that receives some input and returns either <code>true</code> or <code>false</code>.  Those predicates are encapsulated by <code>rules</code> which can be composed together using <code>predicate logic</code>. This means you can use the common logic operators to build up a validation <code>schema</code>.</p>
 
-<p>Validations can be described with great precision, <code>dry-validation</code> eliminates ambigious concepts like <code>presence</code> validation where we can&rsquo;t really say whether some attribute or key is <em>missing</em> or it&rsquo;s just that the value is <code>nil</code>.</p>
+<p>Validations can be described with great precision, <code>dry-validation</code> eliminates ambiguous concepts like <code>presence</code> validation where we can&rsquo;t really say whether some attribute or key is <em>missing</em> or it&rsquo;s just that the value is <code>nil</code>.</p>
 
 <p>In <code>dry-validation</code> type-safety is a first-class feature, something that&rsquo;s completely missing in other validation libraries, and it&rsquo;s an important and useful feature. It means you can compose a validation that relies on the type of a given value. For example it makes no sense to validate each element of an array when it turns out to be an empty string.</p>
 
