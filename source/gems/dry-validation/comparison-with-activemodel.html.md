@@ -194,7 +194,7 @@ validates :attr, format: { with: regex }
 **dry-validation**
 
 ```ruby
-required(:attr).required(format?: regex)
+required(:attr).filled(format?: regex)
 ```
 
 #### Doesn't Match
