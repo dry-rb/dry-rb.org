@@ -9,6 +9,7 @@ sections:
   - result
   - try
   - list
+  - case-equality
 ---
 
 `dry-monads` is a set of common monads for Ruby.
