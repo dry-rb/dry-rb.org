@@ -26,5 +26,31 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">schema</span> <span class="o">=</span> <span class="no">UserSchema</span><span class="p">.</span><span class="nf">with</span><span class="p">(</span><span class="ss">ids: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
 <span class="n">schema</span><span class="o">.</span><span class="p">(</span><span class="ss">id: </span><span class="mi">4</span><span class="p">).</span><span class="nf">errors</span>
-<span class="c1"># {:valid_id=&gt;["id is not valid"]}</span>
+<span class="c1"># =&gt; {:valid_id=&gt;["id is not valid"]}</span>
+</code></pre>
+<p>Also, <code>validate</code> method allow more than one attribute:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+  <span class="n">configure</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">messages</span>
+      <span class="k">super</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="ss">en: </span><span class="p">{</span> <span class="ss">errors: </span><span class="p">{</span> <span class="ss">email_required: </span><span class="s1">'provide email'</span> <span class="p">}})</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:newsletter</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:bool?</span><span class="p">)</span>
+
+  <span class="n">validate</span><span class="p">(</span><span class="ss">email_required: </span><span class="sx">%i[newsletter email]</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">newsletter</span><span class="p">,</span> <span class="n">email</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">newsletter</span> <span class="o">==</span> <span class="kp">true</span>
+      <span class="o">!</span><span class="n">email</span><span class="p">.</span><span class="nf">nil?</span>
+    <span class="k">else</span>
+      <span class="kp">true</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">(</span><span class="ss">newsletter: </span><span class="kp">false</span><span class="p">,</span> <span class="ss">email: </span><span class="kp">nil</span><span class="p">)</span>
+<span class="c1"># =&gt; success</span>
+
+<span class="n">schema</span><span class="o">.</span><span class="p">(</span><span class="ss">newsletter: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">email: </span><span class="kp">nil</span><span class="p">)</span>
+<span class="c1"># =&gt; {:email_required=&gt;["provide email"]}</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>

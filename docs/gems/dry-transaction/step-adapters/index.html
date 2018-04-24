@@ -8,7 +8,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <ul>
 <li><code>map</code> – any output is considered successful and returned as <code>Success(output)</code></li>
-<li><code>check</code> - the operation returns a boolean. True values are return the original input as <code>Success(input)</code>. Any other values return the original input as <code>Failure(input)</code>.</li>
+<li><code>check</code> - the operation returns a boolean. True values return the original input as <code>Success(input)</code>. Any other values return the original input as <code>Failure(input)</code>.</li>
 <li><code>try</code> – the operation may raise an exception in an error case. This is caught and returned as <code>Failure(exception)</code>. The output is otherwise returned as <code>Success(output)</code>.</li>
 <li><code>tee</code> – the operation interacts with some external system and has no meaningful output. The original input is passed through and returned as <code>Success(input)</code>.</li>
 </ul>
