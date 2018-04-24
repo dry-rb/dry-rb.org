@@ -10,7 +10,7 @@ Install the gem and NPM dependencies:
 
 ```
 bundle
-npm install
+yarn
 ```
 
 Run `bundle exec rake watch` and visit the site at [http://localhost:4567](http://localhost:4567).
