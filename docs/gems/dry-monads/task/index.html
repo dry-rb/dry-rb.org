@@ -4,11 +4,11 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-2573270-8', 'auto');
-ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-core">dry-core</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li><li><a href="/gems/dry-events">dry-events</a></li><li><a href="/gems/dry-inflector">dry-inflector</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li></ul><ul><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-view">dry-view</a></li><li><a href="/gems/dry-web-roda">dry-web-roda</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-monads</h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-monads">View dry-monads on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-monads/" class="">Introduction</a><li><a href="/gems/dry-monads/maybe/" class="">Maybe</a></li><li><a href="/gems/dry-monads/result/" class="">Result</a></li><li><a href="/gems/dry-monads/try/" class="">Try</a></li><li><a href="/gems/dry-monads/list/" class="">List</a></li><li><a href="/gems/dry-monads/case-equality/" class="">Case Equality</a></li></li></ul></aside><article class="gem-article"><h2>Task</h2><p><code>Task</code> represents an asynchronous computation. It is similar to the <code>IO</code> type in a sense it can be used to wrap side-effectful actions. <code>Task</code>s are usually run on a thread pool but also can be executed immediately on the current thread. Internally, <code>Task</code> uses <code>Promise</code> from the <code>concurrent-ruby</code> gem, basically it&rsquo;s a thin wrapper with a monadic interface which makes it easily compatible with other monads.</p>
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-core">dry-core</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li><li><a href="/gems/dry-events">dry-events</a></li><li><a href="/gems/dry-inflector">dry-inflector</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li></ul><ul><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-view">dry-view</a></li><li><a href="/gems/dry-web-roda">dry-web-roda</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-monads</h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-monads">View dry-monads on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-monads/" class="">Introduction</a><li><a href="/gems/dry-monads/maybe/" class="">Maybe</a></li><li><a href="/gems/dry-monads/result/" class="">Result</a></li><li><a href="/gems/dry-monads/try/" class="">Try</a></li><li><a href="/gems/dry-monads/list/" class="">List</a></li><li><a href="/gems/dry-monads/case-equality/" class="">Case Equality</a></li><li><a href="/gems/dry-monads/task/" class="active">Task</a></li></li></ul></aside><article class="gem-article"><h2>Task</h2><p><code>Task</code> represents an asynchronous computation. It is similar to the <code>IO</code> type in a sense it can be used to wrap side-effectful actions. <code>Task</code>s are usually run on a thread pool but also can be executed immediately on the current thread. Internally, <code>Task</code> uses <code>Promise</code> from the <a href="https://github.com/ruby-concurrency/concurrent-ruby"><code>concurrent-ruby</code></a> gem, basically it&rsquo;s a thin wrapper with a monadic interface which makes it easily composable with other monads.</p>
 
 <h3 id="task-mixin"><code>Task::Mixin</code></h3>
 
-<p>The following examples use the Ruby 2.5+ syntax which allows passing a block to <code>.[]</code>.</p>
+<p>Basic usage.</p>
 <pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
 
 <span class="k">class</span> <span class="nc">PullUsersWithPosts</span>
@@ -37,140 +37,72 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="c1"># ResultCalculator instance</span>
-<span class="n">pull</span> <span class="o">=</span> <span class="no">ResultCalculator</span><span class="p">.</span><span class="nf">new</span>
+<span class="c1"># PullUsersWithPosts instance</span>
+<span class="n">pull</span> <span class="o">=</span> <span class="no">PullUsersWithPosts</span><span class="p">.</span><span class="nf">new</span>
 
-<span class="c1"># If everything went success</span>
-<span class="n">c</span><span class="p">.</span><span class="nf">input</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">calculate</span>
-<span class="n">result</span> <span class="c1"># =&gt; Success(12)</span>
+<span class="c1"># Spin up two tasks</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">pull</span><span class="p">.</span><span class="nf">call</span>
 
-<span class="c1"># If it failed in the first block</span>
-<span class="n">c</span><span class="p">.</span><span class="nf">input</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">calculate</span>
-<span class="n">result</span> <span class="c1"># =&gt; Failure("value was less than 1")</span>
-
-<span class="c1"># if it failed in the second block</span>
-<span class="n">c</span><span class="p">.</span><span class="nf">input</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">calculate</span>
-<span class="n">result</span> <span class="c1"># =&gt; Failure("value was not even")</span>
-</code></pre>
-<h3 id="bind"><code>bind</code></h3>
-
-<p>Use <code>bind</code> for composing several possibly-failing operations:</p>
-<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
-
-<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
-
-<span class="k">class</span> <span class="nc">AssociateUser</span>
-  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">user_id</span><span class="p">:,</span> <span class="n">address_id</span><span class="p">:)</span>
-    <span class="n">find_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">).</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
-      <span class="n">find_address</span><span class="p">(</span><span class="n">address_id</span><span class="p">).</span><span class="nf">fmap</span> <span class="k">do</span> <span class="o">|</span><span class="n">address</span><span class="o">|</span>
-        <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="kp">private</span>
-
-  <span class="k">def</span> <span class="nf">find_user</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-    <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">user</span>
-      <span class="no">Success</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-    <span class="k">else</span>
-      <span class="no">Failure</span><span class="p">(</span><span class="ss">:user_not_found</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">find_address</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-    <span class="n">address</span> <span class="o">=</span> <span class="no">Address</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">address</span>
-      <span class="no">Success</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-    <span class="k">else</span>
-      <span class="no">Failure</span><span class="p">(</span><span class="ss">:address_not_found</span><span class="p">)</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
+<span class="n">task</span><span class="p">.</span><span class="nf">fmap</span> <span class="k">do</span> <span class="o">|</span><span class="n">users</span><span class="p">,</span> <span class="n">posts</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"Users: </span><span class="si">#{</span> <span class="n">users</span><span class="p">.</span><span class="nf">inspect</span> <span class="si">}</span><span class="s2">"</span>
+  <span class="nb">puts</span> <span class="s2">"Posts: </span><span class="si">#{</span> <span class="n">posts</span><span class="p">.</span><span class="nf">inspect</span> <span class="si">}</span><span class="s2">"</span>
 <span class="k">end</span>
 
-<span class="no">AssociateUser</span><span class="p">.</span><span class="nf">new</span><span class="o">.</span><span class="p">(</span><span class="ss">user_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">address_id: </span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"----"</span> <span class="c1"># this will be printed before the lines above</span>
 </code></pre>
-<h3 id="fmap"><code>fmap</code></h3>
+<h3 id="executors">Executors</h3>
 
-<p>An example of using <code>fmap</code> with <code>Success</code> and <code>Failure</code>.</p>
-<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+<p>Tasks are performed by executors, there are three executors predefined by <code>concurrent-ruby</code> identified by symbols:</p>
 
-<span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+<ul>
+<li><code>:fast</code> – for fast asynchronous tasks, uses a thread pool</li>
+<li><code>:io</code> – for long IO-bound tasks, uses a thread pool, different from <code>:fast</code></li>
+<li><code>:immediate</code> – runs tasks immediately, on the current thread. Can be used in tests or for other purposes</li>
+</ul>
 
-<span class="n">result</span> <span class="o">=</span> <span class="k">if</span> <span class="n">foo</span> <span class="o">&gt;</span> <span class="n">bar</span>
-  <span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">else</span>
-  <span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"wrong"</span><span class="p">)</span>
-<span class="k">end</span><span class="p">.</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+<p>You can create your own executors, check out the <a href="http://ruby-concurrency.github.io/concurrent-ruby/root/Concurrent.html">docs</a> for more on this.</p>
 
-<span class="c1"># If everything went success</span>
-<span class="n">result</span> <span class="c1"># =&gt; Success(20)</span>
-<span class="c1"># If it did not</span>
-<span class="n">result</span> <span class="c1"># =&gt; Failure("wrong")</span>
+<p>The following examples use the Ruby 2.5+ syntax which allows passing a block to <code>.[]</code>.</p>
+<pre class="syntax ruby"><code><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="n">do_http_request</span> <span class="p">}</span>
 
-<span class="c1"># #fmap accepts a proc, just like #bind</span>
+<span class="no">Task</span><span class="p">[</span><span class="ss">:fast</span><span class="p">]</span> <span class="p">{</span> <span class="n">cpu_intensive_computation</span> <span class="p">}</span>
 
-<span class="n">upcase</span> <span class="o">=</span> <span class="ss">:upcase</span><span class="p">.</span><span class="nf">to_proc</span>
+<span class="no">Task</span><span class="p">[</span><span class="ss">:immediate</span><span class="p">]</span> <span class="p">{</span> <span class="n">unsafe_io_operation</span> <span class="p">}</span>
 
-<span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">).</span><span class="nf">fmap</span><span class="p">(</span><span class="n">upcase</span><span class="p">)</span> <span class="c1"># =&gt; Success("HELLO")</span>
+<span class="c1"># You can pass an executor object</span>
+<span class="no">Task</span><span class="p">[</span><span class="n">my_executor</span><span class="p">]</span> <span class="p">{</span> <span class="p">.</span><span class="nf">.</span><span class="o">.</span> <span class="p">}</span>
 </code></pre>
-<h3 id="value_or"><code>value_or</code></h3>
+<h3 id="exception-handling">Exception handling</h3>
 
-<p><code>value_or</code> is a safe and recommended way of extracting values.</p>
-<pre class="syntax ruby"><code><span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
+<p>All exceptions happening in <code>Task</code> are captured, even if you&rsquo;re using the <code>:immediate</code> executor, they won&rsquo;t be re-raised.</p>
+<pre class="syntax ruby"><code><span class="n">io_fail</span> <span class="o">=</span> <span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}</span>
+<span class="n">io_fail</span> <span class="c1"># =&gt; Task(error=#&lt;ZeroDivisionError: divided by 0&gt;)</span>
 
-<span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">value_or</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># =&gt; 10</span>
-<span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s1">'Error'</span><span class="p">).</span><span class="nf">value_or</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># =&gt; 0</span>
+<span class="n">immediate_fail</span> <span class="o">=</span> <span class="no">Task</span><span class="p">[</span><span class="ss">:immediate</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}</span>
+<span class="n">immediate_fail</span> <span class="c1"># =&gt; Task(error=#&lt;ZeroDivisionError: divided by 0&gt;)</span>
 </code></pre>
-<h3 id="value"><code>value!</code></h3>
-
-<p>If you&rsquo;re 100% sure you&rsquo;re dealing with a <code>Success</code> case you might use <code>value!</code> for extracting the value without providing a default. Beware, this will raise an exception if you call it on <code>Failure</code>.</p>
-<pre class="syntax ruby"><code><span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
-
-<span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">value!</span> <span class="c1"># =&gt; 10</span>
-
-<span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s1">'Error'</span><span class="p">).</span><span class="nf">value!</span>
-<span class="c1"># =&gt; Dry::Monads::UnwrapError: value! was called on Failure</span>
+<p>You can process failures with <code>or</code> and <code>or_fmap</code>:</p>
+<pre class="syntax ruby"><code><span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:immediate</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}.</span><span class="nf">or</span> <span class="p">{</span> <span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:immediate</span><span class="p">]</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">}</span> <span class="c1"># =&gt; Task(value=0)</span>
+<span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:immediate</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}.</span><span class="nf">or_fmap</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span> <span class="c1"># =&gt; Task(value=0)</span>
 </code></pre>
-<h3 id="or"><code>or</code></h3>
+<h3 id="extracting-result">Extracting result</h3>
 
-<p>An example of using <code>or</code> with <code>Success</code> and <code>Failure</code>.</p>
-<pre class="syntax ruby"><code><span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
-
-<span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="nf">or</span><span class="p">(</span><span class="no">M</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">99</span><span class="p">))</span> <span class="c1"># =&gt; Success(10)</span>
-<span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"error"</span><span class="p">).</span><span class="nf">or</span><span class="p">(</span><span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"new error"</span><span class="p">))</span> <span class="c1"># =&gt; Failure("new error")</span>
-<span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"error"</span><span class="p">).</span><span class="nf">or</span> <span class="p">{</span> <span class="o">|</span><span class="n">err</span><span class="o">|</span> <span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"new </span><span class="si">#{</span><span class="n">err</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span> <span class="p">}</span> <span class="c1"># =&gt; Failure("new error")</span>
+<p>Getting the result of a task is an unsafe operation, it blocks the current thread until the task is finished, then returns the value or raises an exception if the evaluation wasn&rsquo;t sucessful. It effectively cancels all niceties of tasks so you shouldn&rsquo;t use it in production code.</p>
+<pre class="syntax ruby"><code><span class="no">M</span><span class="o">.</span><span class="no">Task</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}.</span><span class="nf">value!</span> <span class="c1"># =&gt; 0</span>
+<span class="no">M</span><span class="o">.</span><span class="no">Task</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}.</span><span class="nf">value!</span> <span class="c1"># =&gt; ZeroDivisionError: divided by 0</span>
 </code></pre>
-<h3 id="failure"><code>failure</code></h3>
+<p>You can wait for a task to complete, the <code>wait</code> method accepts an optional timeout. <code>.wait</code> returns the task back, without unwrapping the result so it&rsquo;s a blocking yet safe operation:</p>
+<pre class="syntax ruby"><code><span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}.</span><span class="nf">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># =&gt; Task(value=2)</span>
+<span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="nb">sleep</span> <span class="mi">2</span><span class="p">;</span> <span class="mi">2</span> <span class="p">}.</span><span class="nf">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># =&gt; Task(?)</span>
 
-<p>Use <code>failure</code> for unwrapping the value from a <code>Failure</code> instance.</p>
-<pre class="syntax ruby"><code><span class="no">M</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span>
-
-<span class="no">M</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s1">'Error'</span><span class="p">).</span><span class="nf">failure</span> <span class="c1"># =&gt; "Error"</span>
+<span class="c1"># (?) denotes an unfinished computation</span>
 </code></pre>
-<h3 id="to_maybe"><code>to_maybe</code></h3>
+<h3 id="conversions">Conversions</h3>
 
-<p>Sometimes it&rsquo;s useful to turn a <code>Result</code> into a <code>Maybe</code>.</p>
-<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-monads'</span>
+<p>Tasks can be converted to other monads but keep in mind that all conversions block the current thread:</p>
+<pre class="syntax ruby"><code><span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}.</span><span class="nf">to_result</span> <span class="c1"># =&gt; Success(2)</span>
+<span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}.</span><span class="nf">to_result</span> <span class="c1"># =&gt; Failure(#&lt;ZeroDivisionError: divided by 0&gt;)</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="k">if</span> <span class="n">foo</span> <span class="o">&gt;</span> <span class="n">bar</span>
-  <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">.</span><span class="no">Success</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">else</span>
-  <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">.</span><span class="no">Failure</span><span class="p">(</span><span class="s2">"wrong"</span><span class="p">)</span>
-<span class="k">end</span><span class="p">.</span><span class="nf">to_maybe</span>
-
-<span class="c1"># If everything went success</span>
-<span class="n">result</span> <span class="c1"># =&gt; Some(10)</span>
-<span class="c1"># If it did not</span>
-<span class="n">result</span> <span class="c1"># =&gt; None()</span>
-</code></pre>
-<h3 id="failure-and-success"><code>failure?</code> and <code>success?</code></h3>
-
-<p>You can explicitly check the type by calling <code>failure?</code> or <code>success?</code> on a monadic value.</p>
-</article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
+<span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}.</span><span class="nf">to_maybe</span> <span class="c1"># =&gt; Some(2)</span>
+<span class="no">M</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span> <span class="mi">1</span><span class="o">/</span><span class="mi">0</span> <span class="p">}.</span><span class="nf">to_maybe</span> <span class="c1"># =&gt; None</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
