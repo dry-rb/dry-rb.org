@@ -4,11 +4,11 @@ layout: gem-single
 name: dry-monads
 ---
 
-`Task` represents an asynchronous computation. It is similar to the `IO` type in a sense it can be used to wrap side-effectful actions. `Task`s are usually run on a thread pool but also can be executed immediately on the current thread. Internally, `Task` uses `Promise` from the `concurrent-ruby` gem, basically it's a thin wrapper with a monadic interface which makes it easily compatible with other monads.
+`Task` represents an asynchronous computation. It is similar to the `IO` type in a sense it can be used to wrap side-effectful actions. `Task`s are usually run on a thread pool but also can be executed immediately on the current thread. Internally, `Task` uses `Promise` from the [`concurrent-ruby`](https://github.com/ruby-concurrency/concurrent-ruby) gem, basically it's a thin wrapper with a monadic interface which makes it easily composable with other monads.
 
 ### `Task::Mixin`
 
-The following examples use the Ruby 2.5+ syntax which allows passing a block to `.[]`.
+Basic usage.
 
 ```ruby
 require 'dry-monads'
@@ -39,161 +39,89 @@ class PullUsersWithPosts
   end
 end
 
-# ResultCalculator instance
-pull = ResultCalculator.new
+# PullUsersWithPosts instance
+pull = PullUsersWithPosts.new
 
-# If everything went success
-c.input = 3
-result = c.calculate
-result # => Success(12)
+# Spin up two tasks
+task = pull.call
 
-# If it failed in the first block
-c.input = 0
-result = c.calculate
-result # => Failure("value was less than 1")
-
-# if it failed in the second block
-c.input = 2
-result = c.calculate
-result # => Failure("value was not even")
-```
-
-### `bind`
-
-Use `bind` for composing several possibly-failing operations:
-
-```ruby
-require 'dry-monads'
-
-M = Dry::Monads
-
-class AssociateUser
-  def call(user_id:, address_id:)
-    find_user(user_id).bind do |user|
-      find_address(address_id).fmap do |address|
-        user.update(address_id: address.id)
-      end
-    end
-  end
-
-  private
-
-  def find_user(id)
-    user = User.find(id)
-
-    if user
-      Success(user)
-    else
-      Failure(:user_not_found)
-    end
-  end
-
-  def find_address(id)
-    address = Address.find(id)
-
-    if address
-      Success(address)
-    else
-      Failure(:address_not_found)
-    end
-  end
+task.fmap do |users, posts|
+  puts "Users: #{ users.inspect }"
+  puts "Posts: #{ posts.inspect }"
 end
 
-AssociateUser.new.(user_id: 1, address_id: 2)
+puts "----" # this will be printed before the lines above
 ```
 
-### `fmap`
 
-An example of using `fmap` with `Success` and `Failure`.
+### Executors
+
+Tasks are performed by executors, there are three executors predefined by `concurrent-ruby` identified by symbols:
+
+  - `:fast` – for fast asynchronous tasks, uses a thread pool
+  - `:io` – for long IO-bound tasks, uses a thread pool, different from `:fast`
+  - `:immediate` – runs tasks immediately, on the current thread. Can be used in tests or for other purposes
+
+You can create your own executors, check out the [docs](http://ruby-concurrency.github.io/concurrent-ruby/root/Concurrent.html) for more on this.
+
+The following examples use the Ruby 2.5+ syntax which allows passing a block to `.[]`.
 
 ```ruby
-require 'dry-monads'
+Task[:io] { do_http_request }
 
-M = Dry::Monads
+Task[:fast] { cpu_intensive_computation }
 
-result = if foo > bar
-  M.Success(10)
-else
-  M.Failure("wrong")
-end.fmap { |x| x * 2 }
+Task[:immediate] { unsafe_io_operation }
 
-# If everything went success
-result # => Success(20)
-# If it did not
-result # => Failure("wrong")
-
-# #fmap accepts a proc, just like #bind
-
-upcase = :upcase.to_proc
-
-M.Success('hello').fmap(upcase) # => Success("HELLO")
+# You can pass an executor object
+Task[my_executor] { ... }
 ```
 
-### `value_or`
+### Exception handling
 
-`value_or` is a safe and recommended way of extracting values.
+All exceptions happening in `Task` are captured, even if you're using the `:immediate` executor, they won't be re-raised.
 
 ```ruby
-M = Dry::Monads
+io_fail = Task[:io] { 1/0 }
+io_fail # => Task(error=#<ZeroDivisionError: divided by 0>)
 
-M.Success(10).value_or(0) # => 10
-M.Failure('Error').value_or(0) # => 0
+immediate_fail = Task[:immediate] { 1/0 }
+immediate_fail # => Task(error=#<ZeroDivisionError: divided by 0>)
 ```
 
-### `value!`
-
-If you're 100% sure you're dealing with a `Success` case you might use `value!` for extracting the value without providing a default. Beware, this will raise an exception if you call it on `Failure`.
+You can process failures with `or` and `or_fmap`:
 
 ```ruby
-M = Dry::Monads
-
-M.Success(10).value! # => 10
-
-M.Failure('Error').value!
-# => Dry::Monads::UnwrapError: value! was called on Failure
+M::Task[:immediate] { 1/0 }.or { M::Task[:immediate] { 0 } } # => Task(value=0)
+M::Task[:immediate] { 1/0 }.or_fmap { 0 } # => Task(value=0)
 ```
 
-### `or`
+### Extracting result
 
-An example of using `or` with `Success` and `Failure`.
+Getting the result of a task is an unsafe operation, it blocks the current thread until the task is finished, then returns the value or raises an exception if the evaluation wasn't sucessful. It effectively cancels all niceties of tasks so you shouldn't use it in production code.
 
 ```ruby
-M = Dry::Monads
-
-M.Success(10).or(M.Success(99)) # => Success(10)
-M.Failure("error").or(M.Failure("new error")) # => Failure("new error")
-M.Failure("error").or { |err| M.Failure("new #{err}") } # => Failure("new error")
+M.Task { 0 }.value! # => 0
+M.Task { 1/0 }.value! # => ZeroDivisionError: divided by 0
 ```
 
-### `failure`
-
-Use `failure` for unwrapping the value from a `Failure` instance.
+You can wait for a task to complete, the `wait` method accepts an optional timeout. `.wait` returns the task back, without unwrapping the result so it's a blocking yet safe operation:
 
 ```ruby
-M = Dry::Monads
+M::Task[:io] { 2 }.wait(1) # => Task(value=2)
+M::Task[:io] { sleep 2; 2 }.wait(1) # => Task(?)
 
-M.Failure('Error').failure # => "Error"
+# (?) denotes an unfinished computation
 ```
 
-### `to_maybe`
+### Conversions
 
-Sometimes it's useful to turn a `Result` into a `Maybe`.
+Tasks can be converted to other monads but keep in mind that all conversions block the current thread:
 
 ```ruby
-require 'dry-monads'
+M::Task[:io] { 2 }.to_result # => Success(2)
+M::Task[:io] { 1/0 }.to_result # => Failure(#<ZeroDivisionError: divided by 0>)
 
-result = if foo > bar
-  Dry::Monads.Success(10)
-else
-  Dry::Monads.Failure("wrong")
-end.to_maybe
-
-# If everything went success
-result # => Some(10)
-# If it did not
-result # => None()
+M::Task[:io] { 2 }.to_maybe # => Some(2)
+M::Task[:io] { 1/0 }.to_maybe # => None
 ```
-
-### `failure?` and `success?`
-
-You can explicitly check the type by calling `failure?` or `success?` on a monadic value.

@@ -10,6 +10,7 @@ sections:
   - try
   - list
   - case-equality
+  - task
 ---
 
 `dry-monads` is a set of common monads for Ruby.
