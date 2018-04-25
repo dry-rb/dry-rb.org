@@ -54,3 +54,16 @@ inflector.singularize("thieves") # => "thief"
 
 inflector.pluralize("dry-inflector") # => "dry-inflector"
 ```
+
+### Acronyms
+
+```ruby
+require "dry/inflector"
+
+inflector = Dry::Inflector.new do |inflections|
+  inflections.acronym "HTTP", "XML"
+end
+
+inflector.underscore("XMLHTTPRequest") # => "xml_http_request"
+inflector.camelize("xml_http_request") # => "XMLHTTPRequest"
+```
