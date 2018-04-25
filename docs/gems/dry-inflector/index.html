@@ -45,4 +45,14 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="n">inflector</span><span class="p">.</span><span class="nf">singularize</span><span class="p">(</span><span class="s2">"thieves"</span><span class="p">)</span> <span class="c1"># =&gt; "thief"</span>
 
 <span class="n">inflector</span><span class="p">.</span><span class="nf">pluralize</span><span class="p">(</span><span class="s2">"dry-inflector"</span><span class="p">)</span> <span class="c1"># =&gt; "dry-inflector"</span>
+</code></pre>
+<h3 id="acronyms">Acronyms</h3>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"dry/inflector"</span>
+
+<span class="n">inflector</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Inflector</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">inflections</span><span class="o">|</span>
+  <span class="n">inflections</span><span class="p">.</span><span class="nf">acronym</span> <span class="s2">"HTTP"</span><span class="p">,</span> <span class="s2">"XML"</span>
+<span class="k">end</span>
+
+<span class="n">inflector</span><span class="p">.</span><span class="nf">underscore</span><span class="p">(</span><span class="s2">"XMLHTTPRequest"</span><span class="p">)</span> <span class="c1"># =&gt; "xml_http_request"</span>
+<span class="n">inflector</span><span class="p">.</span><span class="nf">camelize</span><span class="p">(</span><span class="s2">"xml_http_request"</span><span class="p">)</span> <span class="c1"># =&gt; "XMLHTTPRequest"</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
