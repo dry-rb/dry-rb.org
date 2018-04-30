@@ -4,112 +4,169 @@ layout: gem-single
 name: dry-types
 ---
 
-The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.
+It is possible to define a type definition of a hash with known keys and value types. Let's say you want describe a hash containing the name and age of a user:
 
-Hash schemas are typically used under the hood of other libraries. In example dry-validation uses `:symbolized` schema in `Form` validations, which safely processes values in a hash and returns output with symbolized keys or dry-struct uses hash schemas to process struct attributes. If you want to use hash schemas standalone, or configure them for your dry structs, it's important to understand differences in behavior:
-
-### Input contains a value with an invalid type
-
-| constructor type      | Behavior                         |
-| :----                 | :---                             |
-| `:schema`               | Raises an error                  |
-| `:weak`                 | Includes invalid value in output |
-| `:permissive`           | Raises an error                  |
-| `:strict`               | Raises an error                  |
-| `:strict_with_defaults` | Raises an error                  |
-| `:symbolized`           | Includes invalid value in output |
-
-### Input omits a key for a value that does not have a default
-
-| constructor type      | Behavior                         |
-| :----                 | :---                             |
-| `:schema`               | Produces output without that key |
-| `:weak`                 | Produces output without that key |
-| `:permissive`           | Raises an error                  |
-| `:strict`               | Raises an error                  |
-| `:strict_with_defaults` | Raises an error                  |
-| `:symbolized`           | Produces output without that key |
-
-### Input omits a key for a value that has a default
-
-| constructor type      | Behavior               |
-| :----                 | :---                   |
-| `:schema`               | Fills in default value |
-| `:weak`                 | Fills in default value |
-| `:permissive`           | Raises an error        |
-| `:strict`               | Raises an error        |
-| `:strict_with_defaults` | Fills in default value |
-| `:symbolized`           | Fills in default value |
-
-### Input includes a key that was not specified in the schema
-
-| constructor type      | Behavior                    |
-| :----                 | :---                        |
-| `:schema`               | Omits the unspecified value |
-| `:weak`                 | Omits the unspecified value |
-| `:permissive`           | Omits the unspecified value |
-| `:strict`               | Raises an error             |
-| `:strict_with_defaults` | Raises an error             |
-| `:symbolized`           | Omits the unspecified value |
-
-### Input contains `nil` for a value that specifies a default
-
-| constructor type      | Behavior               |
-| :----                 | :---                   |
-| `:schema`               | Fills in default value |
-| `:weak`                 | Fills in default value |
-| `:permissive`           | Fills in default value |
-| `:strict`               | Raises an error        |
-| `:strict_with_defaults` | Raises an error        |
-| `:symbolized`           | Fills in default value |
-
-### Input contains string keys instead of symbol keys
-
-| constructor type      | Behavior                       |
-| :----                 | :---                           |
-| `:schema`               | Raises an error                |
-| `:weak`                 | Raises an error                |
-| `:permissive`           | Raises an error                |
-| `:strict`               | Raises an error                |
-| `:strict_with_defaults` | Raises an error                |
-| `:symbolized`           | Coerces string keys to symbols |
-
-## Example Usage
-
-### Hash Schema
-
-``` ruby
+```ruby
 # using simple kernel coercions
-hash = Types::Hash.schema(name: Types::String, age: Types::Coercible::Int)
+user_hash = Types::Hash.schema(name: Types::Strict::String, age: Types::Coercible::Integer)
 
-hash[name: 'Jane', age: '21']
-# => { :name => "Jane", :age => 21 }
-
-# using form param coercions
-hash = Types::Hash.schema(name: Types::String, birthdate: Form::Date)
-
-hash[name: 'Jane', birthdate: '1994-11-11']
-# => { :name => "Jane", :birthdate => #<Date: 1994-11-11 ((2449668j,0s,0n),+0s,2299161j)> }
+user_hash[name: 'Jane', age: '21']
+# => { name: 'Jane', age: 21 }
+# :name left untouched and :age was coerced to Integer
 ```
 
-### Permissive Schema
+If a value doesn't conform to the type, an error is raised:
 
-Permissive hash will raise errors when keys are missing or value types are incorrect.
-
-``` ruby
-hash = Types::Hash.permissive(name: Types::String, age: Types::Coercible::Int)
-
-hash[email: 'jane@doe.org', name: 'Jane', age: 21]
-# => Dry::Types::SchemaKeyError: :email is missing in Hash input
+```ruby
+user_hash[name: :Jane, age: '21']
+# => Dry::Types::SchemaError: :Jane (Symbol) has invalid type
+#    for :name violates constraints (type?(String, :Jane) failed)
 ```
 
-### Symbolized Schema
+All keys are required by default:
 
-Symbolized hash will turn string key names into symbols
+```ruby
+user_hash[name: 'Jane']
+# => Dry::Types::MissingKeyError: :age is missing in Hash input
+```
 
-``` ruby
-hash = Types::Hash.symbolized(name: Types::String, age: Types::Coercible::Int)
+Extra keys are omitted by default:
 
-hash['name' => 'Jane', 'age' => '21']
-# => { :name => "Jane", :age => 21 }
+```ruby
+user_hash[name: 'Jane', age: '21', city: 'London']
+# => { name: 'Jane', age: 21 }
+```
+
+### Default values
+
+Default types are **only** evaluated if the corresponding key is missing:
+
+```ruby
+user_hash = Types::Hash.schema(
+  name: Types::Strict::String,
+  age: Types::Strict::Integer.default(18)
+)
+user_hash[name: 'Jane']
+# => { name: 'Jane', age: 18 }
+
+# nil violates the constraint
+user_hash[name: 'Jane', age: nil]
+# => Dry::Types::SchemaError: nil (NilClass) has invalid type
+#    for :age violates constraints (type?(Integer, nil) failed)
+```
+
+In order to evaluate default types on `nil`, wrap your type with a constructor and map `nil` to `Dry::Types::Undefined`:
+
+```ruby
+user_hash = Types::Hash.schema(
+  name: Types::Strict::String,
+  age: Types::Strict::Integer.
+         default(18).
+         constructor { |value|
+           value.nil? ? Dry::Types::Undefined : value
+         }
+)
+
+user_hash[name: 'Jane', age: nil]
+# => { name: 'Jane', age: 18 }
+```
+
+The process of converting types to constructors like that can be abstracted, see "Type transformations" below.
+
+### Optional keys
+
+By default, all keys are required to present in the input. However, if a type has meta `omittable: true`, the corresponding key can be omitted:
+
+```ruby
+user_hash = Types::Hash.schema(
+  name: Types::Strict::String,
+  age: Types::Strict::Integer.meta(omittable: true)
+)
+
+user_hash[name: 'Jane']
+# => { name: 'Jane' }
+```
+
+### Extra keys
+
+All keys not declared in schema are silently ignored. This behavior can be changed with calling `.strict` on the schema:
+
+```ruby
+user_hash = Types::Hash.schema(name: Types::Strict::String).strict
+user_hash[name: 'Jane', age: 21]
+# => Dry::Types::UnknownKeysError: unexpected keys [:age] in Hash input
+```
+
+### Transforming input keys
+
+Keys are supposed to be symbols but you can attach a key tranformation to a schema, e.g. for converting strings to symbols:
+
+```ruby
+user_hash = Types::Hash.schema(name: Types::Strict::String).with_key_transform(&:to_sym)
+user_hash['name' => 'Jane']
+
+# => { name: 'Jane' }
+```
+
+### Inheritance
+
+Hash schemas can be inherited in a sense you can define a new schema based on an existing one. Declared keys will be merged, key and type transformations will be preserved. The `strict` option is also passed to the new schema.
+
+```ruby
+# Building an empty base schema
+StrictSymbolizingHash = Types::Hash.schema({}).strict.with_key_transform(&:to_sym)
+
+user_hash = StrictSymbolizingHash.schema(
+  name: Types::Strict::String
+)
+
+user_hash['name' => 'Jane']
+# => { name: 'Jane' }
+
+user_hash['name' => 'Jane', 'city' => 'London']
+# => Dry::Types::UnknownKeysError: unexpected keys [:city] in Hash input
+```
+
+### Transforming types
+
+A schema can transform types with a block. For example, the following code makes all keys optional:
+
+```ruby
+user_hash = Types::Hash.with_type_transform { |type| type.meta(omittable: true) }.schema(
+  name: Types::Strict::String,
+  age: Types::Strict::Integer
+)
+
+user_hash[name: 'Jane']
+# => { name: 'Jane' }
+user_hash[{}]
+# => {}
+```
+
+Type transformations work perfectly with inheritance, you don't have to define the same rules more than once:
+
+```ruby
+SymbolizeAndOptionalSchema = Types::Hash.
+  schema({}).
+  with_key_transform(&:to_sym).
+  with_type_transform { |type| type.meta(omittable: true) }
+
+user_hash = SymbolizeAndOptionalSchema.schema(
+  name: Types::Strict::String,
+  age: Types::Strict::Integer
+)
+
+user_hash['name' => 'Jane']
+```
+
+Transformation block yields a key name as the second arguments:
+
+```ruby
+Types::Hash.with_type_transform do |type, name|
+  if name.to_s.end_with?('_at')
+    type.constructor { |v| Time.iso8601(v) }
+  else
+    type
+  end
+end
 ```
