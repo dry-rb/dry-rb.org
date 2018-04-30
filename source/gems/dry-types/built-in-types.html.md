@@ -9,7 +9,7 @@ Built-in types are grouped under 5 categories:
 - `definition` - base type definitions with primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
 - `coercible` - types with constructors using kernel coercions
-- `form` - types with constructors performing non-strict coercions specific to HTTP params
+- `params` - types with constructors performing non-strict coercions specific to HTTP params
 - `json` - types with constructors performing non-strict coercions specific to JSON
 - `maybe` - types accepting either nil or a specific primitive type
 
@@ -60,19 +60,19 @@ Assuming you included types in a module called `Types`:
   - `Types::Coercible::Array`
   - `Types::Coercible::Hash`
 
-* Types suitable for `Form` param processing with coercions:
-  - `Types::Form::Nil`
-  - `Types::Form::Date`
-  - `Types::Form::DateTime`
-  - `Types::Form::Time`
-  - `Types::Form::True`
-  - `Types::Form::False`
-  - `Types::Form::Bool`
-  - `Types::Form::Int`
-  - `Types::Form::Float`
-  - `Types::Form::Decimal`
-  - `Types::Form::Array`
-  - `Types::Form::Hash`
+* Types suitable for `Params` param processing with coercions:
+  - `Types::Params::Nil`
+  - `Types::Params::Date`
+  - `Types::Params::DateTime`
+  - `Types::Params::Time`
+  - `Types::Params::True`
+  - `Types::Params::False`
+  - `Types::Params::Bool`
+  - `Types::Params::Int`
+  - `Types::Params::Float`
+  - `Types::Params::Decimal`
+  - `Types::Params::Array`
+  - `Types::Params::Hash`
 
 * Types suitable for `JSON` processing with coercions:
   - `Types::JSON::Nil`
