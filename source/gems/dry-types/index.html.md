@@ -14,6 +14,7 @@ sections:
   - hash-schemas
   - array-with-member
   - enum
+  - map
   - custom-types
 ---
 
