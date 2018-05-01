@@ -75,13 +75,13 @@ Assuming you included types in a module called `Types`:
   - `Types::Form::Hash`
 
 * Types suitable for `JSON` processing with coercions:
-  - `Types::JSON::Nil`
-  - `Types::JSON::Date`
-  - `Types::JSON::DateTime`
-  - `Types::JSON::Time`
-  - `Types::JSON::Decimal`
-  - `Types::JSON::Array`
-  - `Types::JSON::Hash`
+  - `Types::Json::Nil`
+  - `Types::Json::Date`
+  - `Types::Json::DateTime`
+  - `Types::Json::Time`
+  - `Types::Json::Decimal`
+  - `Types::Json::Array`
+  - `Types::Json::Hash`
 
 * `Maybe` strict types:
   - `Types::Maybe::Strict::Class`
