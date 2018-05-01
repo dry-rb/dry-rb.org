@@ -61,18 +61,18 @@ Assuming you included types in a module called `Types`:
   - `Types::Coercible::Hash`
 
 * Types suitable for `Form` param processing with coercions:
-  - `Types::Form::Nil`
-  - `Types::Form::Date`
-  - `Types::Form::DateTime`
-  - `Types::Form::Time`
-  - `Types::Form::True`
-  - `Types::Form::False`
-  - `Types::Form::Bool`
-  - `Types::Form::Int`
-  - `Types::Form::Float`
-  - `Types::Form::Decimal`
-  - `Types::Form::Array`
-  - `Types::Form::Hash`
+  - `Types::Params::Nil`
+  - `Types::Params::Date`
+  - `Types::Params::DateTime`
+  - `Types::Params::Time`
+  - `Types::Params::True`
+  - `Types::Params::False`
+  - `Types::Params::Bool`
+  - `Types::Params::Int`
+  - `Types::Params::Float`
+  - `Types::Params::Decimal`
+  - `Types::Params::Array`
+  - `Types::Params::Hash`
 
 * Types suitable for `JSON` processing with coercions:
   - `Types::Json::Nil`

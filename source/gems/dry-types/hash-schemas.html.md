@@ -6,7 +6,7 @@ name: dry-types
 
 The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.
 
-Hash schemas are typically used under the hood of other libraries. In example dry-validation uses `:symbolized` schema in `Form` validations, which safely processes values in a hash and returns output with symbolized keys or dry-struct uses hash schemas to process struct attributes. If you want to use hash schemas standalone, or configure them for your dry structs, it's important to understand differences in behavior:
+Hash schemas are typically used under the hood of other libraries. In example dry-validation uses `:symbolized` schema in `Params` validations, which safely processes values in a hash and returns output with symbolized keys or dry-struct uses hash schemas to process struct attributes. If you want to use hash schemas standalone, or configure them for your dry structs, it's important to understand differences in behavior:
 
 ### Input contains a value with an invalid type
 
@@ -85,8 +85,8 @@ hash = Types::Hash.schema(name: Types::String, age: Types::Coercible::Int)
 hash[name: 'Jane', age: '21']
 # => { :name => "Jane", :age => 21 }
 
-# using form param coercions
-hash = Types::Hash.schema(name: Types::String, birthdate: Form::Date)
+# using params coercions
+hash = Types::Hash.schema(name: Types::String, birthdate: Params::Date)
 
 hash[name: 'Jane', birthdate: '1994-11-11']
 # => { :name => "Jane", :birthdate => #<Date: 1994-11-11 ((2449668j,0s,0n),+0s,2299161j)> }
