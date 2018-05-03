@@ -12,6 +12,7 @@ sections:
   - sum
   - constraints
   - hash-schemas
+  - hash-schemas-obsolete
   - array-with-member
   - enum
   - custom-types
