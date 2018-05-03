@@ -218,7 +218,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <h3 id="hash-schema">Hash Schema</h3>
 <pre class="syntax ruby"><code><span class="c1"># using simple kernel coercions</span>
-<span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
+<span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span><span class="p">)</span>
 
 <span class="nb">hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">]</span>
 <span class="c1"># =&gt; { :name =&gt; "Jane", :age =&gt; 21 }</span>
@@ -232,7 +232,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <h3 id="permissive-schema">Permissive Schema</h3>
 
 <p>Permissive hash will raise errors when keys are missing or value types are incorrect.</p>
-<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">permissive</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
+<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">permissive</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span><span class="p">)</span>
 
 <span class="nb">hash</span><span class="p">[</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">21</span><span class="p">]</span>
 <span class="c1"># =&gt; Dry::Types::SchemaKeyError: :email is missing in Hash input</span>
@@ -240,7 +240,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <h3 id="symbolized-schema">Symbolized Schema</h3>
 
 <p>Symbolized hash will turn string key names into symbols</p>
-<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">symbolized</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
+<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">symbolized</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span><span class="p">)</span>
 
 <span class="nb">hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">,</span> <span class="s1">'age'</span> <span class="o">=&gt;</span> <span class="s1">'21'</span><span class="p">]</span>
 <span class="c1"># =&gt; { :name =&gt; "Jane", :age =&gt; 21 }</span>

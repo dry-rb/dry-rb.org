@@ -18,7 +18,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="p">.</span><span class="nf">module</span>
 
   <span class="no">Email</span> <span class="o">=</span> <span class="no">String</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span><span class="ss">format: </span><span class="sr">/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i</span><span class="p">)</span>
-  <span class="no">Age</span> <span class="o">=</span> <span class="no">Int</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span><span class="ss">gt: </span><span class="mi">18</span><span class="p">)</span>
+  <span class="no">Age</span> <span class="o">=</span> <span class="no">Integer</span><span class="p">.</span><span class="nf">constrained</span><span class="p">(</span><span class="ss">gt: </span><span class="mi">18</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>

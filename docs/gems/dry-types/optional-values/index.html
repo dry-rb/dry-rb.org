@@ -35,14 +35,14 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="p">.</span><span class="nf">module</span>
 <span class="k">end</span>
 
-<span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># None</span>
-<span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span><span class="p">[</span><span class="mi">123</span><span class="p">]</span> <span class="c1"># Some(123)</span>
+<span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># None</span>
+<span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">[</span><span class="mi">123</span><span class="p">]</span> <span class="c1"># Some(123)</span>
 
 <span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Float</span><span class="p">[</span><span class="kp">nil</span><span class="p">]</span> <span class="c1"># None</span>
 <span class="no">Types</span><span class="o">::</span><span class="no">Maybe</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Float</span><span class="p">[</span><span class="s1">'12.3'</span><span class="p">]</span> <span class="c1"># Some(12.3)</span>
 
 <span class="c1"># 'Maybe' types can also accessed by calling '.maybe' on a regular type:</span>
-<span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Int</span><span class="p">.</span><span class="nf">maybe</span> <span class="c1"># equivalent to Types::Maybe::Strict::Int</span>
+<span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">.</span><span class="nf">maybe</span> <span class="c1"># equivalent to Types::Maybe::Strict::Integer</span>
 </code></pre>
 <p>You can define your own optional types:</p>
 <pre class="syntax ruby"><code><span class="n">maybe_string</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">maybe</span>

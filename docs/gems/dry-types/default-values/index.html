@@ -50,7 +50,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="c1"># =&gt; "draft_mutated" # not "draft"</span>
 </code></pre>
 <p>You can guard against these kind of errors by calling <code>freeze</code> when setting the default:</p>
-<pre class="syntax ruby"><code><span class="no">PostStatus</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Form</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">default</span><span class="p">(</span><span class="s1">'draft'</span><span class="p">.</span><span class="nf">freeze</span><span class="p">)</span>
+<pre class="syntax ruby"><code><span class="no">PostStatus</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Params</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">default</span><span class="p">(</span><span class="s1">'draft'</span><span class="p">.</span><span class="nf">freeze</span><span class="p">)</span>
 <span class="n">default</span> <span class="o">=</span> <span class="no">PostStatus</span><span class="o">.</span><span class="p">()</span>
 <span class="n">default</span> <span class="o">&lt;&lt;</span> <span class="s1">'attempt to mutate default'</span>
 <span class="c1"># =&gt; RuntimeError: can't modify frozen string</span>
