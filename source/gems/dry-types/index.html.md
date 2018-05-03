@@ -15,6 +15,7 @@ sections:
   - hash-schemas-obsolete
   - array-with-member
   - enum
+  - map
   - custom-types
 ---
 
