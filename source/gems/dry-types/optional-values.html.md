@@ -40,14 +40,14 @@ module Types
   include Dry::Types.module
 end
 
-Types::Maybe::Strict::Int[nil] # None
-Types::Maybe::Strict::Int[123] # Some(123)
+Types::Maybe::Strict::Integer[nil] # None
+Types::Maybe::Strict::Integer[123] # Some(123)
 
 Types::Maybe::Coercible::Float[nil] # None
 Types::Maybe::Coercible::Float['12.3'] # Some(12.3)
 
 # 'Maybe' types can also accessed by calling '.maybe' on a regular type:
-Types::Strict::Int.maybe # equivalent to Types::Maybe::Strict::Int
+Types::Strict::Integer.maybe # equivalent to Types::Maybe::Strict::Integer
 ```
 
 You can define your own optional types:

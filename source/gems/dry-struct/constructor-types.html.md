@@ -15,7 +15,7 @@ class User < Dry::Struct
   constructor_type :strict
 
   attribute :name, Types::Strict::String
-  attribute :age, Types::Strict::Int
+  attribute :age, Types::Strict::Integer
 end
 
 User.new(name: "Jane", age: 31)
@@ -28,7 +28,7 @@ class Admin < Dry::Struct
   constructor_type :schema
 
   attribute :name, Types::Strict::String.default('John Doe')
-  attribute :age, Types::Strict::Int
+  attribute :age, Types::Strict::Integer
 end
 
 Admin.new(name: "Jane")        #=> #<User name="Jane" age=nil>

@@ -25,7 +25,7 @@ Assuming you included types in a module called `Types`:
   - `Types::True`
   - `Types::False`
   - `Types::Bool`
-  - `Types::Int`
+  - `Types::Integer`
   - `Types::Float`
   - `Types::Decimal`
   - `Types::String`
@@ -42,7 +42,7 @@ Assuming you included types in a module called `Types`:
   - `Types::Strict::True`
   - `Types::Strict::False`
   - `Types::Strict::Bool`
-  - `Types::Strict::Int`
+  - `Types::Strict::Integer`
   - `Types::Strict::Float`
   - `Types::Strict::Decimal`
   - `Types::Strict::String`
@@ -54,7 +54,7 @@ Assuming you included types in a module called `Types`:
 
 * `Coercible` types will attempt to cast values to the correct class using kernel coercion methods:
   - `Types::Coercible::String`
-  - `Types::Coercible::Int`
+  - `Types::Coercible::Integer`
   - `Types::Coercible::Float`
   - `Types::Coercible::Decimal`
   - `Types::Coercible::Array`
@@ -68,7 +68,7 @@ Assuming you included types in a module called `Types`:
   - `Types::Params::True`
   - `Types::Params::False`
   - `Types::Params::Bool`
-  - `Types::Params::Int`
+  - `Types::Params::Integer`
   - `Types::Params::Float`
   - `Types::Params::Decimal`
   - `Types::Params::Array`
@@ -89,7 +89,7 @@ Assuming you included types in a module called `Types`:
   - `Types::Maybe::Strict::Symbol`
   - `Types::Maybe::Strict::True`
   - `Types::Maybe::Strict::False`
-  - `Types::Maybe::Strict::Int`
+  - `Types::Maybe::Strict::Integer`
   - `Types::Maybe::Strict::Float`
   - `Types::Maybe::Strict::Decimal`
   - `Types::Maybe::Strict::Date`
@@ -100,7 +100,7 @@ Assuming you included types in a module called `Types`:
 
 * `Maybe` coercible types:
   - `Types::Maybe::Coercible::String`
-  - `Types::Maybe::Coercible::Int`
+  - `Types::Maybe::Coercible::Integer`
   - `Types::Maybe::Coercible::Float`
   - `Types::Maybe::Coercible::Decimal`
   - `Types::Maybe::Coercible::Array`

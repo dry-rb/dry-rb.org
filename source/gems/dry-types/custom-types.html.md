@@ -69,10 +69,10 @@ int['one'] # => 'one'
 
 ```ruby
 # In the full form
-Types::Hash.permissive(name: Types::String, age: Types::Coercible::Int)
+Types::Hash.schema(name: Types::String, age: Types::Coercible::Integer)
 
 # Using Types.Hash()
-Types.Hash(:permissive, name: Types::String, age: Types::Coercible::Int)
+Types.Hash(:permissive, name: Types::String, age: Types::Coercible::Integer)
 ```
 
 ### `Types.Array`

@@ -61,7 +61,7 @@ title: Home
                 ```ruby
                 class Person < Dry::Struct
                   attribute :name, Types::Strict::String
-                  attribute :age, Types::Strict::Int
+                  attribute :age, Types::Strict::Integer
                 end
 
                 Person.new(name: "Jane", age: 30)

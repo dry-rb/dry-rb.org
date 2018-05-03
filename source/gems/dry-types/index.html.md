@@ -33,7 +33,7 @@ end
 
 class User < Dry::Struct
   attribute :name, Types::String
-  attribute :age,  Types::Int
+  attribute :age,  Types::Integer
 end
 
 User.new(name: 'Bob', age: 35)
@@ -42,14 +42,14 @@ User.new(name: 'Bob', age: 35)
 
 See [Built-in Types](/gems/dry-types/built-in-types/) for a full list of available types.
 
-By themselves, the basic type definitions like `Types::String` and `Types::Int` don't do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:
+By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:
 
 - 'Strict' types will raise an error if passed an attribute of the wrong type:
 
 ```ruby
 class User < Dry::Struct
   attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int
+  attribute :age,  Types::Strict::Integer
 end
 
 User.new(name: 'Bob', age: '18')
@@ -62,7 +62,7 @@ User.new(name: 'Bob', age: '18')
 ```ruby
 class User < Dry::Struct
   attribute :name, Types::Coercible::String
-  attribute :age,  Types::Coercible::Int
+  attribute :age,  Types::Coercible::Integer
 end
 
 User.new(name: 'Bob', age: '18')
@@ -76,7 +76,7 @@ User.new(name: 'Bob', age: 'not coercible')
 ```ruby
 class User < Dry::Struct
   attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int.optional
+  attribute :age,  Types::Strict::Integer.optional
 end
 
 User.new(name: 'Bob', age: nil)
@@ -94,7 +94,7 @@ User.new(name: 'Bob')
 ```ruby
 class User < Dry::Struct
   attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Int.constrained(gteq: 18)
+  attribute :age,  Types::Strict::Integer.constrained(gteq: 18)
 end
 
 User.new(name: 'Bob', age: 17)
@@ -106,7 +106,7 @@ User.new(name: 'Bob', age: 17)
 ```ruby
 class User < Dry::Struct
   attribute :name, Types::String
-  attribute :age,  Types::Int.meta(info: 'extra info about age')
+  attribute :age,  Types::Integer.meta(info: 'extra info about age')
 end
 ```
 

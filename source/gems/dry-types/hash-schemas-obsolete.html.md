@@ -82,7 +82,7 @@ Hash schemas are typically used under the hood of other libraries. In example dr
 
 ``` ruby
 # using simple kernel coercions
-hash = Types::Hash.schema(name: Types::String, age: Types::Coercible::Int)
+hash = Types::Hash.schema(name: Types::String, age: Types::Coercible::Integer)
 
 hash[name: 'Jane', age: '21']
 # => { :name => "Jane", :age => 21 }
@@ -99,7 +99,7 @@ hash[name: 'Jane', birthdate: '1994-11-11']
 Permissive hash will raise errors when keys are missing or value types are incorrect.
 
 ``` ruby
-hash = Types::Hash.permissive(name: Types::String, age: Types::Coercible::Int)
+hash = Types::Hash.permissive(name: Types::String, age: Types::Coercible::Integer)
 
 hash[email: 'jane@doe.org', name: 'Jane', age: 21]
 # => Dry::Types::SchemaKeyError: :email is missing in Hash input
@@ -110,7 +110,7 @@ hash[email: 'jane@doe.org', name: 'Jane', age: 21]
 Symbolized hash will turn string key names into symbols
 
 ``` ruby
-hash = Types::Hash.symbolized(name: Types::String, age: Types::Coercible::Int)
+hash = Types::Hash.symbolized(name: Types::String, age: Types::Coercible::Integer)
 
 hash['name' => 'Jane', 'age' => '21']
 # => { :name => "Jane", :age => 21 }

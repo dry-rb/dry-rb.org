@@ -67,7 +67,7 @@ PostStatus.(nil)
 You can guard against these kind of errors by calling `freeze` when setting the default:
 
 ```ruby
-PostStatus = Types::Form::String.default('draft'.freeze)
+PostStatus = Types::Params::String.default('draft'.freeze)
 default = PostStatus.()
 default << 'attempt to mutate default'
 # => RuntimeError: can't modify frozen string
