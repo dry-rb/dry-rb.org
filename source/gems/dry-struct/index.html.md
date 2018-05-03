@@ -3,6 +3,10 @@ title: Introduction
 layout: gem-single
 type: gem
 name: dry-struct
+sections:
+ - nested-structs
+ - recipes
+ - constructor-types
 ---
 
 `dry-struct` is a gem built on top of `dry-types` which provides virtus-like DSL for defining typed struct classes.
@@ -19,8 +23,8 @@ module Types
 end
 
 class User < Dry::Struct
-  attribute :name, Types::String.optional
-  attribute :age, Types::Coercible::Int
+  attribute :name, Types::Strict::String.optional
+  attribute :age, Types::Coercible::Integer
 end
 
 user = User.new(name: nil, age: '21')
@@ -54,47 +58,38 @@ loc1 == loc2
 # true
 ```
 
-### Constructor Types
+### Hash Schemas
 
-Your struct class can specify a constructor type, which uses [hash schemas](/gems/dry-types/hash-schemas) to handle attributes in `.new` method. By default `:permissive` constructor is used.
+`Dry::Struct` out of the box uses [hash schemas](/gems/dry-types/hash-schemas) from `dry-types` for processing input hashes. `with_type_transform` and `with_key_transform` are exposed as `transform_types` and `transform_keys`:
 
-To set a different constructor type simply use `constructor_type` setting:
-
-``` ruby
+```ruby
 class User < Dry::Struct
-  constructor_type :strict
+  transform_keys(&:to_sym)
 
-  attribute :name, Types::Strict::String
-  attribute :age, Types::Strict::Int
+  attribute :name, Types::Strict::String.optional
+  attribute :age, Types::Coercible::Integer
 end
 
-User.new(name: "Jane", age: 31)
-# => #<User name="Jane" age=31>
-
-User.new(name: "Jane", age: 31, unexpected: "attribute")
-# Dry::Struct::Error: [User.new] unexpected keys [:unexpected] in Hash input
-
-class Admin < Dry::Struct
-  constructor_type :schema
-
-  attribute :name, Types::Strict::String.default('John Doe')
-  attribute :age, Types::Strict::Int
-end
-
-Admin.new(name: "Jane")        #=> #<User name="Jane" age=nil>
-Admin.new(age: 31)             #=> #<User name="John Doe" age=31>
-Admin.new(name: nil, age: 31)  #=> #<User name="John Doe" age=31>
-Admin.new(name: "Jane", age: 31, unexpected: "attribute")
-  #=> #<User name="Jane" age=31>
+User.new('name' => 'Jane', 'age' => '21')
+# => #<User name="Jane" age=21>
 ```
 
-Common constructor types include:
+This plays nicely with inheritance, you can define a base struct for symbolizing input and then reuse it:
 
-* `:permissive` - the default constructor type, useful for defining structs that are instantiated using data from the database (ie results of a database query), where you expect *all defined attributes to be present* and it's OK to ignore other keys (ie keys used for joining, that are not relevant from your domain structs point of view). Default values **are not used** otherwise you wouldn't notice missing data.
-* `:schema` - missing keys will result in setting them using default values, unexpected keys will be ignored.
-* `:strict` - useful when you *do not expect keys other than the ones you specified as attributes* in the input hash
-* `:strict_with_defaults` - same as `:strict` but you are OK that some values may be nil and you want defaults to be set
-* `:weak` and `:symbolized` - *don't use those with dry-struct*, and instead use dry-validation to process and validate attributes, otherwise your struct will behave as a data validator which raises exceptions on invalid input (assuming your attributes types are strict)
+```ruby
+class SymbolizeStruct < Dry::Struct
+  transform_keys(&:to_sym)
+end
+
+class User < SymbolizeStruct
+  attribute :name, Types::Strict::String.optional
+  attribute :age, Types::Coercible::Integer
+end
+```
+
+### Validating data with dry-struct
+
+Please don't. Structs are meant to work with valid input, it cannot generate error messages good enough for diplaying them for a user etc. Use [`dry-validation`](/gems/dry-validation) for validating incoming data and then pass its output to structs.
 
 ### Differences between dry-struct and virtus
 
