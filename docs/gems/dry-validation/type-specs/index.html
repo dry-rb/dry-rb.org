@@ -21,7 +21,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="n">required</span><span class="p">(</span><span class="ss">:nums</span><span class="p">,</span> <span class="p">[</span><span class="ss">:int</span><span class="p">]).</span><span class="nf">value</span><span class="p">(</span><span class="n">size?</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
 
   <span class="c1"># dry-types can be used too</span>
-  <span class="n">required</span><span class="p">(</span><span class="ss">:login_time</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Form</span><span class="o">::</span><span class="no">DateTime</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:date_time?</span><span class="p">)</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:login_time</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Params</span><span class="o">::</span><span class="no">DateTime</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:date_time?</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
 <p>As you can see, with this style there’s more verbosity, however there are 2 big advantages:</p>

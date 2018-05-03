@@ -4,242 +4,131 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-2573270-8', 'auto');
-ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-core">dry-core</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li><li><a href="/gems/dry-events">dry-events</a></li><li><a href="/gems/dry-inflector">dry-inflector</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li></ul><ul><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-view">dry-view</a></li><li><a href="/gems/dry-web-roda">dry-web-roda</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-types</h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-types">View dry-types on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-types/" class="">Introduction</a><li><a href="/gems/dry-types/including-types/" class="">Including Types</a></li><li><a href="/gems/dry-types/built-in-types/" class="">Built-in Types</a></li><li><a href="/gems/dry-types/strict/" class="">Strict</a></li><li><a href="/gems/dry-types/optional-values/" class="">Optional Values</a></li><li><a href="/gems/dry-types/default-values/" class="">Default Values</a></li><li><a href="/gems/dry-types/sum/" class="">Sum</a></li><li><a href="/gems/dry-types/constraints/" class="">Constraints</a></li><li><a href="/gems/dry-types/hash-schemas/" class="active">Hash Schemas</a></li><li><a href="/gems/dry-types/array-with-member/" class="">Array With Member</a></li><li><a href="/gems/dry-types/enum/" class="">Enum</a></li><li><a href="/gems/dry-types/custom-types/" class="">Custom Types</a></li></li></ul></aside><article class="gem-article"><h2>Hash Schemas</h2><p>The built-in <code>Hash</code> type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.</p>
-
-<p>Hash schemas are typically used under the hood of other libraries. In example dry-validation uses <code>:symbolized</code> schema in <code>Form</code> validations, which safely processes values in a hash and returns output with symbolized keys or dry-struct uses hash schemas to process struct attributes. If you want to use hash schemas standalone, or configure them for your dry structs, it&rsquo;s important to understand differences in behavior:</p>
-
-<h3 id="input-contains-a-value-with-an-invalid-type">Input contains a value with an invalid type</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Includes invalid value in output</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Includes invalid value in output</td>
-</tr>
-</tbody></table>
-
-<h3 id="input-omits-a-key-for-a-value-that-does-not-have-a-default">Input omits a key for a value that does not have a default</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Produces output without that key</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Produces output without that key</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Produces output without that key</td>
-</tr>
-</tbody></table>
-
-<h3 id="input-omits-a-key-for-a-value-that-has-a-default">Input omits a key for a value that has a default</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-</tbody></table>
-
-<h3 id="input-includes-a-key-that-was-not-specified-in-the-schema">Input includes a key that was not specified in the schema</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Omits the unspecified value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Omits the unspecified value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Omits the unspecified value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Omits the unspecified value</td>
-</tr>
-</tbody></table>
-
-<h3 id="input-contains-nil-for-a-value-that-specifies-a-default">Input contains <code>nil</code> for a value that specifies a default</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Fills in default value</td>
-</tr>
-</tbody></table>
-
-<h3 id="input-contains-string-keys-instead-of-symbol-keys">Input contains string keys instead of symbol keys</h3>
-
-<table><thead>
-<tr>
-<th style="text-align: left">constructor type</th>
-<th style="text-align: left">Behavior</th>
-</tr>
-</thead><tbody>
-<tr>
-<td style="text-align: left"><code>:schema</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:weak</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:permissive</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:strict_with_defaults</code></td>
-<td style="text-align: left">Raises an error</td>
-</tr>
-<tr>
-<td style="text-align: left"><code>:symbolized</code></td>
-<td style="text-align: left">Coerces string keys to symbols</td>
-</tr>
-</tbody></table>
-
-<h2 id="example-usage">Example Usage</h2>
-
-<h3 id="hash-schema">Hash Schema</h3>
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-core">dry-core</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li><li><a href="/gems/dry-events">dry-events</a></li><li><a href="/gems/dry-inflector">dry-inflector</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li></ul><ul><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-view">dry-view</a></li><li><a href="/gems/dry-web-roda">dry-web-roda</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-types</h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-types">View dry-types on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-types/" class="">Introduction</a><li><a href="/gems/dry-types/including-types/" class="">Including Types</a></li><li><a href="/gems/dry-types/built-in-types/" class="">Built-in Types</a></li><li><a href="/gems/dry-types/strict/" class="">Strict</a></li><li><a href="/gems/dry-types/optional-values/" class="">Optional Values</a></li><li><a href="/gems/dry-types/default-values/" class="">Default Values</a></li><li><a href="/gems/dry-types/sum/" class="">Sum</a></li><li><a href="/gems/dry-types/constraints/" class="">Constraints</a></li><li><a href="/gems/dry-types/hash-schemas/" class="active">Hash Schemas</a></li><li><a href="/gems/dry-types/hash-schemas-obsolete/" class="">Hash Schemas (deprecated API)</a></li><li><a href="/gems/dry-types/array-with-member/" class="">Array With Member</a></li><li><a href="/gems/dry-types/enum/" class="">Enum</a></li><li><a href="/gems/dry-types/map/" class="">Map</a></li><li><a href="/gems/dry-types/custom-types/" class="">Custom Types</a></li></li></ul></aside><article class="gem-article"><h2>Hash Schemas</h2><p>It is possible to define a type definition of a hash with known keys and value types. Let&rsquo;s say you want describe a hash containing the name and age of a user:</p>
 <pre class="syntax ruby"><code><span class="c1"># using simple kernel coercions</span>
-<span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
+<span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span><span class="p">)</span>
 
-<span class="nb">hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">]</span>
-<span class="c1"># =&gt; { :name =&gt; "Jane", :age =&gt; 21 }</span>
-
-<span class="c1"># using form param coercions</span>
-<span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">birthdate: </span><span class="no">Form</span><span class="o">::</span><span class="no">Date</span><span class="p">)</span>
-
-<span class="nb">hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">birthdate: </span><span class="s1">'1994-11-11'</span><span class="p">]</span>
-<span class="c1"># =&gt; { :name =&gt; "Jane", :birthdate =&gt; #&lt;Date: 1994-11-11 ((2449668j,0s,0n),+0s,2299161j)&gt; }</span>
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane', age: 21 }</span>
+<span class="c1"># :name left untouched and :age was coerced to Integer</span>
 </code></pre>
-<h3 id="permissive-schema">Permissive Schema</h3>
-
-<p>Permissive hash will raise errors when keys are missing or value types are incorrect.</p>
-<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">permissive</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
-
-<span class="nb">hash</span><span class="p">[</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">21</span><span class="p">]</span>
-<span class="c1"># =&gt; Dry::Types::SchemaKeyError: :email is missing in Hash input</span>
+<p>If a value doesn&rsquo;t conform to the type, an error is raised:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span><span class="p">[</span><span class="ss">name: :Jane</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::SchemaError: :Jane (Symbol) has invalid type</span>
+<span class="c1">#    for :name violates constraints (type?(String, :Jane) failed)</span>
 </code></pre>
-<h3 id="symbolized-schema">Symbolized Schema</h3>
+<p>All keys are required by default:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::MissingKeyError: :age is missing in Hash input</span>
+</code></pre>
+<p>Extra keys are omitted by default:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">,</span> <span class="ss">city: </span><span class="s1">'London'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane', age: 21 }</span>
+</code></pre>
+<h3 id="default-values">Default values</h3>
 
-<p>Symbolized hash will turn string key names into symbols</p>
-<pre class="syntax ruby"><code><span class="nb">hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">symbolized</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">,</span> <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Int</span><span class="p">)</span>
+<p>Default types are <strong>only</strong> evaluated if the corresponding key is missing:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span>
+  <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">.</span><span class="nf">default</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane', age: 18 }</span>
 
-<span class="nb">hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">,</span> <span class="s1">'age'</span> <span class="o">=&gt;</span> <span class="s1">'21'</span><span class="p">]</span>
-<span class="c1"># =&gt; { :name =&gt; "Jane", :age =&gt; 21 }</span>
+<span class="c1"># nil violates the constraint</span>
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="kp">nil</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::SchemaError: nil (NilClass) has invalid type</span>
+<span class="c1">#    for :age violates constraints (type?(Integer, nil) failed)</span>
+</code></pre>
+<p>In order to evaluate default types on <code>nil</code>, wrap your type with a constructor and map <code>nil</code> to <code>Dry::Types::Undefined</code>:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span>
+  <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">.</span>
+         <span class="nf">default</span><span class="p">(</span><span class="mi">18</span><span class="p">).</span>
+         <span class="nf">constructor</span> <span class="p">{</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span>
+           <span class="n">value</span><span class="p">.</span><span class="nf">nil?</span> <span class="p">?</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="o">::</span><span class="no">Undefined</span> <span class="p">:</span> <span class="n">value</span>
+         <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="kp">nil</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane', age: 18 }</span>
+</code></pre>
+<p>The process of converting types to constructors like that can be abstracted, see &ldquo;Type transformations&rdquo; below.</p>
+
+<h3 id="optional-keys">Optional keys</h3>
+
+<p>By default, all keys are required to present in the input. However, if a type has meta <code>omittable: true</code>, the corresponding key can be omitted:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span>
+  <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span><span class="p">.</span><span class="nf">meta</span><span class="p">(</span><span class="ss">omittable: </span><span class="kp">true</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane' }</span>
+</code></pre>
+<h3 id="extra-keys">Extra keys</h3>
+
+<p>All keys not declared in schema are silently ignored. This behavior can be changed with calling <code>.strict</code> on the schema:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">).</span><span class="nf">strict</span>
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="mi">21</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::UnknownKeysError: unexpected keys [:age] in Hash input</span>
+</code></pre>
+<h3 id="transforming-input-keys">Transforming input keys</h3>
+
+<p>Keys are supposed to be symbols but you can attach a key tranformation to a schema, e.g. for converting strings to symbols:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span><span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">).</span><span class="nf">with_key_transform</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>
+<span class="n">user_hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">]</span>
+
+<span class="c1"># =&gt; { name: 'Jane' }</span>
+</code></pre>
+<h3 id="inheritance">Inheritance</h3>
+
+<p>Hash schemas can be inherited in a sense you can define a new schema based on an existing one. Declared keys will be merged, key and type transformations will be preserved. The <code>strict</code> option is also passed to the new schema.</p>
+<pre class="syntax ruby"><code><span class="c1"># Building an empty base schema</span>
+<span class="no">StrictSymbolizingHash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">schema</span><span class="p">({}).</span><span class="nf">strict</span><span class="p">.</span><span class="nf">with_key_transform</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>
+
+<span class="n">user_hash</span> <span class="o">=</span> <span class="no">StrictSymbolizingHash</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span>
+<span class="p">)</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane' }</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">,</span> <span class="s1">'city'</span> <span class="o">=&gt;</span> <span class="s1">'London'</span><span class="p">]</span>
+<span class="c1"># =&gt; Dry::Types::UnknownKeysError: unexpected keys [:city] in Hash input</span>
+</code></pre>
+<h3 id="transforming-types">Transforming types</h3>
+
+<p>A schema can transform types with a block. For example, the following code makes all keys optional:</p>
+<pre class="syntax ruby"><code><span class="n">user_hash</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">with_type_transform</span> <span class="p">{</span> <span class="o">|</span><span class="n">type</span><span class="o">|</span> <span class="n">type</span><span class="p">.</span><span class="nf">meta</span><span class="p">(</span><span class="ss">omittable: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span>
+  <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span>
+<span class="p">)</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">]</span>
+<span class="c1"># =&gt; { name: 'Jane' }</span>
+<span class="n">user_hash</span><span class="p">[{}]</span>
+<span class="c1"># =&gt; {}</span>
+</code></pre>
+<p>Type transformations work perfectly with inheritance, you don&rsquo;t have to define the same rules more than once:</p>
+<pre class="syntax ruby"><code><span class="no">SymbolizeAndOptionalSchema</span> <span class="o">=</span> <span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span>
+  <span class="nf">schema</span><span class="p">({}).</span>
+  <span class="nf">with_key_transform</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">).</span>
+  <span class="nf">with_type_transform</span> <span class="p">{</span> <span class="o">|</span><span class="n">type</span><span class="o">|</span> <span class="n">type</span><span class="p">.</span><span class="nf">meta</span><span class="p">(</span><span class="ss">omittable: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">user_hash</span> <span class="o">=</span> <span class="no">SymbolizeAndOptionalSchema</span><span class="p">.</span><span class="nf">schema</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">String</span><span class="p">,</span>
+  <span class="ss">age: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Integer</span>
+<span class="p">)</span>
+
+<span class="n">user_hash</span><span class="p">[</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">]</span>
+</code></pre>
+<p>Transformation block yields a key name as the second arguments:</p>
+<pre class="syntax ruby"><code><span class="no">Types</span><span class="o">::</span><span class="no">Hash</span><span class="p">.</span><span class="nf">with_type_transform</span> <span class="k">do</span> <span class="o">|</span><span class="n">type</span><span class="p">,</span> <span class="nb">name</span><span class="o">|</span>
+  <span class="k">if</span> <span class="nb">name</span><span class="p">.</span><span class="nf">to_s</span><span class="p">.</span><span class="nf">end_with?</span><span class="p">(</span><span class="s1">'_at'</span><span class="p">)</span>
+    <span class="n">type</span><span class="p">.</span><span class="nf">constructor</span> <span class="p">{</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="no">Time</span><span class="p">.</span><span class="nf">iso8601</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">else</span>
+    <span class="n">type</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
