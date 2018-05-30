@@ -21,7 +21,7 @@ module Types
   end
 end
 
-SignUpForm = Dry::Validation.Form do
+SignUpForm = Dry::Validation.Params do
   configure do
     config.type_specs = true
   end
@@ -64,7 +64,7 @@ module Types
   end
 end
 
-InvitationForm = Dry::Validation.Form do
+InvitationForm = Dry::Validation.Params do
   configure do
     config.type_specs = true
   end
