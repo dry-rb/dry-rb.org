@@ -71,7 +71,7 @@ OtherClass.two # => 3
 class Foo
   extend Dry::Core::ClassAttributes
 
-  defines :one, :two, type: Dry::Types['strict.int']
+  defines :one, :two, type: Dry::Types['strict.integer']
 end
 ```
 
