@@ -19,7 +19,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="no">SignUpForm</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Form</span> <span class="k">do</span>
+<span class="no">SignUpForm</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
   <span class="n">configure</span> <span class="k">do</span>
     <span class="n">config</span><span class="p">.</span><span class="nf">type_specs</span> <span class="o">=</span> <span class="kp">true</span>
   <span class="k">end</span>
@@ -59,7 +59,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="no">InvitationForm</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Form</span> <span class="k">do</span>
+<span class="no">InvitationForm</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
   <span class="n">configure</span> <span class="k">do</span>
     <span class="n">config</span><span class="p">.</span><span class="nf">type_specs</span> <span class="o">=</span> <span class="kp">true</span>
   <span class="k">end</span>

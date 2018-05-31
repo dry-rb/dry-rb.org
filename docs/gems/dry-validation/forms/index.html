@@ -12,8 +12,8 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <li>Prior to validation, we need to coerce values and symbolize keys based on the information in the rules</li>
 </ul>
 
-<p>For that reason, <code>dry-validation</code> ships with <code>Form</code> validation:</p>
-<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Form</span> <span class="k">do</span>
+<p>For that reason, <code>dry-validation</code> ships with <code>Params</code> validation:</p>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
   <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
 
   <span class="n">required</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">:</span> <span class="mi">18</span><span class="p">)</span>
@@ -34,7 +34,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <h2 id="handling-empty-strings">Handling Empty Strings</h2>
 
 <p>Your schema will automatically coerce empty strings to <code>nil</code> provided that you allow a value to be nil:</p>
-<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Form</span> <span class="k">do</span>
+<pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
   <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:str?</span><span class="p">)</span>
 
   <span class="n">required</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:int?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">:</span> <span class="mi">18</span><span class="p">)</span>

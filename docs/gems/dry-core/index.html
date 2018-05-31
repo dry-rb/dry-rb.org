@@ -21,6 +21,11 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<h3 id="note">Note</h3>
+
+<p>Beware Proc instance hashes are not equal, i.e. <code>-&gt; { 1 }.hash != -&gt; { 1 }.hash</code>.<br>
+This means you shouldn&rsquo;t pass Procs in args unless you&rsquo;re sure they are always the same instances, otherwise you introduce a memory leak</p>
+
 <h3 id="class-attributes">Class Attributes</h3>
 <pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/core/class_attributes'</span>
 
@@ -59,7 +64,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="k">class</span> <span class="nc">Foo</span>
   <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Core</span><span class="o">::</span><span class="no">ClassAttributes</span>
 
-  <span class="n">defines</span> <span class="ss">:one</span><span class="p">,</span> <span class="ss">:two</span><span class="p">,</span> <span class="ss">type: </span><span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="p">[</span><span class="s1">'strict.int'</span><span class="p">]</span>
+  <span class="n">defines</span> <span class="ss">:one</span><span class="p">,</span> <span class="ss">:two</span><span class="p">,</span> <span class="ss">type: </span><span class="no">Dry</span><span class="o">::</span><span class="no">Types</span><span class="p">[</span><span class="s1">'strict.integer'</span><span class="p">]</span>
 <span class="k">end</span>
 </code></pre>
 <h3 id="class-builder">Class Builder</h3>
