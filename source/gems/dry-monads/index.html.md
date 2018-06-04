@@ -12,6 +12,7 @@ sections:
   - case-equality
   - task
   - do-notation
+  - validated
 ---
 
 `dry-monads` is a set of common monads for Ruby.
