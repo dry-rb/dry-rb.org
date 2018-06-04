@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-monads - Do Notation</title><link href="/assets/stylesheets/site-ce7a4c57.css" rel="stylesheet" /><script src="/assets/javascripts/site-b5250171.js" async="true"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li><a href="/gems/dry-auto_inject">dry-auto_inject</a></li><li><a href="/gems/dry-configurable">dry-configurable</a></li><li><a href="/gems/dry-container">dry-container</a></li><li><a href="/gems/dry-core">dry-core</a></li><li><a href="/gems/dry-equalizer">dry-equalizer</a></li><li><a href="/gems/dry-events">dry-events</a></li><li><a href="/gems/dry-inflector">dry-inflector</a></li><li><a href="/gems/dry-initializer">dry-initializer</a></li><li><a href="/gems/dry-logic">dry-logic</a></li></ul><ul><li><a href="/gems/dry-matcher">dry-matcher</a></li><li><a href="/gems/dry-monads">dry-monads</a></li><li><a href="/gems/dry-struct">dry-struct</a></li><li><a href="/gems/dry-system">dry-system</a></li><li><a href="/gems/dry-transaction">dry-transaction</a></li><li><a href="/gems/dry-types">dry-types</a></li><li><a href="/gems/dry-validation">dry-validation</a></li><li><a href="/gems/dry-view">dry-view</a></li><li><a href="/gems/dry-web-roda">dry-web-roda</a></li></ul></div></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-monads</h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-monads">View dry-monads on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><ul><li><a href="/gems/dry-monads/" class="">Introduction</a><li><a href="/gems/dry-monads/maybe/" class="">Maybe</a></li><li><a href="/gems/dry-monads/result/" class="">Result</a></li><li><a href="/gems/dry-monads/try/" class="">Try</a></li><li><a href="/gems/dry-monads/list/" class="">List</a></li><li><a href="/gems/dry-monads/case-equality/" class="">Case Equality</a></li><li><a href="/gems/dry-monads/task/" class="">Task</a></li><li><a href="/gems/dry-monads/do-notation/" class="active">Do Notation</a></li></li></ul></aside><article class="gem-article"><h2>Do Notation</h2><p>Composing several monadic values can become tedious because you need to pass around unwrapped values in lambdas (aka blocks). Haskell was one of the first languages faced this problem. To work around it Haskell has a special syntax for combining monadic operations called the &ldquo;do notation&rdquo;. If you&rsquo;re familiar with Scala it has <code>for</code>-comprehensions for a similar purpose. It is not possible to implement <code>do</code> in Ruby but it is possible to emulate it to some extent, i.e. achieve comparable usefulness.</p>
+
+<p>What <code>Do</code> does is passing an unwrapping block to certain methods. The block tries to extract the underlying value from a monadic object and either short-circuits the execution (in case of a failure) or returns the unwrapped value back.</p>
+
+<p>See the following example written using <code>bind</code> and <code>fmap</code>:</p>
+<pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">CreateAccount</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">validate</span><span class="p">(</span><span class="n">params</span><span class="p">).</span><span class="nf">bind</span> <span class="p">{</span> <span class="o">|</span><span class="n">values</span><span class="o">|</span>
+      <span class="n">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:account</span><span class="p">]).</span><span class="nf">bind</span> <span class="p">{</span> <span class="o">|</span><span class="n">account</span><span class="o">|</span>
+        <span class="n">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="ss">:owner</span><span class="p">]).</span><span class="nf">fmap</span> <span class="p">{</span> <span class="o">|</span><span class="n">owner</span><span class="o">|</span>
+          <span class="p">[</span><span class="n">account</span><span class="p">,</span> <span class="n">owner</span><span class="p">]</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="c1"># returns Success(values) or Failure(:invalid_data)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="n">account_values</span><span class="p">)</span>
+    <span class="c1"># returns Success(account) or Failure(:account_not_created)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">owner_values</span><span class="p">)</span>
+    <span class="c1"># returns Success(owner) or Failure(:owner_not_created)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>The more monadic steps you need to combine the harder it becomes, not to mention how difficult it can be to refactor code written in such way.</p>
+
+<p>Embrace <code>Do</code>:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
+<span class="nb">require</span> <span class="s1">'dry/monads/do'</span>
+
+<span class="k">class</span> <span class="nc">CreateAccount</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:call</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">validate</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:account</span><span class="p">])</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="ss">:owner</span><span class="p">])</span>
+
+    <span class="no">Success</span><span class="p">([</span><span class="n">account</span><span class="p">,</span> <span class="n">user</span><span class="p">])</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="c1"># returns Success(values) or Failure(:invalid_data)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="n">account_values</span><span class="p">)</span>
+    <span class="c1"># returns Success(account) or Failure(:account_not_created)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">owner_values</span><span class="p">)</span>
+    <span class="c1"># returns Success(owner) or Failure(:owner_not_created)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+<p>Both snippets do the same thing yet the second one is a lot easier to deal with. All what <code>Do</code> does here is prepending <code>CreateAccount</code> with a module which passes a block to <code>CreateAccount#call</code>. That simple.</p>
+
+<h3 id="transaction-safety">Transaction safety</h3>
+
+<p>Under the hood, <code>Do</code> uses exceptions to halt unsuccessful operations, this can be slower if you are dealing with unsuccessful paths a lot, but usually, this is not an issue. Check out <a href="https://www.morozov.is/2018/05/27/do-notation-ruby.html">this article</a> for actual benchmarks.</p>
+
+<p>One particular reason to use exceptions is the ability to make code transaction-friendly. In the example above, this piece of code is not atomic:</p>
+<pre class="syntax ruby"><code><span class="n">account</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:account</span><span class="p">])</span>
+<span class="n">owner</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="ss">:owner</span><span class="p">])</span>
+
+<span class="no">Success</span><span class="p">([</span><span class="n">account</span><span class="p">,</span> <span class="n">user</span><span class="p">])</span>
+</code></pre>
+<p>What if <code>create_account</code> succeeds and <code>create_owner</code> fails? This will leave your database in an inconsistent state. Let&rsquo;s wrap it with a transaction block:</p>
+<pre class="syntax ruby"><code><span class="n">repo</span><span class="p">.</span><span class="nf">transaction</span> <span class="k">do</span>
+  <span class="n">account</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:account</span><span class="p">])</span>
+  <span class="n">owner</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="ss">:owner</span><span class="p">])</span>
+
+  <span class="no">Success</span><span class="p">([</span><span class="n">account</span><span class="p">,</span> <span class="n">user</span><span class="p">])</span>
+<span class="k">end</span>
+</code></pre>
+<p>Since <code>yield</code> internally uses exceptions to control the flow, the exception will be detected by the <code>transaction</code> call and the whole operation will be rolled back. No more garbage in your database, yay!</p>
+
+<h3 id="limitations">Limitations</h3>
+
+<p><code>Do</code> only works with single-value monads, i.e. most of them. At the moment, there is no way to make it work with <code>List</code>, though.</p>
+
+<h3 id="adding-batteries">Adding batteries</h3>
+
+<p>The <code>Do::All</code> module takes one step ahead, it tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence. This way, in most cases you can use <code>Do::All</code> instead of listing methods with <code>Do.for(...)</code>:</p>
+<pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
+<span class="nb">require</span> <span class="s1">'dry/monads/do/all'</span>
+
+<span class="k">class</span> <span class="nc">CreateAccount</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span><span class="o">::</span><span class="no">All</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">account_params</span><span class="p">,</span> <span class="n">owner_params</span><span class="p">)</span>
+    <span class="n">repo</span><span class="p">.</span><span class="nf">transaction</span> <span class="k">do</span>
+      <span class="n">account</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_account</span><span class="p">(</span><span class="n">account_params</span><span class="p">)</span>
+      <span class="n">owner</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">owner_params</span><span class="p">)</span>
+
+      <span class="no">Success</span><span class="p">([</span><span class="n">account</span><span class="p">,</span> <span class="n">owner</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">validate_account</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="n">repo</span><span class="p">.</span><span class="nf">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="no">Success</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">validate_owner</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">repo</span><span class="p">.</span><span class="nf">create_owner</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+
+    <span class="no">Success</span><span class="p">(</span><span class="n">owner</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate_account</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="c1"># returns Success/Failure</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate_owner</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="c1"># returns Success/Failure</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
