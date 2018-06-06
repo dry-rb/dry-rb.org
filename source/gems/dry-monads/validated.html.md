@@ -7,11 +7,11 @@ name: dry-monads
 Suppose you've got a form to validate. If you are using `Result` combined with `Do` your code might look like this:
 
 ```ruby
-require 'dry/monads/do/all'
+require 'dry/monads/do'
 require 'dry/monads/result'
 
 class CreateAccount
-  include Dry::Monads::Do::All
+  include Dry::Monads::Do
   include Dry::Monads::Result::Mixin
 
   def call(form)
@@ -47,13 +47,13 @@ If any of the validation steps fails the user will see an error. The problem is 
 `Validated` is actually not a monad but an applicative functor. This means you can't call `bind` on it. Instead, it can accumulate values in combination with `List`:
 
 ```ruby
-require 'dry/monads/do/all'
+require 'dry/monads/do'
 require 'dry/monads/validated'
 require 'dry/monads/result'
 require 'dry/monads/list'
 
 class CreateAccount
-  include Dry::Monads::Do::All
+  include Dry::Monads::Do
   include Dry::Monads::Validated::Mixin
   include Dry::Monads::Result::Mixin
   include Dry::Monads::List::Mixin

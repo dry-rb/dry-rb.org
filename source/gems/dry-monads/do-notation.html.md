@@ -107,15 +107,15 @@ Since `yield` internally uses exceptions to control the flow, the exception will
 
 ### Adding batteries
 
-The `Do::All` module takes one step ahead, it tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence. This way, in most cases you can use `Do::All` instead of listing methods with `Do.for(...)`:
+You can take one step ahead and include `Dry::Monads::Do` without specifing method names with `.for(...)`. The mixin tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence:
 
 ```ruby
 require 'dry/monads/result'
-require 'dry/monads/do/all'
+require 'dry/monads/do'
 
 class CreateAccount
   include Dry::Monads::Result::Mixin
-  include Dry::Monads::Do::All
+  include Dry::Monads::Do
 
   def call(account_params, owner_params)
     repo.transaction do
