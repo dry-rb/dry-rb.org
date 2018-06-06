@@ -94,13 +94,13 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <h3 id="adding-batteries">Adding batteries</h3>
 
-<p>The <code>Do::All</code> module takes one step ahead, it tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence. This way, in most cases you can use <code>Do::All</code> instead of listing methods with <code>Do.for(...)</code>:</p>
+<p>You can take one step ahead and include <code>Dry::Monads::Do</code> without specifing method names with <code>.for(...)</code>. The mixin tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence:</p>
 <pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
-<span class="nb">require</span> <span class="s1">'dry/monads/do/all'</span>
+<span class="nb">require</span> <span class="s1">'dry/monads/do'</span>
 
 <span class="k">class</span> <span class="nc">CreateAccount</span>
   <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
-  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span><span class="o">::</span><span class="no">All</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span>
 
   <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">account_params</span><span class="p">,</span> <span class="n">owner_params</span><span class="p">)</span>
     <span class="n">repo</span><span class="p">.</span><span class="nf">transaction</span> <span class="k">do</span>
