@@ -25,7 +25,7 @@ class MyContainer
         raise MyDB::Rollback if result.failure?
         result
       end
-    rescue Test::Rollback
+    rescue MyDB::Rollback
       result
     end
   end
