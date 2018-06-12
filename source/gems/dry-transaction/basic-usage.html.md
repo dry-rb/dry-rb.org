@@ -221,3 +221,58 @@ create_user.with_step_args(
 ).call(input)
 # => Failure(:not_valid)
 ```
+
+### Passing additional step arguments inside transaction
+
+Sometimes you need to pass additional step arguments to operations inside transaction class. It is possible to do with overriding step and call `super` with additional arguments.
+
+```ruby
+DB = []
+MAILER = []
+
+class Container
+  extend Dry::Container::Mixin
+
+  register :process, -> input {
+    Dry::Monads.Right(name: input["name"], email: input["email"])
+  }
+
+  register :validate, -> input, allowed {
+    input[:email].include?(allowed) ? Dry::Monads.Right(input) : Dry::Monads.Left(:not_valid)
+  }
+
+  register :persist, -> input {
+    DB << input; Dry::Monads.Right(input)
+  }
+
+  register :notify, -> input, email: {
+    MAILER << email; Dry::Monads.Right(input)
+  }
+end
+
+class CreateUser
+  include Dry::Transaction(container: Container)
+
+  step :process
+  step :validate
+  step :persist
+  step :notify
+
+  def validate(input)
+    super(input, 'doe.com')
+  end
+
+  def notify(input)
+    super(input, email: 'foo@bar.com')
+  end
+end
+
+create_user = CreateUser.new
+
+input = {"name" => "Jane", "email" => "jane@doe.com"}
+
+create_user.call(input)
+# => Right({:name=>"Jane", :email=>"jane@doe.com"})
+
+```
+
