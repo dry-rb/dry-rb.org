@@ -141,51 +141,34 @@ You can pass additional arguments to step operations using `#with_step_args`. Pr
 By using `#with_step_args` to pass additional step arguments, you can include operations in a transaction with any sort of `#call(input, *args)` interface, including keyword arguments.
 
 ```ruby
-DB = []
-MAILER = []
-
-class Container
-  extend Dry::Container::Mixin
-
-  register :process, -> input {
-    Dry::Monads.Success(name: input["name"], email: input["email"])
-  }
-
-  register :validate, -> input, allowed {
-    input[:email].include?(allowed) ? Dry::Monads.Success(input) : Dry::Monads.Failure(:not_valid)
-  }
-
-  register :persist, -> input {
-    DB << input; Dry::Monads.Success(input)
-  }
-
-  register :notify, -> input, email: {
-    MAILER << email; Dry::Monads.Success(input)
-  }
-end
-
 class CreateUser
   include Dry::Transaction(container: Container)
 
-  step :process
   step :validate
   step :persist
   step :notify
+
+  private
+
+  def validate(input)
+    # ...
+  end
+
+  def persist(input, account_id:)
+    # ...
+  end
+
+  def notify(user, recipient)
+    # ...
+  end
 end
 
 create_user = CreateUser.new
 
-input = {"name" => "Jane", "email" => "jane@doe.com"}
-
-create_user.with_step_args(
-  validate: ["doe.com"],
-  notify: [email: 'foo@bar.com'],
-).call(input)
-# => Success({:name=>"Jane", :email=>"jane@doe.com"})
-
-create_user.with_step_args(
-  validate: ["smith.com"],
-  notify: [email: 'foo@bar.com'],
-).call(input)
-# => Failure(:not_valid)
+create_user
+  .with_step_args(
+    persist: [account_id: 123],
+    notify: ["foo@bar.com"],
+  )
+  .call(name: "Jane", email: "jane@doe.com")
 ```
