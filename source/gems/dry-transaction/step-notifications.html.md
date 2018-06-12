@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-transaction
 ---
 
-As well as matching on the final transaction result, you can subscribe to individual steps and trigger specific behaviours based on their success or failure.
+As well as matching on the final transaction result, you can subscribe to individual steps and trigger specific behaviors based on their success or failure.
 
 You can subscribe to events from specific steps using `#subscribe(step_name: listener)`, or subscribe to all steps via `#subscribe(listener)`.
 
