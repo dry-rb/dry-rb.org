@@ -15,22 +15,45 @@ sections:
   - custom-step-adapters
 ---
 
-`dry-transaction` is a business transaction DSL. It provides a simple way to define a complex business transaction that includes processing by many different objects. It makes error handling a primary concern by using a “[Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/)” approach for capturing and returning errors from any step in the transaction.
+dry-transaction is a business transaction DSL. It provides a simple way to define a complex business transaction that includes processing over many steps and by many different objects. It makes error handling a primary concern by taking a “[Railway Oriented Programming](http://fsharpforfunandprofit.com/rop/)” approach to capturing and returning errors from any step in the transaction.
 
 `dry-transaction` is based on the following ideas:
 
-* A business transaction is a series of operations where any can fail and stop the processing.
-* A business transaction may resolve its operations using an external container.
-* A business transaction can describe its steps on an abstract level without being coupled to any details about how individual operations work.
-* A business transaction doesn’t have any state.
-* Each operation shouldn’t accumulate state, instead it should receive an input and return an output without causing any side-effects.
-* The only interface of an operation is `#call(input)`.
-* Each operation provides a meaningful piece of functionality and can be reused.
-* Errors in any operation can be easily caught and handled as part of the normal application flow.
+- A business transaction is a series of operations where any can fail and stop the processing.
+- A business transaction may resolve its operations using an external container.
+- A business transaction can describe its steps on an abstract level without being coupled to any details about how individual operations work.
+- A business transaction doesn’t have any state.
+- Each operation shouldn’t accumulate state, instead it should receive an input and return an output without causing any side-effects.
+- The only interface of an operation is `#call(input)`.
+- Each operation provides a meaningful piece of functionality and can be reused.
+- Errors in any operation should be easily caught and handled as part of the normal application flow.
+
+A simple transaction may look like this:
+
+```ruby
+require "dry/transaction"
+
+class CreateUser
+  include Dry::Transaction
+
+  step :validate
+  step :persist
+
+  private
+
+  def validate(input)
+    # returns Success(valid_data) or Failure(validation)
+  end
+
+  def persist(input)
+    # returns Success(user)
+  end
+end
+```
 
 ## Why?
 
-Requiring a business transaction’s steps to be independent operations directly addressable via a container means that they can be tested in isolation and easily reused throughout your application. The business transaction can then become a simple series of declarative steps, which ensures that it’s easy to understand at a glance.
+Allowing a business transaction’s steps to be independent operations directly addressable via a container means that they can be tested in isolation and easily reused throughout your application. The business transaction can then become a series of declarative steps, which ensures that it’s easy to understand at a glance.
 
 The output of each step is a [dry-monads](https://github.com/dry-rb/dry-monads) `Result` object (either a `Success` or `Failure`). This allows the steps to be chained together and ensures that processing stops in the case of a failure. Returning a `Result` from the overall transaction also allows for error handling to remain a primary concern without it getting in the way of tidy, straightforward operation logic.
 
