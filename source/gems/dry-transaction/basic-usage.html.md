@@ -126,7 +126,7 @@ create_user.call(name: "Jane", email: "jane@doe.com") do |m|
   end
 
   m.failure do |error|
-    # Runs for any failure (including :validate failures)
+    # Runs for any other failure
     puts "Couldn’t create this user."
   end
 end
