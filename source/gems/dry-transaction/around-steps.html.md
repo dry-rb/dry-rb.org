@@ -39,7 +39,9 @@ class MyOperation
   include Dry::Transaction(container: MyContainer)
 
   around :transaction
-  step :persist_something
-  step :persist_another_thing
+
+  # Multiple subsequent steps writing to the database
+  step :persist_user
+  step :persist_account
 end
 ```
