@@ -8,13 +8,13 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 
 <p>Sometimes, a step operation needs to <em>wrap</em> all of the subsequent steps. A common case for this is handling database transactions. An operation providing a database transaction across steps needs to wrap around all the subsequent operations so it can roll back the transactoin in case one of the operations failures.</p>
 
-<p>Use an <code>around</code> step to give an operation this behaviour. The operation will receive <code>#call(input, &amp;block)</code>, where <code>&amp;block</code> is the collection of steps it is wrapping. It should call the block to run those steps and handle as appropriate.</p>
+<p>Use an <code>around</code> step to give an operation this behavior. The operation will receive <code>#call(input, &amp;block)</code>, where <code>&amp;block</code> is the collection of steps it is wrapping. It should call the block to run those steps and handle as appropriate.</p>
 
 <p>An operation to wrap steps in a database transaction would work like this (replace <code>MyDB</code> with whatever your database system requires):</p>
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyContainer</span>
   <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span>
 
-  <span class="n">register</span><span class="p">(</span><span class="ss">:transaction</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">input</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="o">|</span>
+  <span class="n">registe</span> <span class="s2">"transaction"</span> <span class="k">do</span> <span class="o">|</span><span class="n">input</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="o">|</span>
     <span class="n">result</span> <span class="o">=</span> <span class="kp">nil</span>
 
     <span class="k">begin</span>
@@ -23,7 +23,7 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
         <span class="k">raise</span> <span class="no">MyDB</span><span class="o">::</span><span class="no">Rollback</span> <span class="k">if</span> <span class="n">result</span><span class="p">.</span><span class="nf">failure?</span>
         <span class="n">result</span>
       <span class="k">end</span>
-    <span class="k">rescue</span> <span class="no">Test</span><span class="o">::</span><span class="no">Rollback</span>
+    <span class="k">rescue</span> <span class="no">MyDB</span><span class="o">::</span><span class="no">Rollback</span>
       <span class="n">result</span>
     <span class="k">end</span>
   <span class="k">end</span>
@@ -33,8 +33,10 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyOperation</span>
   <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Transaction</span><span class="p">(</span><span class="ss">container: </span><span class="no">MyContainer</span><span class="p">)</span>
 
-  <span class="n">around</span> <span class="ss">:transaction</span>
-  <span class="n">step</span> <span class="ss">:persist_something</span>
-  <span class="n">step</span> <span class="ss">:persist_another_thing</span>
+  <span class="n">around</span> <span class="ss">:transaction</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"transaction"</span>
+
+  <span class="c1"># Multiple subsequent steps writing to the database</span>
+  <span class="n">step</span> <span class="ss">:create_user</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"users.create"</span>
+  <span class="n">step</span> <span class="ss">:create_account</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"accounts.create"</span>
 <span class="k">end</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>

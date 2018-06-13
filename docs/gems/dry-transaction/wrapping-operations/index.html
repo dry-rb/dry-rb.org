@@ -10,11 +10,12 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">CreateUser</span>
   <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Transaction</span><span class="p">(</span><span class="ss">container: </span><span class="no">Container</span><span class="p">)</span>
 
-  <span class="n">step</span> <span class="ss">:process</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"operations.process"</span>
+  <span class="n">step</span> <span class="ss">:validate</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"users.validate"</span>
+  <span class="n">step</span> <span class="ss">:create</span><span class="p">,</span> <span class="ss">with: </span><span class="s2">"users.create"</span>
 
   <span class="kp">private</span>
 
-  <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
     <span class="n">adjusted_input</span> <span class="o">=</span> <span class="n">upcase_values</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
     <span class="k">super</span><span class="p">(</span><span class="n">adjusted_input</span><span class="p">)</span>
   <span class="k">end</span>
@@ -27,6 +28,6 @@ ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><
 <span class="k">end</span>
 
 <span class="n">create_user</span> <span class="o">=</span> <span class="no">CreateUser</span><span class="p">.</span><span class="nf">new</span>
-<span class="n">create_user</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Jane"</span><span class="p">,</span> <span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"jane@doe.com"</span><span class="p">)</span>
-<span class="c1"># =&gt; Success({:name=&gt;"JANE", :email=&gt;"JANE@DOE.COM"})</span>
+<span class="n">create_user</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Jane"</span><span class="p">,</span> <span class="ss">email: </span><span class="s2">"jane@doe.com"</span><span class="p">)</span>
+<span class="c1"># =&gt; Success(#&lt;User name="JANE" email="JANE@DOE.COM"&gt;)</span>
 </code></pre></article></div></div><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://gitter.im/dry-rb/chat"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div></div></footer></body></html>
