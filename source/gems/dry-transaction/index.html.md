@@ -37,7 +37,7 @@ class CreateUser
   include Dry::Transaction
 
   step :validate
-  step :persist
+  step :create
 
   private
 
@@ -45,7 +45,7 @@ class CreateUser
     # returns Success(valid_data) or Failure(validation)
   end
 
-  def persist(input)
+  def create(input)
     # returns Success(user)
   end
 end

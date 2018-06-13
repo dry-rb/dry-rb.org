@@ -13,7 +13,7 @@ class CreateUser
   include Dry::Transaction(container: Container)
 
   step :validate, with: "users.validate"
-  step :persist, with: "users.persist"
+  step :create, with: "users.create"
 
   private
 

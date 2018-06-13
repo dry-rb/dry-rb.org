@@ -15,7 +15,7 @@ class CreateUser
   include Dry::Transaction
 
   step :validate
-  step :persist
+  step :create
 
   private
 
@@ -23,7 +23,7 @@ class CreateUser
     # returns Success(valid_data) or Failure(validation)
   end
 
-  def persist(input)
+  def create(input)
     # returns Success(user)
   end
 end
@@ -40,19 +40,21 @@ require "dry/container"
 require "dry/transaction"
 require "dry/transaction/operation"
 
-class Validate
-  include Dry::Transaction::Operation
+module Users
+  class Validate
+    include Dry::Transaction::Operation
 
-  def call(input)
-    # returns Success(valid_data) or Failure(validation)
+    def call(input)
+      # returns Success(valid_data) or Failure(validation)
+    end
   end
-end
 
-class Persist
-  include Dry::Transaction::Operation
+  class Create
+    include Dry::Transaction::Operation
 
-  def call(input)
-    # returns Success(user)
+    def call(input)
+      # returns Success(user)
+    end
   end
 end
 
@@ -61,11 +63,11 @@ class Container
 
   namespace "users" do
     register "validate" do
-      Validate.new
+      Users::Validate.new
     end
 
-    register "persist" do
-      Persist.new
+    register "create" do
+      Users::Create.new
     end
   end
 end
@@ -80,7 +82,7 @@ class CreateUser
   include Dry::Transaction(container: Container)
 
   step :validate, with: "users.validate"
-  step :persist, with: "users.persist"
+  step :create, with: "users.create"
 end
 ```
 
@@ -98,7 +100,7 @@ class CreateUser
 
   # Operations will be resolved from the `Container` specified above
   step :validate, with: "users.validate"
-  step :persist, with: "users.persist"
+  step :create, with: "users.create"
 end
 ```
 
@@ -145,7 +147,7 @@ class CreateUser
   include Dry::Transaction(container: Container)
 
   step :validate
-  step :persist
+  step :create
   step :notify
 
   private
@@ -154,7 +156,7 @@ class CreateUser
     # ...
   end
 
-  def persist(input, account_id:)
+  def create(input, account_id:)
     # ...
   end
 
@@ -167,7 +169,7 @@ create_user = CreateUser.new
 
 create_user
   .with_step_args(
-    persist: [account_id: 123],
+    create: [account_id: 123],
     notify: ["foo@bar.com"],
   )
   .call(name: "Jane", email: "jane@doe.com")

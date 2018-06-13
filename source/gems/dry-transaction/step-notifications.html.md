@@ -20,40 +20,47 @@ For example:
 NOTIFICATIONS = []
 
 class CreateUser
-  include Dry::Transaction(container: Container)
+  include Dry::Transaction
 
-  step :process
   step :validate
-  step :persist
+  step :create
+
+  private
+
+  def validate(input)
+    # ...
+  end
+
+  def create(input)
+    # ...
+  end
 end
 
-module UserPersistListener
+module UserCreationListener
   extend self
 
   def on_step(event)
-    NOTIFICATIONS << "Started persistence of #{user[:email]}"
+    NOTIFICATIONS << "Started creation of #{user[:email]}"
   end
 
   def on_step_succeeded(event)
     user = event[:value]
-    NOTIFICATIONS << "#{user[:email]} persisted"
+    NOTIFICATIONS << "#{user[:email]} created"
   end
 
   def on_step_failure(event)
     user = event[:value]
-    NOTIFICATIONS << "#{user[:email]} failed to persist"
+    NOTIFICATIONS << "#{user[:email]} creation failed"
   end
 end
 
 create_user = CreateUser.new
+create_user.subscribe(create: UserCreationListener)
 
-input = {"name" => "Jane", "email" => "jane@doe.com"}
-
-create_user.subscribe(persist: UserPersistListener)
-create_user.with_step_args(validate: "doe.com").call(input)
+create_user.call(name: "Jane", email: "jane@doe.com")
 
 NOTIFICATIONS
-# => ["Started persistence of jane@doe.com", "jane@doe.com persisted"]
+# => ["Started creation of jane@doe.com", "jane@doe.com created"]
 ```
 
 This pub/sub mechanism is provided by [dry-events](/gems/dry-events).

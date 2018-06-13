@@ -17,8 +17,8 @@ class CreateUser
   include Dry::Transaction(container: Container)
 
   step :prepare
-  step :validate, with: "operations.validate"
-  step :persist, with: "operations.persist"
+  step :validate, with: "users.validate"
+  step :create, with: "users.create"
 
   private
 
@@ -27,11 +27,11 @@ class CreateUser
   end
 end
 
-prepare = -> input { input.merge(name: "#{input[:name]}!!") }
-persist = -> user { Failure([:will_not_persist, user]) }
+prepare = -> input { Success(input.merge(name: "#{input[:name]}!!")) }
+create  = -> user  { Failure([:could_not_create, user]) }
 
-create_user = CreateUser.new(prepare: prepare, persist: persist)
+create_user = CreateUser.new(prepare: prepare, create: create)
 
 create_user.call(name: "Jane", email: "jane@doe.com")
-# => Failure([:will_not_persist, {:name => "Jane!!", :email => "jane@doe.com"})
+# => Failure([:could_not_create, {:name => "Jane!!", :email => "jane@doe.com"})
 ```
