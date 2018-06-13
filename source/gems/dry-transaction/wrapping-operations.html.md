@@ -12,11 +12,12 @@ To wrap an operation, define an instance method with the same name as a step, an
 class CreateUser
   include Dry::Transaction(container: Container)
 
-  step :process, with: "operations.process"
+  step :validate, with: "users.validate"
+  step :create, with: "users.create"
 
   private
 
-  def process(input)
+  def validate(input)
     adjusted_input = upcase_values(input)
     super(adjusted_input)
   end
@@ -29,6 +30,6 @@ class CreateUser
 end
 
 create_user = CreateUser.new
-create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Success({:name=>"JANE", :email=>"JANE@DOE.COM"})
+create_user.call(name: "Jane", email: "jane@doe.com")
+# => Success(#<User name="JANE" email="JANE@DOE.COM">)
 ```

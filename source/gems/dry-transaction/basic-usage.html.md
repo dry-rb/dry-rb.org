@@ -14,26 +14,17 @@ require "dry/transaction"
 class CreateUser
   include Dry::Transaction
 
-  step :process
   step :validate
-  step :persist
+  step :create
 
-  def process(input)
-    Success(name: input["name"], email: input["email"])
-  end
+  private
 
   def validate(input)
-    if input[:email].nil?
-      Failure(:not_valid)
-    else
-      Success(input)
-    end
+    # returns Success(valid_data) or Failure(validation)
   end
 
-  def persist(input)
-    DB << input
-
-    Success(input)
+  def create(input)
+    # returns Success(user)
   end
 end
 ```
@@ -42,57 +33,41 @@ end
 
 You can also define a transaction that relies upon operation objects in a container. Each operation must respond to `#call(input)`.
 
-The operations will be resolved from the container via `#[]`. For this example, we’ll use [dry-container](/gems/dry-container):
+The container will be checked for the operations using `#key?`, and the operations will be resolved from the container via `#[]`. For this example, we’ll use [dry-container](/gems/dry-container):
 
 ```ruby
-require "dry-container"
+require "dry/container"
 require "dry/transaction"
 require "dry/transaction/operation"
 
-class Process
-  include Dry::Transaction::Operation
+module Users
+  class Validate
+    include Dry::Transaction::Operation
 
-  def call(input)
-    Success(name: input["name"], email: input["email"])
-  end
-end
-
-class Validate
-  include Dry::Transaction::Operation
-
-  def call(input)
-    if input[:email].nil?
-      Failure(:not_valid)
-    else
-      Success(input)
+    def call(input)
+      # returns Success(valid_data) or Failure(validation)
     end
   end
-end
 
-class Persist
-  include Dry::Transaction::Operation
+  class Create
+    include Dry::Transaction::Operation
 
-  def call(input)
-    DB << input
-
-    Success(input)
+    def call(input)
+      # returns Success(user)
+    end
   end
 end
 
 class Container
   extend Dry::Container::Mixin
 
-  namespace "operations" do |ops|
-    ops.register "process" do
-      Process.new
+  namespace "users" do
+    register "validate" do
+      Users::Validate.new
     end
 
-    ops.register "validate" do
-      Validate.new
-    end
-
-    ops.register "persist" do
-      Persist.new
+    register "create" do
+      Users::Create.new
     end
   end
 end
@@ -106,9 +81,8 @@ Once you have a container, you can pass it to your transaction mixin and refer t
 class CreateUser
   include Dry::Transaction(container: Container)
 
-  step :process, with: "operations.process"
-  step :validate, with: "operations.validate"
-  step :persist, with: "operations.persist"
+  step :validate, with: "users.validate"
+  step :create, with: "users.create"
 end
 ```
 
@@ -125,7 +99,8 @@ class CreateUser
   include MyApp::Transaction
 
   # Operations will be resolved from the `Container` specified above
-  step :process, with: "operations.process"
+  step :validate, with: "users.validate"
+  step :create, with: "users.create"
 end
 ```
 
@@ -134,31 +109,26 @@ end
 Calling a transaction will run its operations in their specified order, with the output of each operation becoming the input for the next.
 
 ```ruby
-DB = []
-
 create_user = CreateUser.new
-create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Success({:name=>"Jane", :email=>"jane@doe.com"})
-
-DB
-# => [{:name=>"Jane", :email=>"jane@doe.com"}]
+create_user.call(name: "Jane", email: "jane@doe.com")
+# => Success(#<User name="Jane", email="jane@doe.com">)
 ```
 
 Each transaction returns a result value wrapped in a `Success` or `Failure` object, based on the output of its final step. You can handle these results (including errors arising from particular steps) with a match block:
 
 ```ruby
 create_user.call(name: "Jane", email: "jane@doe.com") do |m|
-  m.success do |value|
-    puts "Succeeded!"
+  m.success do |user|
+    puts "Created user for #{user.name}!"
   end
 
-  m.failure :validate do |error|
+  m.failure :validate do |validation|
     # Runs only when the transaction fails on the :validate step
     puts "Please provide a valid user."
   end
 
   m.failure do |error|
-    # Runs for any failure (including :validate failures)
+    # Runs for any other failure
     puts "Couldn’t create this user."
   end
 end
@@ -173,51 +143,34 @@ You can pass additional arguments to step operations using `#with_step_args`. Pr
 By using `#with_step_args` to pass additional step arguments, you can include operations in a transaction with any sort of `#call(input, *args)` interface, including keyword arguments.
 
 ```ruby
-DB = []
-MAILER = []
-
-class Container
-  extend Dry::Container::Mixin
-
-  register :process, -> input {
-    Dry::Monads.Success(name: input["name"], email: input["email"])
-  }
-
-  register :validate, -> input, allowed {
-    input[:email].include?(allowed) ? Dry::Monads.Success(input) : Dry::Monads.Failure(:not_valid)
-  }
-
-  register :persist, -> input {
-    DB << input; Dry::Monads.Success(input)
-  }
-
-  register :notify, -> input, email: {
-    MAILER << email; Dry::Monads.Success(input)
-  }
-end
-
 class CreateUser
   include Dry::Transaction(container: Container)
 
-  step :process
   step :validate
-  step :persist
+  step :create
   step :notify
+
+  private
+
+  def validate(input)
+    # ...
+  end
+
+  def create(input, account_id:)
+    # ...
+  end
+
+  def notify(user, recipient)
+    # ...
+  end
 end
 
 create_user = CreateUser.new
 
-input = {"name" => "Jane", "email" => "jane@doe.com"}
-
-create_user.with_step_args(
-  validate: ["doe.com"],
-  notify: [email: 'foo@bar.com'],
-).call(input)
-# => Success({:name=>"Jane", :email=>"jane@doe.com"})
-
-create_user.with_step_args(
-  validate: ["smith.com"],
-  notify: [email: 'foo@bar.com'],
-).call(input)
-# => Failure(:not_valid)
+create_user
+  .with_step_args(
+    create: [account_id: 123],
+    notify: ["foo@bar.com"],
+  )
+  .call(name: "Jane", email: "jane@doe.com")
 ```

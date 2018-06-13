@@ -43,7 +43,7 @@ end
 class CreateUser
   include Dry::Transaction(container: Container, step_adapters: MyStepAdapters)
 
-  step :persist
+  step :create
   enqueue :send_welcome_email
 end
 ```

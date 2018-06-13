@@ -19,6 +19,7 @@ class CreateUser
 
   map :process
   try :validate, catch: ValidationError
-  tee :persist
+  map :create
+  tee :notify
 end
 ```

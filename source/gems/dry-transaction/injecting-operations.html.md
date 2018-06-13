@@ -6,23 +6,32 @@ name: dry-transaction
 
 You can inject operation objects into transactions to adjust their behavior at runtime. This could be helpful to substitute operations with test doubles to simulate various conditions in testing.
 
-To inject operation objects, pass them as keyword arguments to the initializer, with their keyword matching the step's name.
+You can inject operation objects for both ”external” steps (defined using `with:`, pointing to a container registration), as well as “internal” steps (backed by instance methods only).
 
-Every injected operation must respond to `#call(input, *args)`.
+To inject operation objects, pass them as keyword arguments to the initializer, with their keyword matching their step's name.
+
+Each injected operation must respond to `#call(input, *args)`.
 
 ```ruby
 class CreateUser
   include Dry::Transaction(container: Container)
 
-  step :process, with: "operations.process"
-  step :validate, with: "operations.validate"
-  step :persist, with: "operations.persist"
+  step :prepare
+  step :validate, with: "users.validate"
+  step :create, with: "users.create"
+
+  private
+
+  def prepare(input)
+    Success(input)
+  end
 end
 
-substitute_validate_step = -> input { Failure(:definitely_not_valid) }
+prepare = -> input { Success(input.merge(name: "#{input[:name]}!!")) }
+create  = -> user  { Failure([:could_not_create, user]) }
 
-create_user = CreateUser.new(validate: substitute_validate_step)
+create_user = CreateUser.new(prepare: prepare, create: create)
 
-create_user.call("name" => "Jane", "email" => "jane@doe.com")
-# => Failure(:definitely_not_valid)
+create_user.call(name: "Jane", email: "jane@doe.com")
+# => Failure([:could_not_create, {:name => "Jane!!", :email => "jane@doe.com"})
 ```
