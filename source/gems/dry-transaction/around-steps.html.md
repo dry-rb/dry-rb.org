@@ -16,7 +16,7 @@ An operation to wrap steps in a database transaction would work like this (repla
 class MyContainer
   extend Dry::Container
 
-  register(:transaction) do |input, &block|
+  registe "transaction" do |input, &block|
     result = nil
 
     begin
@@ -38,10 +38,10 @@ And can be integrated into a business transaction like this:
 class MyOperation
   include Dry::Transaction(container: MyContainer)
 
-  around :transaction
+  around :transaction, with: "transaction"
 
   # Multiple subsequent steps writing to the database
-  step :persist_user
-  step :persist_account
+  step :create_user, with: "users.create"
+  step :create_account, with: "accounts.create"
 end
 ```
