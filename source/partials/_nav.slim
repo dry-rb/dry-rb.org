@@ -13,7 +13,7 @@ nav.main-nav
           ul
             - group.each do |page|
               li
-                == link_to page.name, "/gems/#{page.name}"
+                == link_to page.name, "/gems/#{page.name}/#{current_version(page.name)}"
 
     li class=("main-nav__item--selected" if /\Anews/.match(current_page.path))
       a href="/news" News

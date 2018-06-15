@@ -183,7 +183,7 @@ helpers do
   end
 
   def nav
-    url = "#{current_resource.url.split('/')[0..2].join('/')}/"
+    url = "#{current_resource.url.split('/')[0..3].join('/')}/"
     root = sitemap.resources.detect { |page| page.url == url }
 
     raise "page for #{url} not found" unless root
@@ -253,6 +253,47 @@ helpers do
   def author_url
     author = site.authors[current_page.data.author]
     link_to author.name, author.url
+  end
+
+  def current_gem
+    current_page.data.name
+  end
+
+  def gem_versions(gem = current_gem)
+    data.versions.fetch(gem, {})
+  end
+
+  def versions_match?(v1, v2)
+    v1 == v2 || v1 == 'next' && v2 == gem_versions.next
+  end
+
+  # Convert this config:
+  #
+  # versions:
+  # - "0.4"
+  # - code: "1.0"
+  #   name: "1.0 beta3"
+  #
+  # into this:
+  #
+  # [{code: "0.4", name: "0.4"}, {code: "1.0", name: "1.0 beta3"}]
+  def version_variants(gem = current_gem)
+    gem_versions(gem).fetch('versions', []).map do |version|
+      if version.is_a?(String)
+        { code: version, name: version }
+      else
+        { code: version['code'], name: version['name'] }
+      end
+    end
+  end
+
+  def current_version(gem = current_gem)
+    versions = gem_versions(gem)
+    versions['current'] || versions['fallback']
+  end
+
+  def version
+    current_path[%r{\A([\d\.]+|current|next)\/}, 1] || gem_versions.fallback
   end
 end
 
