@@ -161,6 +161,8 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
+  VERSION_REGEX = %r{([\d\.]+)\/}
+
   def page_title
     [config[:site_title], page_header, current_page.data.title].compact.join(' - ')
   end
@@ -201,7 +203,11 @@ helpers do
       classes = []
       classes << 'active' if current_resource.url == page.url
 
-      html = link_to(page.data.title, page.url, class: classes.join(' '))
+      has_version = !extract_version(page.url).nil?
+
+      url = has_version ? page.url : set_version(page.url, gem_versions['fallback'])
+
+      html = link_to(page.data.title, url, class: classes.join(' '))
 
       if page.data.sections
         links = nav_links(page.children, page).html_safe
@@ -214,7 +220,11 @@ helpers do
 
   def nav_links(pages, root)
     root.data.sections.map do |name|
-      page = pages.sort_by { |s| s.path.length }.detect { |r| r.path.include?(name) }
+      page = pages.sort_by { |s|
+        s.path.length
+      }.detect { |r|
+        r.path.include?(name)
+      }
       raise "section #{name} not found" unless page
       nav_link(page)
     end.join
@@ -264,7 +274,8 @@ helpers do
   end
 
   def versions_match?(v1, v2)
-    v1 == v2
+    binding.pry if v1.nil? || v2.nil?
+    v1 == v2 || v1 == nil && v2 == gem_versions['fallback']
   end
 
   # Convert this config:
@@ -293,8 +304,28 @@ helpers do
     versions['current']
   end
 
+  def extract_version(url)
+    url[VERSION_REGEX, 1]
+  end
+
   def version
-    current_path[%r{([\d\.]+)\/}, 1] || gem_versions['fallback']
+    extract_version(current_path) || gem_versions['fallback']
+  end
+
+  def set_version(url, new_version)
+    version = extract_version(url)
+
+    if version
+      url.gsub(VERSION_REGEX, new_version)
+    else
+      parts = url.split('/')
+
+      [
+        *parts[0..2],
+        new_version,
+        *parts[3..-1]
+      ].join('/')
+    end
   end
 end
 
