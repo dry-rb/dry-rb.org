@@ -264,7 +264,7 @@ helpers do
   end
 
   def versions_match?(v1, v2)
-    v1 == v2 || v1 == 'next' && v2 == gem_versions.next
+    v1 == v2
   end
 
   # Convert this config:
@@ -289,11 +289,12 @@ helpers do
 
   def current_version(gem = current_gem)
     versions = gem_versions(gem)
-    versions['current'] || versions['fallback']
+
+    versions['current']
   end
 
   def version
-    current_path[%r{\A([\d\.]+|current|next)\/}, 1] || gem_versions.fallback
+    current_path[%r{([\d\.]+)\/}, 1] || gem_versions['fallback']
   end
 end
 
