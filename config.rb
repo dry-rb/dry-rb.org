@@ -223,11 +223,8 @@ helpers do
 
   def nav_links(pages, root)
     root.data.sections.map do |name|
-      page = pages.sort_by { |s|
-        s.path.length
-      }.detect { |r|
-        r.path.include?(name)
-      }
+      page = pages.sort_by { |s| s.path.length }.detect { |r| r.path.include?(name) }
+
       raise "section #{name} not found" unless page
       nav_link(page)
     end.join
@@ -277,7 +274,8 @@ helpers do
   end
 
   def versions_match?(v1, v2)
-    v1 == v2 || v1 == nil && v2 == gem_versions['fallback']
+    fallback = gem_versions['fallback']
+    v1 == v2 || v1.nil? && v2 == fallback || v2.nil? && v1 == fallback
   end
 
   def has_version?(url)
