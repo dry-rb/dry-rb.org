@@ -185,7 +185,12 @@ helpers do
   end
 
   def nav
-    url = "#{current_resource.url.split('/')[0..3].join('/')}/"
+    if current_gem && has_version?(current_resource.url)
+      url = "#{current_resource.url.split('/')[0..3].join('/')}/"
+    else
+      url = "#{current_resource.url.split('/')[0..2].join('/')}/"
+    end
+
     root = sitemap.resources.detect { |page| page.url == url }
 
     raise "page for #{url} not found" unless root
@@ -203,9 +208,7 @@ helpers do
       classes = []
       classes << 'active' if current_resource.url == page.url
 
-      has_version = !extract_version(page.url).nil?
-
-      url = has_version ? page.url : set_version(page.url, gem_versions['fallback'])
+      url = has_version?(page.url) ? page.url : set_version(page.url, gem_versions['fallback'])
 
       html = link_to(page.data.title, url, class: classes.join(' '))
 
@@ -274,8 +277,11 @@ helpers do
   end
 
   def versions_match?(v1, v2)
-    binding.pry if v1.nil? || v2.nil?
     v1 == v2 || v1 == nil && v2 == gem_versions['fallback']
+  end
+
+  def has_version?(url)
+    !extract_version(page.url).nil?
   end
 
   # Convert this config:
@@ -312,7 +318,13 @@ helpers do
     extract_version(current_path) || gem_versions['fallback']
   end
 
+  def versions_available?
+    !gem_versions.empty?
+  end
+
   def set_version(url, new_version)
+    return url unless versions_available?
+
     version = extract_version(url)
 
     if version
