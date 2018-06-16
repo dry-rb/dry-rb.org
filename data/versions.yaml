@@ -4,5 +4,4 @@ dry-monads:
     - code: "1.0"
       name: "1.0 beta3"
   current: "0.4"
-  next: "1.0"
-  fallback: "0.4"
+  fallback: "1.0"
