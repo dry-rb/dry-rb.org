@@ -1,0 +1,7 @@
+dry-monads:
+  versions:
+    - "0.4"
+    - code: "1.0"
+      name: "1.0 beta3"
+  current: "0.4"
+  fallback: "1.0"

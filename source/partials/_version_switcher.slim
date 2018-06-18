@@ -1,0 +1,7 @@
+- unless version_variants.empty?
+  h3.sidebar__version
+    'Version:
+    select#sidebar__version-switcher
+      - version_variants.each do |code:, name:|
+        option value="#{ set_version(page.url, code) }" selected=("selected" if versions_match?(code, version))
+          = name

@@ -161,6 +161,8 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
+  VERSION_REGEX = %r{([\d\.]+)\/}
+
   def page_title
     [config[:site_title], page_header, current_page.data.title].compact.join(' - ')
   end
@@ -183,7 +185,12 @@ helpers do
   end
 
   def nav
-    url = "#{current_resource.url.split('/')[0..2].join('/')}/"
+    if current_gem && has_version?(current_resource.url)
+      url = "#{current_resource.url.split('/')[0..3].join('/')}/"
+    else
+      url = "#{current_resource.url.split('/')[0..2].join('/')}/"
+    end
+
     root = sitemap.resources.detect { |page| page.url == url }
 
     raise "page for #{url} not found" unless root
@@ -201,7 +208,9 @@ helpers do
       classes = []
       classes << 'active' if current_resource.url == page.url
 
-      html = link_to(page.data.title, page.url, class: classes.join(' '))
+      url = has_version?(page.url) ? page.url : set_version(page.url, gem_versions['fallback'])
+
+      html = link_to(page.data.title, url, class: classes.join(' '))
 
       if page.data.sections
         links = nav_links(page.children, page).html_safe
@@ -215,6 +224,7 @@ helpers do
   def nav_links(pages, root)
     root.data.sections.map do |name|
       page = pages.sort_by { |s| s.path.length }.detect { |r| r.path.include?(name) }
+
       raise "section #{name} not found" unless page
       nav_link(page)
     end.join
@@ -253,6 +263,79 @@ helpers do
   def author_url
     author = site.authors[current_page.data.author]
     link_to author.name, author.url
+  end
+
+  def current_gem
+    current_page.data.name
+  end
+
+  def gem_versions(gem = current_gem)
+    data.versions.fetch(gem, {})
+  end
+
+  def versions_match?(v1, v2)
+    fallback = gem_versions['fallback']
+    v1 == v2 || v1.nil? && v2 == fallback || v2.nil? && v1 == fallback
+  end
+
+  def has_version?(url)
+    !extract_version(page.url).nil?
+  end
+
+  # Convert this config:
+  #
+  # versions:
+  # - "0.4"
+  # - code: "1.0"
+  #   name: "1.0 beta3"
+  #
+  # into this:
+  #
+  # [{code: "0.4", name: "0.4"}, {code: "1.0", name: "1.0 beta3"}]
+  def version_variants(gem = current_gem)
+    gem_versions(gem).fetch('versions', []).map do |version|
+      if version.is_a?(String)
+        { code: version, name: version }
+      else
+        { code: version['code'], name: version['name'] }
+      end
+    end
+  end
+
+  def current_version(gem = current_gem)
+    versions = gem_versions(gem)
+
+    versions['current']
+  end
+
+  def extract_version(url)
+    url[VERSION_REGEX, 1]
+  end
+
+  def version
+    extract_version(current_path) || gem_versions['fallback']
+  end
+
+  def versions_available?
+    !gem_versions.empty?
+  end
+
+  def set_version(url, new_version)
+    return url unless versions_available?
+
+    version = extract_version(url)
+
+    if version
+      url.gsub(VERSION_REGEX, new_version)
+    else
+      parts = url.split('/')
+
+      [
+        *parts[0..2],
+        new_version,
+        *parts[3..-1]
+      ].join('/')
+    end
   end
 end
 
