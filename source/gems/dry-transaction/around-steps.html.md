@@ -16,7 +16,7 @@ An operation to wrap steps in a database transaction would work like this (repla
 class MyContainer
   extend Dry::Container
 
-  registe "transaction" do |input, &block|
+  register "transaction" do |input, &block|
     result = nil
 
     begin
