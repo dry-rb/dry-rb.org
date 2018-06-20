@@ -49,7 +49,7 @@ If a nested hash could be nil, simply use `maybe` macro with a block:
 ``` ruby
 require 'dry-validation'
 
-schema = Dry::Validation.Schema do
+my_schema = Dry::Validation.Schema do
   required(:address).maybe do
     schema do
       required(:city).filled(min_size?: 3)
@@ -64,7 +64,7 @@ schema = Dry::Validation.Schema do
   end
 end
 
-schema.(address: nil).success? # true
+my_schema.(address: nil).success? # true
 ```
 
 ### Nested Array
@@ -72,16 +72,16 @@ schema.(address: nil).success? # true
 You can use the `each` macro for validating each element in an array:
 
 ``` ruby
-schema = Dry::Validation.Schema do
+my_schema = Dry::Validation.Schema do
   required(:phone_numbers).each(:str?)
 end
 
-errors = schema.call(phone_numbers: '').messages
+errors = my_schema.call(phone_numbers: '').messages
 
 puts errors.inspect
 # { :phone_numbers => ["must be an array"] }
 
-errors = schema.call(phone_numbers: ['123456789', 123456789]).messages
+errors = my_schema.call(phone_numbers: ['123456789', 123456789]).messages
 
 puts errors.inspect
 # {
@@ -94,7 +94,7 @@ puts errors.inspect
 Similarly, you use `each` and `schema` to validate an array of hashes:
 
 ``` ruby
-schema = Dry::Validation.Schema do
+my_schema = Dry::Validation.Schema do
   required(:people).each do
     schema do
       required(:name).filled(:str?)
@@ -103,11 +103,11 @@ schema = Dry::Validation.Schema do
   end
 end
 
-errors = schema.call(
+errors = my_schema.call(
   people: [ { name: 'Alice', age: 19 }, { name: 'Bob', age: 17 } ],
 ).messages
 
-errors = schema.call(phone_numbers: ['123456789', 123456789]).messages
+errors = my_schema.call(phone_numbers: ['123456789', 123456789]).messages
 puts errors.inspect
 # => {
 #   :people=>{
@@ -115,5 +115,34 @@ puts errors.inspect
 #       :age=>["must be greater than or equal to 18"]
 #     }
 #   }
+# }
+```
+
+To also validate the length of the array, compose using predicate logic operators:
+
+``` ruby
+my_schema = Dry::Validation.Schema do
+  required(:people).filled do
+    valid_size = min_size?(1) & max_size?(20)
+    
+    valid_contents = each do
+      schema do
+        required(:name).filled(:str?)
+        required(:age).filled(:int?, gteq?: 18)
+      end
+    end
+    
+    valid_size & valid_contents
+  end
+end
+
+errors = my_schema.call(
+  people: [],
+).messages
+
+errors = my_schema.call(phone_numbers: ['123456789', 123456789]).messages
+puts errors.inspect
+# => {
+#   :people=>["must be filled", "size cannot be less than 1", "size cannot be greater than 20"]
 # }
 ```
