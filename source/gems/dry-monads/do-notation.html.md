@@ -4,6 +4,7 @@ layout: gem-single
 name: dry-monads
 ---
 
+>Note: this feature is available with `v1.0.0.beta1` and higher.
 
 Composing several monadic values can become tedious because you need to pass around unwrapped values in lambdas (aka blocks). Haskell was one of the first languages faced this problem. To work around it Haskell has a special syntax for combining monadic operations called the "do notation". If you're familiar with Scala it has `for`-comprehensions for a similar purpose. It is not possible to implement `do` in Ruby but it is possible to emulate it to some extent, i.e. achieve comparable usefulness.
 
