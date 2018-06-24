@@ -96,9 +96,18 @@ One can say this code is opaque compared to the previous example but keep in min
 ```ruby
 find_user(params[:user_id]).bind do |user|
   find_address(params[:address_id]).bind do |address|
-    user.update(address_id: address.id)
+    Some(user.update(address_id: address.id))
   end
 end
+```
+
+Finally, since 1.0 `dry-monads` has support for [`do` notation](/gems/dry-monads/do-notation/) which simplifies this code even more, making it almost regular yet `nil`-safe:
+
+```ruby
+user = yield find_user(params[:user_id])
+address = yield find_address(params[:address_id])
+
+Some(user.update(address_id: address.id))
 ```
 
 Another widely spread monad is `Result` (also known as `Either`) that serves a similar purpose. A notable downside of `Maybe` is plain `None` which carries no information about where this value was produced. `Result` solves exactly this problem by having two constructors for `Success` and `Failure` cases:
@@ -145,13 +154,22 @@ find_user(params[:user_id]).bind do |user|
 end
 ```
 
+Or, again, the same code with `do`:
+
+```ruby
+user = yield find_user(params[:user_id])
+address = yield find_address(params[:address_id])
+
+Success(user.update(address_id: address.id))
+```
+
 The result of this piece of code can be one of `Success(user)`, `Failure(:user_not_found)`, or `Failure(:address_not_found)`. This style of programming called "Railway Oriented Programming" and can check out [dry-transaction](/gems/dry-transaction) and watch a [nice video](https://fsharpforfunandprofit.com/rop/) on the subject. Also, see [dry-matcher](/gems/dry-matcher/) for an example of how to use monads for controlling the flow of code with a result.
 
 ## A word of warning
 
-If you're new to monads don't over-use them. You can use [`dry-transaction`](/gems/dry-transaction) as a robust wrapper that utilizes the `Result` monad, it's a good start for diving in. Remember that monads are not a first-class concept in Ruby and with writing safer code you may end up with way too complex one which is not great either, so use them judiciously.
+Before `do` came around here was a warning about over-using monads, turned out with `do` notation code does not differ much from regular Ruby code. Just don't wrap everything with `Maybe`, come up with conventions.
 
-In any case, if you're interested in functional programming in general consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that `dry-monads` will become another instrument in your Ruby toolbox :)
+If you're interested in functional programming in general, consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that `dry-monads` will become another instrument in your Ruby toolbox :)
 
 ## Credits
 

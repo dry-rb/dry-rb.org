@@ -72,7 +72,7 @@ op.(1.0, 0.0) # => Failure(:division_by_zero)
 op.(-1.0, 2.0) # => Failure(:negative_number)
 ```
 
-Now, `DivideThenRoot` can be composed with other objects or methods returning `Result`s in a similar manner. In the end, you can use [`dry-matcher`](http://dry-rb.org/gems/dry-matcher/result-matcher/) for processing the result (or use the [`Result`'s API](http://dry-rb.org/gems/dry-monads/result/) for it').
+Now, `DivideThenRoot` can be composed with other objects or methods returning `Result`s in a similar manner. In the end, you can use [`dry-matcher`](/gems/dry-matcher/result-matcher/) for processing the result (or use the [`Result`'s API](/gems/dry-monads/result/) for it').
 
 The real-life code looks the same in general but combines more operations together. Here it can become tedious to use `bind` and `fmap` directly, that's why we added `do` notation in the 1.0 release.
 
