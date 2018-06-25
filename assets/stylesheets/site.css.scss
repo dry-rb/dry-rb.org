@@ -924,6 +924,10 @@ code {
   padding-right: 5px;
 }
 
+.intro-home code {
+  background: transparent;
+}
+
 .intro-home__heading {
   font-size: 33px;
   @include mobile {

@@ -14,6 +14,9 @@ authors:
   timriley:
     name: Tim Riley
     url: https://twitter.com/timriley
+  flash-gordon:
+    name: Nikita Shilnikov
+    url: https://twitter.com/NikitaShilnikov
 gems:
   -
     name: dry-validation
