@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-types
 ---
 
-It is possible to define a type definition of a hash with known keys and value types. Let's say you want describe a hash containing the name and age of a user:
+It is possible to define a type for a hash with a known set of keys and corresponding value types. Let's say you want to describe a hash containing the name and the age of a user:
 
 ```ruby
 # using simple kernel coercions
@@ -39,7 +39,7 @@ user_hash[name: 'Jane', age: '21', city: 'London']
 
 ### Default values
 
-Default types are **only** evaluated if the corresponding key is missing:
+Default types are **only** evaluated if the corresponding key is missing in the input:
 
 ```ruby
 user_hash = Types::Hash.schema(
@@ -71,7 +71,7 @@ user_hash[name: 'Jane', age: nil]
 # => { name: 'Jane', age: 18 }
 ```
 
-The process of converting types to constructors like that can be abstracted, see "Type transformations" below.
+The process of converting types to constructors like that can be automated, see "Type transformations" below.
 
 ### Optional keys
 
@@ -89,7 +89,7 @@ user_hash[name: 'Jane']
 
 ### Extra keys
 
-All keys not declared in schema are silently ignored. This behavior can be changed with calling `.strict` on the schema:
+All keys not declared in the schema are silently ignored. This behavior can be changed by calling `.strict` on the schema:
 
 ```ruby
 user_hash = Types::Hash.schema(name: Types::Strict::String).strict
@@ -99,7 +99,7 @@ user_hash[name: 'Jane', age: 21]
 
 ### Transforming input keys
 
-Keys are supposed to be symbols but you can attach a key tranformation to a schema, e.g. for converting strings to symbols:
+Keys are supposed to be symbols but you can attach a key tranformation to a schema, e.g. for converting strings into symbols:
 
 ```ruby
 user_hash = Types::Hash.schema(name: Types::Strict::String).with_key_transform(&:to_sym)
@@ -110,7 +110,7 @@ user_hash['name' => 'Jane']
 
 ### Inheritance
 
-Hash schemas can be inherited in a sense you can define a new schema based on an existing one. Declared keys will be merged, key and type transformations will be preserved. The `strict` option is also passed to the new schema.
+Hash schemas can be inherited in a sense you can define a new schema based on an existing one. Declared keys will be merged, key and type transformations will be preserved. The `strict` option is also passed to the new schema if present.
 
 ```ruby
 # Building an empty base schema
@@ -143,7 +143,7 @@ user_hash[{}]
 # => {}
 ```
 
-Type transformations work perfectly with inheritance, you don't have to define the same rules more than once:
+Type transformations work perfectly with inheritance, you don't have to define same rules more than once:
 
 ```ruby
 SymbolizeAndOptionalSchema = Types::Hash.
@@ -159,7 +159,7 @@ user_hash = SymbolizeAndOptionalSchema.schema(
 user_hash['name' => 'Jane']
 ```
 
-Transformation block yields a key name as the second arguments:
+Transformation block yields a key name as second argument:
 
 ```ruby
 Types::Hash.with_type_transform do |type, name|
