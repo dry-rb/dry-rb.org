@@ -15,8 +15,7 @@ sections:
   - validated
 ---
 
-`dry-monads` is a set of common monads for Ruby.
-Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`s and `else`s. The gem was inspired by the [Kleisli](https://github.com/txus/kleisli) gem.
+dry-monads is a set of common monads for Ruby. Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`s and `else`s. The gem was inspired by the [Kleisli](https://github.com/txus/kleisli) gem.
 
 What is a monad, anyway? Simply, [a monoid in the category of endofunctors](https://stackoverflow.com/questions/3870088/a-monad-is-just-a-monoid-in-the-category-of-endofunctors-whats-the-proble%E2%85%BF). The term comes from category theory and there are beliefs monads are tough to understand or explain. It's hard to say why people think so because you certainly don't need to know category theory for using them, just like you don't need it for, say, using functions.
 
@@ -101,7 +100,7 @@ find_user(params[:user_id]).bind do |user|
 end
 ```
 
-Finally, since 1.0 `dry-monads` has support for [`do` notation](/gems/dry-monads/do-notation/) which simplifies this code even more, making it almost regular yet `nil`-safe:
+Finally, since 1.0, dry-monads has support for [`do` notation](/gems/dry-monads/do-notation/) which simplifies this code even more, making it almost regular yet `nil`-safe:
 
 ```ruby
 user = yield find_user(params[:user_id])
@@ -169,8 +168,8 @@ The result of this piece of code can be one of `Success(user)`, `Failure(:user_n
 
 Before `do` came around here was a warning about over-using monads, turned out with `do` notation code does not differ much from regular Ruby code. Just don't wrap everything with `Maybe`, come up with conventions.
 
-If you're interested in functional programming in general, consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that `dry-monads` will become another instrument in your Ruby toolbox :)
+If you're interested in functional programming in general, consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that dry-monads will become another instrument in your Ruby toolbox :)
 
 ## Credits
 
-`dry-monads` is inspired by Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem and its usage by [`dry-transactions`](http://dry-rb.org/gems/dry-transaction/) and [`dry-types`](http://dry-rb.org/gems/dry-types/).
+dry-monads is inspired by Josep M. Bach’s [Kleisli](https://github.com/txus/kleisli) gem and its usage by [dry-transaction](http://dry-rb.org/gems/dry-transaction/) and [dry-types](http://dry-rb.org/gems/dry-types/).
