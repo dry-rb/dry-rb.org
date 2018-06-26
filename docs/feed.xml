@@ -13,11 +13,11 @@
     <link rel="alternate" href="http://dry-rb.org/news/2018/06/26/dry-monads-1-0-released/"/>
     <id>http://dry-rb.org/news/2018/06/26/dry-monads-1-0-released/</id>
     <published>2018-06-26T03:00:00+03:00</published>
-    <updated>2018-06-25T23:46:34+03:00</updated>
+    <updated>2018-06-26T11:53:45+03:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
-    <content type="html">&lt;p&gt;Today dry-monads reaches 1.0! It started as a dependency replacement for the &lt;a href="https://github.com/txus/kleisli"&gt;Kleisli&lt;/a&gt; gem in &lt;code&gt;dry-transaction&lt;/code&gt; and &lt;code&gt;dry-types&lt;/code&gt;. Later, more common monads were added, as well as support for &lt;code&gt;do&lt;/code&gt; notation, which evaporates most of the boilerplate introduced by monads. Since the &lt;code&gt;dry-*&lt;/code&gt; gems follow &lt;a href="https://semver.org/spec/v2.0.0.html"&gt;semantic versioning&lt;/a&gt;, this means you can consider the dry-monads API to be stable, making the gem more &amp;ldquo;production-ready&amp;rdquo;. Let us show how monads can be useful in day-to-day ruby code.&lt;/p&gt;
+    <content type="html">&lt;p&gt;Today dry-monads &lt;a href="https://github.com/dry-rb/dry-monads/releases/tag/v1.0.0"&gt;reaches 1.0&lt;/a&gt;! It started as a dependency replacement for the &lt;a href="https://github.com/txus/kleisli"&gt;Kleisli&lt;/a&gt; gem in &lt;code&gt;dry-transaction&lt;/code&gt; and &lt;code&gt;dry-types&lt;/code&gt;. Later, more common monads were added, as well as support for &lt;code&gt;do&lt;/code&gt; notation, which evaporates most of the boilerplate introduced by monads. Since the &lt;code&gt;dry-*&lt;/code&gt; gems follow &lt;a href="https://semver.org/spec/v2.0.0.html"&gt;semantic versioning&lt;/a&gt;, this means you can consider the dry-monads API to be stable, making the gem more &amp;ldquo;production-ready&amp;rdquo;. Let us show how monads can be useful in day-to-day ruby code.&lt;/p&gt;
 
 &lt;h2 id="result"&gt;Result&lt;/h2&gt;
 
