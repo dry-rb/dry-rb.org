@@ -68,8 +68,8 @@ user_state = state_name.value_or("No state")
 A more expanded example is based on _composing_ different monadic values. Suppose, we have a user and address, both can be `nil`, and we want to associate the address with the user:
 
 ```ruby
-user = User.find(params[:user_id)
-address = Address.find(params[:address_id)
+user = User.find(params[:user_id])
+address = Address.find(params[:address_id])
 
 if user && address
   user.update(address_id: address.id)
@@ -79,10 +79,10 @@ end
 Again, this implies direct work with `nil`-able values which may end up with errors. A monad-way would be using another method, `bind`:
 
 ```ruby
-maybe_user = Maybe(User.find(params[:user_id))
+maybe_user = Maybe(User.find(params[:user_id]))
 
 maybe_user.bind do |user|
-  maybe_address = Maybe(Address.find(params[:address_id))
+  maybe_address = Maybe(Address.find(params[:address_id]))
 
   maybe_address.bind do |address|
     user.update(address_id: address.id)
