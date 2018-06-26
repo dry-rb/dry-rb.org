@@ -326,7 +326,7 @@ helpers do
     version = extract_version(url)
 
     if version
-      url.gsub(VERSION_REGEX, new_version)
+      url.gsub(VERSION_REGEX, "#{new_version}/")
     else
       parts = url.split('/')
 
