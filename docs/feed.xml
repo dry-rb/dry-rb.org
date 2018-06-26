@@ -4,10 +4,153 @@
   <id>http://dry-rb.org/news</id>
   <link href="http://dry-rb.org/news"/>
   <link href="http://dry-rb.org/feed.xml" rel="self"/>
-  <updated>2018-01-05T03:00:00+03:00</updated>
+  <updated>2018-06-26T03:00:00+03:00</updated>
   <author>
     <name>dry-rb community</name>
   </author>
+  <entry>
+    <title>dry-monads 1.0 released</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2018/06/26/dry-monads-1-0-released/"/>
+    <id>http://dry-rb.org/news/2018/06/26/dry-monads-1-0-released/</id>
+    <published>2018-06-26T03:00:00+03:00</published>
+    <updated>2018-06-25T23:46:34+03:00</updated>
+    <author>
+      <name>flash-gordon</name>
+    </author>
+    <content type="html">&lt;p&gt;Today dry-monads reaches 1.0! It started as a dependency replacement for the &lt;a href="https://github.com/txus/kleisli"&gt;Kleisli&lt;/a&gt; gem in &lt;code&gt;dry-transaction&lt;/code&gt; and &lt;code&gt;dry-types&lt;/code&gt;. Later, more common monads were added, as well as support for &lt;code&gt;do&lt;/code&gt; notation, which evaporates most of the boilerplate introduced by monads. Since the &lt;code&gt;dry-*&lt;/code&gt; gems follow &lt;a href="https://semver.org/spec/v2.0.0.html"&gt;semantic versioning&lt;/a&gt;, this means you can consider the dry-monads API to be stable, making the gem more &amp;ldquo;production-ready&amp;rdquo;. Let us show how monads can be useful in day-to-day ruby code.&lt;/p&gt;
+
+&lt;h2 id="result"&gt;Result&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;Result&lt;/code&gt; is the most widely used monad from dry-monads so far. It represents a possibly unsuccessful computation. A trivial example:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/result'&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Divide&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Result&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Mixin&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;zero?&lt;/span&gt;
+      &lt;span class="no"&gt;Success&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+      &lt;span class="no"&gt;Failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:division_by_zero&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;Result::Mixin&lt;/code&gt; adds two constructors named &lt;code&gt;Success(...)&lt;/code&gt; and &lt;code&gt;Failure(...)&lt;/code&gt; so that you can separate the happy path from errors.&lt;/p&gt;
+
+&lt;p&gt;Suppose we have another math operation, square root:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/result'&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Sqrt&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Result&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Mixin&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;negative?&lt;/span&gt;
+      &lt;span class="no"&gt;Success&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Math&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+      &lt;span class="no"&gt;Failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:negative_number&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, as with other monads, we can use &lt;code&gt;bind&lt;/code&gt; for composition:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;DivideThenRoot&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;divide&lt;/span&gt;
+    &lt;span class="no"&gt;Divide&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;sqrt&lt;/span&gt;
+    &lt;span class="no"&gt;Sqrt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;divide&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sqrt&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;op&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;DivideThenRoot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; Success(0.7071067811865476)&lt;/span&gt;
+&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; Failure(:division_by_zero)&lt;/span&gt;
+&lt;span class="n"&gt;op&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; Failure(:negative_number)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;DivideThenRoot&lt;/code&gt; can be composed with other objects or methods returning &lt;code&gt;Result&lt;/code&gt;s in a similar manner. In the end, you can use &lt;a href="/gems/dry-matcher/result-matcher/"&gt;&lt;code&gt;dry-matcher&lt;/code&gt;&lt;/a&gt; for processing the result (or use the &lt;code&gt;Result&lt;/code&gt;&amp;rsquo;s &lt;a href="/gems/dry-monads/result/"&gt;API&lt;/a&gt; for it).&lt;/p&gt;
+
+&lt;p&gt;Real-life code looks the same in general but usually combines more operations together. Here it can become tedious to use &lt;code&gt;bind&lt;/code&gt; and &lt;code&gt;fmap&lt;/code&gt; directly. This is why we added &lt;code&gt;do&lt;/code&gt; notation in the 1.0 release.&lt;/p&gt;
+
+&lt;h2 id="do-notation"&gt;Do notation&lt;/h2&gt;
+
+&lt;p&gt;The name &amp;ldquo;do&amp;rdquo; comes from Haskell, where it&amp;rsquo;s a reserved word for a block of code that uses monads to compose results of several operations. We don&amp;rsquo;t have first-class support for it in Ruby, but it&amp;rsquo;s quite possible to emulate it using blocks. Here&amp;rsquo;s a typical piece of code written with &lt;code&gt;do&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/do'&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/result'&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CreateAccount&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Result&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Mixin&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Do&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;values&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;validate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;owner&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;create_owner&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:user&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="n"&gt;account&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;create_account&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:account&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;create_subscription&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;account&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;owner&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="no"&gt;Success&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;account&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here it&amp;rsquo;s implied that the &lt;code&gt;validate&lt;/code&gt;, &lt;code&gt;create_owner&lt;/code&gt;, &lt;code&gt;create_account&lt;/code&gt;, and &lt;code&gt;create_subscription&lt;/code&gt; methods all return &lt;code&gt;Result&lt;/code&gt;s. &lt;code&gt;yield&lt;/code&gt; takes a &lt;code&gt;Result&lt;/code&gt; value and either unwraps it if it&amp;rsquo;s a &lt;code&gt;Success&lt;/code&gt;, or interrupts the execution and immediately returns the &lt;code&gt;Failure&lt;/code&gt; from &lt;code&gt;call&lt;/code&gt;. With &lt;code&gt;do&lt;/code&gt; it&amp;rsquo;s extremely easy to combine results of different operations no matter the order in which they&amp;rsquo;re called. This is a major step forward to making monads practically useful in Ruby.&lt;/p&gt;
+
+&lt;h2 id="task"&gt;Task&lt;/h2&gt;
+
+&lt;p&gt;Another highlight from the release is the &lt;code&gt;Task&lt;/code&gt; monad. Backed by &lt;a href="https://github.com/ruby-concurrency/concurrent-ruby"&gt;&lt;code&gt;concurrent-ruby&lt;/code&gt;&lt;/a&gt;, a battle-tested concurrency gem, &lt;code&gt;Task&lt;/code&gt; can be used for composing asynchronous computations. Essentially, it&amp;rsquo;s a &lt;a href="http://ruby-concurrency.github.io/concurrent-ruby/Concurrent/Promise.html"&gt;Promise&lt;/a&gt; with a dry-monads-compatible interface.&lt;/p&gt;
+&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/task'&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'dry/monads/do'&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CreateUser&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Task&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Mixin&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Monads&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Do&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# Run two concurrent requests, wait for both to finish using Do&lt;/span&gt;
+    &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;validate_email&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;validate_name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;create_user&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;validate_email&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# Ruby 2.5+ syntax&lt;/span&gt;
+    &lt;span class="no"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:io&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="c1"&gt;# async email check, e.g. with an http request&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;validate_name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="no"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:io&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="c1"&gt;# async name check&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;create_user&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="no"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;:io&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="c1"&gt;# async create&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="still-ruby"&gt;Still Ruby&lt;/h2&gt;
+
+&lt;p&gt;Despite using concepts borrowed from other languages, dry-monads stays as much idiomatic to Ruby as possible. We have no plans to turn it into Haskell. Yet.&lt;/p&gt;
+
+&lt;h2 id="maturity"&gt;Maturity&lt;/h2&gt;
+
+&lt;p&gt;The gem is pretty much complete, and has been used in production for more than two years. We don&amp;rsquo;t expect any major changes to the API, since the scope of monads, in general, is limited. This means any integration code will most likely be somewhere else.&lt;/p&gt;
+
+&lt;h2 id="acknowledgements"&gt;Acknowledgements&lt;/h2&gt;
+
+&lt;p&gt;dry-monads is a &lt;a href="https://github.com/dry-rb/dry-monads/graphs/contributors?type=a"&gt;combined effort&lt;/a&gt; of more than a dozen people. Thank you all for your work and feedback, it is much appreciated!&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>dry-system 0.9 released with new plugins</title>
     <link rel="alternate" href="http://dry-rb.org/news/2018/01/05/dry-system-0-9-released-with-new-plugins/"/>
@@ -528,145 +671,6 @@
 &lt;p&gt;Thank you to all contributors who helped finding bugs, testing out new features, providing great feedback and sending pull requests! dry-rb has grown significantly over the last few months and it wouldn’t be possible to achieve that without your help.&lt;/p&gt;
 
 &lt;p&gt;Special thanks go to &lt;a href="https://github.com/backus"&gt;John Backus&lt;/a&gt; for the dry-struct extraction with new features and improving dry-types at the same time.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Introducing dry-system</title>
-    <link rel="alternate" href="http://dry-rb.org/news/2016/08/15/introducing-dry-system/"/>
-    <id>http://dry-rb.org/news/2016/08/15/introducing-dry-system/</id>
-    <published>2016-08-15T03:00:00+03:00</published>
-    <updated>2018-04-24T21:35:44+03:00</updated>
-    <author>
-      <name>solnic</name>
-    </author>
-    <content type="html">&lt;p&gt;We’re happy to announce the release of &lt;code&gt;dry-system&lt;/code&gt; 0.5.0 (previously known as dry-component), which brings many internal API improvements, and better support for bootable components.&lt;/p&gt;
-
-&lt;h2 id="reasoning-behind-the-project"&gt;Reasoning behind the project&lt;/h2&gt;
-
-&lt;p&gt;One of the reasons building and maintaining applications is difficult is their complex nature. Even a single-file Sinatra web application is complex, as it relies on multiple &lt;em&gt;components&lt;/em&gt;. Even Sinatra itself is a 3rd-party component, giving you the beautiful routing DSL. Since it’s Sinatra, you also happen to be using Rack, which is another component of your application. If you’re using Rack, you’re also using rack middlewares, each being a component. When you look at it this way, it is easy to see that the nature of a “simple” sinatra application is complex by definition - it’s something composed of multiple, connected components. This is also just the very base of your application. Chances are, you’re going to use a database, which will be handled by another 3rd party library, maybe some JSON serializer, or a template renderer - all these things become part of your application, and at the same time they are standalone, reusable components. Then when you start writing the actual code of your application, even if you don’t think about your code providing additional components to your application, this &lt;em&gt;is exactly what’s going on&lt;/em&gt;. When you don’t think about your own code as something that provides standalone, reusable components that are used across your application, it’s unfortunately easy to trap yourself into a corner called “too much coupling”.&lt;/p&gt;
-
-&lt;h2 id="object-dependencies"&gt;Object dependencies&lt;/h2&gt;
-
-&lt;p&gt;Every application is a system that consists of multiple components. Typically, many of these are provided by 3rd-party libraries. These components often need to undergo various configuration and initialization processes. Bundler solved the problem of gem dependencies, but how do we solve the problem of &lt;strong&gt;object dependencies&lt;/strong&gt;?&lt;/p&gt;
-
-&lt;p&gt;If you’re used to how Rails works, this problem is seemingly nonexistent - Rails requires files automatically for you whenever you refer to a constant that is not yet defined. This is convenient, but it comes with a real danger - tight coupling. The result of this approach is that your application’s code crosses many boundaries (http layer, database, file system etc.) in an uncontrolled manner, and the moment when it becomes a visible problem is the moment when it’s often very difficult to refactor the code and reduce the coupling. This is &lt;strong&gt;one of the main reasons&lt;/strong&gt; maintaining large Rails codebases is difficult.&lt;/p&gt;
-
-&lt;p&gt;Ruby is an object-oriented language, and one of the most powerful OO techniques is &lt;strong&gt;object composition&lt;/strong&gt;. In order to easily reduce an application’s complexity, you encapsulate individual concerns in separate objects, and compose them into a system. When your application is a mixture of classes, modules &lt;em&gt;and&lt;/em&gt; objects, and when dependencies between individual objects are not handled explicitly, things don’t usually go very well. Let’s fix this.&lt;/p&gt;
-
-&lt;h2 id="dependency-injection"&gt;Dependency Injection&lt;/h2&gt;
-
-&lt;p&gt;Yes, the almost forbidden word in the Ruby community. If you think we don’t need DI in Ruby because in tests we can monkey-patch - please reconsider, DI’s purpose is not to help you with testing (although it’s a bonus side-effect!), its purpose is to &lt;strong&gt;reduce coupling&lt;/strong&gt;. Furthermore, DI in Ruby is very simple. Look:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;UserRepo&lt;/span&gt;
-  &lt;span class="kp"&gt;attr_reader&lt;/span&gt; &lt;span class="ss"&gt;:db&lt;/span&gt;
-
-  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="vi"&gt;@db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;db&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;UserRepo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Sequel&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'sqlite::memory'&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;It would be great if nothing else was needed, but unfortunately there are a few things we still need to take care of:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Something needs to know there’s a &lt;code&gt;UserRepo&lt;/code&gt; class and its constructor accepts a database connection&lt;/li&gt;
-&lt;li&gt;Something needs to know how and when &lt;code&gt;sequel&lt;/code&gt; library needs to be required&lt;/li&gt;
-&lt;li&gt;Something needs to know how to initialize a sequel connection&lt;/li&gt;
-&lt;li&gt;Something needs to know how to &lt;em&gt;manage&lt;/em&gt; a sequel connection&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;What is that &lt;em&gt;something&lt;/em&gt; we’re talking about here?&lt;/p&gt;
-
-&lt;h2 id="system-with-components"&gt;System with components&lt;/h2&gt;
-
-&lt;p&gt;Finally, we get to talk about &lt;code&gt;dry-system&lt;/code&gt;! In applications based on &lt;code&gt;dry-system&lt;/code&gt;, we organize our code into a system that consists of multiple components. This is really what every application is, except we choose to make it very explicit. Furthermore, we use Dependency Injection, and class interfaces are used purely as object constructors (typically via the &lt;code&gt;.new&lt;/code&gt; method). This means our system uses &lt;strong&gt;objects&lt;/strong&gt; exclusively, which gives as a great advantage - object composition, something you cannot do with classes.&lt;/p&gt;
-
-&lt;p&gt;Such systems are loosely-coupled, they rely on abstractions, rather than concrete classes or modules, and 3rd party code is completely isolated from the application’s core logic. &lt;code&gt;dry-system&lt;/code&gt; provides facilities to require files, set up &lt;code&gt;$LOAD_PATH&lt;/code&gt; and &lt;strong&gt;manage your application’s state&lt;/strong&gt;. This is done in a clear and explicit way, giving you complete control over your system. Big applications can be split into multiple sub-systems easily too.&lt;/p&gt;
-
-&lt;h2 id="how-does-it-work"&gt;How does it work?&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;dry-system&lt;/code&gt; provides two main APIs - a container and a DI mixin. All you need to do is to define a system container:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# system/container.rb&lt;/span&gt;
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyApp&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;System&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;
-  &lt;span class="n"&gt;load_paths!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'lib'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then, you can ask your system container to provide a DI mixin that you can use in your classes:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# system/import.rb&lt;/span&gt;
-&lt;span class="nb"&gt;require_relative&lt;/span&gt; &lt;span class="s1"&gt;'container'&lt;/span&gt;
-&lt;span class="no"&gt;Import&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;injector&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then our previous example with &lt;code&gt;UserRepo&lt;/code&gt; can become this:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'my_app/import'&lt;/span&gt;
-
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;UserRepo&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Import&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'persistence.db'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So, where does that &lt;code&gt;persistence.db&lt;/code&gt; come from?&lt;/p&gt;
-
-&lt;h2 id="bootable-components"&gt;Bootable components&lt;/h2&gt;
-
-&lt;p&gt;In &lt;code&gt;dry-system&lt;/code&gt; we have two types of components: ones that can be simply &lt;code&gt;require&lt;/code&gt;’ed and the more complex ones that may need 3rd-party code, custom setup or even multiple lifecycle states.&lt;/p&gt;
-
-&lt;p&gt;Our &lt;code&gt;persistence.db&lt;/code&gt; is a great example of such a complex component. It needs configuration, it needs 3rd-party code, and it’s &lt;strong&gt;stateful&lt;/strong&gt;, so it has to be managed somehow.&lt;/p&gt;
-
-&lt;p&gt;In order to handle this type of component, &lt;code&gt;dry-system&lt;/code&gt; provides a booting API. This is based on a convention that you put files under &lt;code&gt;%{root}/system/boot&lt;/code&gt; directory, where you initialize components.&lt;/p&gt;
-
-&lt;p&gt;Here’s how we could configure Sequel:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# system/boot/persistence.rb&lt;/span&gt;
-&lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;finalize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:persistence&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;persistence&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-  &lt;span class="n"&gt;init&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-    &lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'sequel'&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-    &lt;span class="n"&gt;persistence&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'persistence.db'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="no"&gt;Sequel&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;connect&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;ENV&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'DB_URL'&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="n"&gt;stop&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-    &lt;span class="n"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;close_connection&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This way we have a single place where our &lt;code&gt;persistence.db&lt;/code&gt; component is being required and loaded. This comes with a great benefit of &lt;strong&gt;being able to boot a component on demand&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s say you have a rake task which needs the &lt;code&gt;persistence.db&lt;/code&gt; component (effectively a sequel connection). This is all you need to do:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require_relative&lt;/span&gt; &lt;span class="s1"&gt;'system/container'&lt;/span&gt;
-
-&lt;span class="n"&gt;desc&lt;/span&gt; &lt;span class="s2"&gt;"do something with db"&lt;/span&gt;
-&lt;span class="n"&gt;task&lt;/span&gt; &lt;span class="ss"&gt;:db&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
-  &lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;boot!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:persistence&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="c1"&gt;# now you have access to MyApp['persistence.db']&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;There’s a significant benefit of this approach - the minimum amount of code is being required when you boot components on demand. Here’s a real-world effect:&lt;/p&gt;
-&lt;pre class="syntax plaintext"&gt;&lt;code&gt;% time bundle exec rake db:setup
-bundle exec rake db:setup  0.73s user 0.16s system 98% cpu 0.899 total
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;This means we have &lt;strong&gt;a sub-second boot time&lt;/strong&gt;, with no complex preloaders like Spring or Zeus. As you can imagine, you can easily leverage that for test environment, where individual test groups may only require small portion of your system, resulting in sub-second boot times and fast development cycles.&lt;/p&gt;
-
-&lt;h2 id="auto-registration"&gt;Auto-registration&lt;/h2&gt;
-
-&lt;p&gt;Convention-over-configuration is a great thing and we embrace it here too. Your application’s code can be automatically registered, and individual components are instantiated for you. The only thing you need to do is to configure an &lt;code&gt;auto_register&lt;/code&gt; path:&lt;/p&gt;
-&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# system/container.rb&lt;/span&gt;
-&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyApp&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;System&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;
-  &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;auto_register&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sx"&gt;%w(lib)&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="n"&gt;load_paths!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'lib'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now if you put &lt;code&gt;UserRepo&lt;/code&gt; class definition in &lt;code&gt;lib/user_repo.rb&lt;/code&gt;, it will be automatically loaded and registered within the system container. This &lt;strong&gt;reduces a lot of boilerplate code&lt;/strong&gt; related to object instantiation, you will quickly appreciate how clean your class definitions look like and that you can focus on core logic exclusively without bothering about object construction at all. Since classes specify their dependencies explicitly, it’s also easy to understand which components are being injected.&lt;/p&gt;
-
-&lt;h2 id="learn-more"&gt;Learn more!&lt;/h2&gt;
-
-&lt;p&gt;You can check out a full-blown web application called &lt;a href="https://github.com/icelab/berg"&gt;Berg&lt;/a&gt;, which is based on &lt;code&gt;dry-system&lt;/code&gt;. If you want to see something really basic - check out a &lt;a href="https://github.com/dry-rb/dry-system/tree/master/examples/standalone"&gt;standalone example app&lt;/a&gt; with a full setup using examples from this article.&lt;/p&gt;
-
-&lt;p&gt;There’s also a &lt;a href="/gems/dry-system"&gt;dedicated user documentation&lt;/a&gt; and &lt;a href="https://rubydoc.info/gems/dry-system"&gt;API documentation&lt;/a&gt;. You can already use &lt;code&gt;dry-system&lt;/code&gt; via &lt;a href="https://github.com/dry-rb/dry-web-roda"&gt;dry-web-roda&lt;/a&gt; and we’ll be working on support for Hanami and Rails soon too.&lt;/p&gt;
-
-&lt;p&gt;As always, there’s a lot to improve and we’ll continue to work on it. This release is a major improvement in terms of internal APIs as well as public-facing features, so we have a good foundation for future improvements. If you try it out and find any issues, please &lt;a href="https://github.com/dry-rb/dry-system/issues"&gt;report them&lt;/a&gt;.&lt;/p&gt;
 </content>
   </entry>
 </feed>
