@@ -4,7 +4,7 @@ date: 2018-06-26
 author: flash-gordon
 ---
 
-Today dry-monads reaches 1.0! It started as a dependency replacement for the [Kleisli](https://github.com/txus/kleisli) gem in `dry-transaction` and `dry-types`. Later, more common monads were added, as well as support for `do` notation, which evaporates most of the boilerplate introduced by monads. Since the `dry-*` gems follow [semantic versioning](https://semver.org/spec/v2.0.0.html), this means you can consider the dry-monads API to be stable, making the gem more "production-ready". Let us show how monads can be useful in day-to-day ruby code.
+Today dry-monads [reaches 1.0](https://github.com/dry-rb/dry-monads/releases/tag/v1.0.0)! It started as a dependency replacement for the [Kleisli](https://github.com/txus/kleisli) gem in `dry-transaction` and `dry-types`. Later, more common monads were added, as well as support for `do` notation, which evaporates most of the boilerplate introduced by monads. Since the `dry-*` gems follow [semantic versioning](https://semver.org/spec/v2.0.0.html), this means you can consider the dry-monads API to be stable, making the gem more "production-ready". Let us show how monads can be useful in day-to-day ruby code.
 
 ## Result
 
