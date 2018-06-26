@@ -3,5 +3,5 @@
     'Version:
     select#sidebar__version-switcher
       - version_variants.each do |code:, name:|
-        option value="/gems/#{page.name}/#{code}" selected=("selected" if versions_match?(code, version))
+        option value="/gems/#{current_gem}/#{code}" selected=("selected" if versions_match?(code, version))
           = name
