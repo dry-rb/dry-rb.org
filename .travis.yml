@@ -1,0 +1,23 @@
+language: ruby
+sudo: false
+install:
+  - bundle install --without development --jobs=3 --retry=3
+  - yarn
+cache:
+  - bundler
+  - yarn
+branches:
+  only:
+  - master
+script:
+- bundle exec middleman build
+deploy:
+  fqdn: dry-rb.org
+  local_dir: docs
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: false
+  target-branch: gh-pages
+  on:
+    branch: master
