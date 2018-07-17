@@ -7,7 +7,7 @@ sections:
   - struct
 ---
 
-`dry-validation` can be extended with extension. Those extensions are loading with `Dry::Validation.load_extensions`.
+`dry-validation` can be extended with extension. Those extensions are loaded with `Dry::Validation.load_extensions`.
 
 Extensions available:
 
