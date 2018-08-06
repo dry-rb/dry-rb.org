@@ -89,7 +89,7 @@ end
 
 ### Validating data with dry-struct
 
-Please don't. Structs are meant to work with valid input, it cannot generate error messages good enough for diplaying them for a user etc. Use [`dry-validation`](/gems/dry-validation) for validating incoming data and then pass its output to structs.
+Please don't. Structs are meant to work with valid input, it cannot generate error messages good enough for displaying them for a user etc. Use [`dry-validation`](/gems/dry-validation) for validating incoming data and then pass its output to structs.
 
 ### Differences between dry-struct and virtus
 
