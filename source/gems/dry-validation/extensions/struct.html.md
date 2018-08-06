@@ -7,6 +7,8 @@ name: dry-validation
 This extension allows schema to use `dry-struct`
 
 ``` ruby
+Dry::Validation.load_extensions(:struct)
+
 class Name < Dry::Struct::Value
   attribute :given_name, Dry::Types['strict.string']
   attribute :family_name, Dry::Types['strict.string']
