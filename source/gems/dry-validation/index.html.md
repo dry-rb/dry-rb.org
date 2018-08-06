@@ -18,6 +18,7 @@ sections:
   - input-preprocessing
   - error-messages
   - comparison-with-activemodel
+  - extensions
 ---
 
 Unlike other, well known, validation solutions in Ruby, `dry-validation` takes a different approach and focuses a lot on explicitness, clarity and precision of validation logic. It is designed to work with any data input, whether it's a simple hash, an array or a complex object with deeply nested data.
