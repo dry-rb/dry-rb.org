@@ -12,8 +12,8 @@ This boolean option determines whether or not the registered item should be invo
 
 ```ruby
 container = Dry::Container.new
-container.register(:key_1, call: false) { "Integer: #{rand(1000)}" }
-container.register(:key_2, call: true)  { "Integer: #{rand(1000)}" }
+container.register(:key_1, call: false) { -> { "Integer: #{rand(1000)}" } }
+container.register(:key_2, call: true)  { -> { "Integer: #{rand(1000)}" } }
 
 container.resolve(:key_1) # => <Proc:0x007f98c90454c0@dry_c.rb:23>
 container.resolve(:key_1) # => <Proc:0x007f98c90454c0@dry_c.rb:23>
