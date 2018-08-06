@@ -17,7 +17,6 @@ require 'dry-initializer-rails'
 
 class CreateOrder
   extend Dry::Initializer
-  extend Dry::Initializer::Rails
 
   # Params and options
   param  :customer, model: 'Customer' # use either a name
@@ -66,7 +65,6 @@ require 'dry-initializer-rails'
 
 class CreateOrder
   extend Dry::Initializer
-  extend Dry::Initializer::Rails
 
   param  :customer, model: 'User', find_by: 'name'
   option :product,  model: Item,   find_by: :name
@@ -91,8 +89,6 @@ require 'dry-initializer-rails'
 
 class CreateOrder
   include Dry::Initializer.define -> do
-    extend Dry::Initializer::Rails
-
     # ... params/options declarations
   end
 end
