@@ -48,7 +48,7 @@ module UserCreationListener
     NOTIFICATIONS << "#{user[:email]} created"
   end
 
-  def on_step_failure(event)
+  def on_step_failed(event)
     user = event[:value]
     NOTIFICATIONS << "#{user[:email]} creation failed"
   end
