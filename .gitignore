@@ -21,3 +21,7 @@
 
 # some npm cache stuff, I suppose
 source/**/.!*
+
+.rvmrc
+.ruby-version
+.ruby-gemset
