@@ -7,7 +7,7 @@ name: dry-monads
 Rescues a block from an exception. The `Try` monad is useful when you want to wrap some code that can raise exceptions of certain types. A common example is making an HTTP request or querying a database.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/try'
 
 module ExceptionalLand
   extend Dry::Monads::Try::Mixin
@@ -37,7 +37,7 @@ The `Try` monad consists of two types: `Value` and `Error`. The first is returne
 Works exactly the same way as `Result#bind` does.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/try'
 
 module ExceptionalLand
   extend Dry::Monads::Try::Mixin

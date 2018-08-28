@@ -11,7 +11,7 @@ The `Maybe` monad is used when a series of computations could return `nil` at an
 Applies a block to a monadic value. If the value is `Some` then calls the block passing the unwrapped value as an argument. Returns itself if the value is `None`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/maybe'
 
 M = Dry::Monads
 
@@ -40,7 +40,7 @@ M.Maybe(nil).bind(add_two).bind(add_two) # => None()
 Similar to `bind` but works with blocks/methods that returns unwrapped values (i.e. not `Maybe` instances).
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/maybe'
 
 Dry::Monads::Maybe(user).fmap(&:address).fmap(&:street)
 
@@ -56,7 +56,7 @@ Dry::Monads::Maybe(user).fmap(&:address).fmap(&:street)
 You always can extract the result by calling `value!`. It will raise an error if you call it on `None`. You can use `value_or` for safe unwrapping.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/maybe'
 
 Dry::Monads::Some(5).fmap(&:succ).value! # => 6
 
@@ -71,7 +71,7 @@ Dry::Monads::None().fmap(&:succ).value!
 Has one argument, unwraps the value in case of `Some` or returns the argument value back in case of `None`. It's a safe and recommended way of extracting values.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/maybe'
 
 M = Dry::Monads
 
@@ -88,7 +88,7 @@ M.Maybe(nil).bind(add_two).value_or { 0 } # => 0
 The opposite of `bind`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/maybe'
 
 M = Dry::Monads
 

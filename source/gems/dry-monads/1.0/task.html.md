@@ -11,7 +11,7 @@ name: dry-monads
 Basic usage.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/task'
 
 class PullUsersWithPosts
   include Dry::Monads::Task::Mixin

@@ -14,7 +14,7 @@ can be thought of as "everything went success" and the `Failure` is used when
 ### `Result::Mixin`
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/result'
 
 class ResultCalculator
   include Dry::Monads::Result::Mixin
@@ -64,7 +64,7 @@ result # => Failure("value was not even")
 Use `bind` for composing several possibly-failing operations:
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/result'
 
 M = Dry::Monads
 
@@ -108,7 +108,7 @@ AssociateUser.new.(user_id: 1, address_id: 2)
 An example of using `fmap` with `Success` and `Failure`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/result'
 
 M = Dry::Monads
 
@@ -181,7 +181,8 @@ M.Failure('Error').failure # => "Error"
 Sometimes it's useful to turn a `Result` into a `Maybe`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/result'
+require 'dry/monads/maybe'
 
 result = if foo > bar
   Dry::Monads.Success(10)

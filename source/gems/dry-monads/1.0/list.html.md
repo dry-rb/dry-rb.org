@@ -9,7 +9,7 @@ name: dry-monads
 Lifts a block/proc and runs it against each member of the list. The block must return a value coercible to a list. As in other monads if no block given the first argument will be treated as callable and used instead.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
@@ -24,7 +24,7 @@ M::List[1, nil].bind { |x| [x + 1] } # => error
 Maps a block over the list. Acts as `Array#map`. As in other monads, if no block given the first argument will be treated as callable and used instead.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
@@ -36,7 +36,7 @@ M::List[1, 2].fmap { |x| x + 1 } # => List[2, 3]
 You always can unwrap the result by calling `value`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
@@ -46,7 +46,7 @@ M::List[1, 2].value # => [1, 2]
 ### Concatenation
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
@@ -58,7 +58,7 @@ M::List[1, 2] + M::List[3, 4] # => List[1, 2, 3, 4]
 `head` returns the first element wrapped with a `Maybe`.
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
@@ -72,7 +72,7 @@ Traverses the list with a block (or without it). This method "flips" List struct
 **Note that traversing requires the list to be typed.**
 
 ```ruby
-require 'dry-monads'
+require 'dry/monads/list'
 
 M = Dry::Monads
 
