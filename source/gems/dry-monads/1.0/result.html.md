@@ -83,9 +83,9 @@ class AssociateUser
     user = User.find(id)
 
     if user
-      Success(user)
+      M.Success(user)
     else
-      Failure(:user_not_found)
+      M.Failure(:user_not_found)
     end
   end
 
@@ -93,9 +93,9 @@ class AssociateUser
     address = Address.find(id)
 
     if address
-      Success(address)
+      M.Success(address)
     else
-      Failure(:address_not_found)
+      M.Failure(:address_not_found)
     end
   end
 end
