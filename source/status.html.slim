@@ -23,7 +23,7 @@ table
       th Test Coverage
       th Doc Coverage
   tbody
-    - Site.projects.each do |project|
+    - Site.projects.sort_by(&:name).each do |project|
       tr
         td
           a href=project.github_url = project
