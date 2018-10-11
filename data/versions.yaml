@@ -1,6 +1,0 @@
-dry-monads:
-  versions:
-    - "0.4"
-    - "1.0"
-  current: "1.0"
-  fallback: "1.0"

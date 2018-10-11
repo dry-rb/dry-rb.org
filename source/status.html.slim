@@ -1,0 +1,52 @@
+---
+title: Status
+layout: content-page-wide
+---
+
+h2 What this page is about?
+
+p
+  | First of all you can see a list of all dry-rb libraries with their actual versions and build status.
+
+p
+  | If you want to participate and help us, this page can help you too. You can easily find a project that needs your help based on Issues, Pull Requests, CodeClimate, Test Coverage and Doc Coverage columns.
+
+table
+  thead
+    tr
+      th.text-align-left Project
+      th Version
+      th Build Status
+      th Issues
+      th Pull Requests
+      th CodeClimate
+      th Test Coverage
+      th Doc Coverage
+  tbody
+    - Site.projects.each do |project|
+      tr
+        td
+          a href=project.github_url = project
+        td
+          a href=project.rubygems_url
+            img src=project.version_badge
+        td
+          a href=project.github_url
+            img src=project.ci_badge
+        td
+          a href=project.opened_issues_url
+            img src=project.opened_issues_badge
+        td
+          a href=project.opened_pulls_url
+            img src=project.opened_pulls_badge
+        td
+          a href=project.codeclimate_url
+            img src=project.codeclimate_badge
+        td
+          a href=project.codeclimate_url
+            img src=project.coverage_badge
+        td
+          a href=project.inch_url
+            img src=project.inch_badge
+
+

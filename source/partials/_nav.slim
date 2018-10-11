@@ -8,13 +8,15 @@ nav.main-nav
         span.hide-mobile
           ' / Docs
       .main-nav__dropdown.main-nav__dropdown--gems
-        - per_group = (site.gems.length / 2).ceil
-        - site.gems.sort_by(&:name).each_slice(per_group).each do |group|
+        - per_group = (Site.projects.count / 2).ceil
+        - Site.projects.sort_by(&:name).each_slice(per_group).each do |group|
           ul
-            - group.each do |page|
+            - group.each do |project|
               li
-                == link_to page.name, "/gems/#{page.name}/#{current_version(page.name)}"
+              == link_to project.name, "/gems/#{project.name}/#{project.current_version}"
 
+    li class=("main-nav__item--selected" if /\Astatus/.match(current_page.path))
+      a href="/status" Status
     li class=("main-nav__item--selected" if /\Anews/.match(current_page.path))
       a href="/news" News
     li class=("main-nav__item--selected" if /\Acommunity/.match(current_page.path))
