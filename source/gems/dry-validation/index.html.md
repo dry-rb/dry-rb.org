@@ -18,6 +18,7 @@ sections:
   - input-preprocessing
   - error-messages
   - comparison-with-activemodel
+  - dsl-extensions
   - extensions
 ---
 
