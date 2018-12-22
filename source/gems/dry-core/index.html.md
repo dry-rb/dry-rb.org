@@ -20,8 +20,14 @@ require 'dry/core/cache'
 class Foo
   extend Dry::Core::Cache
 
+  attr_reader :source
+
+  def initialize(source)
+    @source = source
+  end
+
   def heavy_computation(arg1, arg2)
-    fetch_or_store(arg1, arg2) { arg1 ^ arg2 }
+    fetch_or_store(source, arg1, arg2) { arg1 ^ arg2 }
   end
 end
 ```
