@@ -16,7 +16,7 @@ After reading this guide, you will know:
 
 > Note that there isn't a one-to-one relationship between ActiveModel validators and Dry predicates. This guide shows you the closest matches, and highlights the differences where applicable.
 
-> For the main documentation on dry-validation predicates, see [Built-in Predicates](http://dry-rb.org/gems/dry-validation/basics/built-in-predicates/).
+> For the main documentation on dry-validation predicates, see [Built-in Predicates](/gems/dry-validation/basics/built-in-predicates/).
 
 ## 1. Validation Overview
 
@@ -649,7 +649,7 @@ The validates_with helper takes a class, or a list of classes to use for validat
 
 In reality by using dry-validation you are effectively doing this as your schema is an independent class.
 
-You can read more about how dry-validation work [here](http://dry-rb.org/gems/dry-validation/basics/working-with-schemas/) and more information on how to reuse your schemas [here](http://dry-rb.org/gems/dry-validation/reusing-schemas/)
+You can read more about how dry-validation work [here](/gems/dry-validation/basics/working-with-schemas/) and more information on how to reuse your schemas [here](/gems/dry-validation/reusing-schemas/)
 
 ### 2.13 validates_each
 
@@ -726,13 +726,13 @@ required(:attr) { empty? | str? & min_size?(int) )
 
 **3.3 `:message`**
 
-Custom messages are implemented through a separate YAMl file. See [Error Messages](http://dry-rb.org/gems/dry-validation/error-messages/) for full instructions.
+Custom messages are implemented through a separate YAMl file. See [Error Messages](/gems/dry-validation/error-messages/) for full instructions.
 
 **3.4 `:on`**
 
 In dry-validation, validations are defined in schemas. You can create separate schemas for various states (e.g UserCreateSchema, UserUpdateSchema) and then choose the correct schema to run in the relevant action.
 
-You can keep your schema code nice and DRY by [reusing schemas](gems/dry-validation/reusing-schemas/).
+You can keep your schema code nice and DRY by [reusing schemas](/gems/dry-validation/reusing-schemas/).
 
 ### 4. Conditional Validation
 
