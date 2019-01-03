@@ -540,6 +540,13 @@ hr {
   }
 }
 
+.content-article-wide {
+  @include desktop {
+    max-width: 100%;
+  }
+}
+
+
 .news__list-item {
   border-bottom: 1px solid $light-blue;
   padding-bottom: 20px;
