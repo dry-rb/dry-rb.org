@@ -43,27 +43,18 @@ container.resolve(:key_2) # => "Integer: 282"
 You can configure how items are registered and resolved from the container:
 
 ```ruby
-Dry::Container.configure do |config|
-  config.registry = ->(container, key, item, options) { container[key] = item }
-  config.resolver = ->(container, key) { container[key] }
-end
-
 class Container
   extend Dry::Container::Mixin
 
-  configure do |config|
-    config.registry = ->(container, key, item, options) { container[key] = item }
-    config.resolver = ->(container, key) { container[key] }
-  end
+  registry ->(container, key, item, options) { container[key] = item }
+  resolver ->(container, key) { container[key] }
 end
 
 class ContainerObject
   include Dry::Container::Mixin
 
-  configure do |config|
-    config.registry = ->(container, key, item, options) { container[key] = item }
-    config.resolver = ->(container, key) { container[key] }
-  end
+  registry ->(container, key, item, options) { container[key] = item }
+  resolver ->(container, key) { container[key] }
 end
 ```
 
