@@ -27,7 +27,7 @@ class Foo
   end
 
   def heavy_computation(arg1, arg2)
-    fetch_or_store(source, arg1, arg2) { arg1 ^ arg2 }
+    fetch_or_store(source, arg1, arg2) { source ^ arg1 ^ arg2 }
   end
 end
 ```
