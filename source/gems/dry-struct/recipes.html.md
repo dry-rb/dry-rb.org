@@ -73,7 +73,7 @@ User.new(name: 'Jane')
 
 ### Resolving default values on `nil`
 
-`nil` as a value isn't replaced with a default value for default types. You may use `tranform_types` to turn all types into constructors which map `nil` to `Dry::Types::Undefined` which in order triggers default values.
+`nil` as a value isn't replaced with a default value for default types. You may use `transform_types` to turn all types into constructors which map `nil` to `Dry::Types::Undefined` which in order triggers default values.
 
 ```ruby
 class User < Dry::Struct
