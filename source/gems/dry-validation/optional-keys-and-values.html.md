@@ -43,8 +43,6 @@ schema = Dry::Validation.Schema do
   optional(:age).maybe(:int?, gt?: 18)
 end
 
-schema = Schema.new
-
 errors = schema.call(email: 'jane@doe.org', age: nil).messages
 
 puts errors.inspect
