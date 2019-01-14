@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-types
 ---
 
-Built-in types are grouped under 5 categories:
+Built-in types are grouped under 6 categories:
 
 - `definition` - base type definitions with primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
