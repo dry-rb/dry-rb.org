@@ -56,7 +56,7 @@ class CreateAccount
     account = yield create_account(values[:account])
     owner = yield create_owner(account, values[:owner])
 
-    Success([account, user])
+    Success([account, owner])
   end
 
   def validate(params)
@@ -85,7 +85,7 @@ One particular reason to use exceptions is the ability to make code transaction-
 account = yield create_account(values[:account])
 owner = yield create_owner(account, values[:owner])
 
-Success([account, user])
+Success([account, owner])
 ```
 
 What if `create_account` succeeds and `create_owner` fails? This will leave your database in an inconsistent state. Let's wrap it with a transaction block:
@@ -95,7 +95,7 @@ repo.transaction do
   account = yield create_account(values[:account])
   owner = yield create_owner(account, values[:owner])
 
-  Success([account, user])
+  Success([account, owner])
 end
 ```
 
