@@ -39,10 +39,7 @@ end
 App.config.database.dsn
 # => "sqlite:memory"
 
-App.configure do |config|
-  config.database.dsn = 'jdbc:sqlite:memory'
-end
-
+App.config.database.dsn = 'jdbc:sqlite:memory'
 App.config.database.dsn
 # => "jdbc:sqlite:memory"
 App.config.adapter
