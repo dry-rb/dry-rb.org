@@ -16,6 +16,10 @@ sections:
   - extensions
 ---
 
+> `dry-schema` will soon become the schema backend for dry-validation 1.0.0. For the time being, this documentation is very similar to dry-validation, as dry-schema's DSL is heavily based on it.
+>
+> You can learn more about dry-schema + dry-validation [here](https://discourse.dry-rb.org/t/plans-for-dry-validation-dry-schema-a-new-gem/215)!
+
 `dry-schema` is a data coercion and validation library that focuses on explicitness, clarity and precision.
 
 It is based on the idea that each validation is encapsulated by a simple, stateless predicate that receives some input and returns either `true` or `false`. Those predicates are encapsulated by `rules` which can be composed together using `predicate logic`. This means you can use the common logic operators to build up a validation `schema`.
