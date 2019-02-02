@@ -11,18 +11,16 @@ update `spec_helper.rb` :
 ```ruby
 require "dry/configurable/test_interface"
 
-# this is your module/class that extend Dry::Configurable
+# this is your module/class that extended by Dry::Configurable
 module AwesomeModule
-  # add this code
-  extend Dry::Configurable::TestInterface
+  enable_test_interface
 end
 ```
 
 and on spec file (`xxx_spec.rb`) :
 
-```ruby
+```ruby 
 before(:all) { AwesomeModule.reset_config }
-
 # or 
 before(:each) { AwesomeModule.reset_config }
 
