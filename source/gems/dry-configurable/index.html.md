@@ -5,6 +5,8 @@ layout: gem-single
 order: 7
 type: gem
 name: dry-configurable
+sections:
+  - testing
 ---
 
 ### Introduction
