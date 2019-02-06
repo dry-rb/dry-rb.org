@@ -33,7 +33,7 @@ In `dry-validation` type-safety is a first-class feature, something that's compl
 
 `dry-validation`'s rule composition and predicate logic is provided by [dry-logic](https://github.com/dry-rb/dry-logic). The DSL is a simple front-end for it. It allows you to define the rules by only using predicate identifiers.  There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.
 
-The DSL is very abstract, it builds [a rule AST](https://github.com/dry-rb/dry-validation/wiki/Rule-AST) which is compiled into an array of rule objects. This means alternative interfaces could be easily built.
+The DSL is very abstract, it builds a rule AST which is compiled into an array of rule objects. This means alternative interfaces could be easily built.
 
 ### When To Use?
 
