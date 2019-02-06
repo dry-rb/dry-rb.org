@@ -45,7 +45,7 @@ result.failure?
 ### Defining Base Schema Class
 
 ```ruby
-class AppSchema < Dry::Schema::Schema
+class AppSchema < Dry::Schema::Params
   config.messages_file = '/my/app/config/locales/en.yml'
   config.messages = :i18n
 
