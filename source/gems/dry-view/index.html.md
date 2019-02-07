@@ -11,6 +11,7 @@ sections:
   - parts
   - scopes
   - context
+  - testing
 ---
 
 dry-view is a complete, standalone view rendering system that gives you everything you need to write well-factored view code.
@@ -18,7 +19,7 @@ dry-view is a complete, standalone view rendering system that gives you everythi
 Use dry-view if:
 
 - You recognize that view code can be complex, and want to work with a system that allows you to break your view logic apart into sensible units
-- You want to be able to unit test all aspects of your views, in complete isolation
+- You want to be able to [unit test](/gems/dry-view/testing/) all aspects of your views, in complete isolation
 - You want to maintain a sensible separation of concerns between the layers of functionality within your app
 - You want to build and render views in any kind of context, not just when serving HTTP requests
 - You're using a lightweight routing DSL like Roda or Sinatra and you want to keep your routes clean and easy to understand (dry-view handles the integrateion with your application, so all you need to provide from routes is the user-provided input params)
