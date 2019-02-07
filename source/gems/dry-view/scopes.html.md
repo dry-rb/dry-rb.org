@@ -130,7 +130,7 @@ To fully customize scope initialization, you can provide a replacement scope bui
 
 ```ruby
 class MyView < Dry::View
-  config.part_builder = MyScopeBuilder
+  config.scope_builder = MyScopeBuilder
 end
 ```
 
