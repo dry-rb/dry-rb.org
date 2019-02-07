@@ -10,7 +10,15 @@ With a custom scope, you can add your own behavior around a template and its par
 
 ## Defining a scope class
 
-To provide custom scope behavior, define your own scope classes in a common namespace (e.g. `Scopes`) and [configure that](/gems/dry-view/configuration/) as your view's `scope_namespace` Each scope class must inherit from `Dry::View::Scope`.
+To provide custom scope behavior, define your own scope classes in a common namespace (e.g. `Scopes`) and [configure that](/gems/dry-view/configuration/) as your view's `scope_namespace`:
+
+```ruby
+class MyView < Dry::View
+  config.scope_namespace = Scopes
+end
+```
+
+Each scope class must inherit from `Dry::View::Scope`:
 
 ```ruby
 module Scopes
@@ -19,9 +27,9 @@ module Scopes
 end
 ```
 
-## Building a scope
+## Building scopes
 
-To build a custom scope, use the `#scope` method from within a template, or on a [part](/gems/dry-rb/parts/) or scope object.
+Build a scope by using the `#scope` method from within a template, or on a [part](/gems/dry-rb/parts/) or scope object.
 
 ```ruby
 scope(:media_player)
@@ -124,9 +132,32 @@ end
 
 You may choose to memoize expensive operations within a scope to ensure they only run once.
 
+## Configuring a scope for a whole view
+
+Aside from building custom scopes explicitly, you can also specify a scope to be used when a view renders its own template.
+
+You can specify the scope as a direct class reference:
+
+```ruby
+class MyView < Dry::View
+  config.template = "my_view"
+  config.scope = Scopes::MyView
+end
+```
+
+Or if you have a scope namepace configured, you can use a symbolic name and a matching scope will be looked up:
+
+```ruby
+class MyView < Dry::View
+  config.template = "my_view"
+  config.scope_namespace = Scopes
+  config.scope = :my_view
+end
+```
+
 ## Providing a custom scope builder
 
-To fully customize scope initialization, you can provide a replacement scope builder:
+To fully customize scope lookup and initialization, you can provide a replacement scope builder:
 
 ```ruby
 class MyView < Dry::View
