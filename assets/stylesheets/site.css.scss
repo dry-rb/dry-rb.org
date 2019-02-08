@@ -859,6 +859,7 @@ pre code {
   margin-left: -25px;
   text-align: left;
   left: 0;
+  z-index: 1;
   @include mobile {
     display: none !important;
   }
