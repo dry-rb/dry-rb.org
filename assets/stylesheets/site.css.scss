@@ -1199,6 +1199,58 @@ article a {
 
 // Community page
 
+.community-resources {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 0 30px;
+
+  @include tablet {
+    padding-bottom: 10px;
+  }
+
+  @include mobile {
+    padding-bottom: 10px;
+  }
+
+  a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+  }
+
+  a:hover, a:active {
+    background-color: $light-grey;
+  }
+
+  .resource {
+    @include col(1,3);
+    border-radius: 5px;
+    margin-left: 0;
+    text-align: center;
+
+    @include mobile {
+      @include col(1,1);
+      padding-bottom: 20px;
+    }
+
+    .name {
+      @extend h2;
+    }
+
+    img, svg, span.ss-icon {
+      max-width: 70%;
+      margin: 0 auto;
+      display: block;
+
+      @include mobile {
+        max-width: 35%;
+      }
+    }
+
+    svg {
+      padding: 20px;
+    }
+  }
+}
+
 .people {
   margin-top: 40px;
   padding-bottom: 30px;
@@ -1280,8 +1332,6 @@ article a {
   font-family: $code-font;
   padding-left: 27px;
 }
-
-.person
 
 .octocat {
   font-size: 20px;
