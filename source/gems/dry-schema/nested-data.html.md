@@ -95,7 +95,7 @@ Similarly, you use `each` and `schema` to validate an array of hashes:
 
 ```ruby
 schema = Dry::Schema.Params do
-  required(:people).each do
+  required(:people).value(:array).each do
     schema do
       required(:name).filled
       required(:age).filled(:integer, gteq?: 18)
@@ -107,7 +107,6 @@ errors = schema.call(
   people: [ { name: 'Alice', age: 19 }, { name: 'Bob', age: 17 } ],
 ).messages
 
-errors = schema.call(phone_numbers: ['123456789', 123456789]).messages
 puts errors.inspect
 # => {
 #   :people=>{
