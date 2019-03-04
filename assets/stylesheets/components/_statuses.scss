@@ -1,0 +1,43 @@
+.statuses__wrapper {
+  overflow: auto;
+  width: 100%;
+}
+
+.statuses__table {
+  width: 100%;
+
+  @media (max-width: 500px) {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+
+    & thead {
+      display: none;
+    }
+
+    & tbody {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+
+      tr {
+        border-bottom: 1px solid #3e8188;
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 100%;
+        padding-bottom: 0.6em;
+
+        td {
+          border: none;
+          padding: 0.3em;
+
+          &:first-child {
+            display: block;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
