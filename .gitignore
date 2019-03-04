@@ -11,7 +11,7 @@
 /.sass-cache
 /.cache
 
-# Ignode IDE's
+# Ignore IDE's
 /.idea
 
 # Ignore .DS_store file
