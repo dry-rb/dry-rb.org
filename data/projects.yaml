@@ -1,5 +1,10 @@
 - name: dry-validation
-  desc: Powerful data validation based on predicate logic
+  desc: Powerful data validation
+  versions:
+    - "1.0.0.alpha1"
+    - "0.13"
+  current_version: "1.0.0.alpha1"
+  fallback_version: "1.0.0.alpha1"
 - name: dry-schema
   desc: Schema coercion & validation
 - name: dry-types
