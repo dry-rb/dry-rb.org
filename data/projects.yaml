@@ -5,7 +5,7 @@
       name: "1.0.0.alpha1"
     - "0.13"
   current_version: "1.0.0"
-  fallback_version: "0.13"
+  fallback_version: "1.0.0"
 - name: dry-schema
   desc: Schema coercion & validation
 - name: dry-types
