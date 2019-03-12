@@ -1,10 +1,11 @@
 - name: dry-validation
   desc: Powerful data validation
   versions:
-    - "1.0.0.alpha1"
+    - code: "1.0.0"
+      name: "1.0.0.alpha1"
     - "0.13"
-  current_version: "1.0.0.alpha1"
-  fallback_version: "1.0.0.alpha1"
+  current_version: "0.13"
+  fallback_version: "0.13"
 - name: dry-schema
   desc: Schema coercion & validation
 - name: dry-types
