@@ -26,8 +26,8 @@ employee.position # => 'supercargo'
 employee = Employee.new # => fails because type
 ```
 
-You can reload params and options.
-Such a reloading leaves initial order of params (positional arguments) unchanged:
+You can override params and options.
+Such overriding leaves initial order of params (positional arguments) unchanged:
 
 ```ruby
 class Employee < User

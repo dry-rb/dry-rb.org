@@ -55,7 +55,7 @@ Notice that `public_attribute` reads *public reader methods*, not variables. Tha
 
 Another difference concerns unassigned values. Because the reader `user.email` returns `nil` (its `@email` variable contains `Dry::Initializer::UNDEFINED` constant), the `public_attributes` adds this value to the hash using the method.
 
-The third thing to mention is that you can reload the reader, and it is the reloaded method will be used by `public_attributes`:
+The third thing to mention is that you can override the reader, and it is the overriden method which will be used by `public_attributes`:
 
 ```ruby
 require 'dry-initializer'
