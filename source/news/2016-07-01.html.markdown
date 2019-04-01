@@ -223,4 +223,4 @@ Feel free to experiment with this and if you discover any common patterns let us
 
 Yes, there’s more :) For detailed information about the changes and improvements please read the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v080-2016-07-01).
 
-Check out dry-validation and [tell us what you think](https://gitter.im/dry-rb/chat)!
+Check out dry-validation and [tell us what you think](https://dry-rb.zulipchat.com)!

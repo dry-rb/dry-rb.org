@@ -47,4 +47,4 @@ Tim has been blogging about “next-generation” Ruby apps for the past few mon
 
 ## Get involved!
 
-Questions? Join our friendly [dry-rb chat](https://gitter.im/dry-rb/chat) and [rom-rb chat](https://gitter.im/dry-rb/chat). We’d love to see you there!
+Questions? Join our friendly [dry-rb chat](https://dry-rb.zulipchat.com) and [rom-rb chat](https://dry-rb.zulipchat.com). We’d love to see you there!

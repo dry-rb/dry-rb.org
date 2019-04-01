@@ -181,7 +181,7 @@ Password["foo"]
 
 ## Enjoy!
 
-We hope you'll find new features useful. In case of any issues, please report them on GitHub or chat with us on [Gitter](https://gitter.im/dry-rb/chat).
+We hope you'll find new features useful. In case of any issues, please report them on GitHub or chat with us on [Zulip](https://dry-rb.zulipchat.com).
 
 If you want to use new features, just add latest versions to your Gemfile:
 
