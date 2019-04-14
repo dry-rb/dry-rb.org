@@ -24,11 +24,11 @@ class NewUserContract < Dry::Validation::Contract
   end
 
   rule(:email) do
-    failure('is already taken') if User.where(email: values[:email]).count > 0
+    key.failure('is already taken') if User.where(email: values[:email]).count > 0
   end
 
   rule(:age) do
-    failure('must be greater than 18') if values[:age] < 18
+    key.failure('must be greater than 18') if values[:age] < 18
   end
 end
 
