@@ -10,8 +10,18 @@
   desc: Schema coercion & validation
 - name: dry-types
   desc: Flexible type system with many built-in types
+  versions:
+    - "1.0"
+    - "0.15"
+  current_version: "0.15"
+  fallback_version: "0.15"
 - name: dry-struct
   desc: Attribute DSL for struct-like objects
+  versions:
+    - "1.0"
+    - "0.7"
+  current_version: "0.7"
+  fallback_version: "0.7"
 - name: dry-transaction
   desc: Business transaction DSL
 - name: dry-container
@@ -30,6 +40,10 @@
   desc: DSL for defining initializer params and options
 - name: dry-logic
   desc: Predicate logic with composable rules
+  versions:
+    - "1.0"
+  current_version: "1.0"
+  fallback_version: "1.0"
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
 - name: dry-monads
