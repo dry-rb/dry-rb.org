@@ -9,7 +9,7 @@ name: dry-types
 Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
 
 ``` ruby
-Types::Strict::String[nil]
+Types::String[nil]
 # => raises Dry::Types::ConstraintError
 
 optional_string = Types::String.optional
@@ -36,6 +36,7 @@ This functionality is not available by default - it must be loaded using `Dry::T
 require 'dry-types'
 
 Dry::Types.load_extensions(:maybe)
+
 module Types
   include Dry::Types()
 end
@@ -47,13 +48,13 @@ Types::Maybe::Coercible::Float[nil] # None
 Types::Maybe::Coercible::Float['12.3'] # Some(12.3)
 
 # 'Maybe' types can also accessed by calling '.maybe' on a regular type:
-Types::Strict::Integer.maybe # equivalent to Types::Maybe::Strict::Integer
+Types::Integer.maybe # equivalent to Types::Maybe::Strict::Integer
 ```
 
 You can define your own optional types:
 
 ``` ruby
-maybe_string = Types::Strict::String.maybe
+maybe_string = Types::String.maybe
 
 maybe_string[nil]
 # => None
@@ -67,6 +68,6 @@ maybe_string['something']
 maybe_string['something'].fmap(&:upcase)
 # => Some('SOMETHING')
 
-maybe_string['something'].fmap(&:upcase).value
+maybe_string['something'].fmap(&:upcase).value_or('NOTHING')
 # => "SOMETHING"
 ```

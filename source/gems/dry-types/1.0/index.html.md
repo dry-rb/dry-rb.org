@@ -38,16 +38,11 @@ User.new(name: 'Bob', age: 35)
 
 See [Built-in Types](/gems/dry-types/built-in-types/) for a full list of available types.
 
-By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:
+- 'Strict' types
 
-- 'Strict' types will raise an error if passed an attribute of the wrong type:
+`Types::String` and `Types::Integer` are strict which means they will reject any input that doesn't their constraints:
 
 ```ruby
-class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer
-end
-
 User.new(name: 'Bob', age: '18')
 # => Dry::Struct::Error: [User.new] "18" (String) has invalid type for :age
 ```
@@ -71,8 +66,8 @@ User.new(name: 'Bob', age: 'not coercible')
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.optional
+  attribute :name, Types::String
+  attribute :age,  Types::Integer.optional
 end
 
 User.new(name: 'Bob', age: nil)
@@ -89,8 +84,8 @@ User.new(name: 'Bob')
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.constrained(gteq: 18)
+  attribute :name, Types::String
+  attribute :age,  Types::Integer.constrained(gteq: 18)
 end
 
 User.new(name: 'Bob', age: 17)
@@ -112,13 +107,13 @@ Note that you don't have to use `Dry::Struct`. You can interact with your
 type definitions however you like using `[]`:
 
 ```ruby
-Types::Strict::String["foo"]
+Types::String["foo"]
 # => "foo"
-Types::Strict::String["10000"]
+Types::String["10000"]
 # => "10000"
 Types::Coercible::String[10000]
 # => "10000"
-Types::Strict::String[10000]
+Types::String[10000]
 # Dry::Types::ConstraintError: 1000 violates constraints
 ```
 
@@ -130,6 +125,7 @@ Types::Strict::String[10000]
 * Support for [sum types](/gems/dry-types/sum)
 * Support for [enums](/gems/dry-types/enum)
 * Support for [hash type with type schemas](/gems/dry-types/hash-schemas)
+* Support for [map types](/gems/dry-types/map)
 * Support for [array type with members](/gems/dry-types/array-with-member)
 * Support for arbitrary meta information
 * Support for typed struct objects via [dry-struct](/gems/dry-struct)
@@ -154,6 +150,7 @@ Types::Strict::String[10000]
 
 * [dry-struct](/gems/dry-struct)
 * [dry-initializer](/gems/dry-initializer)
+* [dry-schema](/gems/dry-schema)
 * [Hanami](http://hanamirb.org)
 * [rom-rb](http://rom-rb.org)
 * [Trailblazer](http://trailblazer.to)

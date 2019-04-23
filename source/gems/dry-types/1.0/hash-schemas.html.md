@@ -75,7 +75,7 @@ The process of converting types to constructors like that can be automated, see 
 
 ### Optional keys
 
-By default, all keys are required to present in the input. You can mark an attribute as optional by adding `?` to its name:
+By default, all keys are required to present in the input. You can mark a key as optional by adding `?` to its name:
 
 ```ruby
 user_hash = Types::Hash.schema(name: Types::String, age?: Types::Integer)
@@ -144,9 +144,9 @@ Type transformations work perfectly with inheritance, you don't have to define s
 
 ```ruby
 SymbolizeAndOptionalSchema = Types::Hash.
-  schema({}).
-  with_key_transform(&:to_sym).
-  with_type_transform { |type| type.required(false) }
+  .schema({})
+  .with_key_transform(&:to_sym)
+  .with_type_transform { |type| type.required(false) }
 
 user_hash = SymbolizeAndOptionalSchema.schema(
   name: Types::String,
@@ -156,14 +156,14 @@ user_hash = SymbolizeAndOptionalSchema.schema(
 user_hash['name' => 'Jane']
 ```
 
-Transformation block yields a key name as second argument:
+You can check key name by calling `.name` on the type argument:
 
 ```ruby
-Types::Hash.with_type_transform do |type, name|
-  if name.to_s.end_with?('_at')
-    type.constructor { |v| Time.iso8601(v) }
+Types::Hash.with_type_transform do |key|
+  if key.name.to_s.end_with?('_at')
+    key.constructor { |v| Time.iso8601(v) }
   else
-    type
+    key
   end
 end
 ```
