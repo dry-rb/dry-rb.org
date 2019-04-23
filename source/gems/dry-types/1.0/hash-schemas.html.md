@@ -8,7 +8,7 @@ It is possible to define a type for a hash with a known set of keys and correspo
 
 ```ruby
 # using simple kernel coercions
-user_hash = Types::Hash.schema(name: Types::Strict::String, age: Types::Coercible::Integer)
+user_hash = Types::Hash.schema(name: Types::String, age: Types::Coercible::Integer)
 
 user_hash[name: 'Jane', age: '21']
 # => { name: 'Jane', age: 21 }
@@ -43,8 +43,8 @@ Default types are **only** evaluated if the corresponding key is missing in the 
 
 ```ruby
 user_hash = Types::Hash.schema(
-  name: Types::Strict::String,
-  age: Types::Strict::Integer.default(18)
+  name: Types::String,
+  age: Types::Integer.default(18)
 )
 user_hash[name: 'Jane']
 # => { name: 'Jane', age: 18 }
@@ -59,8 +59,8 @@ In order to evaluate default types on `nil`, wrap your type with a constructor a
 
 ```ruby
 user_hash = Types::Hash.schema(
-  name: Types::Strict::String,
-  age: Types::Strict::Integer.
+  name: Types::String,
+  age: Types::Integer.
          default(18).
          constructor { |value|
            value.nil? ? Dry::Types::Undefined : value
@@ -75,13 +75,10 @@ The process of converting types to constructors like that can be automated, see 
 
 ### Optional keys
 
-By default, all keys are required to present in the input. However, if a type has meta `omittable: true`, the corresponding key can be omitted:
+By default, all keys are required to present in the input. You can mark an attribute as optional by adding `?` to its name:
 
 ```ruby
-user_hash = Types::Hash.schema(
-  name: Types::Strict::String,
-  age: Types::Strict::Integer.meta(omittable: true)
-)
+user_hash = Types::Hash.schema(name: Types::String, age?: Types::Integer)
 
 user_hash[name: 'Jane']
 # => { name: 'Jane' }
@@ -92,7 +89,7 @@ user_hash[name: 'Jane']
 All keys not declared in the schema are silently ignored. This behavior can be changed by calling `.strict` on the schema:
 
 ```ruby
-user_hash = Types::Hash.schema(name: Types::Strict::String).strict
+user_hash = Types::Hash.schema(name: Types::String).strict
 user_hash[name: 'Jane', age: 21]
 # => Dry::Types::UnknownKeysError: unexpected keys [:age] in Hash input
 ```
@@ -102,7 +99,7 @@ user_hash[name: 'Jane', age: 21]
 Keys are supposed to be symbols but you can attach a key tranformation to a schema, e.g. for converting strings into symbols:
 
 ```ruby
-user_hash = Types::Hash.schema(name: Types::Strict::String).with_key_transform(&:to_sym)
+user_hash = Types::Hash.schema(name: Types::String).with_key_transform(&:to_sym)
 user_hash['name' => 'Jane']
 
 # => { name: 'Jane' }
@@ -117,7 +114,7 @@ Hash schemas can be inherited in a sense you can define a new schema based on an
 StrictSymbolizingHash = Types::Hash.schema({}).strict.with_key_transform(&:to_sym)
 
 user_hash = StrictSymbolizingHash.schema(
-  name: Types::Strict::String
+  name: Types::String
 )
 
 user_hash['name' => 'Jane']
@@ -132,9 +129,9 @@ user_hash['name' => 'Jane', 'city' => 'London']
 A schema can transform types with a block. For example, the following code makes all keys optional:
 
 ```ruby
-user_hash = Types::Hash.with_type_transform { |type| type.meta(omittable: true) }.schema(
-  name: Types::Strict::String,
-  age: Types::Strict::Integer
+user_hash = Types::Hash.with_type_transform { |type| type.required(false) }.schema(
+  name: Types::String,
+  age: Types::Integer
 )
 
 user_hash[name: 'Jane']
@@ -149,11 +146,11 @@ Type transformations work perfectly with inheritance, you don't have to define s
 SymbolizeAndOptionalSchema = Types::Hash.
   schema({}).
   with_key_transform(&:to_sym).
-  with_type_transform { |type| type.meta(omittable: true) }
+  with_type_transform { |type| type.required(false) }
 
 user_hash = SymbolizeAndOptionalSchema.schema(
-  name: Types::Strict::String,
-  age: Types::Strict::Integer
+  name: Types::String,
+  age: Types::Integer
 )
 
 user_hash['name' => 'Jane']

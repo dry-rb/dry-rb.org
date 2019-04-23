@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-types
 ---
 
-### [DEPRECATED] The following API is deprecated and will be removed in the next version, use new configurable hash schemas as a replacement.
+### [DEPRECATED] The following API is already removed in 0.15, use new configurable hash schemas as a replacement.
 
 The built-in `Hash` type has constructors that you can use to define hashes with explicit schemas and coercible values using the built-in types. The different constructor types support different use cases that involve unexpected keys, missing keys, default values, and key coercion.
 

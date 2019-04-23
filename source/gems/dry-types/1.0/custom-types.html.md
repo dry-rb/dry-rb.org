@@ -51,12 +51,12 @@ user_type[name: 'John']
 user_type = Types.Constructor(User) { |values| User.new(values) }
 ```
 
-### `Types.Definition`
+### `Types.Nominal`
 
-`Types.Definition` wraps the given class with a simple definition without any behavior attached.
+`Types.Nominal` wraps the given class with a simple definition without any behavior attached.
 
 ```ruby
-int = Types.Definition(Integer)
+int = Types.Nominal(Integer)
 int[1] # => 1
 
 # The type doesn't have any checks
@@ -80,5 +80,5 @@ Types.Hash(:permissive, name: Types::String, age: Types::Coercible::Integer)
 `Types.Array` is a shortcut for `Types::Array.of`
 
 ```ruby
-ListOfStrings = Types.Array(Types::Strict::String)
+ListOfStrings = Types.Array(Types::String)
 ```

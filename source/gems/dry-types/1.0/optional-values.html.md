@@ -12,7 +12,7 @@ Use the `.optional` method to get a type that has all the same features but also
 Types::Strict::String[nil]
 # => raises Dry::Types::ConstraintError
 
-optional_string = Types::Strict::String.optional
+optional_string = Types::String.optional
 
 optional_string[nil]
 # => nil
@@ -24,7 +24,7 @@ optional_string[123]
 # raises Dry::Types::ConstraintError
 ```
 
-Under the hood this creates a [sum type](/gems/dry-types/sum/).  `Types::String.optional` is just syntactic sugar for `Types::Strict::Nil | Types::Strict::String`.
+Under the hood this creates a [sum type](/gems/dry-types/sum/).  `Types::String.optional` is just syntactic sugar for `Types::Nil | Types::String`.
 
 ### Maybe values
 
@@ -37,7 +37,7 @@ require 'dry-types'
 
 Dry::Types.load_extensions(:maybe)
 module Types
-  include Dry::Types.module
+  include Dry::Types()
 end
 
 Types::Maybe::Strict::Integer[nil] # None

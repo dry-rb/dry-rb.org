@@ -12,7 +12,6 @@ sections:
   - sum
   - constraints
   - hash-schemas
-  - hash-schemas-obsolete
   - array-with-member
   - enum
   - map
@@ -28,13 +27,10 @@ require 'dry-types'
 require 'dry-struct'
 
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 
-class User < Dry::Struct
-  attribute :name, Types::String
-  attribute :age,  Types::Integer
-end
+User = Dry.Struct(name: Types::String, age: Types::Integer)
 
 User.new(name: 'Bob', age: 35)
 # => #<User name="Bob" age=35>

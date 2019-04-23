@@ -8,7 +8,7 @@ To include all built-in types in your own namespace simply do:
 
 ``` ruby
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 ```
 
@@ -16,14 +16,14 @@ Now you can access all built-in types inside your namespace:
 
 ``` ruby
 Types::Coercible::String
-# => #<Dry::Types::Constructor type=#<Dry::Types::Definition primitive=String options={}>>
+# => #<Dry::Types::Constructor type=#<Dry::Types::Nominal primitive=String options={}>>
 ```
 
 With types accessible as constants you can easily compose more complex types:
 
 ``` ruby
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 
   Email = String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
   Age = Integer.constrained(gt: 18)

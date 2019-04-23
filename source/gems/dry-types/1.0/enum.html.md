@@ -11,14 +11,14 @@ require 'dry-types'
 require 'dry-struct'
 
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 
 class Post < Dry::Struct
-  Statuses = Types::Strict::String.enum('draft', 'published', 'archived')
+  Statuses = Types::String.enum('draft', 'published', 'archived')
 
-  attribute :title, Types::Strict::String
-  attribute :body, Types::Strict::String
+  attribute :title, Types::String
+  attribute :body, Types::String
   attribute :status, Statuses
 end
 
@@ -54,7 +54,7 @@ A classic example is mapping integers coming from somewhere (API/database/etc) t
 
 ```ruby
 class Cell < Dry::Struct
-  attribute :state, Types::Strict::String.enum('locked' => 0, 'open' => 1)
+  attribute :state, Types::String.enum('locked' => 0, 'open' => 1)
 end
 
 
