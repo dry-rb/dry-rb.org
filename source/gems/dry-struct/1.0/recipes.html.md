@@ -10,13 +10,13 @@ name: dry-struct
 require 'dry-struct'
 
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 
 class User < Dry::Struct
   transform_keys(&:to_sym)
 
-  attribute :name, Types::Strict::String
+  attribute :name, Types::String
 end
 
 User.new('name' => 'Jane')
@@ -32,7 +32,7 @@ class User < Dry::Struct
   # This does the trick
   input input.strict
 
-  attribute :name, Types::Strict::String
+  attribute :name, Types::String
 end
 
 User.new(name: 'Jane', age: 21)
@@ -41,12 +41,12 @@ User.new(name: 'Jane', age: 21)
 
 ### Tolerance to missing keys
 
-You can mark certain keys as optional with adding meta `omittable: true` to theirs types.
+You can mark certain keys as optional by calling `attribute?`.
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.meta(omittable: true)
+  attribute :name, Types::String
+  attribute? :age, Types::Integer
 end
 
 user = User.new(name: 'Jane')
@@ -55,7 +55,7 @@ user.age
 # => nil
 ```
 
-In the example above `nil` violates the type constraint so be careful with `:omittable`.
+In the example above `nil` violates the type constraint so be careful with `attribute?`.
 
 ### Default values
 
@@ -63,8 +63,8 @@ Instead of violating constraints you can assign default values to attributes:
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.default(18)
+  attribute :name, Types::String
+  attribute :age,  Types::Integer.default(18)
 end
 
 User.new(name: 'Jane')
@@ -87,8 +87,8 @@ class User < Dry::Struct
     end
   end
 
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.default(18)
+  attribute :name, Types::String
+  attribute :age,  Types::Integer.default(18)
 end
 
 User.new(name: 'Jane')

@@ -6,7 +6,6 @@ name: dry-struct
 sections:
  - nested-structs
  - recipes
- - constructor-types
 ---
 
 `dry-struct` is a gem built on top of `dry-types` which provides virtus-like DSL for defining typed struct classes.
@@ -19,11 +18,11 @@ You can define struct objects which will have readers for specified attributes u
 require 'dry-struct'
 
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 
 class User < Dry::Struct
-  attribute :name, Types::Strict::String.optional
+  attribute :name, Types::String.optional
   attribute :age, Types::Coercible::Integer
 end
 
@@ -44,8 +43,8 @@ You can define value objects which will behave like structs but will be *deeply 
 
 ``` ruby
 class Location < Dry::Struct::Value
-  attribute :lat, Types::Strict::Float
-  attribute :lng, Types::Strict::Float
+  attribute :lat, Types::Float
+  attribute :lng, Types::Float
 end
 
 loc1 = Location.new(lat: 1.23, lng: 4.56)
@@ -66,7 +65,7 @@ loc1 == loc2
 class User < Dry::Struct
   transform_keys(&:to_sym)
 
-  attribute :name, Types::Strict::String.optional
+  attribute :name, Types::String.optional
   attribute :age, Types::Coercible::Integer
 end
 
@@ -82,7 +81,7 @@ class SymbolizeStruct < Dry::Struct
 end
 
 class User < SymbolizeStruct
-  attribute :name, Types::Strict::String.optional
+  attribute :name, Types::String.optional
   attribute :age, Types::Coercible::Integer
 end
 ```

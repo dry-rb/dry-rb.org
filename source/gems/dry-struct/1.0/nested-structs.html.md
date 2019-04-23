@@ -8,10 +8,10 @@ The DSL allows to define nested structs by passing a block to `attribute`:
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
+  attribute :name, Types::String
   attribute :address do
-    attribute :city,   Types::Strict::String
-    attribute :street, Types::Strict::String
+    attribute :city,   Types::String
+    attribute :street, Types::String
   end
 end
 
@@ -37,9 +37,9 @@ It is even possible to define an array of struct:
 
 ```ruby
 class User < Dry::Struct
-  attribute :addresses, Types::Strict::Array do
-    attribute :city,   Types::Strict::String
-    attribute :street, Types::Strict::String
+  attribute :addresses, Types::Array do
+    attribute :city,   Types::String
+    attribute :street, Types::String
   end
 end
 
