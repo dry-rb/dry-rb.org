@@ -10,7 +10,7 @@ You can provide your own messages and configure your schemas to use it like that
 
 ```ruby
 schema = Dry::Schema.Params do
-  configure { config.messages_file = '/path/to/my/errors.yml' }
+  config.messages.load_paths << '/path/to/my/errors.yml'
 end
 ```
 
@@ -18,41 +18,50 @@ You can also provide a namespace per-schema that will be used by default:
 
 ```ruby
 schema = Dry::Schema.Params do
-  configure { config.namespace = :user }
+  config.messages.namespace = :user
 end
 ```
+
+You can change the default top namespace using:
+
+```ruby
+schema = Dry::Schema.Params do
+  config.messages.top_namespace = :validation_schema
+end
+``` 
 
 Lookup rules:
 
 ```yaml
 en:
-  errors:
-    size?:
-      arg:
-        default: "size must be %{num}"
-        range: "size must be within %{left} - %{right}"
-
-      value:
-        string:
-          arg:
-            default: "length must be %{num}"
-            range: "length must be within %{left} - %{right}"
-
-    filled?: "must be filled"
-
-    included_in?: "must be one of %{list}"
-    excluded_from?: "must not be one of: %{list}"
-
-    rules:
-      email:
-        filled?: "the email is missing"
-
-      user:
-        filled?: "name cannot be blank"
-
-        rules:
-          address:
-            filled?: "You gotta tell us where you live"
+  dry_schema:
+    errors:
+      size?:
+        arg:
+          default: "size must be %{num}"
+          range: "size must be within %{left} - %{right}"
+  
+        value:
+          string:
+            arg:
+              default: "length must be %{num}"
+              range: "length must be within %{left} - %{right}"
+  
+      filled?: "must be filled"
+  
+      included_in?: "must be one of %{list}"
+      excluded_from?: "must not be one of: %{list}"
+  
+      rules:
+        email:
+          filled?: "the email is missing"
+  
+        user:
+          filled?: "name cannot be blank"
+  
+          rules:
+            address:
+              filled?: "You gotta tell us where you live"
 ```
 
 Given the yaml file above, messages lookup works as follows:
@@ -81,7 +90,7 @@ user_messages[:filled?, rule: :age] # "cannot be blank"
 user_messages[:filled?, rule: :address] # "You gotta tell us where you live"
 ```
 
-By configuring `messages_file` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
+By configuring `load_paths` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
 
 ## I18n Integration
 
@@ -92,7 +101,7 @@ require 'i18n'
 require 'dry-schema'
 
 schema = Dry::Schema.Params do
-  configure { config.messages = :i18n }
+  config.messages.backend = :i18n
 
   required(:email).filled
 end
