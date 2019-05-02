@@ -80,7 +80,7 @@ User.dry_initializer.public_attributes(user)
 # => { user: "Joe", password: "-1844874613000160009" }
 ```
 
-This feature works for the "extend Dry::Initializer" syntax. But what about "include Dry::Initializer.define ..." one? Now we don't pollute class namespace with new methods, that's why `.dry_initializer` is absent.
+This feature works for the "extend Dry::Initializer" syntax. But what about "include Dry::Initializer.define ..."? Now we don't pollute class namespace with new methods, that's why `.dry_initializer` is absent.
 
 To access config you can use a hack. Under the hood we define private instance method `#__dry_initializer_config__` which refers to the same container. So you can write:
 
