@@ -16,6 +16,7 @@ GEM
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
+    byebug (11.0.1)
     coderay (1.1.2)
     coffee-script (2.4.1)
       coffee-script-source
@@ -166,6 +167,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   builder (~> 3.0)
+  byebug
   dry-initializer
   hashugar
   middleman
@@ -186,4 +188,4 @@ DEPENDENCIES
   tzinfo
 
 BUNDLED WITH
-   1.17.2
+   1.17.3

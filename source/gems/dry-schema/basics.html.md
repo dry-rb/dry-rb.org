@@ -3,10 +3,9 @@ title: Basics
 layout: gem-single
 name: dry-schema
 sections:
-  - predicate-logic
-  - built-in-predicates
-  - type-specs
   - macros
+  - type-specs
+  - built-in-predicates
   - working-with-schemas
 ---
 
@@ -39,11 +38,12 @@ schema.call("email" => "", "age" => "19")
 When you apply this schema to an input, 3 things happen:
 
 1. Input keys are coerced to symbols using schema's key map
-2. Input value are coerced based on type specs
+2. Input values are coerced based on type specs
 3. Input keys and values are validated using defined schema rules
 
-Learn more:
+## Learn more
 
-- [Predicate logic](/gems/dry-schema/basics/predicate-logic)
 - [Macros](/gems/dry-schema/basics/macros)
+- [Type Specs](/gems/dry-schema/basics/type-specs)
+- [Built-in Predicates](/gems/dry-schema/basics/built-in-predicates)
 - [Working With Schemas](/gems/dry-schema/basics/working-with-schemas)

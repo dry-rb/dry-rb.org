@@ -10,7 +10,7 @@ You can provide your own messages and configure your schemas to use it like that
 
 ```ruby
 schema = Dry::Schema.Params do
-  configure { config.messages_file = '/path/to/my/errors.yml' }
+  config.messages.load_paths << '/path/to/my/errors.yml'
 end
 ```
 
@@ -18,7 +18,7 @@ You can also provide a namespace per-schema that will be used by default:
 
 ```ruby
 schema = Dry::Schema.Params do
-  configure { config.namespace = :user }
+  config.messages.namespace = :user
 end
 ```
 
@@ -26,33 +26,34 @@ Lookup rules:
 
 ```yaml
 en:
-  errors:
-    size?:
-      arg:
-        default: "size must be %{num}"
-        range: "size must be within %{left} - %{right}"
+  dry_schema:
+    errors:
+      size?:
+        arg:
+          default: "size must be %{num}"
+          range: "size must be within %{left} - %{right}"
 
-      value:
-        string:
-          arg:
-            default: "length must be %{num}"
-            range: "length must be within %{left} - %{right}"
+        value:
+          string:
+            arg:
+              default: "length must be %{num}"
+              range: "length must be within %{left} - %{right}"
 
-    filled?: "must be filled"
+      filled?: "must be filled"
 
-    included_in?: "must be one of %{list}"
-    excluded_from?: "must not be one of: %{list}"
+      included_in?: "must be one of %{list}"
+      excluded_from?: "must not be one of: %{list}"
 
-    rules:
-      email:
-        filled?: "the email is missing"
+      rules:
+        email:
+          filled?: "the email is missing"
 
-      user:
-        filled?: "name cannot be blank"
+        user:
+          filled?: "name cannot be blank"
 
-        rules:
-          address:
-            filled?: "You gotta tell us where you live"
+          rules:
+            address:
+              filled?: "You gotta tell us where you live"
 ```
 
 Given the yaml file above, messages lookup works as follows:
@@ -92,17 +93,17 @@ require 'i18n'
 require 'dry-schema'
 
 schema = Dry::Schema.Params do
-  configure { config.messages = :i18n }
+  config.messages.backend = :i18n
 
-  required(:email).filled
+  required(:email).filled(:string)
 end
 
 # return default translations
-schema.call(email: '').messages
+schema.call(email: '').messages.to_h
 { :email => ["must be filled"] }
 
 # return other translations (assuming you have it :))
-puts schema.call(email: '').messages(locale: :pl)
+puts schema.call(email: '').messages(locale: :pl).to_h
 { :email => ["musi być wypełniony"] }
 ```
 
@@ -113,7 +114,7 @@ Important: I18n must be initialized before using a schema, `dry-schema` does not
 By default, messages do not include a rule's name, if you want it to be included simply use `:full` option:
 
 ```ruby
-schema.call(email: '').messages(full: true)
+schema.call(email: '').messages(full: true).to_h
 { :email => ["email must be filled"] }
 ```
 

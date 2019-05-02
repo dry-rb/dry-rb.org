@@ -3,6 +3,7 @@ title: Extensions
 layout: gem-single
 name: dry-schema
 sections:
+  - hints
   - monads
 ---
 
@@ -10,4 +11,5 @@ sections:
 
 Extensions available:
 
+- [Hints](/gems/dry-schema/extensions/hints)
 - [Monads](/gems/dry-schema/extensions/monads)

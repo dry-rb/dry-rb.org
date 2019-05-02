@@ -16,21 +16,7 @@ sections:
   - extensions
 ---
 
-> `dry-schema` will soon become the schema backend for dry-validation 1.0.0. For the time being, this documentation is very similar to dry-validation, as dry-schema's DSL is heavily based on it.
->
-> You can learn more about dry-schema + dry-validation [here](https://discourse.dry-rb.org/t/plans-for-dry-validation-dry-schema-a-new-gem/215)!
-
-`dry-schema` is a data coercion and validation library that focuses on explicitness, clarity and precision.
-
-It is based on the idea that each validation is encapsulated by a simple, stateless predicate that receives some input and returns either `true` or `false`. Those predicates are encapsulated by `rules` which can be composed together using `predicate logic`. This means you can use the common logic operators to build up a validation `schema`.
-
-Validations can be described with great precision, `dry-schema` eliminates ambiguous concepts like `presence` validation where we can't really say whether some attribute or key is _missing_ or it's just that the value is `nil`.
-
-In `dry-schema` **type-safety is a first-class feature**, something that's completely missing in other validation libraries, and it's an important and useful feature. It means you can compose a validation that relies on the type of a given value. For example it makes no sense to try to validate each element of an array when it's not an array.
-
-### The DSL
-
-`dry-schema`'s rule composition and predicate logic is provided by [dry-logic](https://github.com/dry-rb/dry-logic). The DSL is a simple front-end for it. It allows you to define the rules by only using predicate identifiers. There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.
+TODO: write new intro
 
 ### When To Use?
 
@@ -52,13 +38,15 @@ Possible use-cases include validation of:
 require 'dry/schema'
 
 UserSchema = Dry::Schema.Params do
-  required(:name).filled
-  required(:email).filled(format?: EMAIL_REGEX)
+  required(:name).filled(:string)
+  required(:email).filled(:string)
+
   required(:age).maybe(:integer)
-  required(:address).schema do
-    required(:street).filled
-    required(:city).filled
-    required(:zipcode).filled
+
+  required(:address).hash do
+    required(:street).filled(:string)
+    required(:city).filled(:string)
+    required(:zipcode).filled(:string)
   end
 end
 

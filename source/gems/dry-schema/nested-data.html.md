@@ -11,24 +11,20 @@ name: dry-schema
 To define validation rules for a nested hash you can use the same DSL on a specific key:
 
 ```ruby
-require 'dry-schema'
-
 schema = Dry::Schema.Params do
-  required(:address).schema do
-    required(:city).filled(min_size?: 3)
-
-    required(:street).filled
-
-    required(:country).schema do
-      required(:name).filled
-      required(:code).filled
+  required(:address).hash do
+    required(:city).filled(:string, min_size?: 3)
+    required(:street).filled(:string)
+    required(:country).hash do
+      required(:name).filled(:string)
+      required(:code).filled(:string)
     end
   end
 end
 
 errors = schema.call({}).errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # { :address => ["is missing"] }
 
 errors = schema.call(address: { city: 'NYC' }).errors
@@ -44,21 +40,17 @@ puts errors.to_h.inspect
 
 ### Nested Maybe Hash
 
-If a nested hash could be nil, simply use `maybe` macro with a block:
+If a nested hash could be `nil`, simply use `maybe` macro with a block:
 
 ```ruby
-require 'dry-schema'
-
 schema = Dry::Schema.Params do
   required(:address).maybe do
-    schema do
-      required(:city).filled(min_size?: 3)
-
-      required(:street).filled
-
-      required(:country).schema do
-        required(:name).filled
-        required(:code).filled
+    hash do
+      required(:city).filled(:string, min_size?: 3)
+      required(:street).filled(:string)
+      required(:country).hash do
+        required(:name).filled(:string)
+        required(:code).filled(:string)
       end
     end
   end
@@ -69,21 +61,21 @@ schema.(address: nil).success? # true
 
 ### Nested Array
 
-You can use the `each` macro for validating each element in an array:
+You can use the `array` macro for validating each element in an array:
 
 ```ruby
 schema = Dry::Schema.Params do
-  required(:phone_numbers).value(:array).each(:str?)
+  required(:phone_numbers).array(:str?)
 end
 
 errors = schema.call(phone_numbers: '').messages
 
-puts errors.inspect
+puts errors.to_h.inspect
 # { :phone_numbers => ["must be an array"] }
 
 errors = schema.call(phone_numbers: ['123456789', 123456789]).messages
 
-puts errors.inspect
+puts errors.to_h.inspect
 # {
 #   :phone_numbers => {
 #     1 => ["must be a string"]
@@ -91,24 +83,19 @@ puts errors.inspect
 # }
 ```
 
-Similarly, you use `each` and `schema` to validate an array of hashes:
+You can use `array(:hash)` and `schema` to validate an array of hashes:
 
 ```ruby
 schema = Dry::Schema.Params do
-  required(:people).each do
-    schema do
-      required(:name).filled
-      required(:age).filled(:integer, gteq?: 18)
-    end
+  required(:people).array(:hash) do
+    required(:name).filled(:string)
+    required(:age).filled(:integer, gteq?: 18)
   end
 end
 
-errors = schema.call(
-  people: [ { name: 'Alice', age: 19 }, { name: 'Bob', age: 17 } ],
-).messages
+errors = schema.call(people: [{ name: 'Alice', age: 19 }, { name: 'Bob', age: 17 }]).errors
 
-errors = schema.call(phone_numbers: ['123456789', 123456789]).messages
-puts errors.inspect
+puts errors.to_h.inspect
 # => {
 #   :people=>{
 #     1=>{
