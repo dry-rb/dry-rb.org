@@ -22,6 +22,14 @@ schema = Dry::Schema.Params do
 end
 ```
 
+You can change the default top namespace using:
+
+```ruby
+schema = Dry::Schema.Params do
+  config.messages.top_namespace = :validation_schema
+end
+``` 
+
 Lookup rules:
 
 ```yaml
@@ -82,7 +90,7 @@ user_messages[:filled?, rule: :age] # "cannot be blank"
 user_messages[:filled?, rule: :address] # "You gotta tell us where you live"
 ```
 
-By configuring `messages_file` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
+By configuring `load_paths` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
 
 ## I18n Integration
 
