@@ -30,3 +30,4 @@ gem "rack-contrib"
 gem "rake"
 gem "sanitize"
 gem "tzinfo"
+gem "byebug", require: false, platform: :mri

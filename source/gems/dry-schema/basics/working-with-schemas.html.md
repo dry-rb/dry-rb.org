@@ -10,8 +10,7 @@ Schema definition best practices:
 
 - Be specific about the exact shape of the data, define all the keys that you expect to be present
 - Specify optional keys too, even if you don't need additional rules to be applied to their values
-- Specify type expectations for all the values!
-- Use custom predicates to keep things concise when built-in predicates create too much noise
+- **Specify type specs** for all the values
 - Assign schema objects to constants for convenient access
 - Define a base schema for your application with common configuration
 
@@ -23,8 +22,8 @@ Example:
 
 ```ruby
 schema = Dry::Schema.Params do
-  required(:email).filled
-  required(:age).filled
+  required(:email).filled(:string)
+  required(:age).filled(:integer)
 end
 
 result = schema.call(email: 'jane@doe.org', age: 21)
@@ -46,8 +45,8 @@ result.failure?
 
 ```ruby
 class AppSchema < Dry::Schema::Params
-  config.messages_file = '/my/app/config/locales/en.yml'
-  config.messages = :i18n
+  config.messages.load_paths << '/my/app/config/locales/en.yml'
+  config.messages.backend = :i18n
 
   define do
     # define common rules, if any
@@ -70,15 +69,15 @@ The result object returned by `Schema#call` provides an API to convert error obj
 result = schema.call(email: nil, age: 21)
 
 # get default errors
-result.errors
+result.errors.to_h
 # => {:email=>['must be filled']}
 
 # get full errors
-result.errors(full: true)
+result.errors(full: true).to_h
 # => {:email=>['email must be filled']}
 
 # get errors in another language
-result.errors(locale: :pl)
+result.errors(locale: :pl).to_h
 # => {:email=>['musi być wypełniony']}
 ```
 

@@ -5,6 +5,8 @@ require "lib/redcarpet_renderers"
 require "lib/typography_helpers"
 require "lib/models"
 
+require "byebug" if ENV["DEBUG"]
+
 use BetterErrors::Middleware
 
 # Settings ---------------------------------------------------------------------
@@ -186,13 +188,14 @@ helpers do
   end
 
   def nav
-    if current_project && has_version?(current_resource.url)
-      url = "#{current_resource.url.split('/')[0..3].join('/')}/"
-    else
-      url = "#{current_resource.url.split('/')[0..2].join('/')}/"
-    end
+    url =
+      if current_project && has_version?(current_resource.url)
+        current_resource.url.split('/')[0..3].join('/')
+      else
+        current_resource.url.split('/')[0..2].join('/')
+      end
 
-    root = sitemap.resources.detect { |page| page.url == url }
+    root = sitemap.resources.detect { |page| page.url == "#{url}/" }
 
     raise "page for #{url} not found" unless root
 
@@ -209,7 +212,12 @@ helpers do
       classes = []
       classes << 'active' if current_resource.url == page.url
 
-      url = has_version?(page.url) ? page.url : set_version(page.url, current_project.fallback_version)
+      url =
+        if has_version?(page.url)
+          page.url
+        else
+          set_version(page.url, current_project.fallback_version)
+        end.gsub(/\/$/, '').gsub('//', '/')
 
       html = link_to(page.data.title, url, class: classes.join(' '))
 

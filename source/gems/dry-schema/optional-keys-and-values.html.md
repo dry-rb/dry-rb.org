@@ -4,57 +4,51 @@ layout: gem-single
 name: dry-schema
 ---
 
-We make a clear distinction between specifying an optional `key` and an optional `value`. This gives you a way of being very specific about validation rules. You can define a schema which can give you precise errors when a key was missing or key was present but the value was nil.
+We make a clear distinction between specifying an optional **key** and an optional **value**. This gives you a way of being very specific about validation rules. You can define a schema which gives you precise errors when a key is missing or key is present but the value is `nil`.
 
 This also comes with the benefit of being explicit about the type expectation. In the example below we explicitly state that `:age` _can be omitted_ or if present it _must be an integer_ and it _must be greater than 18_.
 
 You can define which keys are optional and define rules for their values:
 
 ```ruby
-require 'dry-schema'
-
 schema = Dry::Schema.Params do
-  required(:email).filled
-
+  required(:email).filled(:string)
   optional(:age).filled(:integer, gt?: 18)
 end
 
-errors = schema.call(email: 'jane@doe.org').messages
+errors = schema.call(email: 'jane@doe.org').errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # {}
 
-errors = schema.call(email: 'jane@doe.org', age: 17).messages
+errors = schema.call(email: 'jane@doe.org', age: 17).errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # { :age => ["must be greater than 18"] }
 ```
 
 ## Optional Values
 
-When it is valid for a given value to be `nil` you can use `maybe` macro:
+When it is allowed for a given value to be `nil` you can use `maybe` macro:
 
 ```ruby
-require 'dry-schema'
-
 schema = Dry::Schema.Params do
-  required(:email).filled
-
+  required(:email).filled(:string)
   optional(:age).maybe(:integer, gt?: 18)
 end
 
-errors = schema.call(email: 'jane@doe.org', age: nil).messages
+errors = schema.call(email: 'jane@doe.org', age: nil).errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # {}
 
-errors = schema.call(email: 'jane@doe.org', age: 19).messages
+errors = schema.call(email: 'jane@doe.org', age: 19).errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # {}
 
-errors = schema.call(email: 'jane@doe.org', age: 17).messages
+errors = schema.call(email: 'jane@doe.org', age: 17).errors
 
-puts errors.inspect
+puts errors.to_h.inspect
 # { :age => ["must be greater than 18"] }
 ```
