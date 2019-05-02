@@ -16,11 +16,18 @@ sections:
   - extensions
 ---
 
-TODO: write new intro
+`dry-schema` is a validation library for **data structures**. It ships with a set of many built-in predicates and powerful macros that allow you to define even complex validation logic with very concise syntax.
+
+Main focus of this library is on:
+
+- Data **structure** validation
+- Value **types** validation
+
+> `dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
 
 ### When To Use?
 
-Always and everywhere. This is a general-purpose validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
+Always and everywhere. This is a general-purpose data validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
 
 Possible use-cases include validation of:
 
