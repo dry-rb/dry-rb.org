@@ -6,7 +6,7 @@ gem "builder", "~> 3.0"
 gem "dry-initializer"
 
 # Middleman
-gem "middleman"
+gem "middleman", "4.3.3"
 gem "middleman-dotenv"
 gem "middleman-livereload"
 gem "middleman-minify-html"
