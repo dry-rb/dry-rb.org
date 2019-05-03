@@ -1,5 +1,5 @@
 ---
-title: Predicate Logic
+title: Predicate logic
 layout: gem-single
 name: dry-schema
 ---
@@ -50,7 +50,7 @@ end
 
 `:status` is valid if it's either an even integer, or it's value is less than `0`.
 
-## Operator Aliases
+### Operator Aliases
 
 Logic operators are actually aliases, use full method names at your own convenience:
 

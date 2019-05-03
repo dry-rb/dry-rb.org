@@ -29,7 +29,7 @@ puts errors.to_h.inspect
 
 > Params-specific value coercion is handled by the hash type from `dry-types`. It is built automatically for you based on the type specs and used prior to applying the validation rules
 
-## Handling empty strings
+### Handling empty strings
 
 Your schema will automatically coerce empty strings to `nil` or an empty array, provided that you allow a value to be nil:
 

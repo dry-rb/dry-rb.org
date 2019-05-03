@@ -42,4 +42,6 @@ result.messages.to_h
 # {:age=>["must be filled", "must be greater than 18"]}
 ```
 
-> Learn more about customizing [error and hint messages](/gems/dry-schema/error-messages)
+### Learn more
+
+- [Customizing messages](/gems/dry-schema/error-messages)

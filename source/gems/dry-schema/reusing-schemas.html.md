@@ -1,5 +1,5 @@
 ---
-title: Reusing Schemas
+title: Reusing schemas
 layout: gem-single
 name: dry-schema
 ---

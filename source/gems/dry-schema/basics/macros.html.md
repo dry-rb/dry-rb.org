@@ -108,3 +108,9 @@ Dry::Schema.Params do
   required(:tags).value(:array, min_size?: 2).each(:str?)
 end
 ```
+
+### Learn more
+
+- [Type specs](/gems/dry-schema/basics/type-specs)
+- [Built-in predicates](/gems/dry-schema/basics/built-in-predicates)
+- [Working with schemas](/gems/dry-schema/basics/working-with-schemas)

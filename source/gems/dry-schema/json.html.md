@@ -6,7 +6,7 @@ name: dry-schema
 
 To validate JSON data structures, you can use `JSON` schemas. The difference between `Params` and `JSON` is coercion logic. Refer to [dry-types](/gems/dry-types/built-in-types/) documentation for more information about supported JSON coercions.
 
-## Examples
+### Examples
 
 ```ruby
 schema = Dry::Schema.JSON do

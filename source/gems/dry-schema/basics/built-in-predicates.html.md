@@ -1,5 +1,5 @@
 ---
-title: Built-in Predicates
+title: Built-in predicates
 layout: gem-single
 name: dry-schema
 ---

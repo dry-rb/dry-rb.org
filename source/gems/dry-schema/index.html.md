@@ -25,7 +25,19 @@ Main focus of this library is on:
 
 > `dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
 
-### When To Use?
+### Unique features
+
+There are a few features of `dry-schema` that make it unique:
+
+* [Structural validation](/gems/dry-schema/optional-keys-and-values) where key presence can be verified separately from values. This removes ambiguity related to "presence" validation where you don't know if value is indeed `nil` or if a key is missing in the input hash
+* [Pre-coercion validation using filtering rules](/gems/dry-schema/advanced/filtering)
+* Explicit coercion logic - rather than implementing complex generic coercions, `dry-schema` uses coercion types from `dry-types` which are faster and more strict than generic coercions
+* Support for [validating array elements](/gems/dry-schema/basics/macros#array) with convenient access to error messages
+* Powerful introspection - you have access to [key maps](/gems/dry-schema/advanced/key-maps) and detailed [Rule AST](/gems/dry-schema/advanced/rule-ast)
+* Performance - multiple times faster than validations based on `ActiveModel` and `strong parameters`
+* Configurable, localized error messages with or *without* `I18n` gem
+
+### When to use?
 
 Always and everywhere. This is a general-purpose data validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
 

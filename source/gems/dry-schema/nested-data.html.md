@@ -1,12 +1,12 @@
 ---
-title: Nested Data
+title: Nested data
 layout: gem-single
 name: dry-schema
 ---
 
 `dry-schema` supports validation of nested data.
 
-### Nested Hash
+### Nested `Hash`
 
 To define validation rules for a nested hash you can use the same DSL on a specific key:
 
@@ -38,7 +38,7 @@ puts errors.to_h.inspect
 # }
 ```
 
-### Nested Maybe Hash
+### Nested Maybe `Hash`
 
 If a nested hash could be `nil`, simply use `maybe` macro with a block:
 
@@ -59,7 +59,7 @@ end
 schema.(address: nil).success? # true
 ```
 
-### Nested Array
+### Nested `Array`
 
 You can use the `array` macro for validating each element in an array:
 
