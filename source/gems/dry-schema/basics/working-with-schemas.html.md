@@ -81,6 +81,31 @@ result.errors(locale: :pl).to_h
 # => {:email=>['musi być wypełniony']}
 ```
 
+### Checking presence of errors
+
+You can ask result object if there are any errors under given path.
+
+``` ruby
+schema = Dry::Schema.Params do
+  required(:name).filled(:string)
+  optional(:tags).array(:str?)
+end
+
+result = schema.call(name: "", tags: ["red", 123])
+
+result.error?(:name)
+# => true
+
+result.error?(:tags)
+# => true
+
+result.error?([:tags, 0])
+# => false
+
+result.error?([:tags, 1])
+# => true
+```
+
 ### Learn more
 
 - [Customizing messages](/gems/dry-schema/error-messages)
