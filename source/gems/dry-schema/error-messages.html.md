@@ -1,10 +1,12 @@
 ---
-title: Error Messages
+title: Error messages
 layout: gem-single
 name: dry-schema
 ---
 
 By default `dry-schema` comes with a set of pre-defined error messages for every built-in predicate. They are defined in [a yaml file](https://github.com/dry-rb/dry-schema/blob/master/config/errors.yml) which is shipped with the gem. This file is compatible with `I18n` format.
+
+## Configuration
 
 You can provide your own messages and configure your schemas to use it like that:
 
@@ -30,7 +32,7 @@ schema = Dry::Schema.Params do
 end
 ``` 
 
-Lookup rules:
+## Lookup rules
 
 ```yaml
 en:
@@ -92,7 +94,7 @@ user_messages[:filled?, rule: :address] # "You gotta tell us where you live"
 
 By configuring `load_paths` and/or `namespace` in a schema, default messages are going to be automatically merged with your overrides and/or namespaced.
 
-## I18n Integration
+### I18n integration
 
 If you are using `i18n` gem and load it before `dry-schema` then you'll be able to configure a schema to use `i18n` messages:
 
@@ -117,7 +119,7 @@ puts schema.call(email: '').messages(locale: :pl).to_h
 
 Important: I18n must be initialized before using a schema, `dry-schema` does not try to do it for you, it only sets its default error translations automatically.
 
-## Full Messages
+### Full messages
 
 By default, messages do not include a rule's name, if you want it to be included simply use `:full` option:
 
@@ -126,7 +128,7 @@ schema.call(email: '').messages(full: true).to_h
 { :email => ["email must be filled"] }
 ```
 
-## Finding the right key
+### Finding the right key
 
 `dry-schema` has one error key for each kind of validation (Refer to [`errors.yml`](https://github.com/dry-rb/dry-schema/blob/master/config/errors.yml) for the full list). `key?` and `filled?` can usually be mistaken for eachother, so pay attention to them:
 

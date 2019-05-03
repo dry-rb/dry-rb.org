@@ -7,7 +7,5 @@ sections:
   - filtering
 ---
 
-Advanced topics:
-
 - [Predicate Logic](/gems/dry-schema/advanced/predicate-logic)
 - [Filtering](/gems/dry-schema/advanced/filtering)

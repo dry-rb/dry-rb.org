@@ -25,7 +25,7 @@ Main focus of this library is on:
 
 > `dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
 
-### When To Use?
+### When to use?
 
 Always and everywhere. This is a general-purpose data validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
 

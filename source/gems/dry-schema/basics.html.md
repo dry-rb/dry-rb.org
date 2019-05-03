@@ -41,9 +41,9 @@ When you apply this schema to an input, 3 things happen:
 2. Input values are coerced based on type specs
 3. Input keys and values are validated using defined schema rules
 
-## Learn more
+### Learn more
 
 - [Macros](/gems/dry-schema/basics/macros)
-- [Type Specs](/gems/dry-schema/basics/type-specs)
-- [Built-in Predicates](/gems/dry-schema/basics/built-in-predicates)
-- [Working With Schemas](/gems/dry-schema/basics/working-with-schemas)
+- [Type specs](/gems/dry-schema/basics/type-specs)
+- [Built-in predicates](/gems/dry-schema/basics/built-in-predicates)
+- [Working with schemas](/gems/dry-schema/basics/working-with-schemas)
