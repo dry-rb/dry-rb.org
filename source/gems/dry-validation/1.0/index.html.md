@@ -4,15 +4,20 @@ description: Powerful data validation
 layout: gem-single
 type: gem
 name: dry-validation
+sections:
+  - configuration
+  - schemas
+  - rules
+  - messages
+  - macros
+  - extensions
 ---
-
-> This documentation is a WIP while we're in 1.0.0 alpha/beta phase
 
 `dry-validation` is a data validation library that provides a powerful DSL for defining schemas and validation rules.
 
-## Quick start
-
 Validations are expressed through contract objects. A contract specifies a schema with basic type checks and any additional rules that should be applied. Contract rules are applied only when values that they rely on have been succesfully verified by the schema.
+
+### Quick start
 
 Here's an example contract:
 
