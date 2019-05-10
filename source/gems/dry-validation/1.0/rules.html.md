@@ -4,15 +4,17 @@ layout: gem-single
 name: dry-validation
 ---
 
-Rules in contracts are meant to perform domain-specific validation of data that was already processed by contract's schema. This way you can define rules that can focus purely on their validation logic without having to worry about type-related details.
+Rules in contracts are meant to perform domain-specific validation of the data already processed by the contract's schema. This way, you can define rules that can focus purely on their validation logic without having to worry about type-related details.
 
-When you apply a contract, it will process input using its schema, and then apply rules one-by-one, in the same order that you defined them.
+When you apply a contract, it will process the input data using its schema, and then apply its rules one-by-one, in the same order as you defined them.
 
-> If a rule specifies that it depends on specific keys in the input, it **will be executed only when schema successfuly processed values under those keys**
+If a rule specifies that it depends on certain keys from the input data, it **will be executed only when the schema successfuly processed those keys**.
 
 ### Defining a rule
 
-To define a rule on a contract, simply use `rule` method. Let's say we want to validate if an event's start date is in the future. We'll define a contract for event data with a `start_date` key that must be provided as a valid `Date` object. Then we'll define a rule that will check that it's in the future:
+To define a rule on a contract, use the `rule` method.
+
+Let's say we want to validate that an event's start date is in the future. We'll define a contract for event data with a `start_date` key that must be provided as a valid `Date` object. Then we'll define a rule to check that it's in the future:
 
 ```ruby
 class EventContract < Dry::Validation::Contract
@@ -21,14 +23,14 @@ class EventContract < Dry::Validation::Contract
   end
 
   rule(:start_date) do
-    key.failure('cannot set past date') if values[:start_date] <= Date.today
+    key.failure('must be in the future') if values[:start_date] <= Date.today
   end
 end
 
 contract = EventContract.new
 ```
 
-Notice that if you apply your contract with an input that doesn't include a date under `start_date` key, your rule **will not be executed**:
+Notice that if we apply your contract with an input that doesn't include a date under `start_date` key, the rule **will not be executed**:
 
 ```ruby
 contract.call(start_date: 'oops').errors.to_h
@@ -39,12 +41,12 @@ When `start_date` is a `Date`, the rule will be executed:
 
 ```ruby
 contract.call(start_date: Date.today - 1).errors.to_h
-# => {:start_date=>["cannot set past date"]}
+# => {:start_date=>["must be in the future"]}
 ```
 
 ### Depending on more than one key
 
-In our previous example, we defined a simple rule that depends on a single key. Now let's take a look how you can depend on more than one key. To achieve this, you can specify a list of keys. Let's extend previous example with another rule that will check if `end_date` is after the `start_date`:
+In our previous example, we defined a simple rule that depends on a single key. To depend on more than one key, we can specify a list of keys. Let's extend the previous example and change our rule to validate that an `end_date` should be after the `start_date`:
 
 ```ruby
 class EventContract < Dry::Validation::Contract
@@ -54,7 +56,7 @@ class EventContract < Dry::Validation::Contract
   end
 
   rule(:end_date, :start_date) do
-    key.failure('must be after end date') if values[:end_date] >= values[:start_date]
+    key.failure('must be after start date') if values[:end_date] >= values[:start_date]
   end
 end
 
@@ -66,7 +68,7 @@ contract.call(start_date: Date.today, end_date: Date.today - 1).errors.to_h
 
 ### Key path syntax
 
-When you define key dependencies for rules, you use *the key path syntax*. Here's a list of supported key paths:
+You can define key dependencies for rules using a *key path* syntax. Here's a list of supported key paths:
 
 - Using a hash: `rule(address: :city) do ...`
 - The same, but using *dot notation*: `rule("address.city") do ...`
@@ -74,9 +76,9 @@ When you define key dependencies for rules, you use *the key path syntax*. Here'
 
 ### Key failures
 
-The only responsibility of a rule is to set a failure message when validation didn't pass. In the previous examples we used `key.failure` syntax to manually set messages, use it if you want to set a failure message that should be accessible under a specific key.
+The only responsibility of a rule is to set a failure message when the validation didn't pass. In the previous examples, we used `key.failure` to manually set messages. Use this if you want to set a failure message that should be accessible under a specific key.
 
-By default, it uses *the first key defined by the rule* when you use it without any arguments:
+When you use `key.failure` without any specific key arguments, it uses *the first key specified with the rule*:
 
 ``` ruby
 rule(:start_date) do
@@ -86,7 +88,7 @@ rule(:start_date) do
 end
 ```
 
-You *do not have to use keys that match keys in the input*. For example this is perfectly fine:
+You *do not have to use keys matching those specified with the rule*. For example, this is perfectly fine:
 
 ``` ruby
 rule(:start_date) do
@@ -96,7 +98,7 @@ end
 
 ### Using localized messages backend
 
-If you enabled `:i18n` or `:yaml` messages backend in the [configuration](/gems/dry-validation/configuration), you can define messages in a yaml file and use their identifiers instead of plain strings. Here's a sample yaml with a message for our `start_date` error:
+If you enable the `:i18n` or `:yaml` messages backend in the [configuration](/gems/dry-validation/configuration), you can define messages in a yaml file and use their identifiers instead of plain strings. Here's a sample yaml with a message for our `start_date` error:
 
 ```yaml
 en:
@@ -107,7 +109,7 @@ en:
           invalid: 'must be after start date'
 ```
 
-Now, assuming you [configured your contract to use a custom messages file](/gems/dry-validation/1.0.0/configuration#example), we can write this:
+Provided we [configure our contract to use a custom messages file](/gems/dry-validation/1.0.0/configuration#example), we can now write this:
 
 ```ruby
 rule(:start_date, :end_date) do
@@ -117,7 +119,7 @@ end
 
 ### Base failures
 
-Unlike key failures, base failures are not associated with a specific key, instead they are associated with the whole input. To set a base failure, simply use `base` method, that has the same API as `key`. Here's an example:
+Unlike key failures, base failures are not associated with a specific key, instead they are associated with the whole input. To set a base failure, use the `base` method, which has the same API as `key`. For example:
 
 ``` ruby
 class EventContract < Dry::Validation::Contract
@@ -145,7 +147,7 @@ contract.call(start_date: Date.today+1, end_date: Date.today+2).errors.to_h
 # => {nil=>["creating events is allowed only on weekdays"]}
 ```
 
-Notice that the hash representation includes `nil` key, this indicates base errors. There's also a nice API for finding all base errors, if you prefer that:
+Notice that the hash representation of errors includes a `nil` key to indicate the base errors. There's also a specific API for finding all base errors, if you prefer that:
 
 ``` ruby
 contract.call(start_date: Date.today+1, end_date: Date.today+2).errors.filter(:base?).map(&:to_s)

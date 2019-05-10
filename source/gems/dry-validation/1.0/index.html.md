@@ -8,14 +8,15 @@ sections:
   - configuration
   - schemas
   - rules
+  - external-dependencies
   - messages
   - macros
   - extensions
 ---
 
-`dry-validation` is a data validation library that provides a powerful DSL for defining schemas and validation rules.
+dry-validation is a data validation library that provides a powerful DSL for defining schemas and validation rules.
 
-Validations are expressed through contract objects. A contract specifies a schema with basic type checks and any additional rules that should be applied. Contract rules are applied only when values that they rely on have been succesfully verified by the schema.
+Validations are expressed through contract objects. A contract specifies a schema with basic type checks and any additional rules that should be applied. Contract rules are applied only once the values they rely on have been succesfully verified by the schema.
 
 ### Quick start
 

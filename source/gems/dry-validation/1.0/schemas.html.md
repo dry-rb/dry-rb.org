@@ -8,7 +8,7 @@ Schemas are a crucial part of `dry-validation`, they pre-process the data before
 
 ### Defining a schema without coercion
 
-To define a schema that does not perform coercion, use `schema` method:
+To define a schema that does not perform coercion, use the `schema` method:
 
 ``` ruby
 class NewUserContract < Dry::Validation::Contract
@@ -36,7 +36,7 @@ result.errors.to_h
 
 ### Defining a schema with Params coercion
 
-If you want to define a contract suitable for validating HTTP parameters, simply use `params` method:
+To define a schema suitable for validating HTTP parameters, use the `params` method:
 
 ``` ruby
 class NewUserContract < Dry::Validation::Contract
@@ -47,7 +47,7 @@ class NewUserContract < Dry::Validation::Contract
 end
 ```
 
-The major difference between plain `schema` and `params`, is that the latter will perform params-specific coercions prior applying rules:
+The major difference between `params` and the plain `schema` is that `params` latter will perform params-specific coercions before applying the contract's rules. For example, it will coerce strings into integers:
 
 ``` ruby
 result = contract.call('email' => 'jane@doe.org', 'age' => '21')
@@ -59,7 +59,7 @@ result.to_h
 
 ### Defining a schema with JSON coercion
 
-In a similar way like `params`, you can use `json` to define a contract that's suitable for validating JSON data:
+You can also use `json` to define a schema suitable for validating JSON data:
 
 ``` ruby
 class NewUserContract < Dry::Validation::Contract
@@ -70,7 +70,7 @@ class NewUserContract < Dry::Validation::Contract
 end
 ```
 
-Coercion logic is different than in case of `params`, for example:
+The coercion logic is different to `params`. For example, since JSON natively supports integers, it will not coerce them from strings:
 
 ``` ruby
 result = contract.call('email' => 'jane@doe.org', 'age' => '21')
@@ -85,9 +85,9 @@ result.to_h
 
 ### Using custom types
 
-When you use `params` or `json`, coercion logic is handled by type objects that are resolved from the type specifications. For example when you use `params` and define the type to be an `:integer`, then the resolved type will be `Dry::Schema::Types::Params::Integer`. This is just a convenience in order to make schema definition more concise.
+When you define a schema using `params` or `json`, the coercion logic is handled by type objects that are resolved from the type specifications within  the schema. For example, when you use `params` and define the type to be an `:integer`, then the resolved type will be `Dry::Schema::Types::Params::Integer`. This is just a convenience to make schema definition more concise.
 
-If you want **custom types**, you can **pass them explicitly** when defining your schema:
+If you want to use **custom types**, you can **pass them explicitly** when defining your schema:
 
 ```ruby
 module Types
