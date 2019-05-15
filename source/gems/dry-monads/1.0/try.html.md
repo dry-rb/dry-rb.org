@@ -31,10 +31,22 @@ It is better if you pass a list of expected exceptions which you are sure you ca
 
 The `Try` monad consists of two types: `Value` and `Error`. The first is returned when code did not raise an error and the second is returned when the error was captured.
 
-
 ### `bind`
 
-Works exactly the same way as `Result#bind` does.
+Allows you to chain blocks that can raise exceptions.
+
+```ruby
+Try(NetworkError, DBError) { grap_user_by_making_request }.bind { |user| user_repo.save(user) }
+
+# Possible outcomes:
+# => Value(persisted_user)
+# => Error(NetworkError: request timeout)
+# => Error(DBError: unique constraint violated)
+```
+
+### `fmap`
+
+Works exactly the same way as `Result#fmap` does.
 
 ```ruby
 require 'dry/monads/try'
@@ -42,25 +54,12 @@ require 'dry/monads/try'
 module ExceptionalLand
   extend Dry::Monads::Try::Mixin
 
-  Try() { 10 / 2 }.bind { |x| x * 3 }
+  Try() { 10 / 2 }.fmap { |x| x * 3 }
   # => 15
 
-  Try(ZeroDivisionError) { 10 / 0 }.bind { |x| x * 3 }
+  Try(ZeroDivisionError) { 10 / 0 }.fmap { |x| x * 3 }
   # => Failure(ZeroDivisionError: divided by 0)
 end
-```
-
-### `fmap`
-
-Allows you to chain blocks that can raise exceptions.
-
-```ruby
-Try(NetworkError, DBError) { grap_user_by_making_request }.fmap { |user| user_repo.save(user) }
-
-# Possible outcomes:
-# => Value(persisted_user)
-# => Error(NetworkError: request timeout)
-# => Error(DBError: unique constraint violated)
 ```
 
 ### `value!` and `exception`
