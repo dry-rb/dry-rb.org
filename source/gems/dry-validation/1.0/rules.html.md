@@ -96,27 +96,6 @@ rule(:start_date) do
 end
 ```
 
-### Using localized messages backend
-
-If you enable the `:i18n` or `:yaml` messages backend in the [configuration](/gems/dry-validation/configuration), you can define messages in a yaml file and use their identifiers instead of plain strings. Here's a sample yaml with a message for our `start_date` error:
-
-```yaml
-en:
-  dry_validation:
-    errors:
-      rules:
-        end_date:
-          invalid: 'must be after start date'
-```
-
-Provided we [configure our contract to use a custom messages file](/gems/dry-validation/1.0.0/configuration#example), we can now write this:
-
-```ruby
-rule(:start_date, :end_date) do
-  key.failure(:invalid) if values[:end_date] >= values[:start_date]
-end
-```
-
 ### Base failures
 
 Unlike key failures, base failures are not associated with a specific key, instead they are associated with the whole input. To set a base failure, use the `base` method, which has the same API as `key`. For example:
