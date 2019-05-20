@@ -1,1 +1,0 @@
-0.13/comparison-with-activemodel.html.md
