@@ -26,13 +26,11 @@ schema = Dry::Schema.Params do
   required(:age).filled(:integer, gt?: 18)
 end
 
-errors = schema.call(email: 'jane@doe.org', age: 19).messages
-
-puts errors.inspect
-# []
+schema.call(email: 'jane@doe.org', age: 19)
+# #<Dry::Schema::Result{:email=>"jane@doe.org", :age=>19} errors={}>
 
 schema.call("email" => "", "age" => "19")
-# #<Dry::Schema::Result{:email=>nil, :age=>19} errors={:email=>["must be filled"]}>
+# #<Dry::Schema::Result{:email=>"", :age=>19} errors={:email=>["must be filled"]}>
 ```
 
 When you apply this schema to an input, 3 things happen:
