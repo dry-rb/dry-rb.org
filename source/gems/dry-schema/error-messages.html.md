@@ -130,7 +130,7 @@ schema.call(email: '').messages(full: true).to_h
 
 ### Finding the right key
 
-`dry-schema` has one error key for each kind of validation (Refer to [`errors.yml`](https://github.com/dry-rb/dry-schema/blob/master/config/errors.yml) for the full list). `key?` and `filled?` can usually be mistaken for eachother, so pay attention to them:
+`dry-schema` has one error key for each kind of validation (Refer to [`errors.yml`](https://github.com/dry-rb/dry-schema/blob/master/config/errors.yml) for the full list). `key?` and `filled?` can usually be mistaken for each other, so pay attention to them:
 
 - `key?`: a required parameter is missing in the `params` hash.
 - `filled?`: a required parameter is in the `params` hash but has an empty value.
