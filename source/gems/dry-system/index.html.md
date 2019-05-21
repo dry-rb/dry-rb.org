@@ -8,6 +8,7 @@ sections:
   - booting
   - auto-import
   - component-providers
+  - plugins
   - test-mode
 ---
 
