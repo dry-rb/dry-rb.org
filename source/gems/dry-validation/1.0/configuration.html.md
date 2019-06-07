@@ -12,7 +12,7 @@ Use `Contract.config` to access configuration and set its values:
 
 ``` ruby
 class ApplicationContract < Dry::Validation::Contract
-  config.locale = :pl
+  config.messages.default_locale = :pl
 end
 ```
 
@@ -22,7 +22,7 @@ Now any class that inherits from `ApplicationContract` will have the same config
 class UserContract < ApplicationContract
 end
 
-UserContract.config.locale
+UserContract.config.messages.default_locale
 # :pl
 ```
 
@@ -34,7 +34,7 @@ You can configure following settings:
 - `config.messages.backend` - the localization backend to use. Supported values are: `:yaml` and `:i18n`
 - `config.messages.load_paths` - an array of files paths that are used to load messages
 - `config.messages.namespace` - custom messages namespace for a contract class. Use this to differentiate common messages
-- `config.locale` - default `I18n`-compatible locale identifier
+- `config.messages.default_locale` - default `I18n`-compatible locale identifier
 
 ### Example
 
