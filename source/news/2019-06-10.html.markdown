@@ -186,10 +186,9 @@ Please refer to the comprehensive guide "[dry-rb 1.0: upgrading validations, typ
 
 Additionally, check out:
 
-- dry-validation 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v100-to-be-released)
-- dry-schema 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-schema/blob/master/CHANGELOG.md#v100-to-be-released)
-- dry-types 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#v100-to-be-released)
-- dry-logic 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-logic/blob/master/CHANGELOG.md#v100-to-be-released)
+- dry-validation 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v100-2019-06-10)
+- dry-types 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#v100-2019-04-23)
+- dry-schema 1.0.0 [CHANGELOG](https://github.com/dry-rb/dry-schema/blob/master/CHANGELOG.md)s
 
 If you need help with upgrading, **please do not hesitate to ask questions either on our [discussion forum](https://discourse.dry-rb.org) or [community chat](https://dry-rb.zulipchat.org)**.
 
