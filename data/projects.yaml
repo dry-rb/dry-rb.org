@@ -3,8 +3,8 @@
   versions:
     - "1.0"
     - "0.13"
-  current_version: "1.0"
-  fallback_version: "1.0"
+  current_version: "0.13"
+  fallback_version: "0.13"
 - name: dry-schema
   desc: Schema coercion & validation
 - name: dry-types
