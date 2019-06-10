@@ -15,19 +15,25 @@ title: Home
           .taster__content
             .taster__summary
               markdown:
-                Use predicate logic to validate any kind of data with explicitness, clarity and precision.
+                Use schemas and powerful rules to validate data with explicitness, clarity and precision.
             .taster__example
               markdown:
                 ```ruby
-                schema = Dry::Validation.Params do
-                  required(:name).filled
-                  required(:age).filled(:int?, gt?: 18)
+                class NewUserContract < Dry::Validation::Contract
+                  params do
+                    required(:name).filled(:string)
+                    required(:age).filled(:string)
+                  end
+
+                  rule(:age) { key.failure("must be greater than 18") if value < 18 }
                 end
 
-                schema.("name" => "Jane", "age" => "30").to_h
+                contract = NewUserContract.new
+
+                contract.("name" => "Jane", "age" => "30").errors.to_h
                 # => {name: "Jane", age: 30}
 
-                schema.("name" => "Jane", "age" => "17").messages
+                contract.("name" => "Jane", "age" => "17").errors.to_h
                 # => {:age=>["must be greater than 18"]}
                 ```
 
