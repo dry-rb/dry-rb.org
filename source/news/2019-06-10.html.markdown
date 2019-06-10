@@ -43,7 +43,7 @@ end
 
 If you are familiar with the old version, your immediate reaction might be "oh that's more code, why not just define these checks in the schema?" That's a good question to ask! It's still possible to use all the known predicates so, technically speaking, you could perform these checks via the schema **but** it's not recommended. Starting with 1.0.0, we're moving to a new way of thinking about validations by splitting them into basic structural and type checks handled by schemas and domain validations handled by contracts and their rules. This is a good way of separating concerns to make your code cleaner, simpler and more reusable.
 
-If the amount of code you need to write is a concern, don't worry, because we have [a new macro system](/gems/dry-validation/macros) in place to DRY things up.
+If the amount of code you need to write is a concern, don't worry, because we have [a new macro system](/gems/dry-validation/1.0/macros) in place to DRY things up.
 
 ## Improved messages
 
