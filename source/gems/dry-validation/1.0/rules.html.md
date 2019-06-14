@@ -23,7 +23,7 @@ class EventContract < Dry::Validation::Contract
   end
 
   rule(:start_date) do
-    key.failure('must be in the future') if values[:start_date] <= Date.today
+    key.failure('must be in the future') if value <= Date.today
   end
 end
 
@@ -134,3 +134,49 @@ contract.call(start_date: Date.today+1, end_date: Date.today+2).errors.filter(:b
 ```
 
 > Curious about that `option` method that we used to set `today` value? You can learn about it in [the external dependencies](/gems/dry-validation/external-dependencies) section.
+
+### Reading rule values
+
+For convenience, you can use `value` method to easily access the value under rule's default key. This works with all key specifications, including nested keys, and specifying a path to multiple values.
+
+``` ruby
+rule(:start_date) do
+  value
+  # returns values[:start_date]
+end
+
+rule(date: :start) do
+  value
+  # returns values[:date][:start]
+end
+
+rule(dates: [:start, :stop]) do
+  value
+  # returns an array: [values[:dates][:start], values[:dates][:stop]]
+end
+```
+
+### Checking if the value is present
+
+When you're not sure if the value is actually available, you can use `key?` method. It returns `true` when a value under rule's key is present, `false` otherwise.
+
+A common use case is when your rules depend on optional keys, here's an example:
+
+``` ruby
+class NewUserContract < Dry::Validation::Contract
+  params do
+    required(:email).value(:string)
+    optional(:login).value(:string)
+    optional(:password).value(:string)
+  end
+
+  rule(:password) do
+    key.failure('password is required') if key? && values[:login] && value.length < 12
+  end
+end
+
+contract = NewUserContract.new
+
+contract.call(email: 'jane@doe.org', login: 'jane', password: "").errors.to_h
+# => {:password=>["password is required"]}
+```
