@@ -22,7 +22,7 @@ title: Home
                 class NewUserContract < Dry::Validation::Contract
                   params do
                     required(:name).filled(:string)
-                    required(:age).filled(:string)
+                    required(:age).filled(:integer)
                   end
 
                   rule(:age) { key.failure("must be greater than 18") if value < 18 }
@@ -30,9 +30,11 @@ title: Home
 
                 contract = NewUserContract.new
 
-                contract.("name" => "Jane", "age" => "30").errors.to_h
-                # => {name: "Jane", age: 30}
+                contract.("name" => "Jane", "age" => "30").success?
+                # => true
 
+                contract.("name" => "Jane", "age" => "17").failure?
+                # => true
                 contract.("name" => "Jane", "age" => "17").errors.to_h
                 # => {:age=>["must be greater than 18"]}
                 ```
