@@ -69,7 +69,7 @@ require_relative 'container'
 Import = Application.injector
 
 # system/boot/persistence.rb
-Application.finalize(:persistence) do |container|
+Application.boot(:persistence) do |container|
   start do
     require 'sequel'
     container.register('persistence.db', Sequel.connect(ENV['DB_URL']))
