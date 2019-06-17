@@ -4,7 +4,7 @@ edit_uri: edit/master/docs/
 copyright: "Copyright &copy; 2015-2019 dry-rb team"
 docs_dir: docs
 theme:
-  name: material
+  name: readthedocs
   palette:
     primary: 'teal'
     accent: 'teal'
