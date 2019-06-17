@@ -1,0 +1,15 @@
+site_name: "dry-rb documentation"
+repo_url: https://github.com/dry-rb/dry-rb.org
+edit_uri: edit/master/docs/
+copyright: "Copyright &copy; 2015-2019 dry-rb team"
+docs_dir: docs
+theme:
+  name: material
+  palette:
+    primary: 'teal'
+    accent: 'teal'
+  logo: 'images/dry-rb.png'
+  favicon: 'images/dry-rb-fav.png'
+markdown_extensions:
+  - admonition
+  - codehilite

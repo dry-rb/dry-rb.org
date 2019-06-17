@@ -27,3 +27,4 @@ source/**/.!*
 .ruby-gemset
 
 docs/_build
+site

@@ -1,0 +1,5 @@
+build:
+  image: stable
+formats:
+  - htmlzip
+requirements_file: docs/requirements.txt
