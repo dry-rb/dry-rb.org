@@ -26,4 +26,4 @@ source/**/.!*
 .ruby-version
 .ruby-gemset
 
-build
+next/build

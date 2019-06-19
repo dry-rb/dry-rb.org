@@ -1,13 +1,14 @@
 language: node_js
 node_js:
   - "10.16.0"
+cache:
+  - yarn
 install:
-  - cd next
   - yarn
 script:
   - node_modules/@antora/cli/bin/antora site.yml
 deploy:
-  local_dir: next/build/site
+  local_dir: build/site
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN

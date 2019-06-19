@@ -4,7 +4,7 @@ site:
   start_page: dry-rb::index.adoc
 content:
   sources:
-  - url: ../
+  - url: ./
     start_path: docs
     branches: antora-test
   - url: https://github.com/dry-rb/dry-validation
