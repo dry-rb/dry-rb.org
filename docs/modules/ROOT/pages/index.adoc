@@ -1,0 +1,3 @@
+= dry-rb documentation
+
+This is dry-rb documentation page.

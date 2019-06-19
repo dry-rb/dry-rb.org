@@ -1,9 +1,12 @@
 site:
   title: dry-rb documentation
   url: https://docs.dry-rb.org
-  start_page: dry-validation::introduction.adoc
+  start_page: dry-rb::index.adoc
 content:
   sources:
+  - url: ../
+    start_path: docs
+    branches: antora-test
   - url: https://github.com/dry-rb/dry-validation
     start_path: docs
     branches: antora-test
