@@ -14,4 +14,4 @@ deploy:
   keep-history: false
   target-branch: gh-pages
   on:
-    branch: master
+    branch: antora-test
