@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - "10.16.0"
 install:
-  - cd next && yarn
+  - cd next
+  - yarn
 script:
-  - cd next && node_modules/@antora/cli/bin/antora site.yml
+  - node_modules/@antora/cli/bin/antora site.yml
 deploy:
   local_dir: next/build/site
   provider: pages
