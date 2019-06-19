@@ -1,19 +1,12 @@
-language: ruby
+language: node_js
+node_js:
+  - "10.16.0"
 install:
-  - gem install bundler -v 2.0.1
-  - bundle install --without development --jobs=3 --retry=3
-  - yarn
-cache:
-  - bundler
-  - yarn
-branches:
-  only:
-  - master
+  - cd next && yarn
 script:
-- bundle exec middleman build
+  - cd next && node_modules/@antora/cli/bin/antora site.yml
 deploy:
-  fqdn: dry-rb.org
-  local_dir: docs
+  local_dir: next/build/site
   provider: pages
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
