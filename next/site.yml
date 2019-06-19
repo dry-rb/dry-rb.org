@@ -1,16 +1,13 @@
 site:
-  title: Antora Demo Site
-  url: https://example.org/docs
-  start_page: component-b::index.adoc
+  title: dry-rb documentation
+  url: https://docs.dry-rb.org
+  start_page: dry-validation::introduction.adoc
 content:
   sources:
-  - url: https://gitlab.com/antora/demo/demo-component-a.git
-    branches: master
-  - url: https://gitlab.com/antora/demo/demo-component-b.git
-    branches: [v2.0, v1.0]
+  - url: ~/Workspace/dry-rb/dry-validation
     start_path: docs
+    branches: antora-test
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
-
