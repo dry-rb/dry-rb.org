@@ -1,3 +1,7 @@
-= dry-rb documentation
+= dry-rb
 
 This is dry-rb documentation page.
+
+== Documentation
+
+* xref:1.1.0@dry-validation::introduction.adoc[dry-validation]
