@@ -83,11 +83,11 @@ Types.Hash(:permissive, name: Types::String, age: Types::Coercible::Integer)
 ListOfStrings = Types.Array(Types::String)
 ```
 
-### `Types.Contract`
+### `Types.Interface`
 
-`Types.Contract` builds a type that checks a value responds to given methods.
+`Types.Interface` builds a type that checks a value responds to given methods.
 
 ```ruby
-Callable = Types.Contract(:call)
-Contact = Types.Contract(:name, :phone)
+Callable = Types.Interface(:call)
+Contact = Types.Interface(:name, :phone)
 ```
