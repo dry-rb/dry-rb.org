@@ -8,7 +8,7 @@ Built-in types are grouped under 6 categories:
 
 - `nominal` - base type definitions with primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
-- `coercible` - types with constructors using coercions
+- `coercible` - types with constructors using kernel coercions
 - `params` - types with constructors performing non-strict coercions specific to HTTP params
 - `json` - types with constructors performing non-strict coercions specific to JSON
 - `maybe` - types accepting either nil or a specific primitive type
@@ -54,7 +54,6 @@ Assuming you included types in a module called `Types`:
 
 * `Coercible` types will attempt to cast values to the correct class using kernel coercion methods:
   - `Types::Coercible::String`
-  - `Types::Coercible::Symbol`
   - `Types::Coercible::Integer`
   - `Types::Coercible::Float`
   - `Types::Coercible::Decimal`
@@ -63,7 +62,6 @@ Assuming you included types in a module called `Types`:
 
 * Types suitable for `Params` param processing with coercions:
   - `Types::Params::Nil`
-  - `Types::Params::Symbol`
   - `Types::Params::Date`
   - `Types::Params::DateTime`
   - `Types::Params::Time`
@@ -78,7 +76,6 @@ Assuming you included types in a module called `Types`:
 
 * Types suitable for `JSON` processing with coercions:
   - `Types::JSON::Nil`
-  - `Types::JSON::Symbol`
   - `Types::JSON::Date`
   - `Types::JSON::DateTime`
   - `Types::JSON::Time`
@@ -103,7 +100,6 @@ Assuming you included types in a module called `Types`:
 
 * `Maybe` coercible types:
   - `Types::Maybe::Coercible::String`
-  - `Types::Maybe::Coercible::Symbol`
   - `Types::Maybe::Coercible::Integer`
   - `Types::Maybe::Coercible::Float`
   - `Types::Maybe::Coercible::Decimal`
