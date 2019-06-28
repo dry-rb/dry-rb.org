@@ -3,8 +3,9 @@ html lang="en"
   head = partial("head")
   body
     = partial "header-news"
-    .row
-      .content-wrap
-        article.news-article
-          = yield
+    main
+      .row
+        .content-wrap
+          article.news-article
+            = yield
     = partial "footer"
