@@ -70,6 +70,15 @@ body {
   and (max-width: 900px) {
     font-size: 15px;
   }
+
+  // sticky footer
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 .article-list {
