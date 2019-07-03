@@ -58,11 +58,11 @@ end
 
 ## Providing the context
 
-The context can be `configured` for a view:
+The default context can be `configured` for a view:
 
 ```ruby
 class MyView < Dry::Vew
-  config.context = MyContext.new
+  config.default_context = MyContext.new
 end
 ```
 
