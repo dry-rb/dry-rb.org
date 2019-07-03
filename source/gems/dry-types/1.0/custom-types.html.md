@@ -82,3 +82,12 @@ Types.Hash(:permissive, name: Types::String, age: Types::Coercible::Integer)
 ```ruby
 ListOfStrings = Types.Array(Types::String)
 ```
+
+### `Types.Interface`
+
+`Types.Interface` builds a type that checks a value responds to given methods.
+
+```ruby
+Callable = Types.Interface(:call)
+Contact = Types.Interface(:name, :phone)
+```
