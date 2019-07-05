@@ -16,7 +16,8 @@ class User
   param :name, type: proc(&:to_s)
 end
 
-user = User.new :Andrew # => #<TypeError ...>
+user = User.new :Andrew
+user.name # => "Andrew"
 ```
 
 Any object that responds to `#call` with 1 argument can be used as a type. Common examples are `proc(&:to_s)` for strings, `method(:Array)` (for arrays) or `Array.method(:wrap)` in Rails, `->(v) { !!v }` (for booleans), etc.
