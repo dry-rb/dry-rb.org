@@ -65,6 +65,7 @@ Predicates[:key?].(:name, {name: 'John'})
   - `true?`
   - `false?`
   - `format?`
+  - `respond_to?`
   - `predicate`
 
 With predicates you can build more composable and complex operations:
