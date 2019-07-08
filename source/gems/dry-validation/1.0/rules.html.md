@@ -180,3 +180,33 @@ contract = NewUserContract.new
 contract.call(email: 'jane@doe.org', login: 'jane', password: "").errors.to_h
 # => {:password=>["password is required"]}
 ```
+
+### Defining a rule for each element of an array
+
+To check each element of an array you can simply use `Rule#each` shortcut. It works just like a normal rule, which means it's only applied when a value passed schema checks and supports setting failure messages in the standard way.
+
+Here's a simple example:
+
+``` ruby
+class NewUserContract < Dry::Validation::Contract
+  params do
+    required(:email).value(:string)
+    optional(:phone_numbers).array(:string)
+  end
+
+  rule(:phone_numbers).each do
+    key.failure('is not valid') unless value.start_with?('00-')
+  end
+end
+
+contract = NewUserContract.new
+
+contract.call(email: 'jane@doe.org', phone_numbers: nil).errors.to_h
+# => {:phone_numbers=>["must be an array"]}
+
+contract.call(email: 'jane@doe.org', phone_numbers: ['00-123-456-789', nil]).errors.to_h
+# => {:phone_numbers=>{1=>["must be a string"]}}
+
+contract.call(email: 'jane@doe.org', phone_numbers: ['00-123-456-789', '987-654-321']).errors.to_h
+# => {:phone_numbers=>{1=>["is not valid"]}}
+```
