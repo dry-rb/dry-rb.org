@@ -35,13 +35,9 @@ my_contract.(name: "")
 
 ### Predicates as macros
 
-This extension makes [`dry-logic`
-predicates](https://dry-rb.org/gems/dry-logic/1.0/predicates/) which
-are concerned with data values (in opposition with types) available as
-macros for validation rules.
+This extension makes [`dry-logic` predicates](https://dry-rb.org/gems/dry-logic/1.0/predicates/) which are concerned with data values (in opposition with types) available as macros for validation rules.
 
-Besides enabling the extension, you have to call
-`import_predicates_as_macros` before being able to use them:
+Besides enabling the extension, you have to call `import_predicates_as_macros` before being able to use them:
 
 ```ruby
 require 'dry/validation'
