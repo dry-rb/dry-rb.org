@@ -23,7 +23,7 @@ Moreover, the best way to develop intuition about monads is looking at examples 
 Let's say you have code like this
 
 ```ruby
-user = User.find(params[:id])
+user = User.find_by(id: params[:id])
 
 if user
   address = user.address
@@ -49,14 +49,14 @@ Writing code in this style is tedious and error-prone. There were created severa
 When all objects from the chain of objects are there we could have this instead:
 
 ```ruby
-state_name = User.find(params[:id]).address.city.state.name
+state_name = User.find_by(id: params[:id]).address.city.state.name
 user_state = state_name || "No state"
 ```
 
 By using the `Maybe` monad you can preserve the structure of this code at a cost of introducing a notion of `nil`-able result:
 
 ```ruby
-state_name = Maybe(User.find(params[:id])).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
+state_name = Maybe(User.find_by(id: params[:id])).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
 user_state = state_name.value_or("No state")
 ```
 
@@ -65,8 +65,8 @@ user_state = state_name.value_or("No state")
 A more expanded example is based on _composing_ different monadic values. Suppose, we have a user and address, both can be `nil`, and we want to associate the address with the user:
 
 ```ruby
-user = User.find(params[:user_id])
-address = Address.find(params[:address_id])
+user = User.find_by(id: params[:user_id])
+address = Address.find_by(id: params[:address_id])
 
 if user && address
   user.update(address_id: address.id)
@@ -76,10 +76,10 @@ end
 Again, this implies direct work with `nil`-able values which may end up with errors. A monad-way would be using another method, `bind`:
 
 ```ruby
-maybe_user = Maybe(User.find(params[:user_id]))
+maybe_user = Maybe(User.find_by(id: params[:user_id]))
 
 maybe_user.bind do |user|
-  maybe_address = Maybe(Address.find(params[:address_id]))
+  maybe_address = Maybe(Address.find_by(id: params[:address_id]))
 
   maybe_address.bind do |address|
     user.update(address_id: address.id)
@@ -101,7 +101,7 @@ Another widely spread monad is `Result` (also known as `Either`) that serves a s
 
 ```ruby
 def find_user(user_id)
-  user = User.find(user_id)
+  user = User.find_by(id: user_id)
 
   if user
     Success(user)
@@ -111,7 +111,7 @@ def find_user(user_id)
 end
 
 def find_address(address_id)
-  address = Address.find(address_id)
+  address = Address.find_by(id: address_id)
 
   if address
     Success(address)
