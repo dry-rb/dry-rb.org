@@ -45,6 +45,11 @@
   fallback_version: "1.0"
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
+  versions:
+    - "0.7"
+    - "0.8"
+  current_version: "0.8"
+  fallback_version: "0.8"
 - name: dry-monads
   desc: Useful, common monads in idiomatic Ruby
   versions:
