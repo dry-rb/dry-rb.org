@@ -11,10 +11,10 @@ name: dry-monads
 Basic usage.
 
 ```ruby
-require 'dry/monads/task'
+require 'dry/monads'
 
 class PullUsersWithPosts
-  include Dry::Monads::Task::Mixin
+  include Dry::Monads[:task]
 
   def call
     # Start two tasks running concurrently
@@ -53,14 +53,13 @@ end
 puts "----" # this will be printed before the lines above
 ```
 
-
 ### Executors
 
 Tasks are performed by executors, there are three executors predefined by `concurrent-ruby` identified by symbols:
 
-  - `:fast` – for fast asynchronous tasks, uses a thread pool
-  - `:io` – for long IO-bound tasks, uses a thread pool, different from `:fast`
-  - `:immediate` – runs tasks immediately, on the current thread. Can be used in tests or for other purposes
+- `:fast` – for fast asynchronous tasks, uses a thread pool
+- `:io` – for long IO-bound tasks, uses a thread pool, different from `:fast`
+- `:immediate` – runs tasks immediately, on the current thread. Can be used in tests or for other purposes
 
 You can create your own executors, check out the [docs](http://ruby-concurrency.github.io/concurrent-ruby/root/Concurrent.html) for more on this.
 
@@ -92,8 +91,8 @@ immediate_fail # => Task(error=#<ZeroDivisionError: divided by 0>)
 You can process failures with `or` and `or_fmap`:
 
 ```ruby
-M::Task[:immediate] { 1/0 }.or { M::Task[:immediate] { 0 } } # => Task(value=0)
-M::Task[:immediate] { 1/0 }.or_fmap { 0 } # => Task(value=0)
+Task[:immediate] { 1/0 }.or { M::Task[:immediate] { 0 } } # => Task(value=0)
+Task[:immediate] { 1/0 }.or_fmap { 0 } # => Task(value=0)
 ```
 
 ### Extracting result
@@ -101,15 +100,15 @@ M::Task[:immediate] { 1/0 }.or_fmap { 0 } # => Task(value=0)
 Getting the result of a task is an unsafe operation, it blocks the current thread until the task is finished, then returns the value or raises an exception if the evaluation wasn't sucessful. It effectively cancels all niceties of tasks so you shouldn't use it in production code.
 
 ```ruby
-M.Task { 0 }.value! # => 0
-M.Task { 1/0 }.value! # => ZeroDivisionError: divided by 0
+Task { 0 }.value! # => 0
+Task { 1/0 }.value! # => ZeroDivisionError: divided by 0
 ```
 
 You can wait for a task to complete, the `wait` method accepts an optional timeout. `.wait` returns the task back, without unwrapping the result so it's a blocking yet safe operation:
 
 ```ruby
-M::Task[:io] { 2 }.wait(1) # => Task(value=2)
-M::Task[:io] { sleep 2; 2 }.wait(1) # => Task(?)
+Task[:io] { 2 }.wait(1) # => Task(value=2)
+Task[:io] { sleep 2; 2 }.wait(1) # => Task(?)
 
 # (?) denotes an unfinished computation
 ```
@@ -119,9 +118,9 @@ M::Task[:io] { sleep 2; 2 }.wait(1) # => Task(?)
 Tasks can be converted to other monads but keep in mind that all conversions block the current thread:
 
 ```ruby
-M::Task[:io] { 2 }.to_result # => Success(2)
-M::Task[:io] { 1/0 }.to_result # => Failure(#<ZeroDivisionError: divided by 0>)
+Task[:io] { 2 }.to_result # => Success(2)
+Task[:io] { 1/0 }.to_result # => Failure(#<ZeroDivisionError: divided by 0>)
 
-M::Task[:io] { 2 }.to_maybe # => Some(2)
-M::Task[:io] { 1/0 }.to_maybe # => None
+Task[:io] { 2 }.to_maybe # => Some(2)
+Task[:io] { 1/0 }.to_maybe # => None
 ```

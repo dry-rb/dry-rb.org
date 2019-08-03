@@ -1,12 +1,12 @@
 ---
-title: Case Equality
+title: Case equality
 layout: gem-single
 name: dry-monads
 ---
 
-### Case Equality
+### Case equality
 
-Dry monads allow to use default ruby `case` operator for matching result:
+Monads allow to use default ruby `case` operator for matching result:
 
 ```ruby
 case value
