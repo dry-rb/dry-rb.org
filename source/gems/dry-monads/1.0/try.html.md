@@ -7,23 +7,26 @@ name: dry-monads
 Rescues a block from an exception. The `Try` monad is useful when you want to wrap some code that can raise exceptions of certain types. A common example is making an HTTP request or querying a database.
 
 ```ruby
-require 'dry/monads/try'
+require 'dry/monads'
 
-module ExceptionalLand
-  extend Dry::Monads::Try::Mixin
+class ExceptionalLand
+  include Dry::Monads[:try]
 
-  res = Try() { 10 / 2 }
-  res.value! if res.value?
-  # => 5
 
-  res = Try() { 10 / 0 }
-  res.exception if res.error?
-  # => #<ZeroDivisionError: divided by 0>
+  def call
+    res = Try { 10 / 2 }
+    res.value! if res.value?
+    # => 5
 
-  # By default Try catches all exceptions inherited from StandardError.
-  # However you can catch only certain exceptions like this
-  Try(NoMethodError, NotImplementedError) { 10 / 0 }
-  # => raised ZeroDivisionError: divided by 0 exception
+    res = Try { 10 / 0 }
+    res.exception if res.error?
+    # => #<ZeroDivisionError: divided by 0>
+
+    # By default Try catches all exceptions inherited from StandardError.
+    # However you can catch only certain exceptions like this
+    Try[NoMethodError, NotImplementedError] { 10 / 0 }
+    # => raised ZeroDivisionError: divided by 0 exception
+  end
 end
 ```
 
@@ -36,7 +39,7 @@ The `Try` monad consists of two types: `Value` and `Error`. The first is returne
 Allows you to chain blocks that can raise exceptions.
 
 ```ruby
-Try(NetworkError, DBError) { grap_user_by_making_request }.bind { |user| user_repo.save(user) }
+Try[NetworkError, DBError] { grap_user_by_making_request }.bind { |user| user_repo.save(user) }
 
 # Possible outcomes:
 # => Value(persisted_user)
@@ -49,16 +52,18 @@ Try(NetworkError, DBError) { grap_user_by_making_request }.bind { |user| user_re
 Works exactly the same way as `Result#fmap` does.
 
 ```ruby
-require 'dry/monads/try'
+require 'dry/monads'
 
-module ExceptionalLand
-  extend Dry::Monads::Try::Mixin
+class ExceptionalLand
+  include Dry::Monads[:try]
 
-  Try() { 10 / 2 }.fmap { |x| x * 3 }
-  # => 15
+  def call
+    Try { 10 / 2 }.fmap { |x| x * 3 }
+    # => 15
 
-  Try(ZeroDivisionError) { 10 / 0 }.fmap { |x| x * 3 }
-  # => Failure(ZeroDivisionError: divided by 0)
+    Try[ZeroDivisionError] { 10 / 0 }.fmap { |x| x * 3 }
+    # => Failure(ZeroDivisionError: divided by 0)
+  end
 end
 ```
 

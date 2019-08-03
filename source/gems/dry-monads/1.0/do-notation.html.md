@@ -1,9 +1,8 @@
 ---
-title: Do Notation
+title: Do notation
 layout: gem-single
 name: dry-monads
 ---
-
 
 Composing several monadic values can become tedious because you need to pass around unwrapped values in lambdas (aka blocks). Haskell was one of the first languages faced this problem. To work around it Haskell has a special syntax for combining monadic operations called the "do notation". If you're familiar with Scala it has `for`-comprehensions for a similar purpose. It is not possible to implement `do` in Ruby but it is possible to emulate it to some extent, i.e. achieve comparable usefulness.
 
@@ -12,8 +11,10 @@ What `Do` does is passing an unwrapping block to certain methods. The block trie
 See the following example written using `bind` and `fmap`:
 
 ```ruby
+require 'dry/monads'
+
 class CreateAccount
-  include Dry::Monads::Result::Mixin
+  include Dry::Monads[:result]
 
   def call(params)
     validate(params).bind { |values|
@@ -44,11 +45,11 @@ The more monadic steps you need to combine the harder it becomes, not to mention
 Embrace `Do`:
 
 ```ruby
-require 'dry/monads/result'
+require 'dry/monads'
 require 'dry/monads/do'
 
 class CreateAccount
-  include Dry::Monads::Result::Mixin
+  include Dry::Monads[:result]
   include Dry::Monads::Do.for(:call)
 
   def call(params)
@@ -85,7 +86,7 @@ One particular reason to use exceptions is the ability to make code transaction-
 account = yield create_account(values[:account])
 owner = yield create_owner(account, values[:owner])
 
-Success([account, owner])
+Success[account, owner]
 ```
 
 What if `create_account` succeeds and `create_owner` fails? This will leave your database in an inconsistent state. Let's wrap it with a transaction block:
@@ -95,7 +96,7 @@ repo.transaction do
   account = yield create_account(values[:account])
   owner = yield create_owner(account, values[:owner])
 
-  Success([account, owner])
+  Success[account, owner]
 end
 ```
 
@@ -110,19 +111,18 @@ Since `yield` internally uses exceptions to control the flow, the exception will
 The `Do::All` module takes one step ahead, it tracks all new methods defined in the class and passes a block to every one of them. However, if you pass a block yourself then it takes precedence. This way, in most cases you can use `Do::All` instead of listing methods with `Do.for(...)`:
 
 ```ruby
-require 'dry/monads/result'
-require 'dry/monads/do/all'
+require 'dry/monads'
 
 class CreateAccount
-  include Dry::Monads::Result::Mixin
-  include Dry::Monads::Do::All
+  # This will include Do::All by default
+  include Dry::Monads[:result, :do]
 
   def call(account_params, owner_params)
     repo.transaction do
       account = yield create_account(account_params)
       owner = yield create_owner(account, owner_params)
 
-      Success([account, owner])
+      Success[account, owner]
     end
   end
 
@@ -148,4 +148,60 @@ class CreateAccount
     # returns Success/Failure
   end
 end
+```
+
+### Using `Do` methods in other contexts
+
+You can use methods from the `Do` module directly (starting with 1.3):
+
+```ruby
+require 'dry/monads/do'
+require 'dry/monads/result'
+
+# some random place in your code
+Dry::Monads.Do.() do
+  user = Dry::Monads::Do.bind create_user
+  account = Dry::Monads::Do.bind create_account(user)
+
+  Dry::Monads::Success[user, account]
+end
+```
+
+Or you can use `extend`:
+
+```ruby
+require 'dry/monads'
+
+class VeryComplexAndUglyCode
+  extend Dry::Monads::Do::Mixin
+  extend Dry::Monads[:result]
+
+  def self.create_something(result_value)
+    call do
+      extracted = bind result_value
+      processed = bind process(extracted)
+
+      Success(processed)
+    end
+  end
+end
+```
+
+`Do::All` also works with class methods:
+
+```ruby
+require 'dry/monads'
+
+class SomeClassLevelLogic
+  extend Dry::Monads[:result, :do]
+
+  def self.call
+    x = yield Success(5)
+    y = yield Success(20)
+
+    Success(x * y)
+  end
+end
+
+SomeClassLevelLogic.() # => Success(100)
 ```

@@ -5,14 +5,18 @@ layout: gem-single
 type: gem
 name: dry-monads
 sections:
+  - getting-started
   - maybe
   - result
+  - do-notation
   - try
   - list
-  - case-equality
   - task
-  - do-notation
   - validated
+  - case-equality
+  - tracing-failures
+  - pattern-matching
+  - unit
 ---
 
 dry-monads is a set of common monads for Ruby. Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`s and `else`s. The gem was inspired by the [Kleisli](https://github.com/txus/kleisli) gem.
@@ -59,7 +63,7 @@ user_state = state_name || "No state"
 By using the `Maybe` monad you can preserve the structure of this code at a cost of introducing a notion of `nil`-able result:
 
 ```ruby
-state_name = Maybe(User.find_by(id: params[:id])).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
+state_name = Maybe(User.find_by(id: params[:id])).maybe(&:address).maybe(&:city).maybe(&:state).maybe(&:name)
 user_state = state_name.value_or("No state")
 ```
 
