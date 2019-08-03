@@ -56,7 +56,7 @@ class EventContract < Dry::Validation::Contract
   end
 
   rule(:end_date, :start_date) do
-    key.failure('must be after start date') if values[:end_date] >= values[:start_date]
+    key.failure('must be after start date') if values[:end_date] < values[:start_date]
   end
 end
 
