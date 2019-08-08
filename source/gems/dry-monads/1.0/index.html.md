@@ -67,7 +67,7 @@ state_name = Maybe(User.find_by(id: params[:id])).maybe(&:address).maybe(&:city)
 user_state = state_name.value_or("No state")
 ```
 
-`Maybe(...)` wraps the first value and returns a monadic value which either can be a `Some(user)` or `None` if `user` is `nil`. `fmap(&:address)` transforms `Some(user)` to `Some(address)` but leaves `None` intact. To get the final value you can use `value_or` which is a safe way to unwrap a `nil`-able value. In other words, once you've used `Maybe` you _cannot_ hit `nil` with a missing method. This is remarkable because even `&.` doesn't save you from omitting `|| "No state"` at the end of the computation. Basically, that's what they call "Type Safety".
+`Maybe(...)` wraps the first value and returns a monadic value which either can be a `Some(user)` or `None` if `user` is `nil`. `maybe(&:address)` transforms `Some(user)` to `Some(address)` but leaves `None` intact. To get the final value you can use `value_or` which is a safe way to unwrap a `nil`-able value. In other words, once you've used `Maybe` you _cannot_ hit `nil` with a missing method. This is remarkable because even `&.` doesn't save you from omitting `|| "No state"` at the end of the computation. Basically, that's what they call "Type Safety".
 
 A more expanded example is based on _composing_ different monadic values. Suppose, we have a user and address, both can be `nil`, and we want to associate the address with the user:
 
