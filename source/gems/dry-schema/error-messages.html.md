@@ -109,11 +109,11 @@ schema = Dry::Schema.Params do
 end
 
 # return default translations
-schema.call(email: '').messages.to_h
+schema.call(email: '').errors.to_h
 { :email => ["must be filled"] }
 
 # return other translations (assuming you have it :))
-puts schema.call(email: '').messages(locale: :pl).to_h
+puts schema.call(email: '').errors(locale: :pl).to_h
 { :email => ["musi być wypełniony"] }
 ```
 
@@ -124,7 +124,7 @@ Important: I18n must be initialized before using a schema, `dry-schema` does not
 By default, messages do not include a rule's name, if you want it to be included simply use `:full` option:
 
 ```ruby
-schema.call(email: '').messages(full: true).to_h
+schema.call(email: '').errors(full: true).to_h
 { :email => ["email must be filled"] }
 ```
 
