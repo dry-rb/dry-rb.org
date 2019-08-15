@@ -66,7 +66,7 @@ Dry::Validation.Schema do
 end
 ```
 
-> Learn more about [high-level rules](/gems/dry-validation/high-level-rules)
+> Learn more about [high-level rules](/gems/dry-validation/0.13/high-level-rules)
 
 ### confirmation
 

@@ -40,4 +40,4 @@ end
 
 You need to provide error messages for your custom predicates if you want them to work with `Schema#call(input).messages` interface.
 
-You can learn how to do that in the [Error Messages](/gems/dry-validation/error-messages) section.
+You can learn how to do that in the [Error Messages](/gems/dry-validation/0.13/error-messages) section.
