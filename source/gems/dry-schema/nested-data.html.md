@@ -104,3 +104,24 @@ puts errors.to_h.inspect
 #   }
 # }
 ```
+
+To add array predicates, use the full form:
+
+```ruby
+schema = Dry::Schema.Params do
+  required(:people).value(:array, min_size?: 1).each do
+    hash do
+      required(:name).filled(:string)
+      required(:age).filled(:integer, gteq?: 18)
+    end
+  end
+end
+
+errors = schema.call(people: []).errors
+
+puts errors.to_h.inspect
+# => {
+#   :people=>["size cannot be less than 1"]
+# }
+
+```
