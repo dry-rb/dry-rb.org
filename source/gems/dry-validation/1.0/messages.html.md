@@ -67,7 +67,7 @@ en:
           invalid: 'must be greater than 18'
 ```
 
-Provided we [configure our contract to use a custom messages file](/gems/dry-validation/1.0.0/configuration#example), we can now write this:
+Provided we [configure our contract to use a custom messages file](/gems/dry-validation/1.0/configuration#example), we can now write this:
 
 ```ruby
 class NewUserContract < Dry::Validation::Contract
