@@ -170,18 +170,18 @@ end
 
 class Operation
   Error = Types.Instance(RangeError)
-	include Dry::Monads::Result(Error)
-
-	def call(value)
-	  case value
-	  when 0..1
-	  	Success(:success)
-	  when 1..Float::INFINITY
-			Failure(RangeError.new('Error'))
-		else
-			Failure(TypeError.new('Type error'))
-		end
-	end
+  include Dry::Monads::Result(Error)
+    
+  def call(value)
+    case value
+    when 0..1
+      Success(:success)
+    when 1..Float::INFINITY
+      Failure(RangeError.new('Error'))
+    else
+      Failure(TypeError.new('Type error'))
+    end
+  end
 end
 
 Operation.new.call(0.5) # => Success(:success)
