@@ -176,7 +176,7 @@ class Operation
     case value
     when 0..1
       Success(:success)
-    when 1..Float::INFINITY
+    when value > 1 || value < 0
       Failure(RangeError.new('Error'))
     else
       Failure(TypeError.new('Type error'))
