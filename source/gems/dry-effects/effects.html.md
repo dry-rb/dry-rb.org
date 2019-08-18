@@ -7,6 +7,7 @@ sections:
   - state
   - resolve
   - cache
+  - current_time
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -15,3 +16,4 @@ sections:
 - [State](/gems/dry-effects/effects/state)
 - [Resolve (Dependency Injection)](/gems/dry-effects/effects/resolve)
 - [Cache](/gems/dry-effects/effects/cache)
+- [Current Time](/gems/dry-effects/effects/current_time)
