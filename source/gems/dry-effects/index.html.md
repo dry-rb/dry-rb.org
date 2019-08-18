@@ -3,6 +3,8 @@ title: Introduction
 layout: gem-single
 type: gem
 name: dry-effects
+sections:
+  - effects
 ---
 
 `dry-effects` is a practical, production-oriented implementation of algebraic effects in Ruby.
