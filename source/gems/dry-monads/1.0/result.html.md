@@ -156,3 +156,35 @@ You can explicitly check the type by calling `failure?` or `success?` on a monad
 Success(1).either(-> x { x + 1 }, -> x { x + 2 }) # => 2
 Failure(1).either(-> x { x + 1 }, -> x { x + 2 }) # => 3
 ```
+
+
+### Adding constraints to `Failure` values.
+You can add type constraints to values passed to `Failure`. This will raise an exception if value doesn't meet the constraints:
+
+```ruby
+require 'dry-types'
+
+module Types
+  include Dry.Types()
+end
+
+class Operation
+  Error = Types.Instance(RangeError)
+  include Dry::Monads::Result(Error)
+
+  def call(value)
+    case value
+    when 0..1
+      Success(:success)
+    when -Float::INFINITY..0, 1..Float::INFINITY
+      Failure(RangeError.new('Error'))
+    else
+      Failure(TypeError.new('Type error'))
+    end
+  end
+end
+
+Operation.new.call(0.5) # => Success(:success)
+Operation.new.call(5) # => Failure(#<RangeError: Error>)
+Operation.new.call("5") # => Dry::Monads::InvalidFailureTypeError: Cannot create Failure from #<TypeError: Type error>, it doesn't meet the constraints
+```
