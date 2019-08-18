@@ -61,7 +61,7 @@ Tasks are performed by executors, there are three executors predefined by `concu
 - `:io` – for long IO-bound tasks, uses a thread pool, different from `:fast`
 - `:immediate` – runs tasks immediately, on the current thread. Can be used in tests or for other purposes
 
-You can create your own executors, check out the [docs](http://ruby-concurrency.github.io/concurrent-ruby/root/Concurrent.html) for more on this.
+You can create your own executors, check out the [docs](http://ruby-concurrency.github.io/concurrent-ruby/master/Concurrent.html) for more on this.
 
 The following examples use the Ruby 2.5+ syntax which allows passing a block to `.[]`.
 
