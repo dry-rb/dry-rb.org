@@ -1,5 +1,5 @@
 ---
-title: Supported Effects
+title: Effects
 layout: gem-single
 name: dry-effects
 sections:
@@ -8,6 +8,7 @@ sections:
   - resolve
   - cache
   - current_time
+  - env
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -17,3 +18,4 @@ sections:
 - [Resolve (Dependency Injection)](/gems/dry-effects/effects/resolve)
 - [Cache](/gems/dry-effects/effects/cache)
 - [Current Time](/gems/dry-effects/effects/current_time)
+- [Environment](/gems/dry-effects/effects/env)
