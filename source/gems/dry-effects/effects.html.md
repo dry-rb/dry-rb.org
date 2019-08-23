@@ -9,6 +9,7 @@ sections:
   - cache
   - current_time
   - env
+  - interrupt
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -19,3 +20,4 @@ sections:
 - [Cache](/gems/dry-effects/effects/cache)
 - [Current Time](/gems/dry-effects/effects/current_time)
 - [Environment](/gems/dry-effects/effects/env)
+- [Interrupt](/gems/dry-effects/effects/interrupt)
