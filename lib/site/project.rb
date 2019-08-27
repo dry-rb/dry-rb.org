@@ -1,60 +1,13 @@
-require 'dry-initializer'
-require 'yaml'
+# frozen_string_literal: true
 
-module Site
-  def self.projects
-    @projects ||= Factory.new(Project, YAML.load_file(data_path.join('projects.yaml')))
-  end
+require 'middleman/docsite/project'
 
-  def self.data_path
-    root.join('data')
-  end
-
-  def self.root
-    @root ||= Pathname(__dir__).join('..')
-  end
-end
-
-class Factory
-  extend Dry::Initializer
-  extend Forwardable
-
-  param :klass
-  param :data
-
-  def respond_to?(method, include_private = false)
-    super || Array.method_defined?(method) || klass.respond_to?(method, include_private)
-  end
-
-  def method_missing(method, *args, &block)
-    if klass.respond_to?(method)
-      args = args.push(self)
-      klass.send(method, *args, &block)
-    elsif Array.method_defined?(method)
-      self.class.def_delegator :to_a, method
-      to_a.send(method, *args, &block)
-    else
-      super
-    end
-  end
-
-  def to_a
-    @objects ||= data.map do |attrs|
-      attrs = attrs.inject({}){ |memo,(k,v)| memo[k.to_sym] = v; memo }
-      klass.new(attrs)
-    end
-  end
-  alias :all :to_a
-end
-
-class Project
-  extend Dry::Initializer
-
-  option :name
-  option :desc
-  option :versions, optional: true, default: proc { Array.new }
-  option :current_version, optional: true
-  option :fallback_version, optional: true
+class Project < Middleman::Docsite::Project
+  attribute(:name, Types::String)
+  attribute(:desc, Types::String)
+  attribute?(:versions, Types::Array.default { [] })
+  attribute?(:current_version, Types::String)
+  attribute?(:fallback_version, Types::String)
 
   alias_method :to_s, :name
 
@@ -130,4 +83,3 @@ class Project
     "#{github_url}/pulls"
   end
 end
-# end

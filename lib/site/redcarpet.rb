@@ -1,4 +1,7 @@
-require "redcarpet"
+# frozen_string_literal: true
+
+require 'redcarpet'
+
 module Redcarpet
   module Render
     class HTMLWithoutBlockElements < HTML
@@ -11,7 +14,7 @@ module Redcarpet
 
       # Regular markdown, just ignore all the block-level elements
 
-      def block_code(code, language)
+      def block_code(code, _language)
         code
       end
 
@@ -23,19 +26,19 @@ module Redcarpet
         raw_html
       end
 
-      def header(text, header_level)
+      def header(text, _header_level)
         "#{text} "
       end
 
       def hrule
-        " "
+        ' '
       end
 
-      def list(contents, list_type)
+      def list(contents, _list_type)
         " #{contents}"
       end
 
-      def list_item(text, list_type)
+      def list_item(text, _list_type)
         "* #{text}"
       end
 
@@ -46,7 +49,7 @@ module Redcarpet
       # Span-level calls
 
       def linebreak
-        " "
+        ' '
       end
 
       # Postprocessing: strip the newlines
