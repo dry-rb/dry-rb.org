@@ -71,11 +71,11 @@ class CreateAccount
   end
 
   def validate_email(form)
-    # Success(email) or Invalid(:invalid_email)
+    # Valid(email) or Invalid(:invalid_email)
   end
 
   def validate_password(form)
-    # Success(password) or Invalid(:invalid_password)
+    # Valid(password) or Invalid(:invalid_password)
   end
 end
 ```
