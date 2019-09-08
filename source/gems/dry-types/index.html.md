@@ -6,7 +6,6 @@ name: dry-types
 sections:
   - including-types
   - built-in-types
-  - strict
   - optional-values
   - default-values
   - sum

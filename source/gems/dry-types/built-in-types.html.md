@@ -52,6 +52,13 @@ Assuming you included types in a module called `Types`:
   - `Types::Strict::Array`
   - `Types::Strict::Hash`
 
+> All types in the `strict` category are [constrained](/gems/dry-types/constraints) by a type-check that is applied to make sure that the input is an instance of the primitive:
+
+``` ruby
+Types::Strict::Integer[1] # => 1
+Types::Strict::Integer['1'] # => raises Dry::Types::ConstraintError
+```
+
 * `Coercible` types will attempt to cast values to the correct class using kernel coercion methods:
   - `Types::Coercible::String`
   - `Types::Coercible::Integer`
