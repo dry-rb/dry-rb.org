@@ -42,7 +42,7 @@ User.new(name: 'Bob', age: 35)
 
 See [Built-in Types](/gems/dry-types/built-in-types/) for a full list of available types.
 
-By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:
+By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about which type an attribute is expected to have. However, there are many more advanced possibilities:
 
 - 'Strict' types will raise an error if passed an attribute of the wrong type:
 
