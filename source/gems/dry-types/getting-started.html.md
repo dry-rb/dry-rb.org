@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-types
 ---
 
-# Using `Dry::Types` in Your Application
+### Using `Dry::Types` in Your Application
 
 1. Make `Dry::Types` available to the application by creating a namespace that includes `Dry::Types`:
 
@@ -21,7 +21,7 @@ name: dry-types
     # => #<Dry::Types::Constructor type=#<Dry::Types::Definition primitive=String options={}>>
     ```
 
-# Creating Your First Type
+### Creating Your First Type
 
 1. Define a struct's types by passing the name & type to the `attribute` method:
 
