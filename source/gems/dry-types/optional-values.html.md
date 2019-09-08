@@ -4,9 +4,9 @@ layout: gem-single
 name: dry-types
 ---
 
-### Optional values
+### Allowing Types To Be Optional
 
-Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
+To allow `nil` values for your type, add `.optional` to your object:
 
 ``` ruby
 Types::Strict::String[nil]
