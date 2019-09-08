@@ -4,7 +4,7 @@ layout: gem-single
 type: gem
 name: dry-types
 sections:
-  - including-types
+  - getting-started
   - built-in-types
   - optional-values
   - default-values
