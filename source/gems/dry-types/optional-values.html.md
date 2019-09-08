@@ -1,10 +1,10 @@
 ---
-title: Optional Types
+title: Optional Values
 layout: gem-single
 name: dry-types
 ---
 
-### Using Optional Types
+### Optional values
 
 Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
 
