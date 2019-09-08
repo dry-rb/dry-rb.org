@@ -110,10 +110,7 @@ class User < Dry::Struct
 end
 ```
 
-... and more.
-
-Note that you don't have to use `Dry::Struct`. You can interact with your
-type definitions however you like using `[]`:
+- Pass values directly to `Dry::Types` without creating an object using `[]`:
 
 ```ruby
 Types::Strict::String["foo"]
