@@ -6,16 +6,16 @@ name: dry-types
 
 Built-in types are grouped under 6 categories:
 
-- `definition` - base type definitions with primitive class and options
+- `definition` - base type definitions with a primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
 - `coercible` - types with constructors using kernel coercions
-- `params` - types with constructors performing non-strict coercions specific to HTTP params
+- `params` - types with constructors performing non-strict coercions specific to HTTP parameters
 - `json` - types with constructors performing non-strict coercions specific to JSON
 - `maybe` - types accepting either nil or a specific primitive type
 
 ### Categories
 
-Assuming you included types in a module called `Types`:
+Assuming you included `Dry::Types` ([see instructions](/gems/dry-types/getting-started)) in a module called `Types`:
 
 * Base definitions:
   - `Types::Any`
