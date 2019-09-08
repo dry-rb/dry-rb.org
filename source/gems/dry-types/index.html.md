@@ -44,7 +44,7 @@ See [Built-in Types](/gems/dry-types/built-in-types/) for a full list of availab
 
 By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about which type an attribute is expected to have. However, there are many more advanced possibilities:
 
-- 'Strict' types will raise an error if passed an attribute of the wrong type:
+- `Strict` types will raise an error if passed an attribute of the wrong type:
 
 ```ruby
 class User < Dry::Struct
@@ -56,8 +56,8 @@ User.new(name: 'Bob', age: '18')
 # => Dry::Struct::Error: [User.new] "18" (String) has invalid type for :age
 ```
 
-- 'Coercible' types will attempt to convert an attribute to the correct class
-  using Ruby's inbuilt coercion methods:
+- `Coercible` types will attempt to convert an attribute to the correct class
+  using Ruby's built-in coercion methods:
 
 ```ruby
 class User < Dry::Struct
