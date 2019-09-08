@@ -149,7 +149,7 @@ Types::Strict::String[10000]
   * Value coercions
   * Processing arrays
   * Processing hashes with explicit schemas
-  * Defining various domain-specific information shared between multiple parts of your applications
+  * Defining various domain-specific information shared between multiple parts of your application
   * Annotating objects
 
 ### Other gems using dry-types
