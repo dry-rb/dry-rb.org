@@ -81,6 +81,8 @@ class DocCompiler
   def predicate_description(name, args)
     case name
     when :str? then "must be a string"
+    when :filled? then "must be filled"
+    when :int? then "must be an integer"
     when :gt? then "must be greater than #{args[0]}"
     else
       raise NotImplementedError, "#{name} not supported yet"
@@ -96,7 +98,7 @@ compiler = DocCompiler.new
 
 compiler.visit(schema.to_ast)
 # [
-#   {:key=>:email, :validations=>["must be a string"]},
-#   {:key=>:age, :validations=>["must be greater than 18"], :optional=>true}
+#   {:key=>:email, :validations=>["must be filled", "must be a string"]},
+#   {:key=>:age, :validations=>["must be filled", "must be an integer", "must be greater than 18"], :optional=>true}
 # ]
 ```
