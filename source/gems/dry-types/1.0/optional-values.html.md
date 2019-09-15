@@ -1,46 +1,69 @@
 ---
-title: Optional Values
+title: Type Attributes
 layout: gem-single
 name: dry-types
 ---
 
-### Optional values
+Types themselves have optional attributes you can apply to get further functionality.
 
-Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
+### Append `.optional` to a _Type_ to allow `nil` 
+
+By default, nil values raise an error:
 
 ``` ruby
-Types::String[nil]
+Types::Strict::String[nil]
 # => raises Dry::Types::ConstraintError
+```
 
-optional_string = Types::String.optional
+Add `.optional` and `nil` values become valid:
+
+```ruby
+optional_string = Types::Strict::String.optional
 
 optional_string[nil]
 # => nil
-
 optional_string['something']
 # => "something"
-
 optional_string[123]
 # raises Dry::Types::ConstraintError
 ```
 
-Under the hood this creates a [sum type](/gems/dry-types/sum/).  `Types::String.optional` is just syntactic sugar for `Types::Nil | Types::String`.
+`Types::String.optional` is just syntactic sugar for `Types::Strict::Nil | Types::Strict::String`.
 
-### Maybe values
+### Handle optional values using Monads
 
-For more advanced usage, use types under the `Maybe` namespace to get optional types that return an instance of `Dry::Monads::Maybe::Some` from [dry-monads](/gems/dry-monads/).
+The [dry-monads gem](/gems/dry-monads/) provides another approach to handling optional values by returning a [_Monad_](/gems/dry-monads/) object. This allows you to pass your type to a `Maybe(x)` block that only executes if `x` returns `Some` or `None`.
 
-This functionality is not available by default - it must be loaded using `Dry::Types.load_extensions(:maybe)` and you need to add [`dry-monads`](/gems/dry-monads) to your Gemfile:
+> NOTE: Requires the [dry-monads gem](/gems/dry-monads/) to be loaded.
 
-``` ruby
-require 'dry-types'
+1. Load the `:maybe` extension in your application.
 
-Dry::Types.load_extensions(:maybe)
+    ```ruby
+    require 'dry-types'
+    
+    Dry::Types.load_extensions(:maybe)
+    module Types
+      include Dry::Types.module
+    end
+    ```
+   
+2. Append `.maybe` to a _Type_ to return a _Monad_ object  
 
-module Types
-  include Dry::Types()
-end
+```ruby
+x = Types::Maybe::Strict::Integer[nil]
+Maybe(x) { puts(x) }
 
+x = Types::Maybe::Coercible::String[nil]
+Maybe(x) { puts(x) }
+
+x = Types::Maybe::Strict::Integer[123]
+Maybe(x) { puts(x) }
+
+x = Types::Maybe::Strict::String[123]
+Maybe(x) { puts(x) }
+```
+
+```ruby
 Types::Maybe::Strict::Integer[nil] # None
 Types::Maybe::Strict::Integer[123] # Some(123)
 
@@ -48,13 +71,13 @@ Types::Maybe::Coercible::Float[nil] # None
 Types::Maybe::Coercible::Float['12.3'] # Some(12.3)
 
 # 'Maybe' types can also accessed by calling '.maybe' on a regular type:
-Types::Integer.maybe # equivalent to Types::Maybe::Strict::Integer
+Types::Strict::Integer.maybe # equivalent to Types::Maybe::Strict::Integer
 ```
 
 You can define your own optional types:
 
 ``` ruby
-maybe_string = Types::String.maybe
+maybe_string = Types::Strict::String.maybe
 
 maybe_string[nil]
 # => None
@@ -68,6 +91,6 @@ maybe_string['something']
 maybe_string['something'].fmap(&:upcase)
 # => Some('SOMETHING')
 
-maybe_string['something'].fmap(&:upcase).value_or('NOTHING')
+maybe_string['something'].fmap(&:upcase).value
 # => "SOMETHING"
 ```

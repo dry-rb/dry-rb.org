@@ -1,36 +1,32 @@
 ---
-title: Type Attributes
+title: Optional Values
 layout: gem-single
 name: dry-types
 ---
 
-Types themselves have optional attributes you can apply to get further functionality.
+### Optional values
 
-### Allow Types to be `nil` by adding `.optional`
-
-By default, nil values raise an error:
+Use the `.optional` method to get a type that has all the same features but also accepts `nil`:
 
 ``` ruby
 Types::Strict::String[nil]
 # => raises Dry::Types::ConstraintError
-```
 
-Add `.optional` and `nil` values become valid:
-
-```ruby
 optional_string = Types::Strict::String.optional
 
 optional_string[nil]
 # => nil
+
 optional_string['something']
 # => "something"
+
 optional_string[123]
 # raises Dry::Types::ConstraintError
 ```
 
 Under the hood this creates a [sum type](/gems/dry-types/sum/).  `Types::String.optional` is just syntactic sugar for `Types::Strict::Nil | Types::Strict::String`.
 
-### Allow Types to be `nil` using `Maybe`
+### Maybe values
 
 For more advanced usage, use types under the `Maybe` namespace to get optional types that return an instance of `Dry::Monads::Maybe::Some` from [dry-monads](/gems/dry-monads/).
 

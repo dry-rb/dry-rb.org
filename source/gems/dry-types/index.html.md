@@ -4,8 +4,9 @@ layout: gem-single
 type: gem
 name: dry-types
 sections:
-  - getting-started
+  - including-types
   - built-in-types
+  - strict
   - optional-values
   - default-values
   - sum
@@ -41,9 +42,9 @@ User.new(name: 'Bob', age: 35)
 
 See [Built-in Types](/gems/dry-types/built-in-types/) for a full list of available types.
 
-By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about which type an attribute is expected to have. However, there are many more advanced possibilities:
+By themselves, the basic type definitions like `Types::String` and `Types::Integer` don't do anything except provide documentation about type an attribute is expected to have. However, there are many more advanced possibilities:
 
-- `Strict` types will raise an error if passed an attribute of the wrong type:
+- 'Strict' types will raise an error if passed an attribute of the wrong type:
 
 ```ruby
 class User < Dry::Struct
@@ -55,8 +56,8 @@ User.new(name: 'Bob', age: '18')
 # => Dry::Struct::Error: [User.new] "18" (String) has invalid type for :age
 ```
 
-- `Coercible` types will attempt to convert an attribute to the correct class
-  using Ruby's built-in coercion methods:
+- 'Coercible' types will attempt to convert an attribute to the correct class
+  using Ruby's inbuilt coercion methods:
 
 ```ruby
 class User < Dry::Struct
@@ -88,7 +89,7 @@ User.new(name: 'Bob')
 # => Dry::Struct::Error: [User.new] :age is missing in Hash input
 ```
 
-- Add custom constraints (see [Constraints](/gems/dry-types/constraints.html)):
+- You can add your own custom constraints (see [Constraints](/gems/dry-types/constraints.html)):
 
 ```ruby
 class User < Dry::Struct
@@ -109,7 +110,10 @@ class User < Dry::Struct
 end
 ```
 
-- Pass values directly to `Dry::Types` without creating an object using `[]`:
+... and more.
+
+Note that you don't have to use `Dry::Struct`. You can interact with your
+type definitions however you like using `[]`:
 
 ```ruby
 Types::Strict::String["foo"]
@@ -145,7 +149,7 @@ Types::Strict::String[10000]
   * Value coercions
   * Processing arrays
   * Processing hashes with explicit schemas
-  * Defining various domain-specific information shared between multiple parts of your application
+  * Defining various domain-specific information shared between multiple parts of your applications
   * Annotating objects
 
 ### Other gems using dry-types
