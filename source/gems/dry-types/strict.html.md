@@ -11,10 +11,3 @@ All types in the `strict` category are [constrained](/gems/dry-types/constraints
 Types::Strict::Integer[1] # => 1
 Types::Strict::Integer['1'] # => raises Dry::Types::ConstraintError
 ```
-
-Starting with 1.0 types imported by default are strict:
-
-``` ruby
-Types::Integer.eql?(Types::Strict::Integer) # => true
-```
-
