@@ -4,10 +4,8 @@ layout: gem-single
 type: gem
 name: dry-types
 sections:
-  - including-types-obsolete
   - getting-started
   - built-in-types
-  - strict-obsolete
   - optional-values
   - default-values
   - sum
