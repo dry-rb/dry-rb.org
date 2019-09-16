@@ -6,7 +6,7 @@ name: dry-types
 
 Built-in types are grouped under 6 categories:
 
-- `definition` - base type definitions with a primitive class and options
+- `nominal` - base type definitions with a primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
 - `coercible` - types with constructors using kernel coercions
 - `params` - types with constructors performing non-strict coercions specific to HTTP parameters
@@ -17,23 +17,23 @@ Built-in types are grouped under 6 categories:
 
 Assuming you included `Dry::Types` ([see instructions](/gems/dry-types/getting-started)) in a module called `Types`:
 
-* Base definitions:
-  - `Types::Any`
-  - `Types::Nil`
-  - `Types::Symbol`
-  - `Types::Class`
-  - `Types::True`
-  - `Types::False`
-  - `Types::Bool`
-  - `Types::Integer`
-  - `Types::Float`
-  - `Types::Decimal`
-  - `Types::String`
-  - `Types::Date`
-  - `Types::DateTime`
-  - `Types::Time`
-  - `Types::Array`
-  - `Types::Hash`
+* Nominal types:
+  - `Types::Nominal::Any`
+  - `Types::Nominal::Nil`
+  - `Types::Nominal::Symbol`
+  - `Types::Nominal::Class`
+  - `Types::Nominal::True`
+  - `Types::Nominal::False`
+  - `Types::Nominal::Bool`
+  - `Types::Nominal::Integer`
+  - `Types::Nominal::Float`
+  - `Types::Nominal::Decimal`
+  - `Types::Nominal::String`
+  - `Types::Nominal::Date`
+  - `Types::Nominal::DateTime`
+  - `Types::Nominal::Time`
+  - `Types::Nominal::Array`
+  - `Types::Nominal::Hash`
 
 * `Strict` types will raise an error if passed a value of the wrong type:
   - `Types::Strict::Nil`
