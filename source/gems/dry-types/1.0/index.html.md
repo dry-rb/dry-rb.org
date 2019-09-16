@@ -4,14 +4,15 @@ layout: gem-single
 type: gem
 name: dry-types
 sections:
+  - including-types-obsolete
   - getting-started
   - built-in-types
+  - strict-obsolete
   - optional-values
   - default-values
   - sum
   - constraints
   - hash-schemas
-  - hash-schemas-obsolete
   - array-with-member
   - enum
   - map
@@ -27,13 +28,10 @@ require 'dry-types'
 require 'dry-struct'
 
 module Types
-  include Dry::Types.module
+  include Dry.Types()
 end
 
-class User < Dry::Struct
-  attribute :name, Types::String
-  attribute :age,  Types::Integer
-end
+User = Dry.Struct(name: Types::String, age: Types::Integer)
 
 User.new(name: 'Bob', age: 35)
 # => #<User name="Bob" age=35>
@@ -74,8 +72,8 @@ User.new(name: 'Bob', age: 'not coercible')
 
 ```ruby
 class User < Dry::Struct
-  attribute :name, Types::Strict::String
-  attribute :age,  Types::Strict::Integer.optional
+  attribute :name, Types::String
+  attribute :age,  Types::Integer.optional
 end
 
 User.new(name: 'Bob', age: nil)
