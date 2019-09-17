@@ -10,7 +10,7 @@ name: dry-types
 
     ```ruby
     module Types
-     include Dry::Types.module
+     include Dry.Types()
     end
     ```
    
@@ -35,7 +35,7 @@ name: dry-types
 
     ```ruby
     module Types
-      include Dry::Types.module
+      include Dry.Types()
     
       Email = String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
       Age = Integer.constrained(gt: 18)

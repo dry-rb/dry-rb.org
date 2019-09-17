@@ -43,7 +43,7 @@ The [dry-monads gem](/gems/dry-monads/) provides another approach to handling op
     
     Dry::Types.load_extensions(:maybe)
     module Types
-      include Dry::Types.module
+      include Dry.Types()
     end
     ```
    
@@ -91,6 +91,6 @@ maybe_string['something']
 maybe_string['something'].fmap(&:upcase)
 # => Some('SOMETHING')
 
-maybe_string['something'].fmap(&:upcase).value
+maybe_string['something'].fmap(&:upcase).value_or('NOTHING')
 # => "SOMETHING"
 ```
