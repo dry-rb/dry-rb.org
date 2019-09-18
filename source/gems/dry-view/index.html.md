@@ -38,7 +38,7 @@ dry-view divides the responsibility of view rendering across several different c
 
 ## Example
 
-[Configure](/gems/dry-view/configuration/) your view, accept some [dependencies](/gems/dry-view/injecting-dependencies/), and define an [exposure](/gems/dry-view/configuration/):
+[Configure](/gems/dry-view/configuration/) your view, accept some [dependencies](/gems/dry-view/injecting-dependencies/), and define an [exposure](/gems/dry-view/exposures/):
 
 ```ruby
 require "dry/view"
