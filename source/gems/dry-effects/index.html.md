@@ -81,16 +81,16 @@ In a statically typed with support for algebraic effects you won't be able to ru
 
 It may remind you using global state, but it's not actually global. It should instead be called "goto on steroids" or "goto made unharmful."
 
-### Amb
+### Cmp
 
-State sharing is one of many effects already supported; another example is ambivalent execution. Imagine you test a new feature that ideally shouldn't affect application responses.
+State sharing is one of many effects already supported; another example is comparative execution. Imagine you test a new feature that ideally shouldn't affect application responses.
 
 ```ruby
 require 'dry/effects'
 
 class TestNewFeatureMiddleware
   # `as:` renames handler method
-  include Dry::Effects::Handler.Amb(:feature, as: :test_feature)
+  include Dry::Effects::Handler.Cmp(:feature, as: :test_feature)
 
   def initialize(app)
     @app = app
@@ -112,7 +112,7 @@ end
 ### Somewhere deep in your app
 
 class PostView
-  include Dry::Effects.Amb(:feature)
+  include Dry::Effects.Cmp(:feature)
 
   def call
     if feature?
@@ -124,17 +124,17 @@ class PostView
 end
 ```
 
-The `Amb` provider will run your code twice so that you can compare the results and detect differences.
+The `Cmp` provider will run your code twice so that you can compare the results and detect differences.
 
 ### Composition
 
-So far effects haven't shown anything algebraic about themselves. Here comes composition. Any effect is composable with one another. Say we have code using both `State` and `Amb` effects:
+So far effects haven't shown anything algebraic about themselves. Here comes composition. Any effect is composable with one another. Say we have code using both `State` and `Cmp` effects:
 
 ```ruby
 require 'dry/effects'
 
 class GreetUser
-  include Dry::Effects.Amb(:excitement)
+  include Dry::Effects.Cmp(:excitement)
   include Dry::Effects.State(:greetings_given)
 
   def call(name)
@@ -153,7 +153,7 @@ It's a simple piece of code that requires a single argument and two effect handl
 
 ```ruby
 class Context
-  include Dry::Effects::Handler.Amb(:excitement, as: :test_excitement)
+  include Dry::Effects::Handler.Cmp(:excitement, as: :test_excitement)
   include Dry::Effects::Handler.State(:greetings_given)
 
   def initialize
