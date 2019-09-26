@@ -10,6 +10,7 @@ sections:
   - current_time
   - env
   - interrupt
+  - defer
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -21,3 +22,4 @@ sections:
 - [Current Time](/gems/dry-effects/effects/current_time)
 - [Environment](/gems/dry-effects/effects/env)
 - [Interrupt](/gems/dry-effects/effects/interrupt)
+- [Deferred Execution](/gems/dry-effects/effects/defer)
