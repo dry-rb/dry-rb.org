@@ -6,16 +6,16 @@ name: dry-types
 
 Built-in types are grouped under 6 categories:
 
-- `nominal` - base type definitions with primitive class and options
+- `nominal` - base type definitions with a primitive class and options
 - `strict` - constrained types with a primitive type check applied to input
 - `coercible` - types with constructors using kernel coercions
-- `params` - types with constructors performing non-strict coercions specific to HTTP params
+- `params` - types with constructors performing non-strict coercions specific to HTTP parameters
 - `json` - types with constructors performing non-strict coercions specific to JSON
 - `maybe` - types accepting either nil or a specific primitive type
 
 ### Categories
 
-Assuming you included types in a module called `Types`:
+Assuming you included `Dry::Types` ([see instructions](/gems/dry-types/1.0/getting-started)) in a module called `Types`:
 
 * Nominal types:
   - `Types::Nominal::Any`
@@ -51,6 +51,13 @@ Assuming you included types in a module called `Types`:
   - `Types::Strict::Time`
   - `Types::Strict::Array`
   - `Types::Strict::Hash`
+
+> All types in the `strict` category are [constrained](/gems/dry-types/1.0/constraints) by a type-check that is applied to make sure that the input is an instance of the primitive:
+
+``` ruby
+Types::Strict::Integer[1] # => 1
+Types::Strict::Integer['1'] # => raises Dry::Types::ConstraintError
+```
 
 * `Coercible` types will attempt to cast values to the correct class using kernel coercion methods:
   - `Types::Coercible::String`
@@ -106,4 +113,4 @@ Assuming you included types in a module called `Types`:
   - `Types::Maybe::Coercible::Array`
   - `Types::Maybe::Coercible::Hash`
 
-> `Maybe` types are not available by default - they must be loaded using `Dry::Types.load_extensions(:maybe)`. See [Optional Values](/gems/dry-types/optional-values) for more information.
+> `Maybe` types are not available by default - they must be loaded using `Dry::Types.load_extensions(:maybe)`. See [Optional Values](/gems/dry-types/1.0/optional-values) for more information.
