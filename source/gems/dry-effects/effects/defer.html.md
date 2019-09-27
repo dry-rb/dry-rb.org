@@ -7,7 +7,7 @@ name: dry-effects
 `Defer` adds three methods for working with deferred code execution:
 
 - `defer` accepts a block and executes it (potentially) on a thread pool. It returns an object that can be awaited with `wait`. These objects are `Promise`s made by `concurrent-ruby`. You can use their API, but it's not fully supported and tested in conjunction with effects.
-- `wait` accepts an array of promises returned by `defer` and returns their values. The method blocks the current thread until all values are available.
+- `wait` accepts a promise or an array of promises returned by `defer` and returns their values. The method blocks the current thread until all values are available.
 - `later` postpones block execution until the handler is finished (see examples below).
 
 ### Defer

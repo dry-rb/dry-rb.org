@@ -12,6 +12,7 @@ sections:
   - interrupt
   - defer
   - timeout
+  - parallel
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -25,3 +26,4 @@ sections:
 - [Interrupt](/gems/dry-effects/effects/interrupt)
 - [Deferred Execution](/gems/dry-effects/effects/defer)
 - [Timeout](/gems/dry-effects/effects/timeout)
+- [Parallel execution](/gems/dry-effects/effects/parallel)
