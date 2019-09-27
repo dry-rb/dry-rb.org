@@ -11,6 +11,7 @@ sections:
   - env
   - interrupt
   - defer
+  - timeout
 ---
 
 `dry-effects` has a bunch of built-in effects and providers:
@@ -23,3 +24,4 @@ sections:
 - [Environment](/gems/dry-effects/effects/env)
 - [Interrupt](/gems/dry-effects/effects/interrupt)
 - [Deferred Execution](/gems/dry-effects/effects/defer)
+- [Timeout](/gems/dry-effects/effects/timeout)

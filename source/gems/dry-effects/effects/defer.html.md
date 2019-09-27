@@ -127,4 +127,4 @@ The invitaition will be sent when `with_defer` exits:
 with_defer { @app.(env) }
 ```
 
-It usually happens outside of any transaction so that anomalies don't happen.
+It usually happens outside of any transaction so that anomalies don't occur.
