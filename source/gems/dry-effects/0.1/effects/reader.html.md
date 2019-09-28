@@ -119,7 +119,7 @@ with_context(:background) { with_locale(:en) { [locale, context] } } # => [:en, 
 
 ### Relation to State
 
-Reader is part of the [State](/gems/dry-effects/effects/state) effect.
+Reader is part of the [State](/gems/dry-effects/0.1/effects/state) effect.
 
 ### Tradeoffs of implicit passing
 

@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-effects
 ---
 
-State is a mutation effect. It allows [reading](/gems/dry-effects/effects/reader) and _writing_ non-local values.
+State is a mutation effect. It allows [reading](/gems/dry-effects/0.1/effects/reader) and _writing_ non-local values.
 
 ### Basic usage
 

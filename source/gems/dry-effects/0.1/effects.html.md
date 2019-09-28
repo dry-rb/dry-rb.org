@@ -17,13 +17,13 @@ sections:
 
 `dry-effects` has a bunch of built-in effects and providers:
 
-- [Reader](/gems/dry-effects/effects/reader)
-- [State](/gems/dry-effects/effects/state)
-- [Resolve (Dependency Injection)](/gems/dry-effects/effects/resolve)
-- [Cache](/gems/dry-effects/effects/cache)
-- [Current Time](/gems/dry-effects/effects/current_time)
-- [Environment](/gems/dry-effects/effects/env)
-- [Interrupt](/gems/dry-effects/effects/interrupt)
-- [Deferred Execution](/gems/dry-effects/effects/defer)
-- [Timeout](/gems/dry-effects/effects/timeout)
-- [Parallel execution](/gems/dry-effects/effects/parallel)
+- [Reader](/gems/dry-effects/0.1/effects/reader)
+- [State](/gems/dry-effects/0.1/effects/state)
+- [Resolve (Dependency Injection)](/gems/dry-effects/0.1/effects/resolve)
+- [Cache](/gems/dry-effects/0.1/effects/cache)
+- [Current Time](/gems/dry-effects/0.1/effects/current_time)
+- [Environment](/gems/dry-effects/0.1/effects/env)
+- [Interrupt](/gems/dry-effects/0.1/effects/interrupt)
+- [Deferred Execution](/gems/dry-effects/0.1/effects/defer)
+- [Timeout](/gems/dry-effects/0.1/effects/timeout)
+- [Parallel execution](/gems/dry-effects/0.1/effects/parallel)
