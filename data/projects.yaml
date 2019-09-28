@@ -65,3 +65,6 @@
   desc: Standalone pub/sub API
 - name: dry-effects
   desc: Algebraic effects in Ruby
+  versions:
+    - "0.1"
+  current_version: "0.1"
