@@ -6,5 +6,5 @@ layout: listing
 ul
   - Site.projects.sort_by(&:name).each do |project|
     li
-      h3.gem-header == link_to project.name, "/gems/#{project.name}"
+      h3.gem-header == link_to project.name, "/gems/#{project.name}/#{project.current_version}"
       p== project.desc
