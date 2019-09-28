@@ -122,3 +122,23 @@ class MyStruct < Dry::Struct
   end
 end
 ```
+
+### Set default value for a nested hash
+
+```ruby
+class Foo < Dry::Struct
+  attribute :bar do
+    attribute :nested, Types::Integer
+  end
+end
+```
+
+```ruby
+class Foo < Dry::Struct
+  class Bar < Dry::Struct
+    attribute :nested, Types::Integer
+  end
+
+  attribute :bar, Bar.default { Bar.new(nested: 1) }
+end
+```
