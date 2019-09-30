@@ -25,3 +25,5 @@ source/**/.!*
 .rvmrc
 .ruby-version
 .ruby-gemset
+
+docs

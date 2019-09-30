@@ -16,9 +16,17 @@
 // }
 //
 
+// Global imports
+@import '~flask';
+
 // Variables -------------------------------------------------------------------
 @import "globals";
 
+// Config
+@import '_config/**/*';
+
+// External Libraries
+@import '_lib/**/*';
 
 // Libraries and patterns ------------------------------------------------------
 @import "patterns/all";
@@ -29,6 +37,9 @@
 
 // Icons
 @import "components/icons";
+
+// Admonitions
+@import "components/admonitions";
 
 // Resets ------------------------------------------------------
 @include reset;
@@ -1098,17 +1109,17 @@ code {
   margin-right: -15px;
 }
   .taster__summary {
-    @include col(2,5)
+    @include col(2,5);
     vertical-align: top;
     @include mobile {
-      @include col(1,1)
+      @include col(1,1);
     }
   }
   .taster__example {
-    @include col(3,5)
+    @include col(3,5);
     vertical-align: top;
     @include mobile {
-      @include col(1,1)
+      @include col(1,1);
     }
   }
 
@@ -1318,4 +1329,8 @@ table {
       color: #fff;
     }
   }
+}
+
+.anchor {
+  text-decoration: none;
 }
