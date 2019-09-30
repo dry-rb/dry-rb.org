@@ -1,5 +1,12 @@
 people:
   -
+    name: Fran Worley
+    image: fran.jpg
+    github_handle: fran-worley
+    location: London, UK
+    since: 2016
+    until: 2018
+  -
     name: Andy Holland
     image: andy.png
     github_handle: AMHOL
