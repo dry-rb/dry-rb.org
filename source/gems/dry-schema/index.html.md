@@ -23,7 +23,9 @@ Main focus of this library is on:
 - Data **structure** validation
 - Value **types** validation
 
-> `dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
+^INFO
+`dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
+^
 
 ### Unique features
 
