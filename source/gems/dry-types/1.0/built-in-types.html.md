@@ -113,4 +113,4 @@ Types::Strict::Integer['1'] # => raises Dry::Types::ConstraintError
   - `Types::Maybe::Coercible::Array`
   - `Types::Maybe::Coercible::Hash`
 
-> `Maybe` types are not available by default - they must be loaded using `Dry::Types.load_extensions(:maybe)`. See [Optional Values](/gems/dry-types/1.0/optional-values) for more information.
+> `Maybe` types are not available by default - they must be loaded using `Dry::Types.load_extensions(:maybe)`. See [Maybe extension](/gems/dry-types/1.0/extensions/maybe) for more information.
