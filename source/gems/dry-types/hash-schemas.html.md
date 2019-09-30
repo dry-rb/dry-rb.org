@@ -132,7 +132,7 @@ user_hash['name' => 'Jane', 'city' => 'London']
 A schema can transform types with a block. For example, the following code makes all keys optional:
 
 ```ruby
-user_hash = Types::Hash.with_type_transform { |type| type.meta(omittable: true) }.schema(
+user_hash = Types::Hash.with_type_transform(&:omittable).schema(
   name: Types::Strict::String,
   age: Types::Strict::Integer
 )
@@ -149,7 +149,7 @@ Type transformations work perfectly with inheritance, you don't have to define s
 SymbolizeAndOptionalSchema = Types::Hash.
   schema({}).
   with_key_transform(&:to_sym).
-  with_type_transform { |type| type.meta(omittable: true) }
+  with_type_transform(&:omittable)
 
 user_hash = SymbolizeAndOptionalSchema.schema(
   name: Types::Strict::String,

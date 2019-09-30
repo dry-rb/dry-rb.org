@@ -3,8 +3,9 @@ html lang="en"
   head = partial("head")
   body
     = partial "header-listing"
-    .row
-      .content-wrap
-        .article-list
-          = yield
+    main
+      .row
+        .content-wrap
+          .article-list
+            = yield
     = partial "footer"

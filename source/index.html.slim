@@ -10,24 +10,32 @@ title: Home
         .taster#eg-validation
           .taster__header
             h3
-              a href="/gems/dry-validation" dry-validation
-            a.taster__link href="/gems/dry-validation" View docs
+              a href="/gems/dry-validation/1.0" dry-validation
+            a.taster__link href="/gems/dry-validation/1.0" View docs
           .taster__content
             .taster__summary
               markdown:
-                Use predicate logic to validate any kind of data with explicitness, clarity and precision.
+                Use schemas and powerful rules to validate data with explicitness, clarity and precision.
             .taster__example
               markdown:
                 ```ruby
-                schema = Dry::Validation.Params do
-                  required(:name).filled
-                  required(:age).filled(:int?, gt?: 18)
+                class NewUserContract < Dry::Validation::Contract
+                  params do
+                    required(:name).filled(:string)
+                    required(:age).filled(:integer)
+                  end
+
+                  rule(:age) { key.failure("must be greater than 18") if value < 18 }
                 end
 
-                schema.("name" => "Jane", "age" => "30").to_h
-                # => {name: "Jane", age: 30}
+                contract = NewUserContract.new
 
-                schema.("name" => "Jane", "age" => "17").messages
+                contract.("name" => "Jane", "age" => "30").success?
+                # => true
+
+                contract.("name" => "Jane", "age" => "17").failure?
+                # => true
+                contract.("name" => "Jane", "age" => "17").errors.to_h
                 # => {:age=>["must be greater than 18"]}
                 ```
 
@@ -72,7 +80,7 @@ title: Home
         .taster#eg-dependency-management
           .taster__header
             h3
-              ' Dependency management
+              a href="/gems/dry-system" Dependency management
           .taster__content
             .taster__summary
               markdown:
@@ -108,7 +116,7 @@ title: Home
         .taster#eg-monads-patterns
           .taster__header
             h3
-              a href="/gems/dry-system" Monads & pattern matching
+              a href="/gems/dry-monads" Monads & pattern matching
           .taster__content
             .taster__summary
               markdown:

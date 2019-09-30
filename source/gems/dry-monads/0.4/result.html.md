@@ -80,7 +80,7 @@ class AssociateUser
   private
 
   def find_user(id)
-    user = User.find(id)
+    user = User.find_by(id: id)
 
     if user
       Success(user)
@@ -90,7 +90,7 @@ class AssociateUser
   end
 
   def find_address(id)
-    address = Address.find(id)
+    address = Address.find_by(id: id)
 
     if address
       Success(address)

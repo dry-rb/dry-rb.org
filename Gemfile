@@ -6,12 +6,12 @@ gem "builder", "~> 3.0"
 gem "dry-initializer"
 
 # Middleman
-gem "middleman"
+gem "middleman", "5.0.0.rc.1"
 gem "middleman-dotenv"
-gem "middleman-livereload"
 gem "middleman-minify-html"
 gem "middleman-blog"
 gem "middleman-syntax"
+gem "middleman-docsite", git: "https://github.com/solnic/middleman-docsite", branch: "master"
 
 # Formats
 gem "redcarpet"
@@ -30,3 +30,4 @@ gem "rack-contrib"
 gem "rake"
 gem "sanitize"
 gem "tzinfo"
+gem "byebug", require: false, platform: :mri

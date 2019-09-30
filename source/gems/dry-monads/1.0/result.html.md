@@ -11,64 +11,16 @@ The `Result` mixin has two type constructors: `Success` and `Failure`. The `Succ
 can be thought of as "everything went success" and the `Failure` is used when
 "something has gone wrong".
 
-### `Result::Mixin`
-
-```ruby
-require 'dry/monads/result'
-
-class ResultCalculator
-  include Dry::Monads::Result::Mixin
-
-  attr_accessor :input
-
-  def calculate
-    i = Integer(input)
-
-    Success(i).bind do |value|
-      if value > 1
-        Success(value + 3)
-      else
-        Failure("value was less than 1")
-      end
-    end.bind do |value|
-      if value % 2 == 0
-        Success(value * 2)
-      else
-        Failure("value was not even")
-      end
-    end
-  end
-end
-
-# ResultCalculator instance
-c = ResultCalculator.new
-
-# If everything went success
-c.input = 3
-result = c.calculate
-result # => Success(12)
-
-# If it failed in the first block
-c.input = 0
-result = c.calculate
-result # => Failure("value was less than 1")
-
-# if it failed in the second block
-c.input = 2
-result = c.calculate
-result # => Failure("value was not even")
-```
-
 ### `bind`
 
 Use `bind` for composing several possibly-failing operations:
 
 ```ruby
-require 'dry/monads/result'
-
-M = Dry::Monads
+require 'dry/monads'
 
 class AssociateUser
+  include Dry::Monads[:result]
+
   def call(user_id:, address_id:)
     find_user(user_id).bind do |user|
       find_address(address_id).fmap do |address|
@@ -80,22 +32,22 @@ class AssociateUser
   private
 
   def find_user(id)
-    user = User.find(id)
+    user = User.find_by(id: id)
 
     if user
-      M.Success(user)
+      Success(user)
     else
-      M.Failure(:user_not_found)
+      Failure(:user_not_found)
     end
   end
 
   def find_address(id)
-    address = Address.find(id)
+    address = Address.find_by(id: id)
 
     if address
-      M.Success(address)
+      Success(address)
     else
-      M.Failure(:address_not_found)
+      Failure(:address_not_found)
     end
   end
 end
@@ -108,14 +60,12 @@ AssociateUser.new.(user_id: 1, address_id: 2)
 An example of using `fmap` with `Success` and `Failure`.
 
 ```ruby
-require 'dry/monads/result'
-
-M = Dry::Monads
+extend Dry::Monads[:result]
 
 result = if foo > bar
-  M.Success(10)
+  Success(10)
 else
-  M.Failure("wrong")
+  Failure("wrong")
 end.fmap { |x| x * 2 }
 
 # If everything went success
@@ -127,7 +77,7 @@ result # => Failure("wrong")
 
 upcase = :upcase.to_proc
 
-M.Success('hello').fmap(upcase) # => Success("HELLO")
+Success('hello').fmap(upcase) # => Success("HELLO")
 ```
 
 ### `value_or`
@@ -135,10 +85,10 @@ M.Success('hello').fmap(upcase) # => Success("HELLO")
 `value_or` is a safe and recommended way of extracting values.
 
 ```ruby
-M = Dry::Monads
+extend Dry::Monads[:result]
 
-M.Success(10).value_or(0) # => 10
-M.Failure('Error').value_or(0) # => 0
+Success(10).value_or(0) # => 10
+Failure('Error').value_or(0) # => 0
 ```
 
 ### `value!`
@@ -146,11 +96,10 @@ M.Failure('Error').value_or(0) # => 0
 If you're 100% sure you're dealing with a `Success` case you might use `value!` for extracting the value without providing a default. Beware, this will raise an exception if you call it on `Failure`.
 
 ```ruby
-M = Dry::Monads
+extend Dry::Monads[:result]
 
-M.Success(10).value! # => 10
-
-M.Failure('Error').value!
+Success(10).value! # => 10
+Failure('Error').value!
 # => Dry::Monads::UnwrapError: value! was called on Failure
 ```
 
@@ -159,11 +108,11 @@ M.Failure('Error').value!
 An example of using `or` with `Success` and `Failure`.
 
 ```ruby
-M = Dry::Monads
+extend Dry::Monads[:result]
 
-M.Success(10).or(M.Success(99)) # => Success(10)
-M.Failure("error").or(M.Failure("new error")) # => Failure("new error")
-M.Failure("error").or { |err| M.Failure("new #{err}") } # => Failure("new error")
+Success(10).or(Success(99)) # => Success(10)
+Failure("error").or(Failure("new error")) # => Failure("new error")
+Failure("error").or { |err| Failure("new #{err}") } # => Failure("new error")
 ```
 
 ### `failure`
@@ -171,9 +120,9 @@ M.Failure("error").or { |err| M.Failure("new #{err}") } # => Failure("new error"
 Use `failure` for unwrapping the value from a `Failure` instance.
 
 ```ruby
-M = Dry::Monads
+extend Dry::Monads[:result]
 
-M.Failure('Error').failure # => "Error"
+Failure('Error').failure # => "Error"
 ```
 
 ### `to_maybe`
@@ -181,13 +130,12 @@ M.Failure('Error').failure # => "Error"
 Sometimes it's useful to turn a `Result` into a `Maybe`.
 
 ```ruby
-require 'dry/monads/result'
-require 'dry/monads/maybe'
+extend Dry::Monads[:result, :maybe]
 
 result = if foo > bar
-  Dry::Monads.Success(10)
+  Success(10)
 else
-  Dry::Monads.Failure("wrong")
+  Failure("wrong")
 end.to_maybe
 
 # If everything went success
@@ -199,3 +147,44 @@ result # => None()
 ### `failure?` and `success?`
 
 You can explicitly check the type by calling `failure?` or `success?` on a monadic value.
+
+### `either`
+
+`either` maps a `Result` to some type by taking two callables, for `Success` and `Failure` cases respectively:
+
+```ruby
+Success(1).either(-> x { x + 1 }, -> x { x + 2 }) # => 2
+Failure(1).either(-> x { x + 1 }, -> x { x + 2 }) # => 3
+```
+
+
+### Adding constraints to `Failure` values.
+You can add type constraints to values passed to `Failure`. This will raise an exception if value doesn't meet the constraints:
+
+```ruby
+require 'dry-types'
+
+module Types
+  include Dry.Types()
+end
+
+class Operation
+  Error = Types.Instance(RangeError)
+  include Dry::Monads::Result(Error)
+
+  def call(value)
+    case value
+    when 0..1
+      Success(:success)
+    when -Float::INFINITY..0, 1..Float::INFINITY
+      Failure(RangeError.new('Error'))
+    else
+      Failure(TypeError.new('Type error'))
+    end
+  end
+end
+
+Operation.new.call(0.5) # => Success(:success)
+Operation.new.call(5) # => Failure(#<RangeError: Error>)
+Operation.new.call("5") # => Dry::Monads::InvalidFailureTypeError: Cannot create Failure from #<TypeError: Type error>, it doesn't meet the constraints
+```

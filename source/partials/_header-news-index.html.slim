@@ -1,20 +1,3 @@
 header
   .content-wrap
     = partial "nav"
-.intro-page
-  .content-wrap
-    .intro-page__inner
-      - if paginate && num_pages > 1
-        .news-pagination
-          ' Page
-          => page_number
-          ' of
-          = num_pages
-          span.news-pagination__links
-            - if prev_page
-              = link_to '&larr; Prev', prev_page
-            - if next_page
-              = link_to 'Next &rarr;', next_page
-
-      h1
-        a href="/news" == page.data.title

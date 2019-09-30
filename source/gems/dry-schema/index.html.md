@@ -16,25 +16,32 @@ sections:
   - extensions
 ---
 
-> `dry-schema` will soon become the schema backend for dry-validation 1.0.0. For the time being, this documentation is very similar to dry-validation, as dry-schema's DSL is heavily based on it.
->
-> You can learn more about dry-schema + dry-validation [here](https://discourse.dry-rb.org/t/plans-for-dry-validation-dry-schema-a-new-gem/215)!
+`dry-schema` is a validation library for **data structures**. It ships with a set of many built-in predicates and powerful macros that allow you to define even complex validation logic with very concise syntax.
 
-`dry-schema` is a data coercion and validation library that focuses on explicitness, clarity and precision.
+Main focus of this library is on:
 
-It is based on the idea that each validation is encapsulated by a simple, stateless predicate that receives some input and returns either `true` or `false`. Those predicates are encapsulated by `rules` which can be composed together using `predicate logic`. This means you can use the common logic operators to build up a validation `schema`.
+- Data **structure** validation
+- Value **types** validation
 
-Validations can be described with great precision, `dry-schema` eliminates ambiguous concepts like `presence` validation where we can't really say whether some attribute or key is _missing_ or it's just that the value is `nil`.
+^INFO
+`dry-schema` is also used as the schema engine in [dry-validation](/gems/dry-validation)
+^
 
-In `dry-schema` **type-safety is a first-class feature**, something that's completely missing in other validation libraries, and it's an important and useful feature. It means you can compose a validation that relies on the type of a given value. For example it makes no sense to try to validate each element of an array when it's not an array.
+### Unique features
 
-### The DSL
+There are a few features of `dry-schema` that make it unique:
 
-`dry-schema`'s rule composition and predicate logic is provided by [dry-logic](https://github.com/dry-rb/dry-logic). The DSL is a simple front-end for it. It allows you to define the rules by only using predicate identifiers. There are no magical options, conditionals and custom validation blocks known from other libraries. The focus is on pure validation logic expressed in a concise way.
+* [Structural validation](/gems/dry-schema/optional-keys-and-values) where key presence can be verified separately from values. This removes ambiguity related to "presence" validation where you don't know if value is indeed `nil` or if a key is missing in the input hash
+* [Pre-coercion validation using filtering rules](/gems/dry-schema/advanced/filtering)
+* Explicit coercion logic - rather than implementing complex generic coercions, `dry-schema` uses coercion types from `dry-types` which are faster and more strict than generic coercions
+* Support for [validating array elements](/gems/dry-schema/basics/macros#array) with convenient access to error messages
+* Powerful introspection - you have access to [key maps](/gems/dry-schema/advanced/key-maps) and detailed [Rule AST](/gems/dry-schema/advanced/rule-ast)
+* Performance - multiple times faster than validations based on `ActiveModel` and `strong parameters`
+* Configurable, localized error messages with or *without* `I18n` gem
 
-### When To Use?
+### When to use?
 
-Always and everywhere. This is a general-purpose validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
+Always and everywhere. This is a general-purpose data validation library that can be used for many things and **it's multiple times faster** than `ActiveRecord`/`ActiveModel::Validations` _and_ `strong-parameters`.
 
 Possible use-cases include validation of:
 
@@ -52,13 +59,15 @@ Possible use-cases include validation of:
 require 'dry/schema'
 
 UserSchema = Dry::Schema.Params do
-  required(:name).filled
-  required(:email).filled(format?: EMAIL_REGEX)
+  required(:name).filled(:string)
+  required(:email).filled(:string)
+
   required(:age).maybe(:integer)
-  required(:address).schema do
-    required(:street).filled
-    required(:city).filled
-    required(:zipcode).filled
+
+  required(:address).hash do
+    required(:street).filled(:string)
+    required(:city).filled(:string)
+    required(:zipcode).filled(:string)
   end
 end
 

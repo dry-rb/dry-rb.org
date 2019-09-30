@@ -16,6 +16,7 @@ sections:
   - custom-validation-blocks
   - dynamic-predicate-arguments
   - input-preprocessing
+  - type-specs
   - error-messages
   - comparison-with-activemodel
   - extensions

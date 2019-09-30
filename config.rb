@@ -1,9 +1,13 @@
-require "socket"
-require "better_errors"
-require "slim"
-require "lib/redcarpet_renderers"
-require "lib/typography_helpers"
-require "lib/models"
+# frozen_string_literal: true
+
+require 'socket'
+require 'better_errors'
+require 'slim'
+
+$LOAD_PATH.unshift(Pathname(__dir__).join('lib').realpath)
+
+require 'byebug' if ENV['DEBUG']
+require 'site'
 
 use BetterErrors::Middleware
 
@@ -16,49 +20,54 @@ activate :dotenv
 
 # Public site settings
 # Pulled from `site.yaml`. Exposed as `site.setting_name` in templates.
-set :site, YAML::load_file(File.dirname(__FILE__) + "/site.yaml").to_hashugar
+set :site, YAML.load_file(File.dirname(__FILE__) + '/site.yaml').to_hashugar
 
 Time.zone = config.site.timezeone
 
-set :site_title, "dry-rb"
-set :site_url, "http://dry-rb.org"
-set :site_description, "dry-rb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby."
-set :site_keywords, "dry-rb, ruby, micro-libraries"
+set :site_title, 'dry-rb'
+set :site_url, 'http://dry-rb.org'
+set :site_description, 'dry-rb is a collection of micro-libraries, each intended to encapsulate a common task in Ruby.'
+set :site_keywords, 'dry-rb, ruby, micro-libraries'
 
 # Configuration ----------------------------------------------------------------
 
 # General configuration for Middleman assets
-set :build_dir,  "docs"
-set :css_dir,    "assets/stylesheets"
-set :js_dir,     "assets/javascripts"
-set :images_dir, "images"
-set :fonts_dir,  "fonts"
-set :vendor_dir, "vendor"
+set :build_dir,  'docs'
+set :css_dir,    'assets/stylesheets'
+set :js_dir,     'assets/javascripts'
+set :images_dir, 'images'
+set :fonts_dir,  'fonts'
+set :vendor_dir, 'vendor'
 
 activate :external_pipeline,
-  name: :webpack,
-  command:
-    (if build?
-      "./node_modules/webpack/bin/webpack.js --bail"
-    else
-      "./node_modules/webpack/bin/webpack.js --watch -d"
-    end),
-  source: ".tmp/dist",
-  latency: 1
+         name: :webpack,
+         command:
+           (if build?
+              './node_modules/webpack/bin/webpack.js --bail'
+            else
+              './node_modules/webpack/bin/webpack.js --watch -d'
+           end),
+         source: '.tmp/dist',
+         latency: 1
 
-activate :syntax, css_class: "syntax"
+activate :syntax, css_class: 'syntax'
 
 set :markdown_engine, :redcarpet
-set :markdown,        fenced_code_blocks: true,
-                      autolink: true,
-                      smartypants: true,
-                      hard_wrap: true,
-                      smart: true,
-                      superscript: true,
-                      no_intra_emphasis: true,
-                      lax_spacing: true,
-                      with_toc_data: true,
-                      tables: true
+
+set(
+  :markdown,
+  renderer: Site::Markdown::Renderer,
+  fenced_code_blocks: true,
+  autolink: true,
+  smartypants: true,
+  hard_wrap: true,
+  smart: true,
+  superscript: true,
+  no_intra_emphasis: true,
+  lax_spacing: true,
+  with_toc_data: true,
+  tables: true
+)
 
 Slim::Embedded.set_options(
   markdown: {
@@ -77,9 +86,6 @@ Slim::Embedded.set_options(
 
 # Activate various extensions --------------------------------------------------
 
-# Make sure that livereload uses the host FQDN so we can use it across network
-activate :livereload, host: 'localhost'
-
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 # Time.zone = "UTC"
@@ -90,13 +96,13 @@ activate :livereload, host: 'localhost'
 
 activate :blog do |blog|
   # This will add a prefix to all links, template references and source paths
-  blog.prefix = "/news"
+  blog.prefix = '/news'
 
   # Matcher for blog source files
-  blog.sources = "{year}-{month}-{day}.html"
+  blog.sources = '{year}-{month}-{day}.html'
 
   # blog.taglink = "tags/{tag}.html"
-  blog.layout = "news-single"
+  blog.layout = 'news-single'
   blog.summary_separator = /(READMORE)/
   # blog.summary_length = 250
   # blog.year_link = "{year}.html"
@@ -110,10 +116,10 @@ activate :blog do |blog|
   # Enable pagination
   blog.paginate = true
   blog.per_page = 20
-  blog.page_link = "page/{num}"
+  blog.page_link = 'page/{num}'
 end
 
-page "/feed.xml", layout: false
+page '/feed.xml', layout: false
 
 # Output everything as a `/directory/index.html` instead of individual files
 activate :directory_indexes
@@ -150,9 +156,9 @@ activate :directory_indexes
 # proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
 #  which_fake_page: "Rendering a fake page with a local variable" }
 
-page "/", layout: "base"
-page "/news/*", layout: "news-single"
-page "*.json"
+page '/', layout: 'base'
+page '/news/*', layout: 'news-single'
+page '*.json'
 
 ###
 # Helpers
@@ -162,7 +168,7 @@ page "*.json"
 # activate :automatic_image_sizes
 
 helpers do
-  VERSION_REGEX = %r{([\d\.]+)\/}
+  VERSION_REGEX = %r{([\d\.]+)\/}.freeze
 
   def page_title
     [config[:site_title], page_header, current_page.data.title].compact.join(' - ')
@@ -186,13 +192,14 @@ helpers do
   end
 
   def nav
-    if current_project && has_version?(current_resource.url)
-      url = "#{current_resource.url.split('/')[0..3].join('/')}/"
-    else
-      url = "#{current_resource.url.split('/')[0..2].join('/')}/"
-    end
+    url =
+      if current_project && has_version?(current_resource.url)
+        current_resource.url.split('/')[0..3].join('/')
+      else
+        current_resource.url.split('/')[0..2].join('/')
+      end
 
-    root = sitemap.resources.detect { |page| page.url == url }
+    root = sitemap.resources.find { |page| page.url == "#{url}/" }
 
     raise "page for #{url} not found" unless root
 
@@ -209,7 +216,12 @@ helpers do
       classes = []
       classes << 'active' if current_resource.url == page.url
 
-      url = has_version?(page.url) ? page.url : set_version(page.url, current_project.fallback_version)
+      url =
+        if has_version?(page.url)
+          page.url
+        else
+          set_version(page.url, current_project.fallback_version)
+        end.gsub(%r{/$}, '').gsub('//', '/')
 
       html = link_to(page.data.title, url, class: classes.join(' '))
 
@@ -223,30 +235,31 @@ helpers do
   end
 
   def nav_links(pages, root)
-    root.data.sections.map do |name|
+    root.data.sections.map { |name|
       page = pages.sort_by { |s| s.path.length }.detect { |r| r.path.include?(name) }
 
       raise "section #{name} not found" unless page
+
       nav_link(page)
-    end.join
+    }.join
   end
 
   # Returns a list of pages matching a specific type
   def list_pages_by_type(type)
     return [] unless type
 
-    sitemap.resources.select do |resource|
+    sitemap.resources.select { |resource|
       resource.data.type == type
-    end.sort_by { |resource| resource.data.order }
+    }.sort_by { |resource| resource.data.order }
   end
 
   # Return a list of pages matching a specific group
   def list_pages_by_group(group)
     return [] unless group
 
-    sitemap.resources.select do |resource|
+    sitemap.resources.select { |resource|
       resource.data.group == group
-    end.sort_by { |resource| resource.data.order }
+    }.sort_by { |resource| resource.data.order }
   end
 
   def page
@@ -267,7 +280,7 @@ helpers do
   end
 
   def current_project
-    @current_project ||= Site.projects.detect{ |p| p.name == current_page.data.name }
+    @current_project ||= Middleman::Docsite.projects.detect { |p| p.name == current_page.data.name }
   end
 
   def versions_match?(v1, v2)
@@ -275,7 +288,7 @@ helpers do
     v1 == v2 || v1.nil? && v2 == fallback || v2.nil? && v1 == fallback
   end
 
-  def has_version?(url)
+  def has_version?(_url)
     !extract_version(page.url).nil?
   end
 
@@ -306,7 +319,7 @@ helpers do
   end
 end
 
-helpers TypographyHelpers
+helpers Site::Helpers
 
 # Build-specific configuration
 configure :build do

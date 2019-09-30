@@ -11,5 +11,5 @@ sections:
 
 Extensions available:
 
-  * [Monads](/gems/dry-validation/extensions/monads)
-  * [Struct](/gems/dry-validation/extensions/struct)
+  * [Monads](/gems/dry-validation/0.13/extensions/monads)
+  * [Struct](/gems/dry-validation/0.13/extensions/struct)

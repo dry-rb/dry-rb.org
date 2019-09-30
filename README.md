@@ -1,6 +1,6 @@
-[gitter]: https://gitter.im/dry-rb/chat
+[chat]: https://dry-rb.zulipchat.com
 
-# dry-rb.org [![Join the Gitter chat](https://badges.gitter.im/Join%20Chat.svg)][gitter]
+# dry-rb.org [![Join the chat at https://dry-rb.zulipchat.com](https://img.shields.io/badge/dry--rb-join%20chat-%23346b7a.svg)][chat]
 
 This is the [Middleman](https://middlemanapp.com)-generated [dry-rb.org website](http://dry-rb.org/).
 

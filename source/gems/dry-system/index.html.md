@@ -8,6 +8,7 @@ sections:
   - booting
   - auto-import
   - component-providers
+  - plugins
   - test-mode
 ---
 
@@ -43,7 +44,7 @@ This library is the backbone of [dry-web](https://github.com/dry-rb/dry-web), if
 
 ### Rails support
 
-There's no dedicated railtie for `dry-system` yet but we'd like to provide one at some point. Please [get in touch](https://gitter.im/dry-rb/chat) if you're interested in helping with this.
+There's no dedicated railtie for `dry-system` yet but we'd like to provide one at some point. Please [get in touch](https://dry-rb.zulipchat.com) if you're interested in helping with this.
 
 ### Credits
 

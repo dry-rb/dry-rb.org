@@ -1,10 +1,10 @@
 ---
-title: Built-in Predicates
+title: Built-in predicates
 layout: gem-single
 name: dry-schema
 ---
 
-## Basic
+The DSL supports many built-in predicates that can be used to verify validity of the input. If the predicates do not meet your requirements, you probably want to look at [dry-validation](/gems/dry-validation) which offers a more advanced way of defining validations.
 
 ### `nil?`
 
@@ -327,6 +327,94 @@ describe 'size?' do
   it 'with dry-schema' do
     assert schema.call(sample: [1, 2, 3]).success?
     assert schema.call(sample: 'foo').success?
+  end
+end
+```
+
+### `max_bytesize?`
+
+String's bytesize is less than or equal to the given value.
+
+```ruby
+describe 'max_bytesize?' do
+  let(:schema) do
+    Dry::Schema.Params do
+      required(:sample).value(max_bytesize?: 3)
+    end
+  end
+
+  it 'with regular ruby' do
+    assert 'こ'.byte <= 3
+  end
+
+  it 'with dry-schema' do
+    assert schema.call(sample: 'こ').success?
+  end
+end
+```
+
+### `min_bytesize?`
+
+String's bytesize is greater than or equal to the given value.
+
+```ruby
+describe 'min_binsize?' do
+  let(:schema) do
+    Dry::Schema.Params do
+      required(:sample).value(min_bytesize?: 3)
+    end
+  end
+
+  it 'with regular ruby' do
+    assert 'こ'.byte <= 3
+  end
+
+  it 'with dry-schema' do
+    assert schema.call(sample: 'こ').success?
+  end
+end
+```
+
+### `bytesize?(int)`
+
+Checks that an array's size (or a string's length) is equal to the given value.
+
+```ruby
+describe 'bytesize?' do
+  let(:schema) do
+    Dry::Schema.Params do
+      required(:sample).value(bytesize?: 3)
+    end
+  end
+
+  it 'with regular ruby' do
+    assert 'こ'.byte <= 3
+  end
+
+  it 'with dry-schema' do
+    assert schema.call(sample: 'こ').success?
+  end
+end
+```
+
+### `bytesize?(range)`
+
+Checks that an array's size (or a string's length) is within a range of values.
+
+```ruby
+describe 'bytesize?' do
+  let(:schema) do
+    Dry::Schema.Params do
+      required(:sample).value(bytesize?: 0..3)
+    end
+  end
+
+  it 'with regular ruby' do
+    assert (0..3).include?('こ'.size)
+  end
+
+  it 'with dry-schema' do
+    assert schema.call(sample: 'こ').success?
   end
 end
 ```

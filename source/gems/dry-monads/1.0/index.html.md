@@ -5,14 +5,18 @@ layout: gem-single
 type: gem
 name: dry-monads
 sections:
+  - getting-started
   - maybe
   - result
+  - do-notation
   - try
   - list
-  - case-equality
   - task
-  - do-notation
   - validated
+  - case-equality
+  - tracing-failures
+  - pattern-matching
+  - unit
 ---
 
 dry-monads is a set of common monads for Ruby. Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the `if`s and `else`s. The gem was inspired by the [Kleisli](https://github.com/txus/kleisli) gem.
@@ -26,7 +30,7 @@ Moreover, the best way to develop intuition about monads is looking at examples 
 Let's say you have code like this
 
 ```ruby
-user = User.find(params[:id])
+user = User.find_by(id: params[:id])
 
 if user
   address = user.address
@@ -52,24 +56,24 @@ Writing code in this style is tedious and error-prone. There were created severa
 When all objects from the chain of objects are there we could have this instead:
 
 ```ruby
-state_name = User.find(params[:id]).address.city.state.name
+state_name = User.find_by(id: params[:id]).address.city.state.name
 user_state = state_name || "No state"
 ```
 
 By using the `Maybe` monad you can preserve the structure of this code at a cost of introducing a notion of `nil`-able result:
 
 ```ruby
-state_name = Maybe(User.find(params[:id])).fmap(&:address).fmap(&:city).fmap(&:state).fmap(&:name)
+state_name = Maybe(User.find_by(id: params[:id])).maybe(&:address).maybe(&:city).maybe(&:state).maybe(&:name)
 user_state = state_name.value_or("No state")
 ```
 
-`Maybe(...)` wraps the first value and returns a monadic value which either can be a `Some(user)` or `None` if `user` is `nil`. `fmap(&:address)` transforms `Some(user)` to `Some(address)` but leaves `None` intact. To get the final value you can use `value_or` which is a safe way to unwrap a `nil`-able value. In other words, once you've used `Maybe` you _cannot_ hit `nil` with a missing method. This is remarkable because even `&.` doesn't save you from omitting `|| "No state"` at the end of the computation. Basically, that's what they call "Type Safety".
+`Maybe(...)` wraps the first value and returns a monadic value which either can be a `Some(user)` or `None` if `user` is `nil`. `maybe(&:address)` transforms `Some(user)` to `Some(address)` but leaves `None` intact. To get the final value you can use `value_or` which is a safe way to unwrap a `nil`-able value. In other words, once you've used `Maybe` you _cannot_ hit `nil` with a missing method. This is remarkable because even `&.` doesn't save you from omitting `|| "No state"` at the end of the computation. Basically, that's what they call "Type Safety".
 
 A more expanded example is based on _composing_ different monadic values. Suppose, we have a user and address, both can be `nil`, and we want to associate the address with the user:
 
 ```ruby
-user = User.find(params[:user_id])
-address = Address.find(params[:address_id])
+user = User.find_by(id: params[:user_id])
+address = Address.find_by(id: params[:address_id])
 
 if user && address
   user.update(address_id: address.id)
@@ -79,10 +83,10 @@ end
 Again, this implies direct work with `nil`-able values which may end up with errors. A monad-way would be using another method, `bind`:
 
 ```ruby
-maybe_user = Maybe(User.find(params[:user_id]))
+maybe_user = Maybe(User.find_by(id: params[:user_id]))
 
 maybe_user.bind do |user|
-  maybe_address = Maybe(Address.find(params[:address_id]))
+  maybe_address = Maybe(Address.find_by(id: params[:address_id]))
 
   maybe_address.bind do |address|
     user.update(address_id: address.id)
@@ -113,7 +117,7 @@ Another widely spread monad is `Result` (also known as `Either`) that serves a s
 
 ```ruby
 def find_user(user_id)
-  user = User.find(user_id)
+  user = User.find_by(id: user_id)
 
   if user
     Success(user)
@@ -123,7 +127,7 @@ def find_user(user_id)
 end
 
 def find_address(address_id)
-  address = Address.find(address_id)
+  address = Address.find_by(id: address_id)
 
   if address
     Success(address)

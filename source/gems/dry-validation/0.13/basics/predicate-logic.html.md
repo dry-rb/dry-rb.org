@@ -38,7 +38,7 @@ end
 
 `:age` rule is successful when `filled?` returns `false`, or when both predicates return `true`.
 
-> [Optional keys](/gems/dry-validation/optional-keys-and-values) are defined using `implication`, that's why a missing key will not cause its rules to be applied and the whole key rule will be successful
+> [Optional keys](/gems/dry-validation/0.13/optional-keys-and-values) are defined using `implication`, that's why a missing key will not cause its rules to be applied and the whole key rule will be successful
 
 ### Exclusive Disjunction (xor)
 
@@ -55,7 +55,7 @@ end
 
 `:be_reasonable` rule is only successful when one of the values equals to `yes`.
 
-> Learn more about [high-level rules](/gems/dry-validation/high-level-rules)
+> Learn more about [high-level rules](/gems/dry-validation/0.13/high-level-rules)
 
 ## Operator Aliases
 

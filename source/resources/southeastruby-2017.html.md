@@ -59,4 +59,4 @@ To learn more about rom-rb 4.0, check out [Piotr Solnica](https://github.com/sol
 
 ## Get involved!
 
-Questions? Join our friendly [dry-rb chat](https://gitter.im/dry-rb/chat) and [rom-rb chat](https://gitter.im/dry-rb/chat). We’d love to see you there!
+Questions? Join our friendly [dry-rb chat](https://dry-rb.zulipchat.com) and [rom-rb chat](https://dry-rb.zulipchat.com). We’d love to see you there!

@@ -1,5 +1,5 @@
 ---
-title: Working With Schemas
+title: Working with schemas
 layout: gem-single
 name: dry-schema
 ---
@@ -10,12 +10,11 @@ Schema definition best practices:
 
 - Be specific about the exact shape of the data, define all the keys that you expect to be present
 - Specify optional keys too, even if you don't need additional rules to be applied to their values
-- Specify type expectations for all the values!
-- Use custom predicates to keep things concise when built-in predicates create too much noise
+- **Specify type specs** for all the values
 - Assign schema objects to constants for convenient access
 - Define a base schema for your application with common configuration
 
-### Calling a Schema
+### Calling a schema
 
 Calling a schema will apply all its rules to the input. High-level rules defined with the `rule` API are applied in a second step and they are guarded, which means if the values they depend on are not valid, nothing will crash and a high-level rule will not be applied.
 
@@ -23,8 +22,8 @@ Example:
 
 ```ruby
 schema = Dry::Schema.Params do
-  required(:email).filled
-  required(:age).filled
+  required(:email).filled(:string)
+  required(:age).filled(:integer)
 end
 
 result = schema.call(email: 'jane@doe.org', age: 21)
@@ -42,12 +41,12 @@ result.failure?
 # => false
 ```
 
-### Defining Base Schema Class
+### Defining base schema class
 
 ```ruby
 class AppSchema < Dry::Schema::Params
-  config.messages_file = '/my/app/config/locales/en.yml'
-  config.messages = :i18n
+  config.messages.load_paths << '/my/app/config/locales/en.yml'
+  config.messages.backend = :i18n
 
   define do
     # define common rules, if any
@@ -62,7 +61,7 @@ end
 my_schema = MySchema.new
 ```
 
-### Working With Error Messages
+### Working with error messages
 
 The result object returned by `Schema#call` provides an API to convert error objects to human-friendly messages.
 
@@ -70,49 +69,44 @@ The result object returned by `Schema#call` provides an API to convert error obj
 result = schema.call(email: nil, age: 21)
 
 # get default errors
-result.errors
+result.errors.to_h
 # => {:email=>['must be filled']}
 
 # get full errors
-result.errors(full: true)
+result.errors(full: true).to_h
 # => {:email=>['email must be filled']}
 
 # get errors in another language
-result.errors(locale: :pl)
+result.errors(locale: :pl).to_h
 # => {:email=>['musi być wypełniony']}
 ```
 
-### Using Validation Hints
+### Checking presence of errors
 
-In addition to error messages you can also access hints, which are generated from your rules. While `errors` tells you which predicate checks failed, `hints` tells you which additional predicate checks weren't evaluated at all because an earlier predicate failed:
+You can ask result object if there are any errors under given path.
 
-```ruby
+``` ruby
 schema = Dry::Schema.Params do
-  required(:email).filled
-  required(:age).filled(gt?: 18)
+  required(:name).filled(:string)
+  optional(:tags).array(:str?)
 end
-result = schema.call(email: 'jane@doe.org', age: '')
-result.hints
-# {:age=>['must be greater than 18']}
 
-result = schema.call(email: 'jane@doe.org', age: '')
+result = schema.call(name: "", tags: ["red", 123])
 
-result.errors
-# {:age=>['must be filled']}
+result.error?(:name)
+# => true
 
-result.hints
-# {:age=>['must be greater than 18']}
-# hints takes the same options as errors:
-result.hints(full: true)
-# {:age=>['age must be greater than 18']}
+result.error?(:tags)
+# => true
+
+result.error?([:tags, 0])
+# => false
+
+result.error?([:tags, 1])
+# => true
 ```
 
-You can also use `messages` to get a combination of both errors and hints:
+### Learn more
 
-```ruby
-result = schema.call(email: 'jane@doe.org', age: '')
-result.messages
-# {:age=>["must be filled", "must be greater than 18"]}
-```
-
-> Learn more about customizing [error and hint messages](/gems/dry-schema/error-messages)
+- [Customizing messages](/gems/dry-schema/error-messages)
+- [Validation hints](/gems/dry-schema/extensions/hints)

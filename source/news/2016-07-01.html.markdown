@@ -195,7 +195,7 @@ UserSchema.(data: "w00t").messages
 
 The default behavior for coercions is to automatically infer them from rule definitions. It’s smart and reduces code duplication; however, it turned out to be extremely slow. Furthermore, it's behaviour was a little too magical for our liking. That’s why we have decided to separate coercions from validation rules as of version 1.0.0. This release is the first step in that direction. The current API is not finalised so ideas and feedback are much appreciated!
 
-For more details on this feature [see our guide here](/gems/dry-validation/type-specs).
+For more details on this feature [see our guide here](/gems/dry-validation/0.13/type-specs).
 
 ## Extendible DSL
 
@@ -223,4 +223,4 @@ Feel free to experiment with this and if you discover any common patterns let us
 
 Yes, there’s more :) For detailed information about the changes and improvements please read the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v080-2016-07-01).
 
-Check out dry-validation and [tell us what you think](https://gitter.im/dry-rb/chat)!
+Check out dry-validation and [tell us what you think](https://dry-rb.zulipchat.com)!

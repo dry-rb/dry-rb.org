@@ -54,6 +54,9 @@ Predicates[:key?].(:name, {name: 'John'})
   - `size?`
   - `min_size?`
   - `max_size?`
+  - `bytesize?`
+  - `min_bytesize?`
+  - `max_bytesize?`
   - `inclusion?`
   - `exclusion?`
   - `included_in?`

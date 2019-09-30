@@ -1,11 +1,11 @@
 header
- .content-wrap
-   = partial "nav"
+  .content-wrap
+    = partial "nav"
 - if page.data.title
   .intro-page.intro-page--content
     .content-wrap
       .intro-page__inner
-         h1 == page.data.title
-         - if page.data.author
-           .news-article-meta
-             = "Published on #{I18n.l(current_page.data.date, format: :long)} by #{author_url}"
+        h1 == page.data.title
+        - if page.data.author
+          .news-article-meta
+            = "Published on #{I18n.l(current_page.data.date, format: :long)} by #{author_url}"

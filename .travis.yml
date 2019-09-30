@@ -1,6 +1,6 @@
 language: ruby
-sudo: false
 install:
+  - gem install bundler -v 2.0.1
   - bundle install --without development --jobs=3 --retry=3
   - yarn
 cache:

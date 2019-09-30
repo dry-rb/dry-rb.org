@@ -119,7 +119,7 @@ result.messages
 # {:age=>["must be filled", "must be greater than 18"]}
 ```
 
-> Learn more about customizing [error and hint messages](/gems/dry-validation/error-messages)
+> Learn more about customizing [error and hint messages](/gems/dry-validation/0.13/error-messages)
 
 ### Injecting External Dependencies
 

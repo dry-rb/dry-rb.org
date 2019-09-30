@@ -3,10 +3,9 @@ title: Basics
 layout: gem-single
 name: dry-schema
 sections:
-  - predicate-logic
-  - built-in-predicates
-  - type-specs
   - macros
+  - type-specs
+  - built-in-predicates
   - working-with-schemas
 ---
 
@@ -27,23 +26,22 @@ schema = Dry::Schema.Params do
   required(:age).filled(:integer, gt?: 18)
 end
 
-errors = schema.call(email: 'jane@doe.org', age: 19).messages
-
-puts errors.inspect
-# []
+schema.call(email: 'jane@doe.org', age: 19)
+# #<Dry::Schema::Result{:email=>"jane@doe.org", :age=>19} errors={}>
 
 schema.call("email" => "", "age" => "19")
-# #<Dry::Schema::Result{:email=>nil, :age=>19} errors={:email=>["must be filled"]}>
+# #<Dry::Schema::Result{:email=>"", :age=>19} errors={:email=>["must be filled"]}>
 ```
 
 When you apply this schema to an input, 3 things happen:
 
 1. Input keys are coerced to symbols using schema's key map
-2. Input value are coerced based on type specs
+2. Input values are coerced based on type specs
 3. Input keys and values are validated using defined schema rules
 
-Learn more:
+### Learn more
 
-- [Predicate logic](/gems/dry-schema/basics/predicate-logic)
 - [Macros](/gems/dry-schema/basics/macros)
-- [Working With Schemas](/gems/dry-schema/basics/working-with-schemas)
+- [Type specs](/gems/dry-schema/basics/type-specs)
+- [Built-in predicates](/gems/dry-schema/basics/built-in-predicates)
+- [Working with schemas](/gems/dry-schema/basics/working-with-schemas)

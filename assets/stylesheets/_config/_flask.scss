@@ -1,0 +1,82 @@
+// Flask
+$flask-color-base-white: #fff !default;
+$flask-color-base-black: #333 !default;
+$flask-color-base-beige: #f7f5f3 !default;
+$flask-color-base-purple: #a10d87 !default;
+$flask-color-base-red: #dc002e !default;
+$flask-color-base-blue: #169adb !default;
+
+$palettes: (
+  white: (
+    base: $flask-color-base-white,
+    light: lighten($flask-color-base-white, 15),
+    dark: darken($flask-color-base-white, 15)
+  ),
+
+  black: (
+    base: $flask-color-base-black,
+    light: lighten($flask-color-base-black, 15),
+    dark: darken($flask-color-base-black, 15)
+  ),
+
+  beige: (
+    base: $flask-color-base-beige,
+    light: lighten($flask-color-base-beige, 15),
+    semi-dark: darken($flask-color-base-beige, 5),
+    dark: darken($flask-color-base-beige, 15),
+    extra-dark: darken($flask-color-base-beige, 70)
+  ),
+
+  purple: (
+    base: $flask-color-base-purple,
+    extra-light: lighten($flask-color-base-purple, 60),
+    light: lighten($flask-color-base-purple, 15),
+    dark: darken($flask-color-base-purple, 15)
+  ),
+
+  red: (
+    base: $flask-color-base-red,
+    extra-light: lighten($flask-color-base-red, 54),
+    light: lighten($flask-color-base-red, 15),
+    dark: darken($flask-color-base-red, 15)
+  ),
+  
+  blue: (
+    base: $flask-color-base-blue,
+    extra-light: lighten($flask-color-base-blue, 45),
+    light: lighten($flask-color-base-blue, 15),
+    dark: darken($flask-color-base-blue, 15)
+  )
+);
+
+$palette-aliases: (
+  accent: purple
+);
+
+$fonts: (
+  open-sans: (
+    font-type: sans-serif,
+    regular: 'Work Sans'
+  ),
+  menlo: (
+    font-type: monospace,
+    regular: Menlo
+  )
+);
+
+$font-fallbacks: (
+  sans-serif: (
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif
+  ),
+  monospace: (
+    monospace
+  )
+);
+
+$font-aliases: (
+  primary: open-sans,
+  monospace: menlo
+);
