@@ -4,7 +4,7 @@ require 'site/markdown'
 
 Middleman::Docsite.configure do |config|
   config.root = Pathname(__dir__).join('..').realpath.freeze
-  config.project_class = Project
+  config.project_class = Site::Project
 end
 
 module Site
