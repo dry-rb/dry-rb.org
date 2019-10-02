@@ -30,3 +30,6 @@ source/**/.!*
 .ruby-gemset
 
 docs
+
+projects/*
+source/gems/*
