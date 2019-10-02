@@ -5,13 +5,14 @@ title: Home
 .row
   .content-wrap
     .home-taster
-      p.home-taster__intro Check out the examples below to get a taste for how our libraries work
+      p.home-taster__intro
+        | Check out the examples below to get a taste for how our libraries work
       .home-taster__code
         .taster#eg-validation
           .taster__header
             h3
-              a href="/gems/dry-validation/1.0" dry-validation
-            a.taster__link href="/gems/dry-validation/1.0" View docs
+              a href="/gems/dry-validation/" dry-validation
+            a.taster__link href="/gems/dry-validation/" View docs
           .taster__content
             .taster__summary
               markdown:
@@ -35,10 +36,10 @@ title: Home
 
                 contract.("name" => "Jane", "age" => "17").failure?
                 # => true
+
                 contract.("name" => "Jane", "age" => "17").errors.to_h
                 # => {:age=>["must be greater than 18"]}
                 ```
-
         .taster#eg-types
           .taster__header
             h3
@@ -47,14 +48,14 @@ title: Home
           .taster__content
             .taster__summary
               markdown:
-                Build your own strict data types, constraints and coercions with dry-types.
+                Build your own data types, constraints and coercions with dry-types.
             .taster__example
               markdown:
                 ```ruby
                 module Types
-                  include Dry::Types.module
+                  include Dry.Types
 
-                  Greeting = Strict::String.enum("Hello", "Hola")
+                  Greeting = String.enum("Hello", "Hola")
                 end
 
                 Types::Greeting["Hello"]
@@ -63,24 +64,35 @@ title: Home
                 Types::Greeting["Goodbye"]
                 # Dry::Types::ConstraintError: "Goodbye" violates constraints...
                 ```
-              p.code-caption Define types with constraints
-
+        .taster#eg-struct
+          .taster__header
+            h3
+              a href="/gems/dry-struct" dry-struct
+            a.taster__link href="/gems/dry-struct" View docs
+          .taster__content
+            .taster__summary
+              markdown:
+                Define your own data structs using typed attributes powered by dry-types.
+            .taster__example
               markdown:
                 ```ruby
                 class Person < Dry::Struct
-                  attribute :name, Types::Strict::String
-                  attribute :age, Types::Strict::Integer
+                  attribute :name, Types::String
+                  attribute :age, Types::Integer
                 end
 
                 Person.new(name: "Jane", age: 30)
                 # => #<Person name="Jane" age=30>
-                ```
-              p.code-caption Define strictly typed structs
 
-        .taster#eg-dependency-management
+                Person.new(name: "Jane", age: nil)
+                # Dry::Struct::Error ([Person.new] nil (NilClass) has invalid type for :age
+                #   violates constraints (type?(Integer, nil) failed))
+                ```
+        .taster#eg-system
           .taster__header
             h3
-              a href="/gems/dry-system" Dependency management
+              a href="/gems/dry-system" dry-system
+            a.taster__link href="/gems/dry-system" View docs
           .taster__content
             .taster__summary
               markdown:
@@ -112,11 +124,11 @@ title: Home
                 end
                 ```
               p.code-caption Build callable functional objects with automatic dependency resolution
-
         .taster#eg-monads-patterns
           .taster__header
             h3
-              a href="/gems/dry-monads" Monads & pattern matching
+              a href="/gems/dry-monads" dry-monads
+            a.taster__link href="/gems/dry-monads" View docs
           .taster__content
             .taster__summary
               markdown:
@@ -128,6 +140,7 @@ title: Home
 
                 # If user with address exists
                 # => Some("Street Address")
+
                 # If user or address is nil
                 # => None()
                 ```
@@ -136,7 +149,7 @@ title: Home
               markdown:
                 ```ruby
                 class CreateArticle
-                  include Dry::Monads::Result::Mixin
+                  include Dry::Monads[:result]
                   include Dry::Matcher.for(:call, with: Dry::Matcher::ResultMatcher)
 
                   def call(input)
@@ -150,6 +163,7 @@ title: Home
                 end
 
                 create = CreateArticle.new
+
                 create.(input) do |m|
                   m.success do |output|
                     # Handle success
