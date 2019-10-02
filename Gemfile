@@ -11,7 +11,7 @@ gem "middleman-dotenv"
 gem "middleman-minify-html"
 gem "middleman-blog"
 gem "middleman-syntax"
-gem "middleman-docsite", git: "https://github.com/solnic/middleman-docsite", branch: "master"
+gem "middleman-docsite", git: "https://github.com/solnic/middleman-docsite", branch: "doc-importer"
 
 # Formats
 gem "redcarpet"

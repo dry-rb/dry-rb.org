@@ -6,7 +6,6 @@ module Site
   class Project < Middleman::Docsite::Project
     attribute(:name, Types::String)
     attribute(:desc, Types::String)
-    attribute?(:versions, Types::Array.default { [] })
     attribute?(:current_version, Types::String)
     attribute?(:fallback_version, Types::String)
 
