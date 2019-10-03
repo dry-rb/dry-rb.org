@@ -6,27 +6,9 @@ module Site
   class Project < Middleman::Docsite::Project
     attribute(:name, Types::String)
     attribute(:desc, Types::String)
-    attribute?(:current_version, Types::String)
-    attribute?(:fallback_version, Types::String)
 
-    # Convert this config:
-    #
-    # versions:
-    # - "0.4"
-    # - code: "1.0"
-    #   name: "1.0 beta3"
-    #
-    # into this:
-    #
-    # [{code: "0.4", name: "0.4"}, {code: "1.0", name: "1.0 beta3"}]
-    def version_variants
-      versions.map do |version|
-        if version.is_a?(String)
-          { code: version, name: version }
-        else
-          { code: version['code'], name: version['name'] }
-        end
-      end
+    def repo
+      "https://github.com/#{org}/#{name}.git"
     end
 
     def opened_issues_badge
