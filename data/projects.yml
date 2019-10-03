@@ -3,13 +3,11 @@
   repo: "https://github.com/dry-rb/dry-validation.git"
   versions:
     -
-      version: "1.0"
+      value: "1.0"
       branch: "docsite-1.0"
     -
-      version: "0.13"
+      value: "0.13"
       branch: "docsite-0.13"
-  current_version: "1.0"
-  fallback_version: "1.0"
 - name: dry-schema
   desc: Schema coercion & validation
 - name: dry-types

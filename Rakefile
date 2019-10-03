@@ -22,8 +22,10 @@ namespace :projects do
     projects = site.projects
 
     projects.select(&:repo?).each do |project|
-      site.clone_repo(project)
-      site.symlink_repo(project, branch: 'docsite-1.0')
+      project.versions.each do |version|
+        site.clone_repo(project, branch: version[:branch])
+        site.symlink_repo(project, version)
+      end
     end
   end
 end
