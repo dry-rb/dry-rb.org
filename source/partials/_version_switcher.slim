@@ -1,7 +1,8 @@
-- unless current_project.version_variants.empty?
-  h3.sidebar__version
-    'Version:
-    select#sidebar__version-switcher
-      - current_project.version_variants.each do |code:, name:|
-        option value="/gems/#{current_project}/#{code}" selected=("selected" if versions_match?(code, version))
-          = name
+h3.sidebar__version
+  'Version:
+  select#sidebar__version-switcher
+    - current_project.versions.each do |version|
+      - label = version[:value]
+      - value = "/gems/#{current_project}/#{label}"
+      option value=value selected=("selected" if current_version.eql?(label))
+        = label

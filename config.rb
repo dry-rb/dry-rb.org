@@ -167,6 +167,8 @@ page '*.json'
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
+# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/AbcSize
 helpers do
   VERSION_REGEX = %r{([\d\.]+)\/}.freeze
 
@@ -248,18 +250,18 @@ helpers do
   def list_pages_by_type(type)
     return [] unless type
 
-    sitemap.resources.select { |resource|
-      resource.data.type == type
-    }.sort_by { |resource| resource.data.order }
+    sitemap.resources
+      .select { |resource| resource.data.type == type }
+      .sort_by { |resource| resource.data.order }
   end
 
   # Return a list of pages matching a specific group
   def list_pages_by_group(group)
     return [] unless group
 
-    sitemap.resources.select { |resource|
-      resource.data.group == group
-    }.sort_by { |resource| resource.data.order }
+    sitemap.resources
+      .select { |resource| resource.data.group == group }
+      .sort_by { |resource| resource.data.order }
   end
 
   def page
@@ -283,11 +285,6 @@ helpers do
     @current_project ||= Middleman::Docsite.projects.detect { |p| p.name == current_page.data.name }
   end
 
-  def versions_match?(v1, v2)
-    fallback = current_project.fallback_version
-    v1 == v2 || v1.nil? && v2 == fallback || v2.nil? && v1 == fallback
-  end
-
   def has_version?(_url)
     !extract_version(page.url).nil?
   end
@@ -296,7 +293,7 @@ helpers do
     url[VERSION_REGEX, 1]
   end
 
-  def version
+  def current_version
     extract_version(current_path) || current_project.fallback_version
   end
 
@@ -318,6 +315,8 @@ helpers do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
+# rubocop:disable Metrics/AbcSize
 
 helpers Site::Helpers
 
