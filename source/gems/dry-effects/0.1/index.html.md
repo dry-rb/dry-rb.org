@@ -63,7 +63,7 @@ RSpec.describe CreatePost do
   subject(:create_post) { described_class.new }
 
   it 'updates the counter' do
-    counter, post = with_counter(0) { create_port.(post_values) }
+    counter, post = with_counter(0) { create_post.(post_values) }
 
     expect(counter).to be(1)
   end
