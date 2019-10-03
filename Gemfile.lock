@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/solnic/middleman-docsite
-  revision: a300c8359db26827b46b8503c6168cc21ca805cc
+  revision: c39d6917c9eaf568e5c1405417e6d446879c2c95
   branch: doc-importer
   specs:
     middleman-docsite (0.1.0)
