@@ -11,6 +11,10 @@ module Site
       "https://github.com/#{org}/#{name}.git"
     end
 
+    def current_version
+      versions.max_by { |version| version[:value] }[:value]
+    end
+
     def opened_issues_badge
       "https://img.shields.io/github/issues/dry-rb/#{name}.svg?branch=master&style=flat"
     end
