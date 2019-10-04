@@ -10,7 +10,7 @@ branches:
   only:
   - master
 script:
-- bundle exec middleman build
+  - bundle exec rake projects:symlink && bundle exec middleman build
 deploy:
   fqdn: dry-rb.org
   local_dir: docs
