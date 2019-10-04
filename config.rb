@@ -124,41 +124,19 @@ page '/feed.xml', layout: false
 # Output everything as a `/directory/index.html` instead of individual files
 activate :directory_indexes
 
-# Page options -----------------------------------------------------------------
-
-###
-# Page options, layouts, aliases and proxies
-###
-
-# Per-page layout changes:
-#
-#   page "/path/to/file.html", layout: :otherlayout
-# With no layout
-# page "/path/to/file.html", layout: false
-#
-# A path which all have the same layout:
-# With alternative layout
-# page "/path/to/file.html", layout: :otherlayout
-#
-#   with_layout :admin do
-#     page "/admin/*"
-#   end
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
-
-# Proxy (fake) files:
-#   page "/this-page-has-no-template.html", proxy: "/template-file.html" do
-#     @which_fake_page = "Rendering a fake page with a variable"
-#   end
-# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
-#  which_fake_page: "Rendering a fake page with a local variable" }
-
 page '/', layout: 'base'
 page '/news/*', layout: 'news-single'
 page '*.json'
+
+Middleman::Docsite.projects.each do |project|
+  proxy(
+    "/gems/#{project.name}/index.html",
+    '/gem-index-redirect.html',
+    locals: { path: "/gems/#{project.name}/#{project.current_version}" },
+    layout: false,
+    ignore: true
+  )
+end
 
 ###
 # Helpers
@@ -167,6 +145,8 @@ page '*.json'
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
+# rubocop:disable Metrics/BlockLength
+# rubocop:disable Metrics/AbcSize
 helpers do
   VERSION_REGEX = %r{([\d\.]+)\/}.freeze
 
@@ -248,18 +228,18 @@ helpers do
   def list_pages_by_type(type)
     return [] unless type
 
-    sitemap.resources.select { |resource|
-      resource.data.type == type
-    }.sort_by { |resource| resource.data.order }
+    sitemap.resources
+      .select { |resource| resource.data.type == type }
+      .sort_by { |resource| resource.data.order }
   end
 
   # Return a list of pages matching a specific group
   def list_pages_by_group(group)
     return [] unless group
 
-    sitemap.resources.select { |resource|
-      resource.data.group == group
-    }.sort_by { |resource| resource.data.order }
+    sitemap.resources
+      .select { |resource| resource.data.group == group }
+      .sort_by { |resource| resource.data.order }
   end
 
   def page
@@ -283,11 +263,6 @@ helpers do
     @current_project ||= Middleman::Docsite.projects.detect { |p| p.name == current_page.data.name }
   end
 
-  def versions_match?(v1, v2)
-    fallback = current_project.fallback_version
-    v1 == v2 || v1.nil? && v2 == fallback || v2.nil? && v1 == fallback
-  end
-
   def has_version?(_url)
     !extract_version(page.url).nil?
   end
@@ -296,7 +271,7 @@ helpers do
     url[VERSION_REGEX, 1]
   end
 
-  def version
+  def current_version
     extract_version(current_path) || current_project.fallback_version
   end
 
@@ -318,6 +293,8 @@ helpers do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
+# rubocop:disable Metrics/AbcSize
 
 helpers Site::Helpers
 
