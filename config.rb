@@ -129,9 +129,13 @@ page '/news/*', layout: 'news-single'
 page '*.json'
 
 Middleman::Docsite.projects.each do |project|
-  proxy "/gems/#{project.name}/index.html", '/gem-index-redirect.html', locals: {
-    project: project
-  }
+  proxy(
+    "/gems/#{project.name}/index.html",
+    '/gem-index-redirect.html',
+    locals: { path: "/gems/#{project.name}/#{project.current_version}" },
+    layout: false,
+    ignore: true
+  )
 end
 
 ###
