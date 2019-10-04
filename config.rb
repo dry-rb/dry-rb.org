@@ -124,41 +124,15 @@ page '/feed.xml', layout: false
 # Output everything as a `/directory/index.html` instead of individual files
 activate :directory_indexes
 
-# Page options -----------------------------------------------------------------
-
-###
-# Page options, layouts, aliases and proxies
-###
-
-# Per-page layout changes:
-#
-#   page "/path/to/file.html", layout: :otherlayout
-# With no layout
-# page "/path/to/file.html", layout: false
-#
-# A path which all have the same layout:
-# With alternative layout
-# page "/path/to/file.html", layout: :otherlayout
-#
-#   with_layout :admin do
-#     page "/admin/*"
-#   end
-# A path which all have the same layout
-# with_layout :admin do
-#   page "/admin/*"
-# end
-
-# Proxy (fake) files:
-#   page "/this-page-has-no-template.html", proxy: "/template-file.html" do
-#     @which_fake_page = "Rendering a fake page with a variable"
-#   end
-# Proxy pages (http://middlemanapp.com/basics/dynamic-pages/)
-# proxy "/this-page-has-no-template.html", "/template-file.html", locals: {
-#  which_fake_page: "Rendering a fake page with a local variable" }
-
 page '/', layout: 'base'
 page '/news/*', layout: 'news-single'
 page '*.json'
+
+Middleman::Docsite.projects.each do |project|
+  proxy "/gems/#{project.name}/index.html", '/gem-index-redirect.html', locals: {
+    project: project
+  }
+end
 
 ###
 # Helpers
