@@ -272,7 +272,7 @@ helpers do
   end
 
   def current_version
-    extract_version(current_path) || current_project.fallback_version
+    extract_version(current_path)
   end
 
   def set_version(url, new_version)
