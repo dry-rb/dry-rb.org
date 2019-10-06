@@ -1,0 +1,12 @@
+form.searchbox
+  input.form-control#search-input type="text" 
+
+script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+
+javascript:
+  docsearch({
+    apiKey: '25626fae796133dc1e734c6bcaaeac3c',
+    indexName: 'docsearch',
+    inputSelector: '#search-input',
+    debug: false // Set debug to true if you want to inspect the dropdown
+  });
