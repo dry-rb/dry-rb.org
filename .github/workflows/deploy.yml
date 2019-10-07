@@ -30,6 +30,6 @@ jobs:
       uses: peaceiris/actions-gh-pages@v1.1.0
       if: success()
       env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./build
