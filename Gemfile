@@ -3,8 +3,6 @@ source "https://rubygems.org"
 # For feed.xml.builder
 gem "builder", "~> 3.0"
 
-gem "dry-initializer"
-
 # Middleman
 gem "middleman", "5.0.0.rc.1"
 gem "middleman-dotenv"
