@@ -1,0 +1,33 @@
+name: Auto Deployment to Github Pages
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        version: 2.6.x
+    - name: Setup Ruby Dependencies
+      run: |
+        gem update bundler
+        bundle install --jobs 4 --retry 3
+    - name: Install Node
+      uses: actions/setup-node@v1
+      with:
+        version: 6.11.4
+    - name: Setup Node Dependencies
+      run: yarn install
+    - name: Build Middle Site
+      run: bundle exec middleman build --verbose
+    - name: Deploy to Github Pages
+      uses: peaceiris/actions-gh-pages@v1.1.0
+      if: success()
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./build
