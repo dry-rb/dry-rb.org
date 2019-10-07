@@ -18,7 +18,7 @@ module Site
       end
 
       def link_to_docs(section, title)
-        path = ['gems', project.name, version, section].join('/')
+        path = ['/gems', project.name, version, section].join('/')
         scope.link_to(title, path)
       end
 
