@@ -8,18 +8,18 @@ module Site
     class Renderer < Middleman::Docsite::Markdown::Renderer
       include Helpers
 
-      def link(title, path, target)
-        if target.start_with?('docs::')
-          *, section = target.split('::')
-          link_to_docs(section, title)
+      def link(title, path, label)
+        if title.start_with?('docs::')
+          *, section = title.split('::')
+          link_to_docs(section, label)
         else
           super
         end
       end
 
-      def link_to_docs(section, title)
+      def link_to_docs(section, label)
         path = ['/gems', project.name, version, section].join('/')
-        scope.link_to(title, path)
+        scope.link_to(label, path)
       end
 
       def version
