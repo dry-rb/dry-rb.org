@@ -22,6 +22,8 @@ jobs:
         version: 6.11.4
     - name: Setup Node Dependencies
       run: yarn install
+    - name: Import and symlink project docsites
+      run: bundle exec rake projects:symlink
     - name: Build Middle Site
       run: bundle exec middleman build --verbose
     - name: Deploy to Github Pages
