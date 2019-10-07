@@ -138,6 +138,8 @@ Middleman::Docsite.projects.each do |project|
   )
 end
 
+proxy('/gems/index.html', 'gems-index.html')
+
 ###
 # Helpers
 ###
