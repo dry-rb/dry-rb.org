@@ -13,6 +13,9 @@
     -
       value: "1.0"
       branch: "docsite-1.0"
+    -
+      value: "1.4"
+      branch: "release-1.4"
 - name: dry-types
   desc: Flexible type system with many built-in types
   versions:
