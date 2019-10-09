@@ -4,7 +4,7 @@ layout: gem-single
 name: dry-types
 ---
 
-## Using Type Objects for Validation
+## Using Constraint Objects for Validation
 
 _Type objects_ can be used to validate that the input satisfies the provided type. There's two approaches to validation.
 
