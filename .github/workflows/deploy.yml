@@ -27,10 +27,5 @@ jobs:
       run: bundle exec rake projects:symlink
     - name: Build Middleman site
       run: bundle exec middleman build
-    - name: Deploy to GitHub pages
-      uses: peaceiris/actions-gh-pages@v1.1.0
-      if: success()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./docs
+    - name: GitHub Pages Deploy
+      uses: maxheld83/ghpages@v0.2.1
