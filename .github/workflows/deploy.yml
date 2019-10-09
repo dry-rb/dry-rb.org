@@ -31,4 +31,4 @@ jobs:
       uses: maxheld83/ghpages@v0.2.1
       env:
         BUILD_DIR: "docs/"
-        GITHUB_TOKEN: secrets.GITHUB_TOKEN
+        GH_PAT: secrets.GITHUB_TOKEN
