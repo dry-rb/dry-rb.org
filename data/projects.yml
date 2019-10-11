@@ -20,6 +20,9 @@
   desc: Flexible type system with many built-in types
   versions:
     -
+      value: "1.2"
+      branch: "release-1.2"
+    -
       value: "1.0"
       branch: "docsite-1.0"
     -
