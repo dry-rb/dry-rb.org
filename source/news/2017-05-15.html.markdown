@@ -45,7 +45,7 @@ class AccountPart < Dry::View::Part
 end
 ```
 
-This is nice, but so far it’s just typical delegator-style behaviour. We can do more: these things are called _view_ parts for a reason! Every view part is initialised with the view’s current [context object](http://dry-rb.org/gems/dry-view/context/) and renderer. This means the view part can now encapsulate much of the logic you’d otherwise have to scatter around your templates.
+This is nice, but so far it’s just typical delegator-style behaviour. We can do more: these things are called _view_ parts for a reason! Every view part is initialised with the view’s current [context object](http://dry-rb.org/gems/dry-view/0.7/context) and renderer. This means the view part can now encapsulate much of the logic you’d otherwise have to scatter around your templates.
 
 Let’s say our context object has `#attachment_url` and `#asset_url` methods, for generating URLs for user-uploaded files and application assets respectively. If you wanted to start showing a profile image for your “account” value, you could now do this:
 
@@ -72,4 +72,4 @@ The result? A cleaner template, and your view logic properly named and encapsula
 
 In this way, view parts provide a critical new layer for placing the majority of your complex view logic. They make your templates easier to understand and easier to work with, and they help ensure that your view layer isn’t where good code structure has to stop.
 
-Want to learn more? Check out [view parts in the dry-view documentation](http://dry-rb.org/gems/dry-view/view-parts/) and give dry-view 0.3.0 a try!
+Want to learn more? Check out [view parts in the dry-view documentation](http://dry-rb.org/gems/dry-view/0.7/parts) and give dry-view 0.3.0 a try!

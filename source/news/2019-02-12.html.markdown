@@ -28,7 +28,7 @@ And even with the previous name, we'd still end up calling these things "views" 
 
 ## Automatic part decoration
 
-[Parts](/gems/dry-view/parts/) are a major reason to use dry-view: they offer an easy, integrated place for encapsulating view-specific behaviour alongside the data it relates to.
+[Parts](/gems/dry-view/0.7/parts) are a major reason to use dry-view: they offer an easy, integrated place for encapsulating view-specific behaviour alongside the data it relates to.
 
 Until now, however, using a broad range of part classes involved specifying those classes by name, directly, for every exposure.
 
@@ -76,7 +76,7 @@ Along with this, parts can now be accessed via a new `Dry::View::Rendered` objec
 
 ## Customizable scopes!
 
-Until now, we’ve had exposures and parts to pass values to the template along with their view-specific behavior, and the context object to provide behavior common to all templates. But what about behavior that we want to provide to just a _single_ template or partial?For this, we now have [customizable scopes](/gems/dry-view/scopes/).
+Until now, we’ve had exposures and parts to pass values to the template along with their view-specific behavior, and the context object to provide behavior common to all templates. But what about behavior that we want to provide to just a _single_ template or partial?For this, we now have [customizable scopes](/gems/dry-view/0.7/scopes).
 
 Unlike parts, which decorate a single value, scopes have access to a template’s entire set of locals (as well as the context object, plus the methods to render partial or build other scopes). This gives you another logical place to provide some custom view behavior that can still access all the other features of the system.
 
@@ -127,7 +127,7 @@ Rendering a scope like this will look for a partial matching the scope’s own n
 
 ## Context object can decorate attributes
 
-[Context](/gems/dry-view/context) classes must now inherit from `Dry::View::Context`. This brings the ability for context classes to specify which of their attributes should be decorated with parts.
+[Context](/gems/dry-view/0.7/context) classes must now inherit from `Dry::View::Context`. This brings the ability for context classes to specify which of their attributes should be decorated with parts.
 
 For example, for a context with an injected `assets` dependency, specifying `decorate :assets` would have the assets object wrapped in a matching part class (e.g. `Parts::Assets` if the view currently rendering has a `part_namespace` of `Parts`).
 
@@ -195,7 +195,7 @@ Makes sense, right? Turns out this isn’t possible with the other popular Ruby 
 
 ## Easier unit testing for Parts and Scopes
 
-Parts and scopes can now be more easily [unit tested](/gems/dry-view/testing/).
+Parts and scopes can now be more easily [unit tested](/gems/dry-view/0.7/testing).
 
 If you want to unit test the aspects of the class that don’t require a full rendering environment, you can now instantiate a Part with its value alone:
 
@@ -213,7 +213,7 @@ part_for_testing = Parts::Article.new(
 )
 ```
 
-For more detailed unit testing examples, see the [dry-view testing documentation](/gems/dry-view/testing/).
+For more detailed unit testing examples, see the [dry-view testing documentation](/gems/dry-view/0.7/testing).
 
 ## And more!
 
