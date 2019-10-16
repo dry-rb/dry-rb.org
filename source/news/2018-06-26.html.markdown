@@ -71,7 +71,7 @@ op.(1.0, 0.0) # => Failure(:division_by_zero)
 op.(-1.0, 2.0) # => Failure(:negative_number)
 ```
 
-`DivideThenRoot` can be composed with other objects or methods returning `Result`s in a similar manner. In the end, you can use [`dry-matcher`](/gems/dry-matcher/result-matcher/) for processing the result (or use the `Result`'s [API](/gems/dry-monads/result/) for it).
+`DivideThenRoot` can be composed with other objects or methods returning `Result`s in a similar manner. In the end, you can use [`dry-matcher`](/gems/dry-matcher/0.8/result-matcher) for processing the result (or use the `Result`'s [API](/gems/dry-monads/1.0/result) for it).
 
 Real-life code looks the same in general but usually combines more operations together. Here it can become tedious to use `bind` and `fmap` directly. This is why we added `do` notation in the 1.0 release.
 
@@ -106,7 +106,7 @@ Here it's implied that the `validate`, `create_owner`, `create_account`, and `cr
 
 ## Task
 
-Another highlight from the release is the `Task` monad. Backed by [`concurrent-ruby`](https://github.com/ruby-concurrency/concurrent-ruby), a battle-tested concurrency gem, `Task` can be used for composing asynchronous computations. Essentially, it's a [Promise](http://ruby-concurrency.github.io/concurrent-ruby/Concurrent/Promise.html) with a dry-monads-compatible interface.
+Another highlight from the release is the `Task` monad. Backed by [`concurrent-ruby`](https://github.com/ruby-concurrency/concurrent-ruby), a battle-tested concurrency gem, `Task` can be used for composing asynchronous computations. Essentially, it's a [Promise](https://ruby-concurrency.github.io/concurrent-ruby/master/Concurrent/Promises.html) with a dry-monads-compatible interface.
 
 ```ruby
 require 'dry/monads/task'

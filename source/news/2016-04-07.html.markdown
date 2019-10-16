@@ -62,4 +62,4 @@ end
 
 And there we have it! With the new infrastructure in place, we could change just two words in our transaction and have long-running jobs pushed into the background queue, while keeping everything just as easy to understand in a single glance.
 
-You can [read more about custom step adapters](http://dry-rb.org/gems/dry-transaction/custom-step-adapters/) in the [dry-transaction documentation](http://dry-rb.org/gems/dry-transaction/) and get started using them with the 0.6.0 release now available on RubyGems. Enjoy!
+You can [read more about custom step adapters](http://dry-rb.org/gems/dry-transaction/0.13/custom-step-adapters/) in the [dry-transaction documentation](http://dry-rb.org/gems/dry-transaction/) and get started using them with the 0.6.0 release now available on RubyGems. Enjoy!
