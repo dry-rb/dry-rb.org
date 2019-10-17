@@ -50,7 +50,6 @@ GEM
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.2)
     dry-inflector (0.1.2)
-    dry-initializer (3.0.1)
     dry-logic (1.0.3)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)
@@ -200,7 +199,6 @@ DEPENDENCIES
   binding_of_caller
   builder (~> 3.0)
   byebug
-  dry-initializer
   hashugar
   middleman (= 5.0.0.rc.1)
   middleman-blog
