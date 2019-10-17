@@ -1384,6 +1384,20 @@ table {
   }
 }
 
+.edit_page_link {
+  float: right;
+  position: relative;
+  padding-left: 23px;
+  color: $mid-blue;
+  text-decoration: none;
+  &:hover {
+    color: $teal;
+  }
+  .octocat {
+    font-size: 18px;
+  }
+}
+
 .anchor {
   text-decoration: none;
 }
