@@ -10,6 +10,9 @@
     -
       value: "0.13"
       branch: "release-0.13"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-schema
   desc: Schema coercion & validation
   versions:
@@ -19,6 +22,9 @@
     -
       value: "1.4"
       branch: "release-1.4"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-types
   desc: Flexible type system with many built-in types
   versions:
@@ -31,6 +37,9 @@
     -
       value: "0.15"
       branch: "release-0.15"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-struct
   desc: Attribute DSL for struct-like objects
   versions:
@@ -40,60 +49,90 @@
     -
       value: "0.7"
       branch: "release-0.7"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-transaction
   desc: Business transaction DSL
   versions:
     -
       value: "0.13"
       branch: "release-0.13"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-container
   desc: Simple and thread-safe IoC container
   versions:
     -
       value: "0.8"
       branch: "release-0.8"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-auto_inject
   desc: Container-agnostic constructor injection mixin
   versions:
     -
       value: "0.6"
       branch: "release-0.6"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-equalizer
   desc: Simple mixin providing equality methods
   versions:
     -
       value: "0.2"
       branch: "release-0.2"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-inflector
   desc: Standalone inflections
   versions:
     -
       value: "0.1"
       branch: "release-0.1"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-system
   desc: Organize your code into reusable components
   versions:
     -
       value: "0.12"
       branch: "release-0.12"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-configurable
   desc: Thread-safe configuration mixin
   versions:
     -
       value: "0.8"
       branch: "release-0.8"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-initializer
   desc: DSL for defining initializer params and options
   versions:
     -
       value: "3.0"
       branch: "release-3.0"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-logic
   desc: Predicate logic with composable rules
   versions:
     -
       value: "1.0"
       branch: "release-1.0"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
   versions:
@@ -103,6 +142,9 @@
     -
       value: "0.8"
       branch: "release-0.8"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-monads
   desc: Useful, common monads in idiomatic Ruby
   versions:
@@ -112,27 +154,42 @@
     -
       value: "1.0"
       branch: "release-1.0"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-view
   desc: Functional, standalone view rendering
   versions:
     -
       value: "0.7"
       branch: "release-0.7"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-core
   desc: A toolset of small support modules used throughout the dry-rb & rom-rb ecosystems
   versions:
     -
       value: "0.4"
       branch: "release-0.4"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-events
   desc: Standalone pub/sub API
   versions:
     -
       value: "0.2"
       branch: "release-0.2"
+    -
+      value: "master"
+      branch: "master"
 - name: dry-effects
   desc: Algebraic effects in Ruby
   versions:
     -
       value: "0.1"
       branch: "release-0.1"
+    -
+      value: "master"
+      branch: "master"

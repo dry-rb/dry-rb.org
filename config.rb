@@ -147,8 +147,6 @@ proxy('/gems/index.html', 'gems-index.html')
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
 
-# rubocop:disable Metrics/BlockLength
-# rubocop:disable Metrics/AbcSize
 helpers do
   VERSION_REGEX = %r{([\d\.]+)\/}.freeze
 
@@ -270,7 +268,7 @@ helpers do
   end
 
   def extract_version(url)
-    url[VERSION_REGEX, 1]
+    url[VERSION_REGEX, 1] || "master"
   end
 
   def current_version
@@ -295,8 +293,6 @@ helpers do
     end
   end
 end
-# rubocop:enable Metrics/BlockLength
-# rubocop:disable Metrics/AbcSize
 
 helpers Site::Helpers
 
