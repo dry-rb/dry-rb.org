@@ -13,7 +13,7 @@ nav.main-nav
           ul
             - group.each do |project|
               li
-              == link_to project.name, "/gems/#{project.name}/#{project.current_version}"
+              == link_to project.name, "/gems/#{project.name}/#{project.latest_version}"
 
     li class=("main-nav__item--selected" if /\Astatus/.match(current_page.path))
       a href="/status" Status

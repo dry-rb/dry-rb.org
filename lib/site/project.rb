@@ -11,8 +11,8 @@ module Site
       "https://github.com/#{org}/#{name}.git"
     end
 
-    def current_version
-      versions.max_by { |version| version[:value] }[:value]
+    def latest_version
+      versions.max_by { |version| version[:value].to_f }[:value]
     end
 
     def opened_issues_badge
