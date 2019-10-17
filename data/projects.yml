@@ -6,16 +6,16 @@
       branch: "release-1.3"
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
     -
       value: "0.13"
-      branch: "docsite-0.13"
+      branch: "release-0.13"
 - name: dry-schema
   desc: Schema coercion & validation
   versions:
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
     -
       value: "1.4"
       branch: "release-1.4"
@@ -27,112 +27,112 @@
       branch: "release-1.2"
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
     -
       value: "0.15"
-      branch: "docsite-0.15"
+      branch: "release-0.15"
 - name: dry-struct
   desc: Attribute DSL for struct-like objects
   versions:
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
     -
       value: "0.7"
-      branch: "docsite-0.7"
+      branch: "release-0.7"
 - name: dry-transaction
   desc: Business transaction DSL
   versions:
     -
       value: "0.13"
-      branch: "docsite-0.13"
+      branch: "release-0.13"
 - name: dry-container
   desc: Simple and thread-safe IoC container
   versions:
     -
       value: "0.8"
-      branch: "docsite-0.8"
+      branch: "release-0.8"
 - name: dry-auto_inject
   desc: Container-agnostic constructor injection mixin
   versions:
     -
       value: "0.6"
-      branch: "docsite-0.6"
+      branch: "release-0.6"
 - name: dry-equalizer
   desc: Simple mixin providing equality methods
   versions:
     -
       value: "0.2"
-      branch: "docsite-0.2"
+      branch: "release-0.2"
 - name: dry-inflector
   desc: Standalone inflections
   versions:
     -
       value: "0.1"
-      branch: "docsite-0.1"
+      branch: "release-0.1"
 - name: dry-system
   desc: Organize your code into reusable components
   versions:
     -
       value: "0.12"
-      branch: "docsite-0.12"
+      branch: "release-0.12"
 - name: dry-configurable
   desc: Thread-safe configuration mixin
   versions:
     -
       value: "0.8"
-      branch: "docsite-0.8"
+      branch: "release-0.8"
 - name: dry-initializer
   desc: DSL for defining initializer params and options
   versions:
     -
       value: "3.0"
-      branch: "docsite-3.0"
+      branch: "release-3.0"
 - name: dry-logic
   desc: Predicate logic with composable rules
   versions:
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
   versions:
     -
       value: "0.7"
-      branch: "docsite-0.7"
+      branch: "release-0.7"
     -
       value: "0.8"
-      branch: "docsite-0.8"
+      branch: "release-0.8"
 - name: dry-monads
   desc: Useful, common monads in idiomatic Ruby
   versions:
     -
       value: "0.4"
-      branch: "docsite-0.4"
+      branch: "release-0.4"
     -
       value: "1.0"
-      branch: "docsite-1.0"
+      branch: "release-1.0"
 - name: dry-view
   desc: Functional, standalone view rendering
   versions:
     -
       value: "0.7"
-      branch: "docsite-0.7"
+      branch: "release-0.7"
 - name: dry-core
   desc: A toolset of small support modules used throughout the dry-rb & rom-rb ecosystems
   versions:
     -
       value: "0.4"
-      branch: "docsite-0.4"
+      branch: "release-0.4"
 - name: dry-events
   desc: Standalone pub/sub API
   versions:
     -
       value: "0.2"
-      branch: "docsite-0.2"
+      branch: "release-0.2"
 - name: dry-effects
   desc: Algebraic effects in Ruby
   versions:
     -
       value: "0.1"
-      branch: "docsite-0.1"
+      branch: "release-0.1"
