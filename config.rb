@@ -155,7 +155,7 @@ helpers do
   end
 
   def page_header
-    current_page.data.name || recursive_name(current_page)
+    gem_name || recursive_name(current_page)
   end
 
   def recursive_name(page)
@@ -166,9 +166,23 @@ helpers do
   end
 
   def github_link
-    content_tag(:a, href: "https://github.com/dry-rb/#{current_page.data.name}") do
-      "View #{current_page.data.name} on GitHub"
+    content_tag(:a, href: github_url) do
+      "View #{gem_name} on GitHub"
     end
+  end
+
+  def edit_gem_page_url
+    file_path = current_resource.url.split('/')[4..-1].join('/')
+    file_path = file_path.empty? ? 'index' : file_path
+    "#{github_url}/edit/#{current_branch}/docsite/source/#{file_path}.html.md"
+  end
+
+  def github_url
+    "https://github.com/dry-rb/#{gem_name}"
+  end
+
+  def current_branch
+    current_project.versions.find { |version| version[:value] == current_version }[:branch]
   end
 
   def nav
@@ -260,7 +274,7 @@ helpers do
   end
 
   def current_project
-    @current_project ||= Middleman::Docsite.projects.detect { |p| p.name == current_page.data.name }
+    @current_project ||= Middleman::Docsite.projects.detect { |p| p.name == gem_name }
   end
 
   def has_version?(_url)
@@ -273,6 +287,10 @@ helpers do
 
   def current_version
     extract_version(current_path)
+  end
+
+  def gem_name
+    current_page.data.name
   end
 
   def set_version(url, new_version)

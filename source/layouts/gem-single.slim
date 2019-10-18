@@ -17,4 +17,8 @@ html lang="en"
           article.gem-article
             h2 = page.data.title
             = yield
+            p
+              a.edit_page_link href=edit_gem_page_url
+                span.ss-icon.ss-social.octocat octocat
+                span Edit on GitHub
     = partial "footer"
