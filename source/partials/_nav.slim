@@ -21,5 +21,8 @@ nav.main-nav
       a href="/news" News
     li class=("main-nav__item--selected" if /\Acommunity/.match(current_page.path))
       a href="/community" Community
+    br.mobile-only
+    li.main-nav__search
+      = partial "searchbar"
     li.main-nav__code
       a href="https://github.com/dry-rb" Github
