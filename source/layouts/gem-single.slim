@@ -7,7 +7,10 @@ html lang="en"
       .intro-page
         .content-wrap
           .intro-page__inner
-            h1.intro-page__header == page_header
+            h1.intro-page__header
+              = gem_name
+              '
+              span.hide == current_version
             p.intro-page__link == github_link
       .row
         .content-wrap

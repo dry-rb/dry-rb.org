@@ -155,7 +155,15 @@ helpers do
   end
 
   def page_header
-    gem_name || recursive_name(current_page)
+    if current_project
+      "#{gem_name} #{current_version_name}"
+    else
+      gem_name || recursive_name(current_page)
+    end
+  end
+
+  def current_version_name
+    current_version == "master" ? current_version : "v#{current_version}"
   end
 
   def recursive_name(page)
