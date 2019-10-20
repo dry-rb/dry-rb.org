@@ -11,4 +11,12 @@ module Site
   def self.projects
     Middleman::Docsite.projects
   end
+
+  def self.project(name)
+    projects.find { |project| project[:name] == name }
+  end
+
+  def self.project_path(name)
+    project(name).latest_path
+  end
 end
