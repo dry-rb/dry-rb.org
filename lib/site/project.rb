@@ -11,6 +11,10 @@ module Site
       "https://github.com/#{org}/#{name}.git"
     end
 
+    def latest_path
+      "/gems/#{name}/#{latest_version}"
+    end
+
     def latest_version
       versions.max_by { |version| version[:value].to_f }[:value]
     end

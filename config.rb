@@ -132,7 +132,7 @@ Middleman::Docsite.projects.each do |project|
   proxy(
     "/gems/#{project.name}/index.html",
     '/gem-index-redirect.html',
-    locals: { path: "/gems/#{project.name}/#{project.latest_version}" },
+    locals: { path: project.latest_path },
     layout: false,
     ignore: true
   )
