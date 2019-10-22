@@ -129,7 +129,11 @@ page '/news/*', layout: 'news-single'
 page '*.json'
 
 Middleman::Docsite.projects.each do |project|
-  redirect "gems/#{project.name}/index.html", to: project.latest_path
+  source_path = "./source#{project.latest_path}/"
+  Dir["#{source_path}**/*"].each do |path|
+    file = path.gsub(source_path, '').gsub('.html.md', '.html')
+    redirect "gems/#{project.name}/#{file}", to: "#{project.latest_path}/#{file}"
+  end
 end
 
 proxy('/gems/index.html', 'gems-index.html')
