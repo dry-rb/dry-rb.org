@@ -1,9 +1,7 @@
-name: Auto deployment to GitHub pages
-on:
-  push:
-    branches:
-      - master
-  repository_dispatch:
+name: ci
+
+on: pull_request
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,9 +25,3 @@ jobs:
       run: bundle exec rake projects:symlink
     - name: Build Middleman site
       run: bundle exec middleman build
-    - name: GitHub Pages Deploy
-      uses: peaceiris/actions-gh-pages@v1.1.0
-      env:
-        GITHUB_TOKEN: ${{secrets.GH_PAT}}
-        PUBLISH_BRANCH: "gh-pages"
-        PUBLISH_DIR: "docs"
