@@ -1,0 +1,27 @@
+name: ci
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        version: 2.6.x
+    - name: Update bundler
+      run: gem update bundler
+    - name: Setup Ruby dependencies
+      run: bundle install --jobs 4 --retry 3
+    - name: Install Node
+      uses: actions/setup-node@v1
+      with:
+        version: 6.11.4
+    - name: Setup Node Dependencies
+      run: yarn install
+    - name: Import and symlink project docsites
+      run: bundle exec rake projects:symlink
+    - name: Build Middleman site
+      run: bundle exec middleman build
