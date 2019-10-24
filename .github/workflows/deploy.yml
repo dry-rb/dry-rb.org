@@ -12,7 +12,7 @@ jobs:
     - name: Install Ruby
       uses: actions/setup-ruby@v1
       with:
-        version: 2.6.x
+        ruby-version: 2.6.x
     - name: Update bundler
       run: gem update bundler
     - name: Setup Ruby dependencies
@@ -20,7 +20,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v1
       with:
-        version: 6.11.4
+        node-version: 6.11.4
     - name: Setup Node Dependencies
       run: yarn install
     - name: Import and symlink project docsites
