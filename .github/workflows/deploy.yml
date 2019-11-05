@@ -28,8 +28,7 @@ jobs:
     - name: Build Middleman site
       run: bundle exec middleman build
     - name: GitHub Pages Deploy
-      uses: peaceiris/actions-gh-pages@v1.1.0
+      uses: maxheld83/ghpages@v0.2.1
       env:
-        GITHUB_TOKEN: ${{secrets.GH_PAT}}
-        PUBLISH_BRANCH: "gh-pages"
-        PUBLISH_DIR: "docs"
+        GH_PAT: ${{secrets.GH_PAT}}
+        BUILD_DIR: "docs"
