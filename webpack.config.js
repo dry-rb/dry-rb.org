@@ -1,12 +1,8 @@
-var webpack = require('webpack');
-var path = require('path');
-var Clean = require('clean-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var autoprefixer = require('autoprefixer')
+const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  debug: true,
-
   entry: {
     main: [
       './assets/javascripts/site.js',
@@ -20,25 +16,38 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [{
-      test: /\.scss$/,
-      exclude: /node_modules|\.tmp|vendor/,
-      loader: 'import-glob',
-    }],
-
-    loaders: [
-      { test: /\.js?$/, loader: "babel", exclude: /node_modules/ },
-      { test: /\.scss$/, exclude: /node_modules|\.tmp|vendor/,
-        loader: ExtractTextPlugin.extract('css!postcss-loader!sass-loader') }
+    rules: [
+      {
+        enforce: "pre",
+        test: /\.scss$/,
+        exclude: /node_modules|\.tmp|vendor/,
+        loader: 'import-glob-loader',
+      },
+      {
+        test: /\.js?$/,
+        loader: "babel-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules|\.tmp|vendor/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ]
+      }
     ]
   },
 
-  postcss: function () {
-    return [autoprefixer];
-  },
-
   plugins: [
-    new Clean(['.tmp']),
-    new ExtractTextPlugin('assets/stylesheets/site.css', { allChunks: true })
+    new webpack.LoaderOptionsPlugin({debug: true}),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'assets/stylesheets/site.css'
+    }),
   ]
 };

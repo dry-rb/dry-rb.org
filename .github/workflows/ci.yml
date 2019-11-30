@@ -18,7 +18,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v1
       with:
-        node-version: 6.11.4
+        node-version: 12.10.0
     - name: Setup Node Dependencies
       run: yarn install
     - name: Import and symlink project docsites

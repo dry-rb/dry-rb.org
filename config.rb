@@ -43,7 +43,7 @@ activate :external_pipeline,
          name: :webpack,
          command:
            (if build?
-              './node_modules/webpack/bin/webpack.js --bail'
+              './node_modules/webpack/bin/webpack.js --bail --mode=production'
             else
               './node_modules/webpack/bin/webpack.js --watch -d'
            end),
