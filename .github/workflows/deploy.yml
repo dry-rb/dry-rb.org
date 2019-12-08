@@ -38,6 +38,8 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+    - name: Install node packages
+      run: npm install
     - name: Import and symlink project docsites
       run: bundle exec rake projects:symlink
     - name: Build Middleman site
