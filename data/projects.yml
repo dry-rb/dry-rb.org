@@ -193,3 +193,9 @@
     -
       value: "master"
       branch: "master"
+- name: dry-cli
+  desc: General purpose Command Line Interface (CLI) framework
+  versions:
+    -
+      value: "master"
+      branch: "master"
