@@ -15,8 +15,15 @@ jobs:
         ruby-version: 2.6.x
     - name: Update bundler
       run: gem update bundler
-    - name: Setup Ruby dependencies
-      run: bundle install --jobs 4 --retry 3
+    - uses: actions/cache@v1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-bundle-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: ${{ runner.os }}-bundle-
+    - name: Bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
     - name: Install Node
       uses: actions/setup-node@v1
       with:
