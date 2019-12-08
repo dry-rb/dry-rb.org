@@ -7,12 +7,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@master
+
     - name: Install Ruby
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.x
+
     - name: Update bundler
       run: gem update bundler
     - uses: actions/cache@v1
@@ -20,14 +23,17 @@ jobs:
         path: vendor/bundle
         key: ${{ runner.os }}-bundle-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: ${{ runner.os }}-bundle-
+
     - name: Bundle install
       run: |
         bundle config path vendor/bundle
         bundle install --jobs 4 --retry 3
+
     - name: Install Node
       uses: actions/setup-node@v1
       with:
         node-version: 12.10.0
+
     - name: Get npm cache directory
       id: npm-cache
       run: |
@@ -38,12 +44,16 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+
     - name: Install node packages
       run: npm install
+
     - name: Import and symlink project docsites
       run: bundle exec rake projects:symlink
+
     - name: Build Middleman site
       run: bundle exec middleman build
+
     - name: GitHub Pages Deploy
       uses: maxheld83/ghpages@v0.2.1
       env:
