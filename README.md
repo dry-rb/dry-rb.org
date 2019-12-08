@@ -9,8 +9,8 @@ This is the [Middleman](https://middlemanapp.com)-generated [dry-rb.org website]
 Install the gem and NPM dependencies:
 
 ```
-bundle
-yarn
+bundle install
+npm install
 ```
 
 Run `bundle exec rake watch` and visit the site at [http://localhost:4567](http://localhost:4567).
