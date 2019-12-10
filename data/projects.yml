@@ -197,5 +197,8 @@
   desc: General purpose Command Line Interface (CLI) framework
   versions:
     -
+      value: "0.4"
+      branch: "release-0.4"
+    -
       value: "master"
       branch: "master"
