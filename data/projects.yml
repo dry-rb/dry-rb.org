@@ -209,5 +209,8 @@
   desc: Data transformation toolkit
   versions:
     -
+      value: "0.1"
+      branch: "release-0.1"
+    -
       value: "master"
       branch: "master"
