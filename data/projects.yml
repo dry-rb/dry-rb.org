@@ -205,3 +205,9 @@
     -
       value: "master"
       branch: "master"
+- name: dry-transformer
+  desc: Data transformation toolkit
+  versions:
+    -
+      value: "master"
+      branch: "master"
