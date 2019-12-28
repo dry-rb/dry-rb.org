@@ -7,6 +7,8 @@ module Site
     attribute(:name, Types::String)
     attribute(:desc, Types::String)
 
+    alias to_s name
+
     def repo
       "https://github.com/#{org}/#{name}.git"
     end
