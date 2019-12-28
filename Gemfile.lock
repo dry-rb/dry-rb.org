@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/solnic/middleman-docsite
-  revision: 38e6d408515964be0a72d503c3b093c35b86180d
+  revision: c9312452753ec816a0c2ff720e354fb7af100ef1
   branch: master
   specs:
     middleman-docsite (0.1.0)
@@ -54,16 +54,16 @@ GEM
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-struct (1.1.1)
+    dry-struct (1.2.0)
       dry-core (~> 0.4, >= 0.4.3)
-      dry-equalizer (~> 0.2)
+      dry-equalizer (~> 0.3)
       dry-types (~> 1.0)
       ice_nine (~> 0.11)
-    dry-types (1.2.1)
+    dry-types (1.2.2)
       concurrent-ruby (~> 1.0)
       dry-container (~> 0.3)
       dry-core (~> 0.4, >= 0.4.4)
-      dry-equalizer (~> 0.2, >= 0.2.2)
+      dry-equalizer (~> 0.3)
       dry-inflector (~> 0.1, >= 0.1.2)
       dry-logic (~> 1.0, >= 1.0.2)
     erubi (1.9.0)
@@ -218,4 +218,4 @@ DEPENDENCIES
   tzinfo
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
