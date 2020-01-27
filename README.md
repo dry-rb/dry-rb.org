@@ -2,6 +2,8 @@
 
 # dry-rb.org [![Join the chat at https://dry-rb.zulipchat.com](https://img.shields.io/badge/dry--rb-join%20chat-%23346b7a.svg)][chat]
 
+![ci](https://github.com/dry-rb/dry-rb.org/workflows/ci/badge.svg)
+
 This is the [Middleman](https://middlemanapp.com)-generated [dry-rb.org website](http://dry-rb.org/).
 
 ## Getting started
@@ -13,13 +15,17 @@ bundle install
 npm install
 ```
 
-Run `bundle exec rake watch` and visit the site at [http://localhost:4567](http://localhost:4567).
+Clone and symlink docsites from individual dry-rb repositories:
 
-## Deploying
+```
+bundle exec projects:symlink
+```
 
-GitHub Pages is configured to serve any files in the `docs/` directory.
+Start Middleman server:
 
-Run `bundle exec rake build` to generate the latest copy of the site.
+```
+bundle exec middleman s
+```
 
 ## Contributing
 
