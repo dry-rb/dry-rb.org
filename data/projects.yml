@@ -85,6 +85,8 @@
 - name: dry-configurable
   desc: Thread-safe configuration mixin
   versions:
+    - value: "0.11"
+      branch: "release-0.11"
     - value: "0.8"
       branch: "release-0.8"
     - value: "master"
