@@ -20,8 +20,7 @@ module Site
     def latest_version
       version = versions
         .reject { |version| version[:value].eql?('master') }
-        .sort_by { |version| version[:value] }
-        .first
+        .max_by { |version| Gem::Version.new(version[:value]) }
 
       version ? version[:value] : 'master'
     end
