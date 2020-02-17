@@ -1,27 +1,84 @@
 name: ci
 
-on: pull_request
+on:
+  push:
+    paths:
+      - ".github/workflows/ci.yml"
+      - "source/**"
+      - "data/**"
+      - "lib/**"
+      - "config.rb"
+      - "Gemfile.lock"
+      - "package-lock.json"
+  pull_request:
+    branches:
+      - "master"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Install Ruby
+    - name: Clone
+      uses: actions/checkout@v2
+    - name: Clone gh-pages
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: docs
+    - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
-    - name: Update bundler
-      run: gem update bundler
-    - name: Setup Ruby dependencies
-      run: bundle install --jobs 4 --retry 3
+        ruby-version: "2.6"
+    - name: Install latest bundler
+      run: gem install bundler --no-document
+    - name: Bundle install
+      run: |
+        bundle config set without development
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
     - name: Install Node
       uses: actions/setup-node@v1
       with:
-        node-version: 12.10.0
-    - name: Setup Node Dependencies
-      run: yarn install
-    - name: Import and symlink project docsites
+        version: "12.10.0"
+    - name: Restore npm package cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install node modules
+      run: npm install --prefer-offline --no-audit
+    - name: Symlink project docsites
       run: bundle exec rake projects:symlink
     - name: Build Middleman site
-      run: bundle exec middleman build
+      run: bundle exec middleman build --verbose
+    - name: Check internal links
+      run: bundle exec rake check_links:internal
+    - name: Prepare build artifact
+      if: github.event_name == 'push' && contains(github.ref, 'master')
+      run: mkdir build && tar cvzf build/docs.tar.gz --exclude ".git" ./docs
+    - name: Upload build artifact
+      if: github.event_name == 'push' && contains(github.ref, 'master')
+      uses: actions/upload-artifact@v1
+      with:
+        name: build
+        path: build/docs.tar.gz
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && contains(github.ref, 'master')
+    needs: build
+    steps:
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Download the build artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+      - name: Extract the build
+        run: tar xvf build/docs.tar.gz
+      - name: Deploy to GitHub Pages
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          GH_PAT: ${{secrets.GH_PAT}}
+          BUILD_DIR: "docs"

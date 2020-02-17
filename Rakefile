@@ -29,3 +29,20 @@ namespace :projects do
     end
   end
 end
+
+desc 'Check all links'
+task :check_links do
+  Site.check_links(file_ignore: [/blog/])
+end
+
+namespace :check_links do
+  desc 'Check internal links'
+  task :internal do
+    Site.check_links(disable_external: true, file_ignore: [/blog/]) or exit(1)
+  end
+
+  desc 'Check external links'
+  task :external do
+    Site.check_links(disable_internal: true, file_ignore: [/blog/]) or exit(1)
+  end
+end

@@ -16,6 +16,9 @@ gem "redcarpet"
 gem "slim"
 gem "tilt-jbuilder"
 
+# Checks html markup
+gem "html-proofer"
+
 # Misc
 gem "activesupport"
 gem "better_errors"
