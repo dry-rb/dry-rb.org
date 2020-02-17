@@ -18,7 +18,12 @@ module Site
     end
 
     def latest_version
-      versions.max_by { |version| version[:value].to_f }[:value]
+      version = versions
+        .reject { |version| version[:value].eql?('master') }
+        .sort_by { |version| version[:value] }
+        .first
+
+      version ? version[:value] : 'master'
     end
 
     def opened_issues_badge
