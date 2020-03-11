@@ -4,13 +4,13 @@ date: 2020-03-11
 author: solnic
 ---
 
-We're happy to announce the release of dry-schema 1.5.0! It comes with plenty of new features, bug fixes and general improvements. Here are some of the hightlights of this release.
+We're happy to announce the release of dry-schema 1.5.0! It comes with plenty of new features, fixes, and general improvements. Here are some of the hightlights.
 
 ## Support for composing schemas
 
-It is now possible to compose schemas using logic operators. The only limitation is that `xor` is not supported yet as it wasn't clear how error messages are supposed to work. This feature is experimental until we finalize it in version `2.0.0`.
+You can now compose schemas using logical operators. The only limitation is that `xor` is not supported yet as it wasn't clear how error messages are supposed to work. This feature is experimental until we finalize it in version 2.0.0.
 
-This doesn't change the fact you are encouraged to try it out already! Here's a simple example:
+In the meantime, please try it out! Here's a simple example:
 
 ```ruby
 RoleSchema = Dry::Schema.JSON do
@@ -36,11 +36,11 @@ UserSchema.(name: "Jane", role: { id: "admin", expires_on: "oops" }).errors.to_h
 # {role: {expires_on: ["must be a date"]}}
 ```
 
-Refer to [documentation](/gems/dry-schema/1.5/advanced/composing-schemas/) for more information.
+[Refer to the documentation](/gems/dry-schema/1.5/advanced/composing-schemas/) for more information.
 
 ## Errors about unexpected keys
 
-Back in the dry-validation `0.x` era many people asked about support for errors about unexpected keys. 4 years later this feature was finally implemented. It is not enabled by default though, so remember to turn it on first:
+Back in the dry-validation 0.x era, many people asked about returning errors for unexpected keys. Four years later, this feature is finally here! You can enable it with a simple config flag:
 
 ```ruby
 UserSchema = Dry::Schema.Params do
@@ -74,11 +74,11 @@ UserSchema.(input).errors.to_h
 # }
 ```
 
-Notice that it works even with an array with hashes as elements, which is really **nice**!
+Notice that it works even for arrays with hashes as elements, which is **really nice**!
 
 ### Introspection extension
 
-Another feature request that goes back to old dry-validation was having the ability to easily see which keys are required and which are optional. This is now provided by a new extension called `:info`. Apart from providing information about keys, it also shows you types specified under the keys.
+Another feature request that goes way back is easily seeing which keys are required and which are optional. This is now provided by a new `:info` extension, which shows both the keys and their associated types.
 
 To enable it, you need to load the extension:
 
@@ -130,10 +130,10 @@ UserSchema.info
 
 ### Summary
 
-There's way more in the changelog so please do [check it out](https://github.com/dry-rb/dry-schema/blob/master/CHANGELOG.md#1.5.0) and if you're having any issues when upgrading please do [report them](https://github.com/dry-rb/dry-schema/issues/new?assignees=&labels=bug&template=---bug-report.md&title=).
+There's way more in the changelog so please [check it out](https://github.com/dry-rb/dry-schema/blob/master/CHANGELOG.md#1.5.0) and if you're having any issues when upgrading, please do [let us know](https://github.com/dry-rb/dry-schema/issues/new?assignees=&labels=bug&template=---bug-report.md&title=).
 
 Big thanks go to [Rob Hanlon](https://github.com/robhanlon22) and the rest of the contributors who helped with this release!
 
-Last but not least - `dry-validation 1.5.0` was released too which upgrades its dependency on dry-schema to `1.5.0` and adds a couple new features.
+Last but not least: dry-validation 1.5.0 was released too, which upgrades its own dependency on dry-schema to 1.5.0 and adds a couple of new features.
 
 Please upgrade and enjoy using dry-schema and dry-validation!
