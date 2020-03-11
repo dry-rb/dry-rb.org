@@ -76,7 +76,7 @@ UserSchema.(input).errors.to_h
 
 Notice that it works even for arrays with hashes as elements, which is **really nice**!
 
-### Introspection extension
+## Introspection extension
 
 Another feature request that goes way back is easily seeing which keys are required and which are optional. This is now provided by a new `:info` extension, which shows both the keys and their associated types.
 
@@ -128,7 +128,7 @@ UserSchema.info
 # }
 ```
 
-### Summary
+## Summary
 
 There's way more in the changelog so please [check it out](https://github.com/dry-rb/dry-schema/releases/tag/v1.5.0) and if you're having any issues when upgrading, please do [let us know](https://github.com/dry-rb/dry-schema/issues/new?assignees=&labels=bug&template=---bug-report.md&title=).
 
