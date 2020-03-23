@@ -173,3 +173,8 @@
       branch: "release-0.1"
     - value: "master"
       branch: "master"
+- name: dry-rails
+  desc: The dry-rb railtie
+  versions:
+    - value: "master"
+      branch: "master"
