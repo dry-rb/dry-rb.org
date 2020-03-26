@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "rake"
+
 # For feed.xml.builder
 gem "builder", "~> 3.0"
 
@@ -11,6 +13,10 @@ gem "middleman-blog"
 gem "middleman-syntax"
 gem "middleman-docsite", git: "https://github.com/solnic/middleman-docsite", branch: "master"
 
+# Middleman extra deps
+gem "better_errors"
+gem "hashugar"
+gem "sanitize"
 # Formats
 gem "redcarpet"
 gem "slim"
@@ -20,15 +26,10 @@ gem "tilt-jbuilder"
 gem "html-proofer"
 
 # Misc
-gem "activesupport"
-gem "better_errors"
-gem "binding_of_caller"
-gem "hashugar"
-gem "mime-types"
-gem "puma"
-gem "rack"
-gem "rack-contrib"
-gem "rake"
-gem "sanitize"
-gem "tzinfo"
-gem "byebug", require: false, platform: :mri
+group :development do
+  gem "puma"
+  gem "binding_of_caller"
+  gem "mime-types"
+  gem "rack-contrib"
+  gem "byebug", require: false, platform: :mri
+end
