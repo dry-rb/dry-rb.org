@@ -182,5 +182,9 @@
   versions:
     - value: "0.1"
       branch: "release-0.1"
+    - value: "0.2"
+      branch: "release-0.2"
+    - value: "0.3"
+      branch: "release-0.3"
     - value: "master"
       branch: "master"
