@@ -12,3 +12,13 @@ people:
     github_handle: AMHOL
     since: 2015
     until: 2017
+  -
+    name: Gustavo Caso
+    image: gus.jpg
+    github_handle: GustavoCaso
+    location: Barcelona, Spain
+    since: 2017
+    until: 2018
+    bio: |
+      Gustavo is software developer at [Xing](https://www.xing.com/), where he works with Rails.
+      Looking for different options, he found dry-rb and discovered a new world of possibilities.

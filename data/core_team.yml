@@ -30,14 +30,13 @@ people:
       he came to dry-rb through [rom-rb](http://rom-rb.org/). Whenever you see
       a really weird behavior, feel free to ask him for help.
   -
-    name: Gustavo Caso
-    image: gus.jpg
-    github_handle: GustavoCaso
-    location: Barcelona, Spain
-    since: 2017
+    name: Luca Guidi
+    image: jodosha.jpg
+    github_handle: jodosha
+    location: Rome, Italy
+    since: 2019
     bio: |
-      Gustavo is software developer at [Xing](https://www.xing.com/), where he works with Rails.
-      Looking for different options, he found dry-rb and discovered a new world of possibilities.
+      Ruby / Go programmer. Author of @hanami and @redis-store, @dry-rb core team member.
   -
     name: You?
     image: you.jpg
