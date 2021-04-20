@@ -36,7 +36,8 @@ people:
     location: Rome, Italy
     since: 2019
     bio: |
-      Ruby / Go programmer. Author of @hanami and @redis-store, @dry-rb core team member.
+      Open Source author Ruby/Go ([Hanami](https://hanamirb.org), Redis::Store, dry-rb).
+      Backend Architect at [Toptal](https://toptal.com).
   -
     name: You?
     image: you.jpg
