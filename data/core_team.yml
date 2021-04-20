@@ -6,8 +6,9 @@ people:
     location: Cracow, Poland
     since: 2015
     bio: |
-      Piotr is a Solutions Architect at [Theorem](https://theorem.co/), and an
-      Open-Source hacker working on [rom-rb](https://rom-rb.org) and dry-rb.
+      Piotr is a software consultant and an Open-Source hacker. He created [rom-rb](https://rom-rb.org)
+      project and co-established dry-rb. Author of gems like dry-validation, dry-types and more.
+      His jokes are now dry too.
   -
     name: Tim Riley
     image: tim.jpg
