@@ -67,7 +67,7 @@ With many internal improvements also in place for this release, we now see a cle
 In the meantime, we hope you enjoy dry-system 0.19.0 and please let us know how you go with all the new features!
 
 [zw]: https://github.com/fxn/zeitwerk
-[changelog][changelog]: http://FIXME-ADD-URL-HERE/
+[changelog]: https://github.com/dry-rb/dry-system/releases/tag/v0.19.0
 [tim-oss-nov]: https://timriley.info/writing/2020/12/07/open-source-status-update-november-2020
 [tim-oss-dec]: https://timriley.info/writing/2021/01/06/open-source-status-update-december-2020
 [tim-oss-jan]: https://timriley.info/writing/2021/02/01/open-source-status-update-january-2021
