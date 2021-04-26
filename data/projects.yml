@@ -88,6 +88,8 @@
 - name: dry-system
   desc: Organize your code into reusable components
   versions:
+    - value: "0.19"
+      branch: "release-0.19"
     - value: "0.17"
       branch: "release-0.17"
     - value: "master"
@@ -111,6 +113,8 @@
 - name: dry-logic
   desc: Predicate logic with composable rules
   versions:
+    - value: "1.2"
+      branch: "release-1.2"
     - value: "1.0"
       branch: "release-1.0"
     - value: "master"
