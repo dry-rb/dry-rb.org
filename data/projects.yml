@@ -194,3 +194,8 @@
       branch: "release-0.3"
     - value: "master"
       branch: "master"
+- name: dry-files
+  desc: File utilities
+  versions:
+    - value: "0.1"
+      branch: "release-0.1"
