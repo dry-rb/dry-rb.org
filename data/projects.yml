@@ -60,8 +60,8 @@
 - name: dry-container
   desc: Simple and thread-safe IoC container
   versions:
-    - value: "0.8"
-      branch: "release-0.8"
+    - value: "0.7"
+      branch: "release-0.7"
     - value: "master"
       branch: "master"
 - name: dry-auto_inject
