@@ -210,7 +210,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
   better_errors
   binding_of_caller
   builder (~> 3.0)
@@ -225,14 +224,12 @@ DEPENDENCIES
   middleman-syntax
   mime-types
   puma
-  rack
   rack-contrib
   rake
   redcarpet
   sanitize
   slim
   tilt-jbuilder
-  tzinfo
 
 BUNDLED WITH
    2.1.4
