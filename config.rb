@@ -272,8 +272,12 @@ helpers do
     config.site
   end
 
-  def partial(name)
-    super("partials/#{name}")
+  def partial(name, **opts)
+    super("partials/#{name}", **opts)
+  end
+
+  def image_url(file)
+    asset_path(:images, file)
   end
 
   def author_url
@@ -317,6 +321,18 @@ helpers do
         *parts[3..-1]
       ].join('/')
     end
+  end
+
+  def seo_metadata
+    Hash[
+      title: page_title,
+      **current_project_seo,
+      description: current_project_seo.fetch(:description, config.site_description)
+    ]
+  end
+
+  def current_project_seo
+    current_project&.seo || {}
   end
 end
 

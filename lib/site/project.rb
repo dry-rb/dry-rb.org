@@ -6,6 +6,7 @@ module Site
   class Project < Middleman::Docsite::Project
     attribute(:name, Types::String)
     attribute(:desc, Types::String)
+    attribute(:seo, Types.Hash(description: Types::String).with_key_transform(&:to_sym))
 
     alias to_s name
 
