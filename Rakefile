@@ -14,6 +14,13 @@ task :build do
   system 'middleman build'
 end
 
+namespace :serve do
+  desc 'Serve the production build of the site'
+  task dist: :build do
+    system 'caddy file-server --root docs --listen :2015' || raise('Caddy failed to start, install with: brew install caddy')
+  end
+end
+
 namespace :projects do
   desc 'Symlink project sources'
   task :symlink do
