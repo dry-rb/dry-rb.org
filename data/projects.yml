@@ -259,3 +259,10 @@
       branch: "release-0.1"
   seo:
     description: Provides useful abstractions for file manipulation in Ruby
+- name: dry-monitor
+  desc: Instrumentation for Ruby applications
+  versions:
+    - value: "master"
+      branch: "master"
+  seo:
+    description: A set of instrumentation APIs and tools for any Ruby application
