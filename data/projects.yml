@@ -248,6 +248,8 @@
       branch: "release-0.2"
     - value: "0.3"
       branch: "release-0.3"
+    - value: "0.4"
+      branch: "release-0.4"
     - value: "master"
       branch: "master"
   seo:
