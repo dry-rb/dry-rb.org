@@ -87,17 +87,6 @@
       branch: "master"
   seo:
     description: Bring dependency injection to your Ruby application
-- name: dry-equalizer
-  desc: Simple mixin providing equality methods
-  versions:
-    - value: "0.2"
-      branch: "release-0.2"
-    - value: "master"
-      branch: "master"
-  seo:
-    description:
-      A mixin for define equality, equivalence and inspection methods in
-      Ruby
 - name: dry-inflector
   desc: Standalone inflections
   versions:
