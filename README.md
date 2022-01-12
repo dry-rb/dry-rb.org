@@ -18,7 +18,7 @@ npm install
 Clone and symlink docsites from individual dry-rb repositories:
 
 ```
-bundle exec projects:symlink
+bundle exec rake projects:symlink
 ```
 
 Start Middleman server:
