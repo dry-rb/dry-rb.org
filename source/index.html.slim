@@ -31,7 +31,7 @@ title: Home
 
                 contract = NewUserContract.new
 
-                contract.("name" => "Jane", "age" => "30").success?
+                contract.("name" => "Jane", "age" => "30").success? # .() is a Ruby shortcut for .call()
                 # => true
 
                 contract.("name" => "Jane", "age" => "17").failure?
