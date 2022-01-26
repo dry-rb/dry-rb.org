@@ -6,12 +6,13 @@ gem "rake"
 gem "builder", "~> 3.0"
 
 # Middleman
-gem "middleman", "5.0.0.rc.1"
+gem "middleman", "~> 5.0.0.rc.2", github: "middleman/middleman" # Remove github source when rc.2 is released (See: middleman/middleman#2524)
 gem "middleman-dotenv"
 gem "middleman-minify-html"
 gem "middleman-blog"
 gem "middleman-syntax"
-gem "middleman-docsite", git: "https://github.com/solnic/middleman-docsite", branch: "master"
+#gem "middleman-docsite", github: "solnic/middleman-docsite"
+gem "middleman-docsite", github: "cllns/middleman-docsite", branch: "cllns/update-gems" # Remove once solnic/middleman-docsite#7 is merged
 
 # Middleman extra deps
 gem "better_errors"
