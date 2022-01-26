@@ -3,7 +3,9 @@ function switcher() {
 }
 
 export default function switchVersion() {
-  switcher().addEventListener('change', switchVersionHandler);
+  if (switcher()) {
+    switcher().addEventListener('change', switchVersionHandler);
+  }
 }
 
 function switchVersionHandler() {

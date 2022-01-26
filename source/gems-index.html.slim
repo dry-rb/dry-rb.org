@@ -3,8 +3,31 @@ title: Gems
 layout: listing
 ---
 
-ul
-  - Site.projects.sort_by(&:name).each do |project|
-    li
-      h3.gem-header == link_to project.name, "/gems/#{project.name}/#{project.latest_version}"
-      p== project.desc
+#js-table-wrapper
+
+table#gems
+  thead
+    tr
+      th Name
+      th Description
+      th Category
+      th Popularity
+      th Latest version
+      th High-level?
+  tbody
+    - all_gems.sort_by(&:popularity).reverse.each do |project|
+      tr
+        td
+          = link_to project.name, "/gems/#{project.name}/#{project.latest_version}"
+        td
+          = project.description
+        td
+          = project.category
+        td
+          - project.popularity.times
+            |⭐️
+        td
+          = project.latest_version
+        td
+          - if project.high_level?
+            | 👍

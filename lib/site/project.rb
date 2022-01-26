@@ -5,6 +5,7 @@ require 'middleman/docsite/project'
 module Site
   class Project < Middleman::Docsite::Project
     attribute(:name, Types::String)
+    attribute(:popularity, Types::Integer.constrained(gteq: 1, lteq: 5))
     attribute(:desc, Types::String)
     attribute(:seo, Types.Hash(description: Types::String).with_key_transform(&:to_sym))
 

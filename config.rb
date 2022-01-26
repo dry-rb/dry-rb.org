@@ -334,6 +334,68 @@ helpers do
   def current_project_seo
     current_project&.seo || {}
   end
+
+  # Returns a hash which is converted to json in the template
+  def all_gems
+    Middleman::Docsite.projects.map do |project|
+      OpenStruct.new(
+        name: project.name,
+        description: project.desc,
+        category: gem_categories.find do |category_name, category_values|
+          (
+            category_values.key?(project.name) ||
+            category_values.values.flatten.include?(project.name)
+          )
+        end&.first,
+        high_level?: gem_categories.find do |category_name, category_values|
+          (
+            ((category_values.key?(project.name) && category_name != LIBRARY_UTILITIES)) ||
+            category_values.fetch("Flow Control", []).include?(project.name)
+          )
+        end,
+        latest_version: project.latest_version,
+        popularity: project.popularity,
+      )
+    end
+  end
+
+  private
+
+  LIBRARY_UTILITIES = "Library Utilities"
+
+  def gem_categories
+    Hash[
+      'Dependencies' => {
+        'dry-system' => [ 'dry-container' , 'dry-auto_inject' ],
+      },
+      'Data' => {
+        'dry-validation' => [ 'dry-schema' , 'dry-types',  'dry-logic' ],
+        'dry-effects' => [],
+        'Objects' =>  [ 'dry-initializer', 'dry-struct' ],
+      },
+      'Application Utilities' => {
+        'dry-view' => [],
+        'dry-transformer' => [],
+        'dry-inflector' => [],
+        'Flow Control' => ['dry-monads', 'dry-transaction', 'dry-matcher' ],
+      },
+      LIBRARY_UTILITIES => {
+        'dry-configurable' => [],
+        'dry-files' => [],
+        'dry-cli' => [],
+        'dry-equalizer' => [],
+        'dry-core' => [],
+      },
+      'Events & Instrumentation' => {
+        'dry-monitor' => [],
+        'dry-events' => [],
+      },
+      'Integrations' => {
+        'hanami' => [],
+        'dry-rails' => []
+      },
+    ]
+  end
 end
 
 helpers Site::Helpers
