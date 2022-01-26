@@ -28,7 +28,7 @@ jobs:
         ref: gh-pages
         path: docs
     - name: Set up Ruby
-      uses: actions/setup-ruby@v1
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: "3.1"
     - name: Install latest bundler
@@ -41,7 +41,7 @@ jobs:
     - name: Install Node
       uses: actions/setup-node@v1
       with:
-        version: "12.10.0"
+        version: "16.13.2"
     - name: Restore npm package cache
       uses: actions/cache@v1
       with:
