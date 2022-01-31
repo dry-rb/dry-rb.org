@@ -32,7 +32,7 @@ export default function gemTable() {
         }
       ],
       server: {
-       url: "http://localhost:4567/gems.json",
+       url: "/gems.json",
        then: data => data.map(
           gem => [
             gem.popularity,
