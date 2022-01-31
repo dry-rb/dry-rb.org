@@ -27,8 +27,8 @@ export default function gemTable() {
         'Description',
         'Category',
         {
-          name: 'High level?',
-          formatter: (isHighLevel) => (isHighLevel && "👍")
+          name: 'App appropriate?',
+          formatter: (appAppropriate) => (appAppropriate && "👍")
         }
       ],
       server: {
@@ -39,7 +39,7 @@ export default function gemTable() {
             {name: gem.name, path: gem.path},
             gem.description,
             gem.category,
-            gem.is_high_level
+            gem.app_appropriate
           ]
         )
       },

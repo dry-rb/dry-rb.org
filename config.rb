@@ -348,15 +348,18 @@ helpers do
             category_values.values.flatten.include?(project.name)
           )
         end&.first,
-        is_high_level: gem_categories.any? do |category_name, category_values|
-          (
-            ((category_values.key?(project.name) && category_name != LIBRARY_UTILITIES)) ||
-            category_values.fetch("Flow Control", []).include?(project.name)
-          )
+        app_appropriate: gem_categories.any? do |category_name, category_values|
+          ((category_values.key?(project.name) && category_name != LIBRARY_UTILITIES))
         end,
-        popularity: "⭐️" * project.popularity
+        popularity: "⭐️" * project.popularity,
+        popularity_score: project.popularity
       ]
-    end
+    # Custom sort, to get the following order:
+    # *most popular* *app-appropriate* gems at the top
+    # less popular *high-level* after
+    # *most popular* low-level after that and
+    # least popular low-level gems after that.
+    end.sort_by { |gem| [gem[:app_appropriate] && -1 || 0 , -gem[:popularity_score]] }
   end
 
   private
@@ -371,13 +374,20 @@ helpers do
       'Data' => {
         'dry-validation' => [ 'dry-schema' , 'dry-types',  'dry-logic' ],
         'dry-effects' => [],
-        'Objects' =>  [ 'dry-initializer', 'dry-struct' ],
-      },
-      'Application Utilities' => {
-        'dry-view' => [],
         'dry-transformer' => [],
+      },
+      'Object Utilities' =>  {
+        'dry-initializer' => [],
+        'dry-struct'  => []
+      },
+      'Standalone Utilities' => {
         'dry-inflector' => [],
-        'Flow Control' => ['dry-monads', 'dry-transaction', 'dry-matcher' ],
+        'dry-view' => []
+      },
+      'Control Flow' => {
+        'dry-monads' => [],
+        'dry-transaction' => [],
+        'dry-matcher' => []
       },
       LIBRARY_UTILITIES => {
         'dry-configurable' => [],

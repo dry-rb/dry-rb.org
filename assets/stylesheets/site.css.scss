@@ -1378,6 +1378,13 @@ table {
   }
 }
 
+#gems-table {
+  .gem-name {
+    white-space: nowrap;
+    font-weight: bold;
+  }
+}
+
 .edit_page_link {
   float: right;
   position: relative;
