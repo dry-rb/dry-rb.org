@@ -11,8 +11,7 @@ gem "middleman-dotenv"
 gem "middleman-minify-html"
 gem "middleman-blog"
 gem "middleman-syntax"
-#gem "middleman-docsite", github: "solnic/middleman-docsite"
-gem "middleman-docsite", github: "cllns/middleman-docsite", branch: "cllns/update-gems" # Remove once solnic/middleman-docsite#7 is merged
+gem "middleman-docsite", github: "solnic/middleman-docsite"
 
 # Middleman extra deps
 gem "better_errors"

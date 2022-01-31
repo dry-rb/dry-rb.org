@@ -1,17 +1,4 @@
 GIT
-  remote: https://github.com/cllns/middleman-docsite.git
-  revision: 48627951925c916ec323a2bb88a1c032f0d14321
-  branch: cllns/update-gems
-  specs:
-    middleman-docsite (0.1.0)
-      dry-configurable (~> 0.8)
-      dry-struct (~> 1.0)
-      dry-types (~> 1.1)
-      middleman-core (~> 5.0.0.rc.1)
-      redcarpet (~> 3.5)
-      tilt (~> 2.0)
-
-GIT
   remote: https://github.com/middleman/middleman.git
   revision: 97ddbc52eac7a937adcc7d418fa9c2fb4a0a1a1e
   specs:
@@ -49,6 +36,18 @@ GIT
       toml
       uglifier (~> 4.1)
       webrick
+
+GIT
+  remote: https://github.com/solnic/middleman-docsite.git
+  revision: 5aa020950ed3394081ea34fb51f2adf64798971a
+  specs:
+    middleman-docsite (0.1.0)
+      dry-configurable (~> 0.8)
+      dry-struct (~> 1.0)
+      dry-types (~> 1.1)
+      middleman-core (~> 5.0.0.rc.1)
+      redcarpet (~> 3.5)
+      tilt (~> 2.0)
 
 GEM
   remote: https://rubygems.org/
