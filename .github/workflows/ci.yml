@@ -22,11 +22,11 @@ jobs:
     steps:
     - name: Clone
       uses: actions/checkout@v2
-    # - name: Clone gh-pages
-    #   uses: actions/checkout@v2
-    #   with:
-    #     ref: gh-pages
-    #     path: docs
+    - name: Clone gh-pages
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: docs
     - name: Set up Ruby
       uses: actions/setup-ruby@v1
       with:
