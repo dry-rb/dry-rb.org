@@ -30,6 +30,8 @@
       branch: "release-1.4"
     - value: "1.5"
       branch: "release-1.5"
+    - value: "1.9"
+      branch: "release-1.9"
     - value: "master"
       branch: "master"
   seo:
