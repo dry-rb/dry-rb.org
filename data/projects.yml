@@ -1,6 +1,10 @@
 - name: dry-validation
   desc: Powerful data validation
   versions:
+    - value: "1.8"
+      branch: "release-1.8"
+    - value: "1.7"
+      branch: "release-1.7"
     - value: "1.6"
       branch: "release-1.6"
     - value: "1.5"
