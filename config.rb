@@ -334,6 +334,78 @@ helpers do
   def current_project_seo
     current_project&.seo || {}
   end
+
+  # Returns a hash which is converted to json in the template
+  def all_gems
+    Middleman::Docsite.projects.map do |project|
+      Hash[
+        name: project.name,
+        description: project.desc,
+        path: "/gems/#{project.name}/#{project.latest_version}",
+        category: gem_categories.find do |category_name, category_values|
+          (
+            category_values.key?(project.name) ||
+            category_values.values.flatten.include?(project.name)
+          )
+        end&.first,
+        app_appropriate: gem_categories.any? do |category_name, category_values|
+          ((category_values.key?(project.name) && category_name != LIBRARY_UTILITIES))
+        end,
+        popularity: "⭐️" * project.popularity,
+        popularity_score: project.popularity
+      ]
+    # Custom sort, to get the following order:
+    # *most popular* *app-appropriate* gems at the top
+    # less popular *high-level* after
+    # *most popular* low-level after that and
+    # least popular low-level gems after that.
+    end.sort_by { |gem| [gem[:app_appropriate] && -1 || 0 , -gem[:popularity_score]] }
+  end
+
+  private
+
+  LIBRARY_UTILITIES = "Library Utilities"
+
+  def gem_categories
+    Hash[
+      'Dependencies' => {
+        'dry-system' => [ 'dry-container' , 'dry-auto_inject' ],
+      },
+      'Data' => {
+        'dry-validation' => [ 'dry-schema' , 'dry-types',  'dry-logic' ],
+        'dry-effects' => [],
+        'dry-transformer' => [],
+      },
+      'Object Utilities' =>  {
+        'dry-initializer' => [],
+        'dry-struct'  => []
+      },
+      'Standalone Utilities' => {
+        'dry-inflector' => [],
+        'dry-view' => []
+      },
+      'Control Flow' => {
+        'dry-monads' => [],
+        'dry-transaction' => [],
+        'dry-matcher' => []
+      },
+      LIBRARY_UTILITIES => {
+        'dry-configurable' => [],
+        'dry-files' => [],
+        'dry-cli' => [],
+        'dry-equalizer' => [],
+        'dry-core' => [],
+      },
+      'Events & Instrumentation' => {
+        'dry-monitor' => [],
+        'dry-events' => [],
+      },
+      'Integrations' => {
+        'hanami' => [],
+        'dry-rails' => []
+      },
+    ]
+  end
 end
 
 helpers Site::Helpers

@@ -99,33 +99,6 @@ main {
   flex: 1;
 }
 
-.article-list {
-  margin-left: auto;
-  margin-right: auto;
-  @include desktop {
-    max-width: 66.666667%;
-  }
-}
-
-.article-list ul li {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 20px;
-  padding-top: 30px;
-
-  @include tablet {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  @include mobile {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  &:last-of-type {
-    border-bottom: 0;
-  }
-}
-
 .btn {
   background-color: $teal;
   border-radius: 4px;
@@ -1405,6 +1378,13 @@ table {
   }
 }
 
+#gems-table {
+  .gem-name {
+    white-space: nowrap;
+    font-weight: bold;
+  }
+}
+
 .edit_page_link {
   float: right;
   position: relative;
@@ -1428,7 +1408,7 @@ table {
 .searchbox {
   max-width: 150px;
   width: auto;
-  
+
   #search-input {
     max-width: 30px;
     border: none;
@@ -1446,7 +1426,7 @@ table {
     font-size: 13px;
     font-weight: normal;
     padding: 6px 10px 6px;
-    
+
     transition: all 250ms ease;
 
     &:focus {

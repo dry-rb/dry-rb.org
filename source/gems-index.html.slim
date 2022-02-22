@@ -1,10 +1,8 @@
 ---
 title: Gems
-layout: listing
+layout: table
 ---
 
-ul
-  - Site.projects.sort_by(&:name).each do |project|
-    li
-      h3.gem-header == link_to project.name, "/gems/#{project.name}/#{project.latest_version}"
-      p== project.desc
+.content-wrap
+  #gems-table
+  / Filled in via JS (assets/javascripts/_gemTable.js)

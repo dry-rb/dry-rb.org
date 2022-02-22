@@ -39,7 +39,16 @@ module.exports = {
           'postcss-loader',
           'sass-loader',
         ]
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+        ]
+      },
     ]
   },
 

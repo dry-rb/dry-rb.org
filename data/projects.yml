@@ -1,5 +1,6 @@
 - name: dry-validation
   desc: Powerful data validation
+  popularity: 4
   versions:
     - value: "1.8"
       branch: "release-1.8"
@@ -27,6 +28,7 @@
     description: The standalone validation library for Ruby
 - name: dry-schema
   desc: Schema coercion & validation
+  popularity: 3
   versions:
     - value: "1.0"
       branch: "release-1.0"
@@ -48,6 +50,7 @@
     description: Flexible validation library for data structures in Ruby
 - name: dry-types
   desc: Flexible type system with many built-in types
+  popularity: 5
   versions:
     - value: "1.2"
       branch: "release-1.2"
@@ -61,6 +64,7 @@
     description: Flexible type system for Ruby
 - name: dry-struct
   desc: Attribute DSL for struct-like objects
+  popularity: 3
   versions:
     - value: "1.0"
       branch: "release-1.0"
@@ -74,6 +78,7 @@
       in Ruby
 - name: dry-transaction
   desc: Business transaction DSL
+  popularity: 2
   versions:
     - value: "0.13"
       branch: "release-0.13"
@@ -83,6 +88,7 @@
     description: Business transaction DSL for Ruby
 - name: dry-container
   desc: Simple and thread-safe IoC container
+  popularity: 5
   versions:
     - value: "0.7"
       branch: "release-0.7"
@@ -92,6 +98,7 @@
     description: A simple, configurable object container implemented in Ruby
 - name: dry-auto_inject
   desc: Container-agnostic constructor injection mixin
+  popularity: 2
   versions:
     - value: "0.6"
       branch: "release-0.6"
@@ -101,6 +108,7 @@
     description: Bring dependency injection to your Ruby application
 - name: dry-equalizer
   desc: Simple mixin providing equality methods
+  popularity: 5
   versions:
     - value: "0.2"
       branch: "release-0.2"
@@ -112,6 +120,7 @@
       Ruby
 - name: dry-inflector
   desc: Standalone inflections
+  popularity: 5
   versions:
     - value: "0.1"
       branch: "release-0.1"
@@ -123,6 +132,7 @@
       strings, and vice-versa
 - name: dry-system
   desc: Organize your code into reusable components
+  popularity: 2
   versions:
     - value: "0.23"
       branch: "release-0.23"
@@ -140,6 +150,7 @@
     description: Organize your Ruby code into reusable components
 - name: dry-configurable
   desc: Thread-safe configuration mixin
+  popularity: 5
   versions:
     - value: "0.11"
       branch: "release-0.11"
@@ -151,6 +162,7 @@
     description: A simple mixin to make Ruby classes configurable
 - name: dry-initializer
   desc: DSL for defining initializer params and options
+  popularity: 3
   versions:
     - value: "3.0"
       branch: "release-3.0"
@@ -162,6 +174,7 @@
       options
 - name: dry-logic
   desc: Predicate logic with composable rules
+  popularity: 5
   versions:
     - value: "1.2"
       branch: "release-1.2"
@@ -173,6 +186,7 @@
     description: Predicate logic with rule composition for Ruby
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
+  popularity: 2
   versions:
     - value: "0.7"
       branch: "release-0.7"
@@ -184,6 +198,7 @@
     description: Flexible, expressive pattern matching for Ruby
 - name: dry-monads
   desc: Useful, common monads in idiomatic Ruby
+  popularity: 2
   versions:
     - value: "0.4"
       branch: "release-0.4"
@@ -197,6 +212,7 @@
     description: Useful, common monads in idiomatic Ruby
 - name: dry-view
   desc: Functional, standalone view rendering
+  popularity: 1
   versions:
     - value: "0.7"
       branch: "release-0.7"
@@ -206,6 +222,7 @@
     description: A functional view rendering system for Ruby
 - name: dry-core
   desc: A toolset of small support modules used throughout the dry-rb & rom-rb ecosystems
+  popularity: 5
   versions:
     - value: "0.4"
       branch: "release-0.4"
@@ -217,6 +234,7 @@
       @rom-rb ecosystems
 - name: dry-events
   desc: Standalone pub/sub API
+  popularity: 2
   versions:
     - value: "0.2"
       branch: "release-0.2"
@@ -226,6 +244,7 @@
     description: A convienent publisher-subscriber framework for Ruby
 - name: dry-effects
   desc: Algebraic effects in Ruby
+  popularity: 2
   versions:
     - value: "0.1"
       branch: "release-0.1"
@@ -237,6 +256,7 @@
       for Ruby
 - name: dry-cli
   desc: General purpose Command Line Interface (CLI) framework
+  popularity: 1
   versions:
     - value: "0.6"
       branch: "release-0.6"
@@ -248,6 +268,7 @@
     description: General purpose Command Line Interface (CLI) framework for Ruby
 - name: dry-transformer
   desc: Data transformation toolkit
+  popularity: 1
   versions:
     - value: "0.1"
       branch: "release-0.1"
@@ -257,6 +278,7 @@
     description: The data transformation toolkit for Ruby
 - name: dry-rails
   desc: The dry-rb railtie
+  popularity: 1
   versions:
     - value: "0.1"
       branch: "release-0.1"
@@ -272,6 +294,7 @@
     description: Bring the power of DRY.rb to your Ruby on Rails application
 - name: dry-files
   desc: File utilities
+  popularity: 1
   versions:
     - value: "0.1"
       branch: "release-0.1"
@@ -279,6 +302,7 @@
     description: Provides useful abstractions for file manipulation in Ruby
 - name: dry-monitor
   desc: Instrumentation for Ruby applications
+  popularity: 2
   versions:
     - value: "master"
       branch: "master"
