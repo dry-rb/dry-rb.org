@@ -3,6 +3,7 @@ html lang="en"
   - content_for(:seo) { partial('seo', locals: seo_metadata) }
   head = partial("head")
   body
+    = partial "ukraine-alert"
     = partial "header"
     main
       .intro-page

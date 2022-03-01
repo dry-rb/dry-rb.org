@@ -1428,7 +1428,7 @@ table {
 .searchbox {
   max-width: 150px;
   width: auto;
-  
+
   #search-input {
     max-width: 30px;
     border: none;
@@ -1446,7 +1446,7 @@ table {
     font-size: 13px;
     font-weight: normal;
     padding: 6px 10px 6px;
-    
+
     transition: all 250ms ease;
 
     &:focus {
@@ -1494,4 +1494,9 @@ table {
   @include mobile {
     display: block;
   }
+}
+
+body > .alert {
+  text-align: center;
+  padding: 0.35rem 0;
 }
