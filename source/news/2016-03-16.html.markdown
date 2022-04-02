@@ -22,7 +22,7 @@ The error messages hash is now simpler and works very well with nested structure
 
 `dry-validation` remains very fast. Benchmarks show it's ~2.5x faster than `ActiveModel::Validations`. We'll keep making it faster!
 
-For a complete list of changes please refer to the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v070-2016-03-16).
+For a complete list of changes please refer to the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/main/CHANGELOG.md#v070-2016-03-16).
 
 Here's an example validation schema using new syntax:
 
@@ -62,7 +62,7 @@ UserSchema.(
 
 We renamed the former `dry-data` gem to `dry-types` and have released version 0.6.0. It went through internal refactoring to make composing types more flexible and simpler. This release also comes with nice new features, like support for default values in hash schemas and ability to pass a block to default values. These features make working with Struct and Value types simpler, as you can configure default values for attributes easily now.
 
-For a complete list of changes please refer to the [CHANGELOG](https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#v070-2016-03-16).
+For a complete list of changes please refer to the [CHANGELOG](https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#v070-2016-03-16).
 
 Here's an example Struct definition which uses these new features:
 

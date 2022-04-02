@@ -15,5 +15,5 @@
 
         This paragraph will be fine though because it's kept on one line even though it's longer than 80 characters or whatever your arbitrary limit might be.
 
-- We build the site on `master` exclusively: branches and PRs should not change
+- We build the site on `main` exclusively: branches and PRs should not change
   anything in the `docs` directory.

@@ -20,14 +20,14 @@ module Site
 
     def latest_version
       version = versions
-        .reject { |version| version[:value].eql?('master') }
+        .reject { |version| version[:value].eql?('main') }
         .max_by { |version| Gem::Version.new(version[:value]) }
 
-      version ? version[:value] : 'master'
+      version ? version[:value] : 'main'
     end
 
     def opened_issues_badge
-      "https://img.shields.io/github/issues/dry-rb/#{name}.svg?branch=master&style=flat"
+      "https://img.shields.io/github/issues/dry-rb/#{name}.svg?branch=main&style=flat"
     end
 
     def opened_issues_url
@@ -35,7 +35,7 @@ module Site
     end
 
     def opened_pulls_badge
-      "https://img.shields.io/github/issues-pr/dry-rb/#{name}.svg?branch=master&style=flat"
+      "https://img.shields.io/github/issues-pr/dry-rb/#{name}.svg?branch=main&style=flat"
     end
 
     def opened_pulls_url

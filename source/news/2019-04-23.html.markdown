@@ -87,8 +87,8 @@ lax_float['oops']
 
 There are a lot of other features, improvements, optimizations and fixes in this release. *Please refer to the CHANGELOGS* for a full overview:
 
-* [`dry-types 1.0.0 CHANGELOG`](https://github.com/dry-rb/dry-types/blob/master/CHANGELOG.md#100-2019-04-23)
-* [`dry-struct 1.0.0 CHANGELOG`](https://github.com/dry-rb/dry-struct/blob/master/CHANGELOG.md#100-2019-04-23)
+* [`dry-types 1.0.0 CHANGELOG`](https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#100-2019-04-23)
+* [`dry-struct 1.0.0 CHANGELOG`](https://github.com/dry-rb/dry-struct/blob/main/CHANGELOG.md#100-2019-04-23)
 
 Please give it a go and let us know what you think!
 

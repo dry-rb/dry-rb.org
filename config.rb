@@ -163,7 +163,7 @@ helpers do
   end
 
   def current_version_name
-    current_version == "master" ? current_version : "v#{current_version}"
+    current_version == "main" ? current_version : "v#{current_version}"
   end
 
   def recursive_name(page)
@@ -294,7 +294,7 @@ helpers do
   end
 
   def extract_version(url)
-    url[VERSION_REGEX, 1] || "master"
+    url[VERSION_REGEX, 1] || "main"
   end
 
   def current_version

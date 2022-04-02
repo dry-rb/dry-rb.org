@@ -12,7 +12,7 @@ on:
       - "package-lock.json"
   pull_request:
     branches:
-      - "master"
+      - "main"
   repository_dispatch:
 
 jobs:
@@ -58,17 +58,17 @@ jobs:
     - name: Check internal links
       run: bundle exec rake check_links:internal
     - name: Prepare build artifact
-      if: github.event_name == 'push' && contains(github.ref, 'master') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
+      if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
       run: mkdir build && tar cvzf build/docs.tar.gz --exclude ".git" ./docs
     - name: Upload build artifact
-      if: github.event_name == 'push' && contains(github.ref, 'master') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
+      if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
       uses: actions/upload-artifact@v1
       with:
         name: build
         path: build/docs.tar.gz
   deploy:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && contains(github.ref, 'master') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
+    if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
     needs: build
     steps:
       - name: Clone

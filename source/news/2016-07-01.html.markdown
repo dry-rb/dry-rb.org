@@ -16,7 +16,7 @@ Dry::Validation::Deprecations.configure do |config|
 end
 ```
 
-If you use customized error messages, you may have to update some of them as a couple of tokens have been renamed. Please [see recent history](https://github.com/dry-rb/dry-validation/commits/master/config/errors.yml) of the built-in errors.yml for more details.
+If you use customized error messages, you may have to update some of them as a couple of tokens have been renamed. Please [see recent history](https://github.com/dry-rb/dry-validation/commits/main/config/errors.yml) of the built-in errors.yml for more details.
 
 If you use custom predicates modules, there’s a new interface for configuring it and **the old one no longer works**:
 
@@ -221,6 +221,6 @@ Feel free to experiment with this and if you discover any common patterns let us
 
 ## …and more!
 
-Yes, there’s more :) For detailed information about the changes and improvements please read the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/master/CHANGELOG.md#v080-2016-07-01).
+Yes, there’s more :) For detailed information about the changes and improvements please read the [CHANGELOG](https://github.com/dry-rb/dry-validation/blob/main/CHANGELOG.md#v080-2016-07-01).
 
 Check out dry-validation and [tell us what you think](https://dry-rb.zulipchat.com)!
