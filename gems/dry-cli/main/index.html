@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="General purpose Command Line Interface (CLI) framework for Ruby" name="description" /><meta content="dry-rb - dry-cli main - Introduction" property="og:title" /><meta content="General purpose Command Line Interface (CLI) framework for Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-cli main - Introduction" name="twitter:title" /><meta content="General purpose Command Line Interface (CLI) framework for Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-cli main - Introduction</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-cli <span class="hide">main</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-cli">View dry-cli on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-cli/0.6">0.6</option><option value="/gems/dry-cli/0.4">0.4</option><option selected="selected" value="/gems/dry-cli/main">main</option></select></h3><ul><li><a href="/gems/dry-cli/main" class="active">Introduction</a><li><a href="/gems/dry-cli/main/commands" class="">Commands</a></li><li><a href="/gems/dry-cli/main/subcommands" class="">Subcommands</a></li><li><a href="/gems/dry-cli/main/arguments" class="">Arguments</a></li><li><a href="/gems/dry-cli/main/options" class="">Options</a></li><li><a href="/gems/dry-cli/main/variadic-arguments" class="">Variadic arguments</a></li><li><a href="/gems/dry-cli/main/commands-with-subcommands-and-params" class="">Commands with subcommands and params</a></li><li><a href="/gems/dry-cli/main/callbacks" class="">Callbacks</a></li></li></ul></aside><article class="gem-article"><h2>Introduction</h2><p><code>dry-cli</code> is a general-purpose framework for developing Command Line Interface (CLI) applications. It represents commands as objects that can be registered and offers support for arguments, options and forwarding variadic arguments to a sub-command.</p>
+<h2 id="usage" class="hd"><a name="usage" class="anchor" href="#usage">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Usage</h2>
+<p>The following is an elaborate example showcasing most of the available features.</p>
+
+<p>Imagine you want to build a CLI executable <code>foo</code> for your Ruby project. The entire program is defined as below:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1">#!/usr/bin/env ruby</span>
+<span class="nb">require</span> <span class="s2">"bundler/setup"</span>
+<span class="nb">require</span> <span class="s2">"dry/cli"</span>
+
+<span class="k">module</span> <span class="nn">Foo</span>
+  <span class="k">module</span> <span class="nn">CLI</span>
+    <span class="k">module</span> <span class="nn">Commands</span>
+      <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Registry</span>
+
+      <span class="k">class</span> <span class="nc">Version</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+        <span class="n">desc</span> <span class="s2">"Print version"</span>
+
+        <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+          <span class="nb">puts</span> <span class="s2">"1.0.0"</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">class</span> <span class="nc">Echo</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+        <span class="n">desc</span> <span class="s2">"Print input"</span>
+
+        <span class="n">argument</span> <span class="ss">:input</span><span class="p">,</span> <span class="ss">desc: </span><span class="s2">"Input to print"</span>
+
+        <span class="n">example</span> <span class="p">[</span>
+          <span class="s2">"             # Prints 'wuh?'"</span><span class="p">,</span>
+          <span class="s2">"hello, folks # Prints 'hello, folks'"</span>
+        <span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="ss">input: </span><span class="kp">nil</span><span class="p">,</span> <span class="o">**</span><span class="p">)</span>
+          <span class="k">if</span> <span class="n">input</span><span class="p">.</span><span class="nf">nil?</span>
+            <span class="nb">puts</span> <span class="s2">"wuh?"</span>
+          <span class="k">else</span>
+            <span class="nb">puts</span> <span class="n">input</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">class</span> <span class="nc">Start</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+        <span class="n">desc</span> <span class="s2">"Start Foo machinery"</span>
+
+        <span class="n">argument</span> <span class="ss">:root</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">desc: </span><span class="s2">"Root directory"</span>
+
+        <span class="n">example</span> <span class="p">[</span>
+          <span class="s2">"path/to/root # Start Foo at root directory"</span>
+        <span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">root</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
+          <span class="nb">puts</span> <span class="s2">"started - root: </span><span class="si">#{</span><span class="n">root</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">class</span> <span class="nc">Stop</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+        <span class="n">desc</span> <span class="s2">"Stop Foo machinery"</span>
+
+        <span class="n">option</span> <span class="ss">:graceful</span><span class="p">,</span> <span class="ss">type: :boolean</span><span class="p">,</span> <span class="ss">default: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">desc: </span><span class="s2">"Graceful stop"</span>
+
+        <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+          <span class="nb">puts</span> <span class="s2">"stopped - graceful: </span><span class="si">#{</span><span class="n">options</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:graceful</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">class</span> <span class="nc">Exec</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+        <span class="n">desc</span> <span class="s2">"Execute a task"</span>
+
+        <span class="n">argument</span> <span class="ss">:task</span><span class="p">,</span> <span class="ss">type: :string</span><span class="p">,</span> <span class="ss">required: </span><span class="kp">true</span><span class="p">,</span>  <span class="ss">desc: </span><span class="s2">"Task to be executed"</span>
+        <span class="n">argument</span> <span class="ss">:dirs</span><span class="p">,</span> <span class="ss">type: :array</span><span class="p">,</span>  <span class="ss">required: </span><span class="kp">false</span><span class="p">,</span> <span class="ss">desc: </span><span class="s2">"Optional directories"</span>
+
+        <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">task</span><span class="p">:,</span> <span class="ss">dirs: </span><span class="p">[],</span> <span class="o">**</span><span class="p">)</span>
+          <span class="nb">puts</span> <span class="s2">"exec - task: </span><span class="si">#{</span><span class="n">task</span><span class="si">}</span><span class="s2">, dirs: </span><span class="si">#{</span><span class="n">dirs</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2">"</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="k">module</span> <span class="nn">Generate</span>
+        <span class="k">class</span> <span class="nc">Configuration</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+          <span class="n">desc</span> <span class="s2">"Generate configuration"</span>
+
+          <span class="n">option</span> <span class="ss">:apps</span><span class="p">,</span> <span class="ss">type: :array</span><span class="p">,</span> <span class="ss">default: </span><span class="p">[],</span> <span class="ss">desc: </span><span class="s2">"Generate configuration for specific apps"</span>
+
+          <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">apps</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
+            <span class="nb">puts</span> <span class="s2">"generated configuration for apps: </span><span class="si">#{</span><span class="n">apps</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2">"</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+
+        <span class="k">class</span> <span class="nc">Test</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
+          <span class="n">desc</span> <span class="s2">"Generate tests"</span>
+
+          <span class="n">option</span> <span class="ss">:framework</span><span class="p">,</span> <span class="ss">default: </span><span class="s2">"minitest"</span><span class="p">,</span> <span class="ss">values: </span><span class="sx">%w[minitest rspec]</span>
+
+          <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">framework</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
+            <span class="nb">puts</span> <span class="s2">"generated tests - framework: </span><span class="si">#{</span><span class="n">framework</span><span class="si">}</span><span class="s2">"</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+      <span class="n">register</span> <span class="s2">"version"</span><span class="p">,</span> <span class="no">Version</span><span class="p">,</span> <span class="ss">aliases: </span><span class="p">[</span><span class="s2">"v"</span><span class="p">,</span> <span class="s2">"-v"</span><span class="p">,</span> <span class="s2">"--version"</span><span class="p">]</span>
+      <span class="n">register</span> <span class="s2">"echo"</span><span class="p">,</span>    <span class="no">Echo</span>
+      <span class="n">register</span> <span class="s2">"start"</span><span class="p">,</span>   <span class="no">Start</span>
+      <span class="n">register</span> <span class="s2">"stop"</span><span class="p">,</span>    <span class="no">Stop</span>
+      <span class="n">register</span> <span class="s2">"exec"</span><span class="p">,</span>    <span class="no">Exec</span>
+
+      <span class="n">register</span> <span class="s2">"generate"</span><span class="p">,</span> <span class="ss">aliases: </span><span class="p">[</span><span class="s2">"g"</span><span class="p">]</span> <span class="k">do</span> <span class="o">|</span><span class="n">prefix</span><span class="o">|</span>
+        <span class="n">prefix</span><span class="p">.</span><span class="nf">register</span> <span class="s2">"config"</span><span class="p">,</span> <span class="no">Generate</span><span class="o">::</span><span class="no">Configuration</span>
+        <span class="n">prefix</span><span class="p">.</span><span class="nf">register</span> <span class="s2">"test"</span><span class="p">,</span>   <span class="no">Generate</span><span class="o">::</span><span class="no">Test</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Foo</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Commands</span><span class="p">).</span><span class="nf">call</span>
+</code></pre></div><h3 id="available-commands" class="hd"><a name="available-commands" class="anchor" href="#available-commands">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Available commands</h3>
+<p>With this code in place, we can now have a look at the command line usage by issuing the command <code>foo</code> without any arguments or options:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo
+Commands:
+  foo <span class="nb">echo</span> <span class="o">[</span>INPUT]                       <span class="c"># Print input</span>
+  foo <span class="nb">exec </span>TASK <span class="o">[</span>DIRS]                   <span class="c"># Execute a task</span>
+  foo generate <span class="o">[</span>SUBCOMMAND]
+  foo start ROOT                         <span class="c"># Start Foo machinery</span>
+  foo stop                               <span class="c"># Stop Foo machinery</span>
+  foo version                            <span class="c"># Print version</span>
+</code></pre></div><h3 id="help" class="hd"><a name="help" class="anchor" href="#help">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Help</h3>
+<p>It is also possible to get help for a particular command using the <code>--help</code> flag:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nb">echo</span> <span class="nt">--help</span>
+Command:
+  foo <span class="nb">echo
+
+</span>Usage:
+  foo <span class="nb">echo</span> <span class="o">[</span>INPUT]
+
+Description:
+  Print input
+
+Arguments:
+  INPUT                 <span class="c"># Input to print</span>
+
+Options:
+  <span class="nt">--help</span>, <span class="nt">-h</span>                        <span class="c"># Print this help</span>
+
+Examples:
+  foo <span class="nb">echo</span>              <span class="c"># Prints 'wuh?'</span>
+  foo <span class="nb">echo </span>hello, folks <span class="c"># Prints 'hello, folks'</span>
+</code></pre></div><h3 id="optional-arguments" class="hd"><a name="optional-arguments" class="anchor" href="#optional-arguments">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Optional arguments</h3>
+<p>A command can have optional arguments, which enables a default action in case nothing is provided:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nb">echo
+</span>wuh?
+
+<span class="nv">$ </span>foo <span class="nb">echo </span>hello
+hello
+</code></pre></div><h3 id="required-arguments" class="hd"><a name="required-arguments" class="anchor" href="#required-arguments">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Required arguments</h3>
+<p>On the other hand, required arguments will throw an error if not provided:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo start <span class="nb">.</span>
+started - root: <span class="nb">.</span>
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo start
+ERROR: <span class="s2">"foo start"</span> was called with no arguments
+Usage: <span class="s2">"foo start ROOT"</span>
+</code></pre></div><h3 id="array-arguments" class="hd"><a name="array-arguments" class="anchor" href="#array-arguments">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Array arguments</h3>
+<p>Captures all the remaining arguments in a single array.
+Please note that <code>array</code> argument must be used as the last argument, as it works as a <em>&quot;catch-all&quot;</em>.</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nb">exec test
+exec</span> - task: <span class="nb">test</span>, <span class="nb">dirs</span>: <span class="o">[]</span>
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nb">exec test </span>spec/bookshelf/entities spec/bookshelf/repositories
+<span class="nb">exec</span> - task: <span class="nb">test</span>, <span class="nb">dirs</span>: <span class="o">[</span><span class="s2">"spec/bookshelf/entities"</span>, <span class="s2">"spec/bookshelf/repositories"</span><span class="o">]</span>
+</code></pre></div><h3 id="options" class="hd"><a name="options" class="anchor" href="#options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Options</h3>
+<p>An option is a named argument that is passed after the command name and the arguments:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo generate <span class="nb">test
+</span>generated tests - framework: minitest
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo generate <span class="nb">test</span> <span class="nt">--framework</span><span class="o">=</span>rspec
+generated tests - framework: rspec
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo generate <span class="nb">test</span> <span class="nt">--framework</span><span class="o">=</span>unknown
+ERROR: <span class="s2">"foo generate test"</span> was called with arguments <span class="s2">"--framework=unknown"</span>
+</code></pre></div><h3 id="boolean-options" class="hd"><a name="boolean-options" class="anchor" href="#boolean-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Boolean options</h3>
+<p>Boolean options are flags that change the behaviour of a command:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo stop
+stopped - graceful: <span class="nb">true</span>
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo stop <span class="nt">--no-graceful</span>
+stopped - graceful: <span class="nb">false</span>
+</code></pre></div><h3 id="array-options" class="hd"><a name="array-options" class="anchor" href="#array-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Array options</h3>
+<p>Array options are similar to arguments but must be named:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo generate config <span class="nt">--apps</span><span class="o">=</span>web,api
+generated configuration <span class="k">for </span>apps: <span class="o">[</span><span class="s2">"web"</span>, <span class="s2">"api"</span><span class="o">]</span>
+</code></pre></div><h3 id="subcommands" class="hd"><a name="subcommands" class="anchor" href="#subcommands">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Subcommands</h3>
+<p>Subcommands are simply commands that have been registered under a nested path:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo generate
+Commands:
+  foo generate config           <span class="c"># Generate configuration</span>
+  foo generate <span class="nb">test</span>             <span class="c"># Generate tests</span>
+</code></pre></div><h3 id="aliases" class="hd"><a name="aliases" class="anchor" href="#aliases">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Aliases</h3>
+<p>Aliases are supported:</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo version
+1.0.0
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo v
+1.0.0
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nt">-v</span>
+1.0.0
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo <span class="nt">--version</span>
+1.0.0
+</code></pre></div><h3 id="subcommand-aliases" class="hd"><a name="subcommand-aliases" class="anchor" href="#subcommand-aliases">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Subcommand aliases</h3>
+<p>Work similarly to command aliases</p>
+<div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo g config
+generated configuration <span class="k">for </span>apps: <span class="o">[]</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-cli/edit/main/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

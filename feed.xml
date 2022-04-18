@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>dry-rb news</title>
+  <id>http://dry-rb.org/news</id>
+  <link href="http://dry-rb.org/news"/>
+  <link href="http://dry-rb.org/feed.xml" rel="self"/>
+  <updated>2021-05-04T00:00:00+00:00</updated>
+  <author>
+    <name>dry-rb community</name>
+  </author>
+  <entry>
+    <title>Introducing dry-files</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
+    <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
+    <published>2021-05-04T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>jodosha</name>
+    </author>
+    <content type="html">&lt;p&gt;We talked several times about the union of &lt;a href="https://dry-rb.org"&gt;dry-rb&lt;/a&gt; + &lt;a href="https://rom-rb.org"&gt;ROM&lt;/a&gt; + &lt;a href="https://hanamirb.org"&gt;Hanami&lt;/a&gt;, well today we can share good news on that front: introducing &lt;code&gt;dry-files&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It&amp;#39;s a gem that abstracts low level file manipulations.&lt;/p&gt;
+
+&lt;p&gt;The code was originally created for &lt;code&gt;hanami-utils&lt;/code&gt;, as a way to power Hanami command line.
+Then it was moved to &lt;code&gt;dry-cli&lt;/code&gt;, when it was extracted from the Hanami code base.
+Today it finally made its own debut as a standalone gem.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dry-cli&lt;/code&gt; is a powerful framework to build Ruby command line interfaces.
+We use it as the main engine for the Hanami CLI, which also needs &lt;em&gt;code generators&lt;/em&gt;.
+The initial idea was to have this optional &lt;code&gt;dry-cli&lt;/code&gt; library to support &lt;em&gt;code generators&lt;/em&gt; via file manipulations.
+But then we reached the point at which this library had more lines of code than &lt;code&gt;dry-cli&lt;/code&gt; itself, so we decided to &lt;strong&gt;extract&lt;/strong&gt; this library.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s a simple example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# frozen_string_literal: true&lt;/span&gt;
+
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/files"&lt;/span&gt;
+
+&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"path/to/file"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"Hello, World!"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# intermediate directories are created, if missing&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;dry-files&lt;/code&gt; is shipped with an extensive API to touch, (re)write, read, and remove files/directories, inject/remove/append Ruby code lines and blocks, and so on.&lt;/p&gt;
+
+&lt;p&gt;Because of this abstraction we had the chance to introduce swappable adapters.
+One adapter (the default one) is for &lt;strong&gt;real file manipulations&lt;/strong&gt;. It&amp;#39;s meant to be used in &lt;strong&gt;production and integration tests&lt;/strong&gt;.
+The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&amp;#39;s for &lt;strong&gt;very fast unit tests&lt;/strong&gt; that cleanup by themselves.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# frozen_string_literal: true&lt;/span&gt;
+
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/files"&lt;/span&gt;
+
+&lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;memory: &lt;/span&gt;&lt;span class="kp"&gt;true&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;write&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"path/to/file"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"Hello, World!"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# create an in-memory file&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Checkout the &lt;a href="https://dry-rb.org/gems/dry-files"&gt;docs&lt;/a&gt; and the &lt;a href="https://github.com/dry-rb/dry-files/releases/tag/v0.1.0"&gt;CHANGELOG&lt;/a&gt; to know more. Enjoy!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>dry-system 0.19 released with Zeitwerk support and more, leading the way for Hanami 2.0</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
+    <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
+    <published>2021-04-22T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>timriley</name>
+    </author>
+    <content type="html">&lt;p&gt;We are very pleased to announce the release of dry-system 0.19.0! This release marks a huge step forward for dry-system, bringing support for &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt; and other autoloaders, plus clearer configuration and improved consistency around component resolution for both finalized and lazy loading containers.&lt;/p&gt;
+
+&lt;p&gt;These changes will also pave the way for a seamless integration of Zeitwerk and dry-system into the new Hanami 2.0 application core. Until then, thanks to dry-rb serving as an independent foundation layer for Hanami, you can already try out these new features!&lt;/p&gt;
+
+&lt;p&gt;A dry-system container as of 0.19.0, configured for Zeitwerk, now looks like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/system/container"&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/system/loader/autoloading"&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"zeitwerk"&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;System&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;
+  &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;__dir__&lt;/span&gt;
+
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;loader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;System&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Loader&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Autoloading&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;add_to_load_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;false&lt;/span&gt;
+
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;add&lt;/span&gt; &lt;span class="s2"&gt;"lib"&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;loader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+&lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;push_dir&lt;/span&gt; &lt;span class="no"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"lib"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;realpath&lt;/span&gt;
+&lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;setup&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Unlike the default loader, the new &lt;code&gt;Dry::System::Loader::Autoloading&lt;/code&gt; does not &lt;code&gt;require&lt;/code&gt; files itself when loading components. Instead, it references their class constants directly, allowing the missing constant resolution to trigger the autoloading behaviour of &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt; and other autoloaders. This is all that&amp;#39;s required to bring Zeitwerk and dry-system together! Combined with dry-system&amp;#39;s &lt;a href="https://dry-rb.org/gems/dry-system/0.17/auto-import/"&gt;auto-injector&lt;/a&gt;, you now have the best of both worlds: the convenience of auto-loading classes combined with all the loose-coupling benefits of injected dependencies.&lt;/p&gt;
+
+&lt;p&gt;The new &lt;code&gt;component_dirs&lt;/code&gt; setting also allows multiple component dirs to be added (these are where dry-system looks when loading a container&amp;#39;s components) and configured independently:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MyApp&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;System&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Container&lt;/span&gt;
+  &lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;__dir__&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Defaults for all component dirs can be configured&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;default_namespace&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"my_app"&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# As well as settings for individual dirs&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;add&lt;/span&gt; &lt;span class="s2"&gt;"lib"&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+      &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;auto_register&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;proc&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;component&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+        &lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="n"&gt;component&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;identifier&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;start_with?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'entities'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+      &lt;span class="k"&gt;end&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# Multiple component dirs can be added&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;component_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;add&lt;/span&gt; &lt;span class="s2"&gt;"app"&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;auto_register&lt;/code&gt; and &lt;code&gt;memoize&lt;/code&gt; component dir settings have been improved as part of this release, now accepting either simple truthy or falsey values, or a proc accepting a &lt;code&gt;Dry::System::Component&lt;/code&gt; and returning a truthy or falsey value. Using a proc makes it easy to configure fine-grained behavior on a component-per-component basis. Check out also the new &lt;code&gt;Dry::System::Identifier&lt;/code&gt; class as used above via &lt;code&gt;component.identifier&lt;/code&gt;: this is a new class that provides namespace-aware methods for querying container component identifiers, which is particularly useful in cases like the above.&lt;/p&gt;
+
+&lt;p&gt;Finally, we&amp;#39;ve given a lot of attention to making sure dry-system containers work consistently regardless of whether they&amp;#39;re finalized or lazy loading their components. For example, &lt;code&gt;# auto_register: false&lt;/code&gt; magic comments are not respected in both cases, where previously they were ignored for a lazy loading container.&lt;/p&gt;
+
+&lt;p&gt;There&amp;#39;s plenty more to learn about this release, including several breaking changes, so check out the &lt;a href="https://github.com/dry-rb/dry-system/releases/tag/v0.19.0"&gt;changelog&lt;/a&gt; for all the details. And if you want to understand more of the thinking that went into these changes, also check out Tim’s open source status updates for this last &lt;a href="https://timriley.info/writing/2020/12/07/open-source-status-update-november-2020"&gt;November&lt;/a&gt;, &lt;a href="https://timriley.info/writing/2021/01/06/open-source-status-update-december-2020"&gt;December&lt;/a&gt;, &lt;a href="https://timriley.info/writing/2021/02/01/open-source-status-update-january-2021"&gt;January&lt;/a&gt;, and &lt;a href="https://timriley.info/writing/2021/03/09/open-source-status-update-february-2021/"&gt;February&lt;/a&gt; (Yes, this release has been long in the making!).&lt;/p&gt;
+
+&lt;p&gt;With many internal improvements also in place for this release, we now see a clear picture of what&amp;#39;s left before 1.0, and have filled out the &lt;a href="https://github.com/dry-rb/dry-system/milestone/1"&gt;dry-system 1.0 milestone&lt;/a&gt; with issues representing the remaining work. Please take a look and get in touch if you can help.&lt;/p&gt;
+
+&lt;p&gt;In the meantime, we hope you enjoy dry-system 0.19.0 and please let us know how you go with all the new features!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>dry-schema and dry-validation 1.5.0 released</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
+    <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
+    <published>2020-03-11T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>solnic</name>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#39;re happy to announce the release of dry-schema 1.5.0! It comes with plenty of new features, fixes, and general improvements. Here are some of the highlights.&lt;/p&gt;
+&lt;h2 id="support-for-composing-schemas" class="hd"&gt;&lt;a name="support-for-composing-schemas" class="anchor" href="#support-for-composing-schemas"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Support for composing schemas&lt;/h2&gt;
+&lt;p&gt;You can now compose schemas using logical operators. The only limitation is that &lt;code&gt;xor&lt;/code&gt; is not supported yet as it wasn&amp;#39;t clear how error messages are supposed to work. This feature is experimental until we finalize it in version 2.0.0.&lt;/p&gt;
+
+&lt;p&gt;In the meantime, please try it out! Here&amp;#39;s a simple example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;RoleSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;JSON&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:id&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;ExpirableSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;JSON&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:expires_on&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;value&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:date&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;JSON&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:role&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;RoleSchema&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="no"&gt;ExpirableSchema&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s2"&gt;"Jane"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;role: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;id: &lt;/span&gt;&lt;span class="s2"&gt;"admin"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;expires_on: &lt;/span&gt;&lt;span class="s2"&gt;"2020-05-01"&lt;/span&gt; &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# {}&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s2"&gt;"Jane"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;role: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;id: &lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;expires_on: &lt;/span&gt;&lt;span class="s2"&gt;"2020-05-01"&lt;/span&gt; &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# {role: {id: ["must be filled"]}}&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s2"&gt;"Jane"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;role: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;id: &lt;/span&gt;&lt;span class="s2"&gt;"admin"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;expires_on: &lt;/span&gt;&lt;span class="s2"&gt;"oops"&lt;/span&gt; &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# {role: {expires_on: ["must be a date"]}}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href="/gems/dry-schema/1.5/advanced/composing-schemas/"&gt;Refer to the documentation&lt;/a&gt; for more information.&lt;/p&gt;
+&lt;h2 id="errors-about-unexpected-keys" class="hd"&gt;&lt;a name="errors-about-unexpected-keys" class="anchor" href="#errors-about-unexpected-keys"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Errors about unexpected keys&lt;/h2&gt;
+&lt;p&gt;Back in the dry-validation 0.x era, many people asked about returning errors for unexpected keys. Four years later, this feature is finally here! You can enable it with a simple config flag:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;UserSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Params&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="c1"&gt;# Enable key validation!&lt;/span&gt;
+  &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;validate_keys&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;true&lt;/span&gt;
+
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:address&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;hash&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:city&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:zipcode&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:roles&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;input&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="ss"&gt;foo: &lt;/span&gt;&lt;span class="s1"&gt;'unexpected'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'Jane'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="ss"&gt;address: &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;bar: &lt;/span&gt;&lt;span class="s1"&gt;'unexpected'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;city: &lt;/span&gt;&lt;span class="s1"&gt;'NYC'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;zipcode: &lt;/span&gt;&lt;span class="s1"&gt;'1234'&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+  &lt;span class="ss"&gt;roles: &lt;/span&gt;&lt;span class="p"&gt;[{&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'admin'&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'editor'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;foo: &lt;/span&gt;&lt;span class="s1"&gt;'unexpected'&lt;/span&gt; &lt;span class="p"&gt;}]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;input&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# {&lt;/span&gt;
+&lt;span class="c1"&gt;#  :foo=&amp;gt;["is not allowed"],&lt;/span&gt;
+&lt;span class="c1"&gt;#  :address=&amp;gt;{:bar=&amp;gt;["is not allowed"]},&lt;/span&gt;
+&lt;span class="c1"&gt;#  :roles=&amp;gt;{1=&amp;gt;{:foo=&amp;gt;["is not allowed"]}}&lt;/span&gt;
+&lt;span class="c1"&gt;# }&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notice that it works even for arrays with hashes as elements, which is &lt;strong&gt;really nice&lt;/strong&gt;!&lt;/p&gt;
+&lt;h2 id="introspection-extension" class="hd"&gt;&lt;a name="introspection-extension" class="anchor" href="#introspection-extension"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Introspection extension&lt;/h2&gt;
+&lt;p&gt;Another feature request that goes way back is easily seeing which keys are required and which are optional. This is now provided by a new &lt;code&gt;:info&lt;/code&gt; extension, which shows both the keys and their associated types.&lt;/p&gt;
+
+&lt;p&gt;To enable it, you need to load the extension:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;load_extensions&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:info&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;JSON&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:email&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;optional&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:integer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;optional&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:address&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;hash&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:street&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:zipcode&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:city&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;UserSchema&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;info&lt;/span&gt;
+&lt;span class="c1"&gt;# {&lt;/span&gt;
+&lt;span class="c1"&gt;#   :keys=&amp;gt; {&lt;/span&gt;
+&lt;span class="c1"&gt;#     :email=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#       :required=&amp;gt;true,&lt;/span&gt;
+&lt;span class="c1"&gt;#       :type=&amp;gt;"string"&lt;/span&gt;
+&lt;span class="c1"&gt;#     },&lt;/span&gt;
+&lt;span class="c1"&gt;#     :age=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#       :required=&amp;gt;false,&lt;/span&gt;
+&lt;span class="c1"&gt;#       :type=&amp;gt;"integer"&lt;/span&gt;
+&lt;span class="c1"&gt;#      },&lt;/span&gt;
+&lt;span class="c1"&gt;#     :address=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#       :type=&amp;gt;"hash",&lt;/span&gt;
+&lt;span class="c1"&gt;#       :required=&amp;gt;false,&lt;/span&gt;
+&lt;span class="c1"&gt;#       :keys=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#         :street=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#           :required=&amp;gt;true,&lt;/span&gt;
+&lt;span class="c1"&gt;#           :type=&amp;gt;"string"&lt;/span&gt;
+&lt;span class="c1"&gt;#         },&lt;/span&gt;
+&lt;span class="c1"&gt;#         :zipcode=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#           :required=&amp;gt;true,&lt;/span&gt;
+&lt;span class="c1"&gt;#           :type=&amp;gt;"string"&lt;/span&gt;
+&lt;span class="c1"&gt;#         },&lt;/span&gt;
+&lt;span class="c1"&gt;#         :city=&amp;gt;{&lt;/span&gt;
+&lt;span class="c1"&gt;#           :required=&amp;gt;true,&lt;/span&gt;
+&lt;span class="c1"&gt;#           :type=&amp;gt;"string"&lt;/span&gt;
+&lt;span class="c1"&gt;#         }&lt;/span&gt;
+&lt;span class="c1"&gt;#       }&lt;/span&gt;
+&lt;span class="c1"&gt;#     }&lt;/span&gt;
+&lt;span class="c1"&gt;#   }&lt;/span&gt;
+&lt;span class="c1"&gt;# }&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="summary" class="hd"&gt;&lt;a name="summary" class="anchor" href="#summary"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Summary&lt;/h2&gt;
+&lt;p&gt;There&amp;#39;s way more in the changelog so please &lt;a href="https://github.com/dry-rb/dry-schema/releases/tag/v1.5.0"&gt;check it out&lt;/a&gt; and if you&amp;#39;re having any issues when upgrading, please do &lt;a href="https://github.com/dry-rb/dry-schema/issues/new?assignees=&amp;amp;labels=bug&amp;amp;template=---bug-report.md&amp;amp;title="&gt;let us know&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Big thanks go to &lt;a href="https://github.com/robhanlon22"&gt;Rob Hanlon&lt;/a&gt; and the rest of the contributors who helped with this release!&lt;/p&gt;
+
+&lt;p&gt;Last but not least: dry-validation 1.5.0 was released too, which upgrades its own dependency on dry-schema to 1.5.0 and adds a couple of new features.&lt;/p&gt;
+
+&lt;p&gt;Please upgrade and enjoy using dry-schema and dry-validation!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Introducing dry-effects</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
+    <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
+    <published>2019-10-03T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>flash-gordon</name>
+    </author>
+    <content type="html">&lt;p&gt;Today we&amp;#39;re introducing another gem and supercharging our toolset: say hello to dry-effects!&lt;/p&gt;
+
+&lt;p&gt;dry-effects is an implementation of algebraic effects in Ruby. Sound scary? Fear not! After a few examples, it&amp;#39;ll feel very natural and compelling.&lt;/p&gt;
+&lt;h2 id="struggling-with-side-effects" class="hd"&gt;&lt;a name="struggling-with-side-effects" class="anchor" href="#struggling-with-side-effects"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Struggling with side effects&lt;/h2&gt;
+&lt;p&gt;Writing purely functional code can be an attractive idea; it makes your code robust, testable, ... and useless! Indeed, if code doesn&amp;#39;t perform any side effects, such as reading/writing data to the disc or network communications, the only thing it actually does is heating the CPU. On the other hand, side effects remove determinism from the code, making testing challenging. Here come algebraic effects, the underlying theory powering dry-effects.&lt;/p&gt;
+&lt;h2 id="understanding-effects" class="hd"&gt;&lt;a name="understanding-effects" class="anchor" href="#understanding-effects"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Understanding effects&lt;/h2&gt;
+&lt;p&gt;There are two main parts to effects and effectful systems:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Replace side effects with effects. These two are not the same, they are not even similar. Side effects are by definition not expected by the calling code. One cannot say if there are side effects judging by the interface. On the contrary, effects are explicitly included in interfaces; they &lt;em&gt;are expected&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Running code with effects requires handling. This must be done explicitly, so that effects don&amp;#39;t propagate straight to the outside world.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;These two things combined give you full control over effects in your application.&lt;/p&gt;
+&lt;h2 id="taming-effects-with-dry-effects" class="hd"&gt;&lt;a name="taming-effects-with-dry-effects" class="anchor" href="#taming-effects-with-dry-effects"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Taming effects with dry-effects&lt;/h2&gt;
+&lt;p&gt;dry-effects uses mixins for making (or introducing) and handling (or eliminating) effects.&lt;/p&gt;
+
+&lt;p&gt;For example, this code uses the effect of getting the current time:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CreateSubscription&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Effects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;CurrentTime&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;subscription_repo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;merge&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;start_at: &lt;/span&gt;&lt;span class="n"&gt;current_time&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To run it, there must be a handler:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# Rack middleware is a perfect example of a place&lt;/span&gt;
+&lt;span class="c1"&gt;# where effects can be handled.&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;WithCurrentTime&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Effects&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Handler&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;CurrentTime&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="vi"&gt;@app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;with_current_time&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="vi"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;So how is this better than &lt;code&gt;Time.now&lt;/code&gt;? You get testable code for free. An RSpec example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Effects&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Handler&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;CurrentTime&lt;/span&gt;
+
+&lt;span class="n"&gt;subject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:create_subscription&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="no"&gt;CreateSubscription&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;example&lt;/span&gt; &lt;span class="s2"&gt;"creating subscription on New Year's Eve"&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;with_current_time&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;proc&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="no"&gt;Time&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2019&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;})&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;create_subscription&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Why would you use dry-effects for this instead of specialized solutions? Because it provides a universal interface to all effects, it&amp;#39;s not limited to Ruby. For instance, getting the current time in React would look very similar:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax javascript"&gt;&lt;code&gt;&lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;CurrentTime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kd"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;currentTime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;useCurrentTime&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nx"&gt;div&lt;/span&gt; &lt;span class="nx"&gt;className&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="dl"&gt;"&lt;/span&gt;&lt;span class="s2"&gt;current-time&lt;/span&gt;&lt;span class="dl"&gt;"&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;currentTime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getHours&lt;/span&gt;&lt;span class="p"&gt;()}:{&lt;/span&gt;&lt;span class="nx"&gt;currentTime&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getMinutes&lt;/span&gt;&lt;span class="p"&gt;()}&lt;/span&gt;
+    &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="sr"&gt;/div&lt;/span&gt;&lt;span class="err"&gt;&amp;gt;
+&lt;/span&gt;  &lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Yes, React relies on algebraic effects under the hood; maybe you already use them!&lt;/p&gt;
+&lt;h2 id="what-else" class="hd"&gt;&lt;a name="what-else" class="anchor" href="#what-else"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;What else?&lt;/h2&gt;
+&lt;p&gt;dry-effects v0.1 is already out and comes with quite a few effects supported out of the box. Some of them are “classic” and some are experimental, 17 in total.&lt;/p&gt;
+
+&lt;p&gt;Here are some:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Accessing current time&lt;/li&gt;
+&lt;li&gt;Providing context&lt;/li&gt;
+&lt;li&gt;Sharing state&lt;/li&gt;
+&lt;li&gt;Providing environment (as opposed to accessing and manipulating &lt;code&gt;ENV&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Caching&lt;/li&gt;
+&lt;li&gt;Locking&lt;/li&gt;
+&lt;li&gt;Deferred and parallel code execution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One of the most compelling examples is dependency injection:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CreateUser&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Effects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Resolve&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:user_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;user_repo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here &lt;code&gt;CreateUser&lt;/code&gt; is not linked to a dependency resolution implementation in any way. To provide the dependency, add a handler:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Effects&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Handler&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Resolve&lt;/span&gt;
+
+&lt;span class="n"&gt;subject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:create_user&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="no"&gt;CreateUser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;let&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:user_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;double&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:user_repo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;create: &lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;example&lt;/span&gt; &lt;span class="s1"&gt;'creating a user'&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="n"&gt;provide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;user_repo: &lt;/span&gt;&lt;span class="n"&gt;user_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;create_user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can provide multiple dependencies:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;provide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;user_repo: &lt;/span&gt;&lt;span class="n"&gt;user_repo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;post_repo: &lt;/span&gt;&lt;span class="n"&gt;post_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Handlers are also composable, you can nest them:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;provide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;user_repo: &lt;/span&gt;&lt;span class="n"&gt;user_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;provide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;post_repo: &lt;/span&gt;&lt;span class="n"&gt;post_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This is not limited to handlers of the same type:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;provide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;user_repo: &lt;/span&gt;&lt;span class="n"&gt;user_repo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;with_current_time&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;...&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generally, effects and handlers work just the way you would expect; this is the most appealing thing about them (judging from experience!).&lt;/p&gt;
+&lt;h2 id="why-dry-effects" class="hd"&gt;&lt;a name="why-dry-effects" class="anchor" href="#why-dry-effects"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Why dry-effects?&lt;/h2&gt;
+&lt;p&gt;These are early days for algebraic effects. We believe they have a prominent future. The concept comes from the functional world and, since dry-rb heavily leans toward functional programming, it perfectly fits our ecosystem. There is no existing production-ready library for Ruby, that&amp;#39;s why we&amp;#39;ve built our own.&lt;/p&gt;
+
+&lt;p&gt;This post has mostly demonstrated using effects in application code, but they can be as easily used in libraries, providing a new level of flexibility to the users. This part is yet to be explored.&lt;/p&gt;
+&lt;h2 id="with-infinite-power-comes-infinite-responsibility" class="hd"&gt;&lt;a name="with-infinite-power-comes-infinite-responsibility" class="anchor" href="#with-infinite-power-comes-infinite-responsibility"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;With infinite power comes infinite responsibility&lt;/h2&gt;
+&lt;p&gt;Algebraic effects are quite new, and as a community we have zero to little experience in using them. They may help you with writing clean, decoupled, and testable code, but they can also turn your app into unmaintainable mess, drop your database, and burn your house, so please be careful!&lt;/p&gt;
+
+&lt;p&gt;As we gather experience, together we&amp;#39;ll figure out what&amp;#39;s good and what&amp;#39;s bad. So please try it, and share what you learn with others!&lt;/p&gt;
+&lt;h2 id="dive-in" class="hd"&gt;&lt;a name="dive-in" class="anchor" href="#dive-in"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Dive in!&lt;/h2&gt;
+&lt;p&gt;The first version of dry-effects is already on &lt;a href="https://rubygems.org/gems/dry-effects"&gt;RubyGems.org&lt;/a&gt;, go grab it. We have &lt;a href="https://dry-rb.org/gems/dry-effects/0.1"&gt;docs&lt;/a&gt; for most effects and specs for all of them. As always, share your experience and ask your questions in our &lt;a href="https://dry-rb.zulipchat.com"&gt;chat&lt;/a&gt; and at our &lt;a href="https://discourse.dry-rb.org/"&gt;forum&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>dry-validation 1.0.0 released</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
+    <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
+    <published>2019-06-10T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>solnic</name>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#39;re very happy to announce the release of dry-validation 1.0.0!&lt;/p&gt;
+
+&lt;p&gt;This is a big release: it includes a rewritten schema DSL, released as &lt;a href="/gems/dry-schema"&gt;dry-schema&lt;/a&gt;, and a completely redesigned validation system. If you&amp;#39;re interested to know the reasoning behind these changes, please refer to the &amp;quot;&lt;a href="https://discourse.dry-rb.org/t/plans-for-dry-validation-dry-schema-a-new-gem/215"&gt;Plans for dry-validation + dry-schema (a new gem!)&lt;/a&gt;&amp;quot; post on our forum. Yes, it&amp;#39;s from February 2017, this took a while, but it was totally worth the wait. Continue reading to see why.&lt;/p&gt;
+&lt;h2 id="new-old-schema-dsl" class="hd"&gt;&lt;a name="new-old-schema-dsl" class="anchor" href="#new-old-schema-dsl"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;New-old schema DSL&lt;/h2&gt;
+&lt;p&gt;The schema DSL has been rewritten from scratch and not only did it fix dozens of known issues, it also introduced a couple of new features. That said, some complex features that didn&amp;#39;t fit anymore were removed. In dry-validation 1.0.0, the schema DSL is delegated to dry-schema and you can still define 3 types of schemas:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;schema&lt;/code&gt; - a plain schema that does not perform any coercions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;params&lt;/code&gt; - a schema with coercions optimized for HTTP params&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;json&lt;/code&gt; - a schema with coercions optimized for JSON&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The syntax for defining keys with validations is almost identicial to the one you know from previous versions of dry-validation. However, there&amp;#39;s a big conceptual difference between those earlier versions and how dry-validation 1.0.0 is intended to be used now.&lt;/p&gt;
+&lt;h2 id="contracts-with-rules" class="hd"&gt;&lt;a name="contracts-with-rules" class="anchor" href="#contracts-with-rules"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Contracts with rules&lt;/h2&gt;
+&lt;p&gt;We have a completely new concept called &lt;code&gt;Contract&lt;/code&gt; that allows you to define a schema and &lt;strong&gt;domain validation rules&lt;/strong&gt;. The new rule system is completely decoupled from the schema validation, but it&amp;#39;s still &lt;strong&gt;type-safe&lt;/strong&gt;, which means that &lt;strong&gt;when you define a rule you can assume the types of the values are correct&lt;/strong&gt;. This removes the need to perform any additional checks in validation rules and you are going to love this.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s a simple example where we define a contract for a new user data:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;NewUserContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Contract&lt;/span&gt;
+  &lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:integer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"is too short"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:age&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"you must be at least 13 years old"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;13&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you are familiar with the old version, your immediate reaction might be &amp;quot;oh that&amp;#39;s more code, why not just define these checks in the schema?&amp;quot; That&amp;#39;s a good question to ask! It&amp;#39;s still possible to use all the known predicates so, technically speaking, you could perform these checks via the schema &lt;strong&gt;but&lt;/strong&gt; it&amp;#39;s not recommended. Starting with 1.0.0, we&amp;#39;re moving to a new way of thinking about validations by splitting them into basic structural and type checks handled by schemas and domain validations handled by contracts and their rules. This is a good way of separating concerns to make your code cleaner, simpler and more reusable.&lt;/p&gt;
+
+&lt;p&gt;If the amount of code you need to write is a concern, don&amp;#39;t worry, because we have &lt;a href="/gems/dry-validation/1.0/macros"&gt;a new macro system&lt;/a&gt; in place to DRY things up.&lt;/p&gt;
+&lt;h2 id="improved-messages" class="hd"&gt;&lt;a name="improved-messages" class="anchor" href="#improved-messages"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Improved messages&lt;/h2&gt;
+&lt;p&gt;One of the biggest limitations in the previous version was the way you could provide custom error messages. Starting from 1.0.0, you have complete control over this process. You can now:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Provide a message as a plain string, e.g. &lt;code&gt;key.failure(&amp;quot;oops this is wrong&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Provide a message using a locale identifier, e.g. &lt;code&gt;key.failure(:invalid)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Pass extra data when using locales, e.g. &lt;code&gt;key.failure(:invalid, more: &amp;quot;info&amp;quot;, goes: &amp;quot;here&amp;quot;)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Pass additional metadata in addition to the message text, e.g. &lt;code&gt;key.failure(text: &amp;quot;oops this is wrong&amp;quot;, code: :red)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;On top of this, we still support localized backends using plain &lt;code&gt;YAML&lt;/code&gt; or &lt;code&gt;I18n&lt;/code&gt; gem.&lt;/p&gt;
+&lt;h2 id="base-messages" class="hd"&gt;&lt;a name="base-messages" class="anchor" href="#base-messages"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Base messages&lt;/h2&gt;
+&lt;p&gt;Another nice improvement is support for &lt;strong&gt;base messages&lt;/strong&gt;. This means you can provide a message that will be associated with the whole input, instead of a specific key.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s an example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;EventContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Contract&lt;/span&gt;
+  &lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="ss"&gt;:today&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;default: &lt;/span&gt;&lt;span class="no"&gt;Date&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;method&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:today&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:start_date&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;value&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:date&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:end_date&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;value&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:date&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;today&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;saturday?&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;today&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;sunday?&lt;/span&gt;
+      &lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'creating events is allowed only on weekdays'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we can access base errors (assuming it&amp;#39;s a weekend):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;contract&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;EventContract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;start_date: &lt;/span&gt;&lt;span class="no"&gt;Date&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;today&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;end_date: &lt;/span&gt;&lt;span class="no"&gt;Date&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;today&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;
+&lt;span class="c1"&gt;# #&amp;lt;Dry::Validation::MessageSet&lt;/span&gt;
+&lt;span class="c1"&gt;#   messages=[&lt;/span&gt;
+&lt;span class="c1"&gt;#     #&amp;lt;Dry::Validation::Message text="creating events is allowed only on weekdays" path=[nil] meta={}&amp;gt;&lt;/span&gt;
+&lt;span class="c1"&gt;#   ]&lt;/span&gt;
+&lt;span class="c1"&gt;#   options={}&lt;/span&gt;
+&lt;span class="c1"&gt;# &amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="macros" class="hd"&gt;&lt;a name="macros" class="anchor" href="#macros"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Macros&lt;/h2&gt;
+&lt;p&gt;As mentioned above, you can use the new macro system to reduce code duplication. Currently, there&amp;#39;s only one built-in macro, called &lt;code&gt;:acceptance&lt;/code&gt;, but we&amp;#39;ll be adding more.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;#39;s an example how you could use the &lt;code&gt;:acceptance&lt;/code&gt; macro:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;NewUserContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Contract&lt;/span&gt;
+  &lt;span class="n"&gt;schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:email&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:terms&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:bool&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:terms&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;validate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:acceptance&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;NewUserContract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s2"&gt;"jane@doe.org"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;terms: &lt;/span&gt;&lt;span class="s2"&gt;"false"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {:terms=&amp;gt;["must accept terms"]}&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s2"&gt;"jane@doe.org"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;terms: &lt;/span&gt;&lt;span class="s2"&gt;"true"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Defining your own macros is very simple and you&amp;#39;re encouraged to do so. Let&amp;#39;s say we want to encapsulate checking if a string is of a minimum length, here&amp;#39;s how you could do it with a macro:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;ApplicationContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Contract&lt;/span&gt;
+  &lt;span class="n"&gt;register_macro&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:min_length&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;macro&lt;/span&gt;&lt;span class="ss"&gt;:|&lt;/span&gt;
+    &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"is too short"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;macro&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;args&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we can use our &lt;code&gt;:min_length&lt;/code&gt; macro in other contract classes:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;NewUserContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;ApplicationContract&lt;/span&gt;
+  &lt;span class="n"&gt;schema&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:email&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:password&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:password&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;validate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;min_length: &lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;NewUserContract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;call&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s2"&gt;"jane@doe.org"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;terms: &lt;/span&gt;&lt;span class="s2"&gt;"false"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;password: &lt;/span&gt;&lt;span class="s2"&gt;"secret"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {:password=&amp;gt;["is too short"]}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The posibilities are endless and I&amp;#39;m sure we&amp;#39;ll soon have a nice collection of macros either built into the main gem or provided as an extension.&lt;/p&gt;
+&lt;h2 id="improved-validation-of-array-elements" class="hd"&gt;&lt;a name="improved-validation-of-array-elements" class="anchor" href="#improved-validation-of-array-elements"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Improved validation of array elements&lt;/h2&gt;
+&lt;p&gt;Validating array elements can be tricky business, but it&amp;#39;s become nice and simple in dry-validation 1.0.0. It works using the same mechanism as other value types - an array element will not be checked by a rule unless the corresponding schema checks passed.&lt;/p&gt;
+
+&lt;p&gt;To validate array elements, use &lt;code&gt;Rule#each&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;NewSongContract&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Validation&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Contract&lt;/span&gt;
+  &lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:artist&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:title&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;filled&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;required&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:tags&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+
+  &lt;span class="n"&gt;rule&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:tags&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nf"&gt;each&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;key&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;failure&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tag length must be at least 3"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now let&amp;#39;s see it in action:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;contract&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;NewSongContract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;
+
+&lt;span class="n"&gt;contract&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;artist: &lt;/span&gt;&lt;span class="s2"&gt;"Queen"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;title: &lt;/span&gt;&lt;span class="s2"&gt;"Bohemian Rhapsody"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;tags: &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"rock"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;123&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"ab"&lt;/span&gt;&lt;span class="p"&gt;]).&lt;/span&gt;&lt;span class="nf"&gt;errors&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;to_h&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {:tags=&amp;gt;{1=&amp;gt;["must be a string"], 2=&amp;gt;["tag length must be at least 3"]}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notice that our rule did not crash on &lt;code&gt;123&lt;/code&gt; value even though &lt;code&gt;Integer&lt;/code&gt; does not implement &lt;code&gt;length&lt;/code&gt; - instead, we got a nice error that the second element must be a string. This is how type safety in rules work.&lt;/p&gt;
+&lt;h2 id="upgrading-from-dry-validation-0-x" class="hd"&gt;&lt;a name="upgrading-from-dry-validation-0-x" class="anchor" href="#upgrading-from-dry-validation-0-x"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Upgrading from dry-validation 0.x&lt;/h2&gt;
+&lt;p&gt;Please refer to the comprehensive guide &amp;quot;&lt;a href="https://www.morozov.is/2019/05/31/upgrading-dry-gems.html"&gt;dry-rb 1.0: upgrading validations, types and schemas&lt;/a&gt;,&amp;quot; written by Igor Morozov. He&amp;#39;s done a terrific job explaining the process.&lt;/p&gt;
+
+&lt;p&gt;Additionally, check out:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;dry-validation 1.0.0 &lt;a href="https://github.com/dry-rb/dry-validation/blob/main/CHANGELOG.md#v100-2019-06-10"&gt;CHANGELOG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;dry-types 1.0.0 &lt;a href="https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#v100-2019-04-23"&gt;CHANGELOG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;dry-schema 1.0.0 &lt;a href="https://github.com/dry-rb/dry-schema/blob/main/CHANGELOG.md"&gt;CHANGELOG&lt;/a&gt;s&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you need help with upgrading, &lt;strong&gt;please do not hesitate to ask questions either on our &lt;a href="https://discourse.dry-rb.org"&gt;discussion forum&lt;/a&gt; or &lt;a href="https://dry-rb.zulipchat.com"&gt;community chat&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;h2 id="thank-you" class="hd"&gt;&lt;a name="thank-you" class="anchor" href="#thank-you"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Thank you&lt;/h2&gt;
+&lt;p&gt;Thank you to all the contributors and early adopters who helped us shape dry-validation. This has been a big effort and we&amp;#39;re very happy with the results. Please check it out and let us know what you think!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>dry-types and dry-struct 1.0.0 released</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/"/>
+    <id>http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/</id>
+    <published>2019-04-23T00:00:00+00:00</published>
+    <updated>2022-04-18T11:04:56+00:00</updated>
+    <author>
+      <name>solnic</name>
+    </author>
+    <content type="html">&lt;p&gt;We&amp;#39;re very happy to announce the release of &lt;code&gt;dry-types&lt;/code&gt; and &lt;code&gt;dry-struct&lt;/code&gt; 1.0.0! &lt;code&gt;dry-types&lt;/code&gt; is one of the most important and foundational gem in the dry-rb organization. It powers attributes in &lt;code&gt;dry-struct&lt;/code&gt;, handles coercion in &lt;code&gt;dry-schema&lt;/code&gt;, and is used extensively in &lt;a href="https://rom-rb.org/"&gt;&lt;code&gt;rom-rb&lt;/code&gt;&lt;/a&gt;&amp;#39;s relation schemas. With this 1.0.0 release, we hope it will be adopted by more projects. &lt;code&gt;dry-struct&lt;/code&gt; was originally extracted from &lt;code&gt;dry-types&lt;/code&gt; and it provides the famous &lt;code&gt;attribute&lt;/code&gt; API for your PORO objects.&lt;/p&gt;
+
+&lt;p&gt;Huge props go to &lt;a href="https://github.com/flash-gordon"&gt;Nikita Shilnikov&lt;/a&gt; who has worked so hard to finalize these releases which bring a lot of improvements. Let&amp;#39;s look at some of the highlights.&lt;/p&gt;
+&lt;h3 id="configurable-types-module" class="hd"&gt;&lt;a name="configurable-types-module" class="anchor" href="#configurable-types-module"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Configurable types module&lt;/h3&gt;
+&lt;p&gt;Previously you could include all built-in types into your own module via &lt;code&gt;include Dry::Types.module&lt;/code&gt;. This was changed to a configurable module builder. Now you can cherry-pick which type namespaced categories you want, which types should be used by default and even rename namespaces. Here are some examples:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# Cherry-pick which categories you want&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:strict&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:nominal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:coercible&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; #&amp;lt;Dry::Types[Constrained&amp;lt;Nominal&amp;lt;String&amp;gt; rule=[type?(String)]&amp;gt;]&amp;gt;&lt;/span&gt;
+
+&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;constants&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; [:Strict, :Nominal, :Coercible]&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Change default category to be `:coercible`&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;default: :coercible&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; #&amp;lt;Dry::Types[Constructor&amp;lt;Nominal&amp;lt;String&amp;gt; fn=Kernel.String&amp;gt;]&amp;gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Rename default categories&lt;/span&gt;
+&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
+  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;strict: :Strong&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;coercible: :Kernel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Kernel&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
+&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;#&amp;lt;Dry::Types[Constructor&amp;lt;Nominal&amp;lt;String&amp;gt; fn=Kernel.String&amp;gt;]&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="constructors-support-prepending-and-appending" class="hd"&gt;&lt;a name="constructors-support-prepending-and-appending" class="anchor" href="#constructors-support-prepending-and-appending"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Constructors support prepending and appending&lt;/h3&gt;
+&lt;p&gt;Previously it was only possible to append a constructor function. This was too limiting because it wasn&amp;#39;t easy to extend and re-use existing constructors. Now it&amp;#39;s possible to either append or prepend a new constructor:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;to_int&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Coercible&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Integer&lt;/span&gt;
+&lt;span class="n"&gt;inc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;to_int&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;append&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;inc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"1"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; "1" -&amp;gt; 1 -&amp;gt; 3&lt;/span&gt;
+
+&lt;span class="n"&gt;inc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;to_int&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;prepend&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"2"&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;inc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"1"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; "1" -&amp;gt; "12" -&amp;gt; 12&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This feature should be very useful in places like rom-rb&amp;#39;s schemas or dry-schema, where you may want to pre-process data and then re-use existing coercion logic.&lt;/p&gt;
+&lt;h3 id="shortcut-syntax-for-optional-keys-in-hash-schemas" class="hd"&gt;&lt;a name="shortcut-syntax-for-optional-keys-in-hash-schemas" class="anchor" href="#shortcut-syntax-for-optional-keys-in-hash-schemas"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Shortcut syntax for optional keys in Hash schemas&lt;/h3&gt;
+&lt;p&gt;You can now use key names ending with &lt;code&gt;?&lt;/code&gt; to denote an optional key. Here&amp;#39;s how it looks in practice in a struct definition:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;hash_schema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;schema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;name?: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;age?: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;hash_schema&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {:email=&amp;gt;"jane@doe.org"}&lt;/span&gt;
+
+&lt;span class="n"&gt;hash_schema&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'Jane'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="c1"&gt;# =&amp;gt; {:email=&amp;gt;"jane@doe.org", :name=&amp;gt;"Jane", :age=&amp;gt;31}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="type-safe-coercions-by-default-and-lax-types" class="hd"&gt;&lt;a name="type-safe-coercions-by-default-and-lax-types" class="anchor" href="#type-safe-coercions-by-default-and-lax-types"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Type-safe coercions by default and Lax types&lt;/h3&gt;
+&lt;p&gt;All the built-in coercion types have been changed to &lt;em&gt;raise exceptions on unexpected input&lt;/em&gt;. If you want to get back the original input when coercion fails, rather than getting an exception, you can use &lt;code&gt;Lax&lt;/code&gt; types, which will rescue known type-related errors:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Params&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Float&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'oops'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="c1"&gt;# Dry::Types::CoercionError: invalid value for Float(): "oops"&lt;/span&gt;
+
+&lt;span class="n"&gt;lax_float&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Params&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Float&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;lax&lt;/span&gt;
+&lt;span class="n"&gt;lax_float&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'oops'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s2"&gt;"oops"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="and-more" class="hd"&gt;&lt;a name="and-more" class="anchor" href="#and-more"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;...and more&lt;/h3&gt;
+&lt;p&gt;There are a lot of other features, improvements, optimizations and fixes in this release. &lt;em&gt;Please refer to the CHANGELOGS&lt;/em&gt; for a full overview:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#100-2019-04-23"&gt;&lt;code&gt;dry-types 1.0.0 CHANGELOG&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-struct/blob/main/CHANGELOG.md#100-2019-04-23"&gt;&lt;code&gt;dry-struct 1.0.0 CHANGELOG&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Please give it a go and let us know what you think!&lt;/p&gt;
+
+&lt;p&gt;We&amp;#39;re also wrapping up &lt;code&gt;dry-validation&lt;/code&gt; and &lt;code&gt;dry-schema&lt;/code&gt; 1.0.0, stay tuned for more good news :)&lt;/p&gt;
+</content>
+  </entry>
+</feed>

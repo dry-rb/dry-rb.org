@@ -1,0 +1,194 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="The standalone validation library for Ruby" name="description" /><meta content="dry-rb - dry-validation v1.0 - Rules" property="og:title" /><meta content="The standalone validation library for Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-validation v1.0 - Rules" name="twitter:title" /><meta content="The standalone validation library for Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation v1.0 - Rules</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-validation <span class="hide">1.0</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-validation">View dry-validation on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-validation/1.8">1.8</option><option value="/gems/dry-validation/1.7">1.7</option><option value="/gems/dry-validation/1.6">1.6</option><option value="/gems/dry-validation/1.5">1.5</option><option value="/gems/dry-validation/1.4">1.4</option><option value="/gems/dry-validation/1.3">1.3</option><option value="/gems/dry-validation/1.2">1.2</option><option value="/gems/dry-validation/1.1">1.1</option><option selected="selected" value="/gems/dry-validation/1.0">1.0</option><option value="/gems/dry-validation/0.13">0.13</option><option value="/gems/dry-validation/main">main</option></select></h3><ul><li><a href="/gems/dry-validation/1.0" class="">Introduction</a><li><a href="/gems/dry-validation/1.0/configuration" class="">Configuration</a></li><li><a href="/gems/dry-validation/1.0/schemas" class="">Schemas</a></li><li><a href="/gems/dry-validation/1.0/rules" class="active">Rules</a></li><li><a href="/gems/dry-validation/1.0/messages" class="">Messages</a></li><li><a href="/gems/dry-validation/1.0/macros" class="">Macros</a></li><li><a href="/gems/dry-validation/1.0/external-dependencies" class="">External dependencies</a></li><li><a href="/gems/dry-validation/1.0/extensions" class="">Extensions</a></li></li></ul></aside><article class="gem-article"><h2>Rules</h2><p>Rules in contracts are meant to perform domain-specific validation of the data already processed by the contract&#39;s schema. This way, you can define rules that can focus purely on their validation logic without having to worry about type-related details.</p>
+
+<p>When you apply a contract, it will process the input data using its schema, and then apply its rules one-by-one, in the same order as you defined them.</p>
+
+<p>If a rule specifies that it depends on certain keys from the input data, it <strong>will be executed only when the schema successfuly processed those keys</strong>.</p>
+<h3 id="defining-a-rule" class="hd"><a name="defining-a-rule" class="anchor" href="#defining-a-rule">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Defining a rule</h3>
+<p>To define a rule on a contract, use the <code>rule</code> method.</p>
+
+<p>Let&#39;s say we want to validate that an event&#39;s start date is in the future. We&#39;ll define a contract for event data with a <code>start_date</code> key that must be provided as a valid <code>Date</code> object. Then we&#39;ll define a rule to check that it&#39;s in the future:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">EventContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'must be in the future'</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="no">Date</span><span class="p">.</span><span class="nf">today</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">EventContract</span><span class="p">.</span><span class="nf">new</span>
+</code></pre></div>
+<p>Notice that if we apply your contract with an input that doesn&#39;t include a date under <code>start_date</code> key, the rule <strong>will not be executed</strong>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="s1">'oops'</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:start_date=&gt;["must be a date"]}</span>
+</code></pre></div>
+<p>When <code>start_date</code> is a <code>Date</code>, the rule will be executed:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:start_date=&gt;["must be in the future"]}</span>
+</code></pre></div><h3 id="depending-on-more-than-one-key" class="hd"><a name="depending-on-more-than-one-key" class="anchor" href="#depending-on-more-than-one-key">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Depending on more than one key</h3>
+<p>In our previous example, we defined a simple rule that depends on a single key. To depend on more than one key, we can specify a list of keys. Let&#39;s extend the previous example and change our rule to validate that an <code>end_date</code> should be after the <code>start_date</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">EventContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:end_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:end_date</span><span class="p">,</span> <span class="ss">:start_date</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'must be after start date'</span><span class="p">)</span> <span class="k">if</span> <span class="n">values</span><span class="p">[</span><span class="ss">:end_date</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">values</span><span class="p">[</span><span class="ss">:start_date</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">EventContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="p">,</span> <span class="ss">end_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:end_date=&gt;["must be after start date"]}</span>
+</code></pre></div><h3 id="key-path-syntax" class="hd"><a name="key-path-syntax" class="anchor" href="#key-path-syntax">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Key path syntax</h3>
+<p>You can define key dependencies for rules using a <em>key path</em> syntax. Here&#39;s a list of supported key paths:</p>
+
+<ul>
+<li>Using a hash: <code>rule(address: :city) do ...</code></li>
+<li>The same, but using <em>dot notation</em>: <code>rule(&quot;address.city&quot;) do ...</code></li>
+<li>Specifying multiple nested keys using a hash: <code>rule(address: [:city, :street]) do ...</code></li>
+</ul>
+<h3 id="key-failures" class="hd"><a name="key-failures" class="anchor" href="#key-failures">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Key failures</h3>
+<p>The only responsibility of a rule is to set a failure message when the validation didn&#39;t pass. In the previous examples, we used <code>key.failure</code> to manually set messages. Use this if you want to set a failure message that should be accessible under a specific key.</p>
+
+<p>When you use <code>key.failure</code> without any specific key arguments, it uses <em>the first key specified with the rule</em>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">rule</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'oops'</span><span class="p">)</span>
+  <span class="c1"># ^ is the equivalent of</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">).</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'oops'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You <em>do not have to use keys matching those specified with the rule</em>. For example, this is perfectly fine:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">rule</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">key</span><span class="p">(</span><span class="ss">:event_errors</span><span class="p">).</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'oops'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="base-failures" class="hd"><a name="base-failures" class="anchor" href="#base-failures">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Base failures</h3>
+<p>Unlike key failures, base failures are not associated with a specific key, instead they are associated with the whole input. To set a base failure, use the <code>base</code> method, which has the same API as <code>key</code>. For example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">EventContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">option</span> <span class="ss">:today</span><span class="p">,</span> <span class="ss">default: </span><span class="no">Date</span><span class="p">.</span><span class="nf">method</span><span class="p">(</span><span class="ss">:today</span><span class="p">)</span>
+
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:end_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">today</span><span class="p">.</span><span class="nf">saturday?</span> <span class="o">||</span> <span class="n">today</span><span class="p">.</span><span class="nf">sunday?</span>
+      <span class="n">base</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'creating events is allowed only on weekdays'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">EventContract</span><span class="p">.</span><span class="nf">new</span>
+</code></pre></div>
+<p>Now when you try to apply this contract during a weekend, you&#39;ll get a base error:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="ss">end_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">2</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {nil=&gt;["creating events is allowed only on weekdays"]}</span>
+</code></pre></div>
+<p>Notice that the hash representation of errors includes a <code>nil</code> key to indicate the base errors. There&#39;s also a specific API for finding all base errors, if you prefer that:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="ss">end_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">2</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="ss">:base?</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_s</span><span class="p">)</span>
+<span class="c1"># =&gt; ["creating events is allowed only on weekdays"]</span>
+</code></pre></div>
+<blockquote>
+<p>Curious about that <code>option</code> method that we used to set <code>today</code> value? You can learn about it in <a href="/gems/dry-validation/1.0/external-dependencies">the external dependencies</a> section.</p>
+</blockquote>
+<h3 id="reading-rule-values" class="hd"><a name="reading-rule-values" class="anchor" href="#reading-rule-values">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Reading rule values</h3>
+<p>For convenience, you can use <code>value</code> method to easily access the value under rule&#39;s default key. This works with all key specifications, including nested keys, and specifying a path to multiple values.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">rule</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">value</span>
+  <span class="c1"># returns values[:start_date]</span>
+<span class="k">end</span>
+
+<span class="n">rule</span><span class="p">(</span><span class="ss">date: :start</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">value</span>
+  <span class="c1"># returns values[:date][:start]</span>
+<span class="k">end</span>
+
+<span class="n">rule</span><span class="p">(</span><span class="ss">dates: </span><span class="p">[</span><span class="ss">:start</span><span class="p">,</span> <span class="ss">:stop</span><span class="p">])</span> <span class="k">do</span>
+  <span class="n">value</span>
+  <span class="c1"># returns an array: [values[:dates][:start], values[:dates][:stop]]</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="checking-if-the-value-is-present" class="hd"><a name="checking-if-the-value-is-present" class="anchor" href="#checking-if-the-value-is-present">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Checking if the value is present</h3>
+<p>When you&#39;re not sure if the value is actually available, you can use <code>key?</code> method. It returns <code>true</code> when a value under rule&#39;s key is present, <code>false</code> otherwise.</p>
+
+<p>A common use case is when your rules depend on optional keys, here&#39;s an example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewUserContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">optional</span><span class="p">(</span><span class="ss">:login</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">optional</span><span class="p">(</span><span class="ss">:password</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:password</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'password is required'</span><span class="p">)</span> <span class="k">if</span> <span class="n">key?</span> <span class="o">&amp;&amp;</span> <span class="n">values</span><span class="p">[</span><span class="ss">:login</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">value</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;</span> <span class="mi">12</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">NewUserContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">login: </span><span class="s1">'jane'</span><span class="p">,</span> <span class="ss">password: </span><span class="s2">""</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:password=&gt;["password is required"]}</span>
+</code></pre></div><h3 id="defining-a-rule-for-each-element-of-an-array" class="hd"><a name="defining-a-rule-for-each-element-of-an-array" class="anchor" href="#defining-a-rule-for-each-element-of-an-array">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Defining a rule for each element of an array</h3>
+<p>To check each element of an array you can simply use <code>Rule#each</code> shortcut. It works just like a normal rule, which means it&#39;s only applied when a value passed schema checks and supports setting failure messages in the standard way.</p>
+
+<p>Here&#39;s a simple example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewUserContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">optional</span><span class="p">(</span><span class="ss">:phone_numbers</span><span class="p">).</span><span class="nf">array</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:phone_numbers</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'is not valid'</span><span class="p">)</span> <span class="k">unless</span> <span class="n">value</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s1">'00-'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">NewUserContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">phone_numbers: </span><span class="kp">nil</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:phone_numbers=&gt;["must be an array"]}</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">phone_numbers: </span><span class="p">[</span><span class="s1">'00-123-456-789'</span><span class="p">,</span> <span class="kp">nil</span><span class="p">]).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:phone_numbers=&gt;{1=&gt;["must be a string"]}}</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s1">'jane@doe.org'</span><span class="p">,</span> <span class="ss">phone_numbers: </span><span class="p">[</span><span class="s1">'00-123-456-789'</span><span class="p">,</span> <span class="s1">'987-654-321'</span><span class="p">]).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:phone_numbers=&gt;{1=&gt;["is not valid"]}}</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-validation/edit/release-1.0/docsite/source/rules.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

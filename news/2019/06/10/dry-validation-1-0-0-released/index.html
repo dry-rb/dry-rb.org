@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation 1.0.0 released</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li class="main-nav__item--selected"><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-validation 1.0.0 released</h1><div class="news-article-meta">Published on June 10, 2019 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>We&#39;re very happy to announce the release of dry-validation 1.0.0!</p>
+
+<p>This is a big release: it includes a rewritten schema DSL, released as <a href="/gems/dry-schema">dry-schema</a>, and a completely redesigned validation system. If you&#39;re interested to know the reasoning behind these changes, please refer to the &quot;<a href="https://discourse.dry-rb.org/t/plans-for-dry-validation-dry-schema-a-new-gem/215">Plans for dry-validation + dry-schema (a new gem!)</a>&quot; post on our forum. Yes, it&#39;s from February 2017, this took a while, but it was totally worth the wait. Continue reading to see why.</p>
+<h2 id="new-old-schema-dsl" class="hd"><a name="new-old-schema-dsl" class="anchor" href="#new-old-schema-dsl">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>New-old schema DSL</h2>
+<p>The schema DSL has been rewritten from scratch and not only did it fix dozens of known issues, it also introduced a couple of new features. That said, some complex features that didn&#39;t fit anymore were removed. In dry-validation 1.0.0, the schema DSL is delegated to dry-schema and you can still define 3 types of schemas:</p>
+
+<ol>
+<li><code>schema</code> - a plain schema that does not perform any coercions</li>
+<li><code>params</code> - a schema with coercions optimized for HTTP params</li>
+<li><code>json</code> - a schema with coercions optimized for JSON</li>
+</ol>
+
+<p>The syntax for defining keys with validations is almost identicial to the one you know from previous versions of dry-validation. However, there&#39;s a big conceptual difference between those earlier versions and how dry-validation 1.0.0 is intended to be used now.</p>
+<h2 id="contracts-with-rules" class="hd"><a name="contracts-with-rules" class="anchor" href="#contracts-with-rules">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Contracts with rules</h2>
+<p>We have a completely new concept called <code>Contract</code> that allows you to define a schema and <strong>domain validation rules</strong>. The new rule system is completely decoupled from the schema validation, but it&#39;s still <strong>type-safe</strong>, which means that <strong>when you define a rule you can assume the types of the values are correct</strong>. This removes the need to perform any additional checks in validation rules and you are going to love this.</p>
+
+<p>Here&#39;s a simple example where we define a contract for a new user data:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewUserContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:age</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:integer</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s2">"is too short"</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:age</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s2">"you must be at least 13 years old"</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">13</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>If you are familiar with the old version, your immediate reaction might be &quot;oh that&#39;s more code, why not just define these checks in the schema?&quot; That&#39;s a good question to ask! It&#39;s still possible to use all the known predicates so, technically speaking, you could perform these checks via the schema <strong>but</strong> it&#39;s not recommended. Starting with 1.0.0, we&#39;re moving to a new way of thinking about validations by splitting them into basic structural and type checks handled by schemas and domain validations handled by contracts and their rules. This is a good way of separating concerns to make your code cleaner, simpler and more reusable.</p>
+
+<p>If the amount of code you need to write is a concern, don&#39;t worry, because we have <a href="/gems/dry-validation/1.0/macros">a new macro system</a> in place to DRY things up.</p>
+<h2 id="improved-messages" class="hd"><a name="improved-messages" class="anchor" href="#improved-messages">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Improved messages</h2>
+<p>One of the biggest limitations in the previous version was the way you could provide custom error messages. Starting from 1.0.0, you have complete control over this process. You can now:</p>
+
+<ul>
+<li>Provide a message as a plain string, e.g. <code>key.failure(&quot;oops this is wrong&quot;)</code></li>
+<li>Provide a message using a locale identifier, e.g. <code>key.failure(:invalid)</code></li>
+<li>Pass extra data when using locales, e.g. <code>key.failure(:invalid, more: &quot;info&quot;, goes: &quot;here&quot;)</code></li>
+<li>Pass additional metadata in addition to the message text, e.g. <code>key.failure(text: &quot;oops this is wrong&quot;, code: :red)</code></li>
+</ul>
+
+<p>On top of this, we still support localized backends using plain <code>YAML</code> or <code>I18n</code> gem.</p>
+<h2 id="base-messages" class="hd"><a name="base-messages" class="anchor" href="#base-messages">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Base messages</h2>
+<p>Another nice improvement is support for <strong>base messages</strong>. This means you can provide a message that will be associated with the whole input, instead of a specific key.</p>
+
+<p>Here&#39;s an example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">EventContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">option</span> <span class="ss">:today</span><span class="p">,</span> <span class="ss">default: </span><span class="no">Date</span><span class="p">.</span><span class="nf">method</span><span class="p">(</span><span class="ss">:today</span><span class="p">)</span>
+
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:start_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:end_date</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:date</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">today</span><span class="p">.</span><span class="nf">saturday?</span> <span class="o">||</span> <span class="n">today</span><span class="p">.</span><span class="nf">sunday?</span>
+      <span class="n">base</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s1">'creating events is allowed only on weekdays'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now we can access base errors (assuming it&#39;s a weekend):</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span> <span class="o">=</span> <span class="no">EventContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">start_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="ss">end_date: </span><span class="no">Date</span><span class="p">.</span><span class="nf">today</span><span class="o">+</span><span class="mi">2</span><span class="p">).</span><span class="nf">errors</span>
+<span class="c1"># #&lt;Dry::Validation::MessageSet</span>
+<span class="c1">#   messages=[</span>
+<span class="c1">#     #&lt;Dry::Validation::Message text="creating events is allowed only on weekdays" path=[nil] meta={}&gt;</span>
+<span class="c1">#   ]</span>
+<span class="c1">#   options={}</span>
+<span class="c1"># &gt;</span>
+</code></pre></div><h2 id="macros" class="hd"><a name="macros" class="anchor" href="#macros">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Macros</h2>
+<p>As mentioned above, you can use the new macro system to reduce code duplication. Currently, there&#39;s only one built-in macro, called <code>:acceptance</code>, but we&#39;ll be adding more.</p>
+
+<p>Here&#39;s an example how you could use the <code>:acceptance</code> macro:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewUserContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">schema</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:terms</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:bool</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:terms</span><span class="p">).</span><span class="nf">validate</span><span class="p">(</span><span class="ss">:acceptance</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">NewUserContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"jane@doe.org"</span><span class="p">,</span> <span class="ss">terms: </span><span class="s2">"false"</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:terms=&gt;["must accept terms"]}</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"jane@doe.org"</span><span class="p">,</span> <span class="ss">terms: </span><span class="s2">"true"</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {}</span>
+</code></pre></div>
+<p>Defining your own macros is very simple and you&#39;re encouraged to do so. Let&#39;s say we want to encapsulate checking if a string is of a minimum length, here&#39;s how you could do it with a macro:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">ApplicationContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">register_macro</span><span class="p">(</span><span class="ss">:min_length</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">macro</span><span class="ss">:|</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s2">"is too short"</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;</span> <span class="n">macro</span><span class="p">.</span><span class="nf">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now we can use our <code>:min_length</code> macro in other contract classes:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewUserContract</span> <span class="o">&lt;</span> <span class="no">ApplicationContract</span>
+  <span class="n">schema</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:email</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:password</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:password</span><span class="p">).</span><span class="nf">validate</span><span class="p">(</span><span class="ss">min_length: </span><span class="mi">12</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="no">NewUserContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"jane@doe.org"</span><span class="p">,</span> <span class="ss">terms: </span><span class="s2">"false"</span><span class="p">,</span> <span class="ss">password: </span><span class="s2">"secret"</span><span class="p">).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:password=&gt;["is too short"]}</span>
+</code></pre></div>
+<p>The posibilities are endless and I&#39;m sure we&#39;ll soon have a nice collection of macros either built into the main gem or provided as an extension.</p>
+<h2 id="improved-validation-of-array-elements" class="hd"><a name="improved-validation-of-array-elements" class="anchor" href="#improved-validation-of-array-elements">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Improved validation of array elements</h2>
+<p>Validating array elements can be tricky business, but it&#39;s become nice and simple in dry-validation 1.0.0. It works using the same mechanism as other value types - an array element will not be checked by a rule unless the corresponding schema checks passed.</p>
+
+<p>To validate array elements, use <code>Rule#each</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">NewSongContract</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">::</span><span class="no">Contract</span>
+  <span class="n">params</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:artist</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:title</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:tags</span><span class="p">).</span><span class="nf">array</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">rule</span><span class="p">(</span><span class="ss">:tags</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span>
+    <span class="n">key</span><span class="p">.</span><span class="nf">failure</span><span class="p">(</span><span class="s2">"tag length must be at least 3"</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;</span> <span class="mi">3</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now let&#39;s see it in action:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">contract</span> <span class="o">=</span> <span class="no">NewSongContract</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">contract</span><span class="o">.</span><span class="p">(</span><span class="ss">artist: </span><span class="s2">"Queen"</span><span class="p">,</span> <span class="ss">title: </span><span class="s2">"Bohemian Rhapsody"</span><span class="p">,</span> <span class="ss">tags: </span><span class="p">[</span><span class="s2">"rock"</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="s2">"ab"</span><span class="p">]).</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span>
+<span class="c1"># =&gt; {:tags=&gt;{1=&gt;["must be a string"], 2=&gt;["tag length must be at least 3"]}</span>
+</code></pre></div>
+<p>Notice that our rule did not crash on <code>123</code> value even though <code>Integer</code> does not implement <code>length</code> - instead, we got a nice error that the second element must be a string. This is how type safety in rules work.</p>
+<h2 id="upgrading-from-dry-validation-0-x" class="hd"><a name="upgrading-from-dry-validation-0-x" class="anchor" href="#upgrading-from-dry-validation-0-x">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Upgrading from dry-validation 0.x</h2>
+<p>Please refer to the comprehensive guide &quot;<a href="https://www.morozov.is/2019/05/31/upgrading-dry-gems.html">dry-rb 1.0: upgrading validations, types and schemas</a>,&quot; written by Igor Morozov. He&#39;s done a terrific job explaining the process.</p>
+
+<p>Additionally, check out:</p>
+
+<ul>
+<li>dry-validation 1.0.0 <a href="https://github.com/dry-rb/dry-validation/blob/main/CHANGELOG.md#v100-2019-06-10">CHANGELOG</a></li>
+<li>dry-types 1.0.0 <a href="https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#v100-2019-04-23">CHANGELOG</a></li>
+<li>dry-schema 1.0.0 <a href="https://github.com/dry-rb/dry-schema/blob/main/CHANGELOG.md">CHANGELOG</a>s</li>
+</ul>
+
+<p>If you need help with upgrading, <strong>please do not hesitate to ask questions either on our <a href="https://discourse.dry-rb.org">discussion forum</a> or <a href="https://dry-rb.zulipchat.com">community chat</a></strong>.</p>
+<h2 id="thank-you" class="hd"><a name="thank-you" class="anchor" href="#thank-you">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Thank you</h2>
+<p>Thank you to all the contributors and early adopters who helped us shape dry-validation. This has been a big effort and we&#39;re very happy with the results. Please check it out and let us know what you think!</p>
+</article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

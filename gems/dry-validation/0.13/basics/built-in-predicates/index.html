@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="The standalone validation library for Ruby" name="description" /><meta content="dry-rb - dry-validation v0.13 - Built-in Predicates" property="og:title" /><meta content="The standalone validation library for Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-validation v0.13 - Built-in Predicates" name="twitter:title" /><meta content="The standalone validation library for Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-validation v0.13 - Built-in Predicates</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-validation <span class="hide">0.13</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-validation">View dry-validation on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-validation/1.8">1.8</option><option value="/gems/dry-validation/1.7">1.7</option><option value="/gems/dry-validation/1.6">1.6</option><option value="/gems/dry-validation/1.5">1.5</option><option value="/gems/dry-validation/1.4">1.4</option><option value="/gems/dry-validation/1.3">1.3</option><option value="/gems/dry-validation/1.2">1.2</option><option value="/gems/dry-validation/1.1">1.1</option><option value="/gems/dry-validation/1.0">1.0</option><option selected="selected" value="/gems/dry-validation/0.13">0.13</option><option value="/gems/dry-validation/main">main</option></select></h3><ul><li><a href="/gems/dry-validation/0.13" class="">Introduction</a><li><a href="/gems/dry-validation/0.13/basics" class="">Basics</a><ul><li><a href="/gems/dry-validation/0.13/basics/predicate-logic" class="">Predicate Logic</a></li><li><a href="/gems/dry-validation/0.13/basics/built-in-predicates" class="active">Built-in Predicates</a></li><li><a href="/gems/dry-validation/0.13/basics/macros" class="">Macros</a></li><li><a href="/gems/dry-validation/0.13/basics/working-with-schemas" class="">Working With Schemas</a></li></ul></li><li><a href="/gems/dry-validation/0.13/custom-predicates" class="">Custom Predicates</a></li><li><a href="/gems/dry-validation/0.13/optional-keys-and-values" class="">Optional Keys and Values</a></li><li><a href="/gems/dry-validation/0.13/nested-data" class="">Nested Data</a></li><li><a href="/gems/dry-validation/0.13/array-as-input" class="">Array As Input</a></li><li><a href="/gems/dry-validation/0.13/reusing-schemas" class="">Reusing Schemas</a></li><li><a href="/gems/dry-validation/0.13/forms" class="">Form Validation</a></li><li><a href="/gems/dry-validation/0.13/high-level-rules" class="">High-level Rules</a></li><li><a href="/gems/dry-validation/0.13/custom-validation-blocks" class="">Custom Validation Blocks</a></li><li><a href="/gems/dry-validation/0.13/dynamic-predicate-arguments" class="">Dynamic Predicate Arguments</a></li><li><a href="/gems/dry-validation/0.13/input-preprocessing" class="">Input Preprocessing</a></li><li><a href="/gems/dry-validation/0.13/type-specs" class="">Explicit type specs</a></li><li><a href="/gems/dry-validation/0.13/error-messages" class="">Error Messages</a></li><li><a href="/gems/dry-validation/0.13/comparison-with-activemodel" class="">Comparison With ActiveModel</a></li><li><a href="/gems/dry-validation/0.13/extensions" class="">Extensions</a><ul><li><a href="/gems/dry-validation/0.13/extensions/monads" class="">Monads</a></li><li><a href="/gems/dry-validation/0.13/extensions/struct" class="">Struct</a></li></ul></li></li></ul></aside><article class="gem-article"><h2>Built-in Predicates</h2><h2 id="basic" class="hd"><a name="basic" class="anchor" href="#basic">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Basic</h2><h3 id="code-none-code" class="hd"><a name="code-none-code" class="anchor" href="#code-none-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>none?</code></h3>
+<p>Checks that a key&#39;s value is nil.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'none?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:none?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="kp">nil</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">nil?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-eql-code" class="hd"><a name="code-eql-code" class="anchor" href="#code-eql-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>eql?</code></h3>
+<p>Checks that a key&#39;s value is equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'eql?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">eql?: </span><span class="mi">1234</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="mi">1234</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1234</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+     <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="types" class="hd"><a name="types" class="anchor" href="#types">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Types</h2><h3 id="code-type-code" class="hd"><a name="code-type-code" class="anchor" href="#code-type-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>type?</code></h3>
+<p>Checks that a key&#39;s class is equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'type?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">type?: </span><span class="no">Integer</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">let</span><span class="p">(</span><span class="ss">:input</span><span class="p">)</span> <span class="p">{</span> <span class="p">{</span><span class="ss">sample: </span><span class="mi">1234</span><span class="p">}</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'as regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">input</span><span class="p">[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">class</span> <span class="o">==</span> <span class="no">Integer</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Shorthand for common Ruby types:</p>
+
+<ul>
+<li><code>str?</code> equivalent to <code>type?(String)</code></li>
+<li><code>int?</code> equivalent to <code>type?(Integer)</code></li>
+<li><code>float?</code> equivalent to <code>type?(Float)</code></li>
+<li><code>decimal?</code> equivalent to <code>type?(BigDecimal)</code></li>
+<li><code>bool?</code> equivalent to <code>type?(Boolean)</code></li>
+<li><code>date?</code> equivalent to <code>type?(Date)</code></li>
+<li><code>time?</code> equivalent to <code>type?(Time)</code></li>
+<li><code>date_time?</code> equivalent to <code>type?(DateTime)</code></li>
+<li><code>array?</code> equivalent to <code>type?(Array)</code></li>
+<li><code>hash?</code> equivalent to <code>type?(Hash)</code></li>
+</ul>
+<h2 id="number-string-collection" class="hd"><a name="number-string-collection" class="anchor" href="#number-string-collection">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Number, String, Collection</h2><h3 id="code-empty-code" class="hd"><a name="code-empty-code" class="anchor" href="#code-empty-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>empty?</code></h3>
+<p>Checks that either the array, string, or hash is empty.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'empty?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:empty?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="s2">""</span><span class="p">}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="p">[]}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="p">{</span><span class="ss">sample: </span><span class="p">{}}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">""</span><span class="p">).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">{}).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-filled-code" class="hd"><a name="code-filled-code" class="anchor" href="#code-filled-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>filled?</code></h3>
+<p>Checks that either the value is non-nil and, in the case of a String, Hash, or Array, non-empty.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'filled?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:filled?</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="s2">"1"</span><span class="p">}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">2</span><span class="p">]}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">{</span><span class="ss">sample: </span><span class="p">{</span><span class="ss">k: </span><span class="mi">3</span><span class="p">}}[</span><span class="ss">:sample</span><span class="p">].</span><span class="nf">empty?</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">"1"</span><span class="p">).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">2</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">{</span><span class="ss">k: </span><span class="mi">3</span><span class="p">}).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-gt-code" class="hd"><a name="code-gt-code" class="anchor" href="#code-gt-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>gt?</code></h3>
+<p>Checks that the value is greater than the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'gt?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">gt?: </span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">0</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-gteq-code" class="hd"><a name="code-gteq-code" class="anchor" href="#code-gteq-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>gteq?</code></h3>
+<p>Checks that the value is greater than or equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'gteq?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">gteq?: </span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-lt-code" class="hd"><a name="code-lt-code" class="anchor" href="#code-lt-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>lt?</code></h3>
+<p>Checks that the value is less than the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'lt?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">lt?: </span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">0</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-lteq-code" class="hd"><a name="code-lteq-code" class="anchor" href="#code-lteq-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>lteq?</code></h3>
+<p>Checks that the value is less than or equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'lteq?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">lteq?: </span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-max_size-code" class="hd"><a name="code-max_size-code" class="anchor" href="#code-max_size-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>max_size?</code></h3>
+<p>Check that an array&#39;s size (or a string&#39;s length) is less than or equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'max_size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">max_size?: </span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+    <span class="n">assert</span> <span class="s1">'foo'</span><span class="p">.</span><span class="nf">size</span> <span class="o">&lt;=</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s1">'foo'</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-min_size-code" class="hd"><a name="code-min_size-code" class="anchor" href="#code-min_size-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>min_size?</code></h3>
+<p>Checks that an array&#39;s size (or a string&#39;s length) is greater than or equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'min_size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">min_size?: </span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+    <span class="n">assert</span> <span class="s1">'foo'</span><span class="p">.</span><span class="nf">size</span> <span class="o">&gt;=</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s1">'foo'</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-size-int-code" class="hd"><a name="code-size-int-code" class="anchor" href="#code-size-int-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>size?(int)</code></h3>
+<p>Checks that an array&#39;s size (or a string&#39;s length) is equal to the given value.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">size?: </span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span> <span class="o">==</span> <span class="mi">3</span>
+    <span class="n">assert</span> <span class="s1">'foo'</span><span class="p">.</span><span class="nf">size</span> <span class="o">==</span> <span class="mi">3</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s1">'foo'</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-size-range-code" class="hd"><a name="code-size-range-code" class="anchor" href="#code-size-range-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>size?(range)</code></h3>
+<p>Checks that an array&#39;s size (or a string&#39;s length) is within a range of values.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'size?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">size?: </span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="p">).</span><span class="nf">include?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">].</span><span class="nf">size</span><span class="p">)</span>
+    <span class="n">assert</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">3</span><span class="p">).</span><span class="nf">include?</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">.</span><span class="nf">size</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span><span class="nf">success?</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s1">'foo'</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-format-code" class="hd"><a name="code-format-code" class="anchor" href="#code-format-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>format?</code></h3>
+<p>Checks that a string matches a given regular expression.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'format?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">format?: </span><span class="sr">/^a/</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="sr">/^a/</span> <span class="o">=~</span> <span class="s2">"aa"</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+     <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="s2">"aa"</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-included_in-code" class="hd"><a name="code-included_in-code" class="anchor" href="#code-included_in-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>included_in?</code></h3>
+<p>Checks that a value is included in a given array.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'included_in?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">included_in?: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nf">include?</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">3</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-excluded_from-code" class="hd"><a name="code-excluded_from-code" class="anchor" href="#code-excluded_from-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>excluded_from?</code></h3>
+<p>Checks that a value is excluded from a given array.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">describe</span> <span class="s1">'excluded_from?'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:schema</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Validation</span><span class="o">.</span><span class="no">Schema</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:sample</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">excluded_from?: </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with regular ruby'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">].</span><span class="nf">include?</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'with dry-validation'</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">sample: </span><span class="mi">2</span><span class="p">).</span><span class="nf">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-validation/edit/release-0.13/docsite/source/basics/built-in-predicates.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

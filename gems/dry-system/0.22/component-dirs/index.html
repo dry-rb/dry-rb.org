@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Organize your Ruby code into reusable components" name="description" /><meta content="dry-rb - dry-system v0.22 - Component dirs" property="og:title" /><meta content="Organize your Ruby code into reusable components" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-system v0.22 - Component dirs" name="twitter:title" /><meta content="Organize your Ruby code into reusable components" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-system v0.22 - Component dirs</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-system <span class="hide">0.22</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-system">View dry-system on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-system/0.23">0.23</option><option selected="selected" value="/gems/dry-system/0.22">0.22</option><option value="/gems/dry-system/0.21">0.21</option><option value="/gems/dry-system/0.19">0.19</option><option value="/gems/dry-system/0.17">0.17</option><option value="/gems/dry-system/main">main</option></select></h3><ul><li><a href="/gems/dry-system/0.22" class="">Introduction</a><li><a href="/gems/dry-system/0.22/container" class="">Container</a></li><li><a href="/gems/dry-system/0.22/component-dirs" class="active">Component dirs</a></li><li><a href="/gems/dry-system/0.22/booting" class="">Booting a Dependency</a></li><li><a href="/gems/dry-system/0.22/auto-import" class="">Auto-Import</a></li><li><a href="/gems/dry-system/0.22/component-providers" class="">Component Providers</a></li><li><a href="/gems/dry-system/0.22/plugins" class="">Plugins</a></li><li><a href="/gems/dry-system/0.22/settings" class="">Settings</a></li><li><a href="/gems/dry-system/0.22/test-mode" class="">Test Mode</a></li></li></ul></aside><article class="gem-article"><h2>Component dirs</h2><p>The container auto-registers its components from one or more component dirs, the directories holding the Ruby source files for your classes.</p>
+
+<p>You can configure one or more component dirs:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="n">__dir__</span>
+
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"app"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Component dirs will be searched in the order you add them. A component found in the first added dir will be registered in preference to a component with the same name in a later dir.</p>
+<h3 id="component-dir-configuration" class="hd"><a name="component-dir-configuration" class="anchor" href="#component-dir-configuration">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Component dir configuration</h3>
+<p>You can configure many aspects of component auto-registration via component dirs.</p>
+<h4 id="auto_register" class="hd"><a name="auto_register" class="anchor" href="#auto_register">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>auto_register</h4>
+<p><code>auto_register</code> sets the auto-registration policy for the component dir.</p>
+
+<p>This may be a simple boolean to enable or disable auto-registration for all components, or a proc accepting a <code>Dry::Sytem::Component</code> and returning a boolean to configure auto-registration on a per-component basis.</p>
+
+<p><code>auto_register</code> defaults to <code>true</code>.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">auto_register</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">auto_register</span> <span class="o">=</span> <span class="nb">proc</span> <span class="k">do</span> <span class="o">|</span><span class="n">component</span><span class="o">|</span>
+    <span class="o">!</span><span class="n">component</span><span class="p">.</span><span class="nf">identifier</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"entities"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h4 id="memoize" class="hd"><a name="memoize" class="anchor" href="#memoize">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>memoize</h4>
+<p><code>memoize</code> sets whether to memoize components from the dir when registered in the container (ordinarily, components are initialized every time they are resolved).</p>
+
+<p>This may be a simple boolean to enable or disable memoization for all components, or a proc accepting a <code>Dry::Sytem::Component</code> and returning a boolean to configure memoization on a per-component basis.</p>
+
+<p><code>memoize</code> defaults to <code>false</code>.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">memoize</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">memoize</span> <span class="o">=</span> <span class="nb">proc</span> <span class="k">do</span> <span class="o">|</span><span class="n">component</span><span class="o">|</span>
+    <span class="n">component</span><span class="p">.</span><span class="nf">identifier</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"providers"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h4 id="namespaces" class="hd"><a name="namespaces" class="anchor" href="#namespaces">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>namespaces</h4>
+<p><code>namespaces</code> allows one or more namespaces to be added for paths within the component dir. For the given path, the namespace determines:</p>
+
+<ol>
+<li>The leading segments of its components&#39; registered identifiers, and</li>
+<li>The expected constant namespace of their class constants.</li>
+</ol>
+
+<p>When adding a namespace, you can specify:</p>
+
+<ul>
+<li>A <code>key:</code> namespace, which determines the leading part of the key used to register each component in the container. It can be:
+
+<ul>
+<li>Omitted, in which case it defaults to the value of <code>path</code></li>
+<li>A string, which will become the leading part of the registered keys</li>
+<li><code>nil</code>, which will make the registered keys top-level, with no additional leading parts</li>
+</ul></li>
+<li>A <code>const:</code> namespace, which is the Ruby namespace expected to contain the class constants defined within each component&#39;s source file.</li>
+</ul>
+
+<p>This value is provided as an &quot;underscored&quot; string, and will be run through the container inflector&#39;s <code>#constantize</code>, to be converted in to a real constant (e.g. <code>&quot;foo_bar/baz&quot;</code> will become <code>FooBar::Baz</code>). Accordingly, <code>const:</code> can be:</p>
+
+<ul>
+<li>Omitted, in which case it defaults to the value of <code>path</code></li>
+<li>A string, which will be constantized to the expected constant namespace per the rules above</li>
+<li><code>nil</code>, to indicate the class constants will be in the top-level constant namespace</li>
+</ul>
+
+<p>Only a single namespace can be added for any distinct path.</p>
+
+<p>To illustrate these options:</p>
+
+<p><strong>Top-level key namespace</strong></p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span>
+<span class="k">end</span>
+</code></pre></div>
+<ul>
+<li><code>admin/foo.rb</code> is expected to define <code>Admin::Foo</code>, will be registered as <code>&quot;foo&quot;</code></li>
+<li><code>admin/bar/baz.rb</code> is expected to define <code>Admin::Bar::Baz</code>, will be registered as <code>&quot;bar.baz&quot;</code></li>
+</ul>
+
+<p><strong>Top-level const namespace</strong></p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin/top"</span><span class="p">,</span> <span class="ss">const: </span><span class="kp">nil</span>
+<span class="k">end</span>
+</code></pre></div>
+<ul>
+<li><code>admin/top/foo.rb</code> is expected to define <code>Foo</code>, will be registered as <code>&quot;admin.top.foo&quot;</code></li>
+<li><code>admin/top/bar/baz.rb</code> is expected to define <code>Bar::Baz</code>, will be registered as <code>&quot;admin.top.bar.baz&quot;</code></li>
+</ul>
+
+<p><strong>Distinct const namespace</strong></p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">const: </span><span class="s2">"super/admin"</span>
+<span class="k">end</span>
+</code></pre></div>
+<ul>
+<li><code>admin/foo.rb</code> is expected to define <code>Super::Admin::Foo</code>, will be registered as <code>&quot;foo&quot;</code></li>
+<li><code>admin/bar/baz.rb</code> is expected to define <code>Super::Admin::Bar::Baz</code>, will be registered as <code>&quot;bar.baz&quot;</code></li>
+</ul>
+
+<p><strong>Omitted key namespace, with keys keeping their natural prefix</strong></p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="ss">const: </span><span class="s2">"super/admin"</span>
+<span class="k">end</span>
+</code></pre></div>
+<ul>
+<li><code>admin/foo.rb</code> is expected to define <code>Super::Admin::Foo</code>, will be registered as <code>&quot;admin.foo&quot;</code></li>
+<li><code>admin/bar/baz.rb</code> is expected to define <code>Super::Admin::Bar::Baz</code>, will be registered as <code>&quot;admin.bar.baz&quot;</code></li>
+</ul>
+<h5 id="each-component-dir-may-have-multiple-namespaces" class="hd"><a name="each-component-dir-may-have-multiple-namespaces" class="anchor" href="#each-component-dir-may-have-multiple-namespaces">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Each component dir may have multiple namespaces</h5>
+<p>The examples above show a component dir with a single configured namespace, but component dir may have any number of namespaces:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin/system_adapters"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">const: </span><span class="kp">nil</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"elsewhere"</span><span class="p">,</span> <span class="ss">key: </span><span class="s2">"stuff.and.things"</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>When the container loads its components, namespaces are searched and evaluated in order of definition. So for the example above:</p>
+
+<ul>
+<li>Files within <code>lib/admin/system_adapters/</code> will have the <code>key: nil, const: nil</code> namespace rules applied</li>
+<li>All other files in <code>lib/admin/</code> will have the <code>key: nil</code> namespace rules applied</li>
+<li>Files in <code>lib/elsewhere/</code> will have the <code>key: &quot;stuff.and.things&quot;</code> namespace rules applied</li>
+</ul>
+<h5 id="a-root-namespace-is-implicitly-appended-to-a-component-dir-39-s-configured-namespaces" class="hd"><a name="a-root-namespace-is-implicitly-appended-to-a-component-dir-39-s-configured-namespaces" class="anchor" href="#a-root-namespace-is-implicitly-appended-to-a-component-dir-39-s-configured-namespaces">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>A root namespace is implicitly appended to a component dir&#39;s configured namespaces</h5>
+<p>To ensure that all the the files within a component dir remain loadable, a &quot;root namespace&quot; is implicitly appended to the list of configured namespaces on a component dir.</p>
+
+<p>A root namespace, as the name implies, encompasses all files in the component dir. In the example above, the root namespace would be used when loading files <em>not</em> in the <code>admin/</code> or <code>elsewhere/</code> paths.</p>
+
+<p>The default root namespace is effectively the following:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">const: </span><span class="kp">nil</span>
+</code></pre></div>
+<p>It has <code>nil</code> path (the root of the component dir), a <code>nil</code> leading key namespace (all keys will be determined based on the full file path from the root of the dir), and a <code>nil</code> const namespace (implying that the root of the component dir will hold top-level constants).</p>
+
+<p>These assumptions tend to hold true for typically organised projects, and they ensure that the component dirs can load code usefully even when no namespaces are configured at all.</p>
+<h5 id="the-root-namespace-may-be-explicitly-configured" class="hd"><a name="the-root-namespace-may-be-explicitly-configured" class="anchor" href="#the-root-namespace-may-be-explicitly-configured">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>The root namespace may be explicitly configured</h5>
+<p>There may be cases where you want different namespace rules to apply when loading components from the root of the component dir. To support this, you can configure the root namespace explicitly via <code>namespaces.root</code>.</p>
+
+<p>In this example, files in <code>lib/</code> are all expected to provide class constants in the <code>Admin</code> namespace:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+  <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">root</span> <span class="ss">const: </span><span class="s2">"admin"</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Root namespaces can be configured alongside other namespaces. The same namespace ordering preferences apply to root namespaces as to all others.</p>
+<h4 id="add_to_load_path" class="hd"><a name="add_to_load_path" class="anchor" href="#add_to_load_path">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>add_to_load_path</h4>
+<p><code>add_to_load_path</code> sets whether the component dir should be added to the <code>$LOAD_PATH</code> after the container is configured.</p>
+
+<p>Set this to false if you’re using dry-container with an autoloader.</p>
+
+<p><code>add_to_load_path</code> defaults to <code>true</code>.</p>
+<h4 id="loader" class="hd"><a name="loader" class="anchor" href="#loader">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>loader</h4>
+<p><code>loader</code> sets the loader to use when registering components from the dir in the container.</p>
+
+<p><code>loader</code> defaults to <code>Dry::System::Loader</code>.</p>
+
+<p>When using a class autoloader, consider setting this to <code>Dry::System::Loader::Autoloading</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"dry/system/loader/autoloading"</span>
+
+<span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="n">__dir__</span>
+
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+      <span class="n">dir</span><span class="p">.</span><span class="nf">loader</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Loader</span><span class="o">::</span><span class="no">Autoloading</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>To provide a custom loader, you must implement the same interface as <code>Dry::System::Loader</code>.</p>
+<h3 id="component-dir-defaults-configuration" class="hd"><a name="component-dir-defaults-configuration" class="anchor" href="#component-dir-defaults-configuration">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Component dir defaults configuration</h3>
+<p>If you are adding multiple component dirs to your container, and would like common configuration to be applied to all of them, you can configure the <code>component_dirs</code> collection directly.</p>
+
+<p>Configuration set on <code>component_dirs</code> will be applied to all added component dirs. Any configuration applied directly to an individual component dir will override the defaults.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyApp</span><span class="o">::</span><span class="no">Container</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="n">__dir__</span>
+
+    <span class="c1"># Configure defaults for all component dirs</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">auto_register</span> <span class="o">=</span> <span class="nb">proc</span> <span class="k">do</span> <span class="o">|</span><span class="n">component</span><span class="o">|</span>
+      <span class="o">!</span><span class="n">component</span><span class="p">.</span><span class="nf">identifier</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"entities"</span><span class="p">)</span>
+    <span class="k">end</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"admin"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span>
+
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"app"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="inline-component-configuration-with-magic-comments" class="hd"><a name="inline-component-configuration-with-magic-comments" class="anchor" href="#inline-component-configuration-with-magic-comments">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Inline component configuration with magic comments</h3>
+<p>You can override certain aspects of the component dir configuration on a per-component basis by adding “magic comments” to the top of your source files.</p>
+
+<p>The following settings can be configured by magic comments:</p>
+
+<ul>
+<li><code>auto_register</code></li>
+<li><code>memoize</code></li>
+</ul>
+
+<p>In the magic comments, you can set <code>true</code> or <code>false</code> values only.</p>
+
+<p>For example, to disable auto-registration of a particular component:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># auto_register: false</span>
+<span class="c1"># frozen_string_literal: true</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Or to enable memoization of a particular component:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># memoize: true</span>
+<span class="c1"># frozen_string_literal: true</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+<span class="k">end</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-system/edit/release-0.22/docsite/source/component-dirs.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

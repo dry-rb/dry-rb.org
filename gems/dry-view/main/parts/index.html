@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="A functional view rendering system for Ruby" name="description" /><meta content="dry-rb - dry-view main - Parts" property="og:title" /><meta content="A functional view rendering system for Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-view main - Parts" name="twitter:title" /><meta content="A functional view rendering system for Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-view main - Parts</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-view <span class="hide">main</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-view">View dry-view on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-view/0.7">0.7</option><option selected="selected" value="/gems/dry-view/main">main</option></select></h3><ul><li><a href="/gems/dry-view/main" class="">Introduction</a><li><a href="/gems/dry-view/main/configuration" class="">Configuration</a></li><li><a href="/gems/dry-view/main/injecting-dependencies" class="">Injecting dependencies</a></li><li><a href="/gems/dry-view/main/exposures" class="">Exposures</a></li><li><a href="/gems/dry-view/main/templates" class="">Templates</a></li><li><a href="/gems/dry-view/main/parts" class="active">Parts</a></li><li><a href="/gems/dry-view/main/scopes" class="">Scopes</a></li><li><a href="/gems/dry-view/main/context" class="">Context</a></li><li><a href="/gems/dry-view/main/testing" class="">Testing</a></li></li></ul></aside><article class="gem-article"><h2>Parts</h2><p>All values <a href="/gems/dry-view/main/exposures">exposed</a> by your view are decorated and passed to your templates as <em>parts</em>, which allow encapsulation of view-specific behavior alongside your application&#39;s domain objects.</p>
+
+<p>Unlike many third-party approaches to view object decoration, dry-view&#39;s parts are fully integrated and have access to the full rendering environment, which means that anything you can do from a template, you can also do from a part. This includes accessing the context object as well as rendering partials and building scopes.</p>
+
+<p>This means that much more view logic can move out of template and into parts, which makes the templates simpler and more declarative, and puts the view logic into a place where it can be reused and refactored using typical object oriented approaches, as well as tested in isolation.</p>
+<h2 id="defining-a-part-class" class="hd"><a name="defining-a-part-class" class="anchor" href="#defining-a-part-class">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Defining a part class</h2>
+<p>To provide custom part behavior, define your own part classes in a common namespace (e.g. <code>Parts</code>) and <a href="/gems/dry-view/main/configuration">configure that</a> as your view&#39;s <code>part_namespace</code> Each part class must inherit from <code>Dry::View::Part</code>.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">module</span> <span class="nn">Parts</span>
+  <span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="part-class-resolution" class="hd"><a name="part-class-resolution" class="anchor" href="#part-class-resolution">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Part class resolution</h2>
+<p>Part classes are looked up based on each exposure&#39;s name.</p>
+
+<p>So for an exposure named <code>:article</code>, the <code>Parts::Article</code> class will be looked up and used to decorate the article value.</p>
+
+<p>For an exposure returning an array, the exposure&#39;s name will be singularized and each element in the array will be decorated with a matching part. Then the array <em>itself</em> will be decorated by a matching part.</p>
+
+<p>So for an exposure named <code>:articles</code>, the <code>Parts::Article</code> class will be looked up for decorating each element, and the <code>Parts::Articles</code> class will be looked up for decorating the entire array.</p>
+
+<p>If a matching part class cannot be found, the standard <code>Dry::View::Part</code> class will be used.</p>
+
+<p>If your application does not use class autoloading, you should explicitly <code>require</code> your part files to ensure the classes are available.</p>
+<h2 id="accessing-the-decorated-value" class="hd"><a name="accessing-the-decorated-value" class="anchor" href="#accessing-the-decorated-value">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Accessing the decorated value</h2>
+<p>When using a part within a template, or when defining your own part methods, you can call the decorated value&#39;s methods and the part object will pass them through (via <code>#method_missing</code>).</p>
+
+<p>For example, from a template:</p>
+<div class="highlight"><pre class="syntax erb"><code><span class="c">&lt;!-- All the methods on the user value are still available --&gt;</span>
+<span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre></div>
+<p>Or when defining a custom part class:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">display_name</span>
+    <span class="c1"># `name` and `email` are methods on the decorated user value</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2"> &lt;</span><span class="si">#{</span><span class="n">email</span><span class="si">}</span><span class="s2">&gt;"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>In case of naming collisions or when overriding a method, you can access the value directly via <code>#_value</code> (or <code>#value</code> as a convenience, as long the decorated value itself doesn&#39;t respond to <code>#value</code>):</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">name</span>
+    <span class="n">value</span><span class="p">.</span><span class="nf">name</span><span class="p">.</span><span class="nf">upcase</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="string-conversion" class="hd"><a name="string-conversion" class="anchor" href="#string-conversion">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>String conversion</h2>
+<p>When used to output to the template, a part will use it&#39;s value <code>#to_s</code> behavior (which you can override in your part classes):</p>
+<div class="highlight"><pre class="syntax erb"><code><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">user</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre></div><h2 id="rendering-partials" class="hd"><a name="rendering-partials" class="anchor" href="#rendering-partials">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Rendering partials</h2>
+<p>From a part, you can render a partial, with the part object included in the partial&#39;s own locals:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">info_box</span>
+    <span class="n">render</span><span class="p">(</span><span class="ss">:info_box</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>This will render an <code>_info_box</code> partial template (via the standard <a href="/gems/dry-view/main/templates">partial lookup rules</a>) with the part still available as <code>user</code>.</p>
+
+<p>You can also render such partials directly within templates:</p>
+<div class="highlight"><pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="ss">:info_box</span><span class="p">)</span> <span class="cp">%&gt;</span>
+</code></pre></div>
+<p>To make the part available by another name within the partial&#39;s cope, use the <code>as:</code> option:</p>
+<div class="highlight"><pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="ss">:info_box</span><span class="p">,</span> <span class="ss">as: :account</span><span class="p">)</span> <span class="cp">%&gt;</span>
+</code></pre></div>
+<p>You can also provide additional locals for the partial:</p>
+<div class="highlight"><pre class="syntax erb"><code><span class="cp">&lt;%=</span> <span class="n">user</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="ss">:info_box</span><span class="p">,</span> <span class="ss">as: :account</span><span class="p">,</span> <span class="ss">title_label: </span><span class="s2">"Your account"</span><span class="p">)</span> <span class="cp">%&gt;</span>
+</code></pre></div><h2 id="building-scopes" class="hd"><a name="building-scopes" class="anchor" href="#building-scopes">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Building scopes</h2>
+<p>You may <a href="/gems/dry-view/main/scopes">build custom scopes</a> from within a part using <code>#_scope</code> (or <code>#scope</code> as a convenience, as long as the decorated value doesn&#39;t respond to <code>#scope</code>):</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">info_box</span>
+    <span class="n">scope</span><span class="p">(</span><span class="ss">:info_box</span><span class="p">,</span> <span class="ss">size: :large</span><span class="p">).</span><span class="nf">render</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="accessing-the-context" class="hd"><a name="accessing-the-context" class="anchor" href="#accessing-the-context">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Accessing the context</h2>
+<p>In your part classes, you can access the <a href="/gems/dry-view/main/context">context object</a> as <code>#_context</code> (or <code>#context</code> as a convenience, as long the decorated value itself doesn&#39;t respond to <code>#context</code>). Parts also delegate missing methods to the context object (provided the decorated value itself doesn&#39;t respond to the method).</p>
+
+<p>For example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">avatar_url</span>
+    <span class="c1"># asset_path is a method defined on the context object (in this case,</span>
+    <span class="c1"># providing static asset URLs)</span>
+    <span class="n">value</span><span class="p">.</span><span class="nf">avatar_url</span> <span class="o">||</span> <span class="n">asset_path</span><span class="p">(</span><span class="s2">"default-user-avatar.png"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="decorating-part-attributes" class="hd"><a name="decorating-part-attributes" class="anchor" href="#decorating-part-attributes">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Decorating part attributes</h2>
+<p>Your values may have their own attributes that you also want decorated as view parts. Declare these using <code>decorate</code> in your own view part classes:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserPart</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="n">decorate</span> <span class="ss">:address</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can pass the same options to <code>decorate</code> as you do to <a href="/gems/dry-view/main/exposures">exposures</a>, for example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserPart</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="n">decorate</span> <span class="ss">:address</span><span class="p">,</span> <span class="ss">as: :location</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="memoizing-methods" class="hd"><a name="memoizing-methods" class="anchor" href="#memoizing-methods">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Memoizing methods</h2>
+<p>A part object lives for the entirety of a view rendering, you can memoize expensive operations to ensure they only run once.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Part</span>
+  <span class="k">def</span> <span class="nf">bio_html</span>
+    <span class="vi">@bio_html</span> <span class="o">||=</span> <span class="n">rich_text_renderer</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="n">bio</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">rich_text_renderer</span>
+    <span class="vi">@rich_text_renderer</span> <span class="o">||=</span> <span class="no">MyRenderer</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="custom-part-class-resolution" class="hd"><a name="custom-part-class-resolution" class="anchor" href="#custom-part-class-resolution">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Custom part class resolution</h2>
+<p>When defining your exposures, use the <code>as:</code> option to specify an alternative name or class for part decoration.</p>
+
+<p>For singular values:</p>
+
+<ul>
+<li><code>expose :article, as: :story</code> will look up a <code>Parts::Story</code> class</li>
+<li><code>expose :article, as: Parts::MyArticle</code> will use the provided class</li>
+</ul>
+
+<p>For arrays:</p>
+
+<ul>
+<li><code>expose :articles, as: :stories</code> will look up <code>Parts::Stories</code> for decorating the array, and <code>Parts::Story</code> for decorating the elements</li>
+<li><code>expose :articles, as: [:story_collection]</code> will look up <code>Parts::StoryCollection</code> for decorating the array, and <code>Parts::Article</code> for decorating the elements</li>
+<li><code>expose :articles, as: [:story_collection, :story]</code> will look up <code>Parts::StoryCollection</code> for decorating the array, and <code>Parts::Story</code> for decorating the elements</li>
+<li>For the two <code>as:</code> structures above (with the names in the array), explicit classes can be provided instead of symbols, and they&#39;ll be used for decorating their respective items</li>
+</ul>
+
+<p>All of these examples presume a configured <code>part_namespace</code> of <code>Parts</code>.</p>
+<h2 id="providing-a-custom-part-builder" class="hd"><a name="providing-a-custom-part-builder" class="anchor" href="#providing-a-custom-part-builder">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Providing a custom part builder</h2>
+<p>To fully customize part decoration, you can provide a replacement part builder:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">part_builder</span> <span class="o">=</span> <span class="no">MyPartBuilder</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Your part builder must conform to the following interface:</p>
+
+<ul>
+<li><code>#initialize(namespace: nil, render_env: nil)</code></li>
+<li><code>#for_render_env(render_env)</code></li>
+<li><code>#call(name, value, **options)</code></li>
+</ul>
+
+<p>You can also inherit from <code>Dry::View::PartBuilder</code> and override any of its methods, if you want to customize just a particular aspect of the standard behavior.</p>
+<p><a class="edit_page_link" href="https://github.com/dry-rb/dry-view/edit/main/docsite/source/parts.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

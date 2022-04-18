@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-monads 1.0 released</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-2573270-8', 'auto');
+ga('send', 'pageview');</script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.14">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.9">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li class="main-nav__item--selected"><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-monads 1.0 released</h1><div class="news-article-meta">Published on June 26, 2018 by <a href="https://twitter.com/NikitaShilnikov">Nikita Shilnikov</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>Today dry-monads <a href="https://github.com/dry-rb/dry-monads/releases/tag/v1.0.0">reaches 1.0</a>! It started as a dependency replacement for the <a href="https://github.com/txus/kleisli">Kleisli</a> gem in <code>dry-transaction</code> and <code>dry-types</code>. Later, more common monads were added, as well as support for <code>do</code> notation, which evaporates most of the boilerplate introduced by monads. Since the <code>dry-*</code> gems follow <a href="https://semver.org/spec/v2.0.0.html">semantic versioning</a>, this means you can consider the dry-monads API to be stable, making the gem more &quot;production-ready&quot;. Let us show how monads can be useful in day-to-day ruby code.</p>
+<h2 id="result" class="hd"><a name="result" class="anchor" href="#result">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Result</h2>
+<p><code>Result</code> is the most widely used monad from dry-monads so far. It represents a possibly unsuccessful computation. A trivial example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
+
+<span class="k">class</span> <span class="nc">Divide</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="o">!</span><span class="n">y</span><span class="p">.</span><span class="nf">zero?</span>
+      <span class="no">Success</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="no">Failure</span><span class="p">(</span><span class="ss">:division_by_zero</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>Result::Mixin</code> adds two constructors named <code>Success(...)</code> and <code>Failure(...)</code> so that you can separate the happy path from errors.</p>
+
+<p>Suppose we have another math operation, square root:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
+
+<span class="k">class</span> <span class="nc">Sqrt</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">if</span> <span class="o">!</span><span class="n">x</span><span class="p">.</span><span class="nf">negative?</span>
+      <span class="no">Success</span><span class="p">(</span><span class="no">Math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">else</span>
+      <span class="no">Failure</span><span class="p">(</span><span class="ss">:negative_number</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now, as with other monads, we can use <code>bind</code> for composition:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">DivideThenRoot</span>
+  <span class="k">def</span> <span class="nf">divide</span>
+    <span class="no">Divide</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">sqrt</span>
+    <span class="no">Sqrt</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">divide</span><span class="o">.</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">).</span><span class="nf">bind</span><span class="p">(</span><span class="n">sqrt</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre class="syntax ruby"><code><span class="n">op</span> <span class="o">=</span> <span class="no">DivideThenRoot</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">op</span><span class="o">.</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span> <span class="c1"># =&gt; Success(0.7071067811865476)</span>
+<span class="n">op</span><span class="o">.</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="c1"># =&gt; Failure(:division_by_zero)</span>
+<span class="n">op</span><span class="o">.</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span> <span class="c1"># =&gt; Failure(:negative_number)</span>
+</code></pre></div>
+<p><code>DivideThenRoot</code> can be composed with other objects or methods returning <code>Result</code>s in a similar manner. In the end, you can use <a href="/gems/dry-matcher/0.8/result-matcher"><code>dry-matcher</code></a> for processing the result (or use the <code>Result</code>&#39;s <a href="/gems/dry-monads/1.0/result">API</a> for it).</p>
+
+<p>Real-life code looks the same in general but usually combines more operations together. Here it can become tedious to use <code>bind</code> and <code>fmap</code> directly. This is why we added <code>do</code> notation in the 1.0 release.</p>
+<h2 id="do-notation" class="hd"><a name="do-notation" class="anchor" href="#do-notation">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Do notation</h2>
+<p>The name &quot;do&quot; comes from Haskell, where it&#39;s a reserved word for a block of code that uses monads to compose results of several operations. We don&#39;t have first-class support for it in Ruby, but it&#39;s quite possible to emulate it using blocks. Here&#39;s a typical piece of code written with <code>do</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/do'</span>
+<span class="nb">require</span> <span class="s1">'dry/monads/result'</span>
+
+<span class="k">class</span> <span class="nc">CreateAccount</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Result</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">validate</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_owner</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:user</span><span class="p">])</span>
+    <span class="n">account</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">create_account</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="ss">:account</span><span class="p">])</span>
+
+    <span class="k">yield</span> <span class="n">create_subscription</span><span class="p">(</span><span class="n">account</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
+
+    <span class="no">Success</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Here it&#39;s implied that the <code>validate</code>, <code>create_owner</code>, <code>create_account</code>, and <code>create_subscription</code> methods all return <code>Result</code>s. <code>yield</code> takes a <code>Result</code> value and either unwraps it if it&#39;s a <code>Success</code>, or interrupts the execution and immediately returns the <code>Failure</code> from <code>call</code>. With <code>do</code> it&#39;s extremely easy to combine results of different operations no matter the order in which they&#39;re called. This is a major step forward to making monads practically useful in Ruby.</p>
+<h2 id="task" class="hd"><a name="task" class="anchor" href="#task">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Task</h2>
+<p>Another highlight from the release is the <code>Task</code> monad. Backed by <a href="https://github.com/ruby-concurrency/concurrent-ruby"><code>concurrent-ruby</code></a>, a battle-tested concurrency gem, <code>Task</code> can be used for composing asynchronous computations. Essentially, it&#39;s a <a href="https://ruby-concurrency.github.io/concurrent-ruby/main/Concurrent/Promises.html">Promise</a> with a dry-monads-compatible interface.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/monads/task'</span>
+<span class="nb">require</span> <span class="s1">'dry/monads/do'</span>
+
+<span class="k">class</span> <span class="nc">CreateUser</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Task</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Monads</span><span class="o">::</span><span class="no">Do</span>
+
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+    <span class="c1"># Run two concurrent requests, wait for both to finish using Do</span>
+    <span class="k">yield</span> <span class="n">validate_email</span><span class="p">(</span><span class="n">email</span><span class="p">),</span> <span class="n">validate_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+
+    <span class="n">create_user</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate_email</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+    <span class="c1"># Ruby 2.5+ syntax</span>
+    <span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span>
+      <span class="c1"># async email check, e.g. with an http request</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">validate_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span>
+      <span class="c1"># async name check</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="nb">name</span><span class="p">)</span>
+    <span class="no">Task</span><span class="p">[</span><span class="ss">:io</span><span class="p">]</span> <span class="p">{</span>
+      <span class="c1"># async create</span>
+    <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="still-ruby" class="hd"><a name="still-ruby" class="anchor" href="#still-ruby">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Still Ruby</h2>
+<p>Despite using concepts borrowed from other languages, dry-monads stays as much idiomatic to Ruby as possible. We have no plans to turn it into Haskell. Yet.</p>
+<h2 id="maturity" class="hd"><a name="maturity" class="anchor" href="#maturity">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Maturity</h2>
+<p>The gem is pretty much complete, and has been used in production for more than two years. We don&#39;t expect any major changes to the API, since the scope of monads, in general, is limited. This means any integration code will most likely be somewhere else.</p>
+<h2 id="acknowledgements" class="hd"><a name="acknowledgements" class="anchor" href="#acknowledgements">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Acknowledgements</h2>
+<p>dry-monads is a <a href="https://github.com/dry-rb/dry-monads/graphs/contributors?type=a">combined effort</a> of more than a dozen people. Thank you all for your work and feedback, it is much appreciated!</p>
+</article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
