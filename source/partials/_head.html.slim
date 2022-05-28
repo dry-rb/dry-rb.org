@@ -2,7 +2,7 @@ meta charset="utf-8"
 - site.breakpoints.each do |breakpoint|
   meta name="breakpoint" content=breakpoint.name media=breakpoint.query
 meta name="viewport" content="width=device-width, initial-scale=1.0"
-= yield_content(:seo) 
+= yield_content(:seo)
 link href="/feed.xml" rel="alternate" type="application/atom+xml" title="dry-rb news"
 link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet"
 link rel="icon" href="/images/favicon.png"
@@ -12,11 +12,3 @@ link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.cs
 title == page_title
 = stylesheet_link_tag "site"
 = javascript_include_tag "site"
-javascript:
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-2573270-8', 'auto');
-  ga('send', 'pageview');
