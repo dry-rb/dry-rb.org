@@ -13,7 +13,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -58,7 +58,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -124,7 +124,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -263,7 +263,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -417,7 +417,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -608,7 +608,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/</id>
     <published>2019-04-23T00:00:00+00:00</published>
-    <updated>2022-07-26T20:41:39+00:00</updated>
+    <updated>2022-08-22T10:00:53+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
