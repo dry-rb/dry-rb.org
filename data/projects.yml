@@ -143,6 +143,8 @@
 - name: dry-configurable
   desc: Thread-safe configuration mixin
   versions:
+    - value: "0.16"
+      branch: "release-0.16"
     - value: "0.14"
       branch: "release-0.14"
     - value: "0.13"
