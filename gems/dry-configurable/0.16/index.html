@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="A simple mixin to make Ruby classes configurable" name="description" /><meta content="dry-rb - dry-configurable v0.16 - Introduction &amp; Usage" property="og:title" /><meta content="A simple mixin to make Ruby classes configurable" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-configurable v0.16 - Introduction &amp; Usage" name="twitter:title" /><meta content="A simple mixin to make Ruby classes configurable" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-configurable v0.16 - Introduction &amp; Usage</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/0.6">dry-auto_inject</a><li></li><a href="/gems/dry-cli/0.6">dry-cli</a><li></li><a href="/gems/dry-configurable/0.16">dry-configurable</a><li></li><a href="/gems/dry-container/0.7">dry-container</a><li></li><a href="/gems/dry-core/0.4">dry-core</a><li></li><a href="/gems/dry-effects/0.1">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/0.2">dry-events</a><li></li><a href="/gems/dry-files/0.1">dry-files</a><li></li><a href="/gems/dry-inflector/0.1">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.0">dry-initializer</a><li></li><a href="/gems/dry-logic/1.2">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/0.8">dry-matcher</a><li></li><a href="/gems/dry-monads/1.3">dry-monads</a><li></li><a href="/gems/dry-monitor/main">dry-monitor</a><li></li><a href="/gems/dry-rails/0.4">dry-rails</a><li></li><a href="/gems/dry-schema/1.10">dry-schema</a><li></li><a href="/gems/dry-struct/1.0">dry-struct</a><li></li><a href="/gems/dry-system/0.23">dry-system</a><li></li><a href="/gems/dry-transaction/0.13">dry-transaction</a><li></li><a href="/gems/dry-transformer/0.1">dry-transformer</a><li></li><a href="/gems/dry-types/1.2">dry-types</a><li></li><a href="/gems/dry-validation/1.8">dry-validation</a><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-configurable <span class="hide">0.16</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-configurable">View dry-configurable on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option selected="selected" value="/gems/dry-configurable/0.16">0.16</option><option value="/gems/dry-configurable/0.14">0.14</option><option value="/gems/dry-configurable/0.13">0.13</option><option value="/gems/dry-configurable/0.12">0.12</option><option value="/gems/dry-configurable/0.11">0.11</option><option value="/gems/dry-configurable/0.10">0.10</option><option value="/gems/dry-configurable/0.9">0.9</option><option value="/gems/dry-configurable/0.8">0.8</option><option value="/gems/dry-configurable/main">main</option></select></h3><ul><li><a href="/gems/dry-configurable/0.16" class="active">Introduction &amp; Usage</a><li><a href="/gems/dry-configurable/0.16/testing" class="">Testing</a></li></li></ul></aside><article class="gem-article"><h2>Introduction &amp; Usage</h2><h3 id="introduction" class="hd"><a name="introduction" class="anchor" href="#introduction">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Introduction</h3>
+<p><code>dry-configurable</code> is a simple mixin to add <strong>thread-safe configuration</strong> behavior to your classes. There are many libraries that make use of the configuration, and each seemed to have its own implementation with a similar or duplicate interface, so we thought it was strange that this behavior had not already been encapsulated into a reusable gem, hence <code>dry-configurable</code> was born.</p>
+<h3 id="usage" class="hd"><a name="usage" class="anchor" href="#usage">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Usage</h3>
+<p><code>dry-configurable</code> is extremely simple to use, just extend the mixin and use the <code>setting</code> macro to add configuration options:</p>
+<h4 id="overview" class="hd"><a name="overview" class="anchor" href="#overview">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Overview</h4><div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">App</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Configurable</span>
+
+  <span class="c1"># Pass a block for nested configuration (works to any depth)</span>
+  <span class="n">setting</span> <span class="ss">:database</span> <span class="k">do</span>
+    <span class="c1"># Can pass a default value</span>
+    <span class="n">setting</span> <span class="ss">:dsn</span><span class="p">,</span> <span class="ss">default: </span><span class="s1">'sqlite:memory'</span>
+  <span class="k">end</span>
+  <span class="c1"># Defaults to nil if no default value is given</span>
+  <span class="n">setting</span> <span class="ss">:adapter</span>
+  <span class="c1"># Construct values</span>
+  <span class="n">setting</span> <span class="ss">:path</span><span class="p">,</span> <span class="ss">default: </span><span class="s1">'test'</span><span class="p">,</span> <span class="ss">constructor: </span><span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">value</span><span class="o">|</span> <span class="no">Pathname</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">}</span>
+  <span class="c1"># Passing the reader option as true will create attr_reader method for the class</span>
+  <span class="n">setting</span> <span class="ss">:pool</span><span class="p">,</span> <span class="ss">default: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">reader: </span><span class="kp">true</span>
+  <span class="c1"># Passing the reader attributes works with nested configuration</span>
+  <span class="n">setting</span> <span class="ss">:uploader</span><span class="p">,</span> <span class="ss">reader: </span><span class="kp">true</span> <span class="k">do</span>
+    <span class="n">setting</span> <span class="ss">:bucket</span><span class="p">,</span> <span class="ss">default: </span><span class="s1">'dev'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">database</span><span class="p">.</span><span class="nf">dsn</span>
+<span class="c1"># =&gt; "sqlite:memory"</span>
+
+<span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">database</span><span class="p">.</span><span class="nf">dsn</span> <span class="o">=</span> <span class="s1">'jdbc:sqlite:memory'</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">database</span><span class="p">.</span><span class="nf">dsn</span>
+<span class="c1"># =&gt; "jdbc:sqlite:memory"</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span>
+<span class="c1"># =&gt; nil</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">path</span>
+<span class="c1"># =&gt; #&lt;Pathname:test&gt;</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">pool</span>
+<span class="c1"># =&gt; 5</span>
+<span class="no">App</span><span class="p">.</span><span class="nf">uploader</span><span class="p">.</span><span class="nf">bucket</span>
+<span class="c1"># =&gt; 'dev'</span>
+</code></pre></div><h4 id="configuring-different-types-of-objects" class="hd"><a name="configuring-different-types-of-objects" class="anchor" href="#configuring-different-types-of-objects">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Configuring different types of objects</h4>
+<p>With <code>dry-configurable</code>, <strong>you can easily configure anything</strong>, doesn&#39;t matter if you need to work with <code>module</code>, <code>class</code>, or an <code>instance of a class</code></p>
+
+<p>To configure a module or class, you need to extend the <code>Dry::Configurable</code> module.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">module</span> <span class="nn">MyModule</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Configurable</span>
+
+  <span class="n">setting</span> <span class="ss">:adapter</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">MyClass</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Configurable</span>
+
+  <span class="n">setting</span> <span class="ss">:adapter</span>
+<span class="k">end</span>
+
+<span class="no">MyModule</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:http</span>
+<span class="no">MyModule</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1"># =&gt; :http</span>
+
+<span class="no">MyClass</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:tcp</span>
+<span class="no">MyClass</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1"># =&gt; :tcp</span>
+</code></pre></div>
+<p>To configure an instance of a class, the only difference is that you need to <code>include</code> the <code>Dry::Configurable</code> instead of extending it.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyClass</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Configurable</span>
+
+  <span class="n">setting</span> <span class="ss">:adapter</span>
+<span class="k">end</span>
+
+<span class="n">foo</span> <span class="o">=</span> <span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="n">foo</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:grpc</span>
+<span class="n">bar</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:http</span>
+
+<span class="n">foo</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1">#=&gt; :grpc</span>
+<span class="n">bar</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1">#=&gt; :http</span>
+</code></pre></div><h4 id="configure-block-syntax" class="hd"><a name="configure-block-syntax" class="anchor" href="#configure-block-syntax">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Configure block syntax</h4>
+<p>There is an alternative way to configure your objects, using <code>configure</code> method. It sends the <code>config</code> instance to the block you pass as an argument and then yields whatever is inside.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">App</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">database</span><span class="p">.</span><span class="nf">dsn</span> <span class="o">=</span> <span class="s2">"sqlite:memory"</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:grpc</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">pool</span> <span class="o">=</span> <span class="mi">5</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">uploader</span><span class="p">.</span><span class="nf">bucket</span> <span class="o">=</span> <span class="s1">'production'</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The returned value is the object that the <code>configure</code> method is called upon. This means you can easily get multiple objects configured independently.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Client</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Configurable</span>
+
+  <span class="n">setting</span> <span class="ss">:adapter</span><span class="p">,</span> <span class="ss">reader: </span><span class="kp">true</span>
+<span class="k">end</span>
+
+<span class="n">client1</span> <span class="o">=</span> <span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="ss">:grpc</span>
+<span class="k">end</span>
+
+<span class="n">client2</span> <span class="o">=</span> <span class="no">Client</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">adapter</span> <span class="o">=</span> <span class="ss">:http</span>
+<span class="k">end</span>
+
+<span class="n">client1</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1"># =&gt; :grpc</span>
+<span class="n">client2</span><span class="p">.</span><span class="nf">adapter</span> <span class="c1"># =&gt; :http</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-configurable/edit/release-0.16/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
