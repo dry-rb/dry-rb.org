@@ -1,16 +1,16 @@
 ---
-title: Zeitwerkified dry-rb gems
+title: dry-rb adopts Zeitwerk for code loading
 date: 2022-10-17
 author: solnic
 ---
 
-For the past few months we've been working on making all dry-rb gems auto-loadable through Zeitwerk. This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.
+For the past few months we’ve been working on making all dry-rb gems auto-loadable through [Zeitwerk](https://github.com/fxn/zeitwerk). This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.
 
-Using Zeitwerk to auto-load not just your application code but also some of the dependencies leads to significantly faster boot times. That's why it's worth to go through this process and have all the core dependencies use Zeitwerk ⚡
+Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡
 
-# Update gems
+# Updated gems
 
-During the last few days we've been releasing the following gems that now use Zeitwerk's GemLoader:
+During the last few days we’ve released the following gems that now use Zeitwerk's GemLoader:
 
 - dry-core 0.9.0
 - dry-configurable 0.16.0
@@ -26,10 +26,9 @@ During the last few days we've been releasing the following gems that now use Ze
 
 # How to upgrade
 
-In theory, everything should just work, but what we've already found in practice there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:
+In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:
 
-- Change requires of individual gem's files (assuming you have them) to be just a single require of the gem entry-point. Here's are a couple of examples:
-
+- Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here's are a couple of examples:
 ```ruby
 # before
 require "dry/core/class_attributes"
@@ -48,12 +47,13 @@ require "dry/system/container"
 require "dry/system"
 ```
 
-- In case of dry-validation and its dry-rb dependencies, please make sure that you upgraded everything to the **current** versions.  Unfortunately, dry-validation 1.9.0 may still be installed with dry-schema < 1.11 due to how version requirements work in Rubygems. It's best to have something like this in your Gemfile:
+- In case of dry-validation and its own dry-rb dependencies, please make sure that you upgrade everything to the **current** versions.  Unfortunately, dry-validation 1.9.0 may still be installed with dry-schema < 1.11 due to how version requirements work in Rubygems. It’s best to have something like this in your Gemfile:
 ```ruby
 gem "dry-validation", "~> 1.9.0"
 gem "dry-schema", "~> 1.11.2"
 ```
-- If you already use Zeitwerk and have teardown code in your test suite, please take a look how we've set it up in Hanami test suite to clear only the parts we needed to without affecting gem's loaders:
+
+- If you already use Zeitwerk and have teardown code in your test suite, please take a look how we’ve set it up in Hanami’s test suite to clear only the parts we need, without affecting loaders from other gems:
 ```ruby
 def autoloaders_teardown!
   # Tear down Zeitwerk (from zeitwerk's own test/support/loader_test)
@@ -87,4 +87,4 @@ end
 
 # Reporting issues
 
-If you find any constant-related crashes, please try to report them in repositories where a given missing constant is actually defined. If you're unsure, just report them in the repository of the gem that you upgraded and it gave you trouble.
+If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
