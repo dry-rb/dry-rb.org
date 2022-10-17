@@ -4,11 +4,11 @@ date: 2022-10-17
 author: solnic
 ---
 
-For the past few months we’ve been working on making all dry-rb gems auto-loadable through [Zeitwerk](https://github.com/fxn/zeitwerk). This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.
+For the past few months we’ve been working on making all dry-rb gems auto-loadable through [Zeitwerk](https://github.com/fxn/zeitwerk). This is part of a bigger effort as Zeitwerk is also used by [Hanami 2.0](https://github.com/hanami/hanami).
 
 Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡
 
-# Updated gems
+## Updated gems
 
 During the last few days we’ve released the following gems that now use Zeitwerk's GemLoader:
 
@@ -24,11 +24,12 @@ During the last few days we’ve released the following gems that now use Zeitwe
 - dry-effects 0.3.0
 - dry-system 0.27.x
 
-# How to upgrade
+## How to upgrade
 
 In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:
 
 - Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here's are a couple of examples:
+
 ```ruby
 # before
 require "dry/core/class_attributes"
@@ -85,6 +86,6 @@ def autoloaders_teardown!
 end
 ```
 
-# Reporting issues
+## Reporting issues
 
 If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
