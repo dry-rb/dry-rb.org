@@ -13,17 +13,17 @@
     <link rel="alternate" href="http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/"/>
     <id>http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/</id>
     <published>2022-10-17T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
-    <content type="html">&lt;p&gt;For the past few months we’ve been working on making all dry-rb gems auto-loadable through &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt;. This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.&lt;/p&gt;
+    <content type="html">&lt;p&gt;For the past few months we’ve been working on making all dry-rb gems auto-loadable through &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt;. This is part of a bigger effort as Zeitwerk is also used by &lt;a href="https://github.com/hanami/hanami"&gt;Hanami 2.0&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡&lt;/p&gt;
-&lt;h1 id="updated-gems" class="hd"&gt;&lt;a name="updated-gems" class="anchor" href="#updated-gems"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+&lt;h2 id="updated-gems" class="hd"&gt;&lt;a name="updated-gems" class="anchor" href="#updated-gems"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
             &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
             &lt;/svg&gt;
-&lt;/a&gt;Updated gems&lt;/h1&gt;
+&lt;/a&gt;Updated gems&lt;/h2&gt;
 &lt;p&gt;During the last few days we’ve released the following gems that now use Zeitwerk&amp;#39;s GemLoader:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -39,32 +39,27 @@
 &lt;li&gt;dry-effects 0.3.0&lt;/li&gt;
 &lt;li&gt;dry-system 0.27.x&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="how-to-upgrade" class="hd"&gt;&lt;a name="how-to-upgrade" class="anchor" href="#how-to-upgrade"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+&lt;h2 id="how-to-upgrade" class="hd"&gt;&lt;a name="how-to-upgrade" class="anchor" href="#how-to-upgrade"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
             &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
             &lt;/svg&gt;
-&lt;/a&gt;How to upgrade&lt;/h1&gt;
+&lt;/a&gt;How to upgrade&lt;/h2&gt;
 &lt;p&gt;In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&amp;#39;s are a couple of examples:
-```ruby
-# before
-require &amp;quot;dry/core/class_attributes&amp;quot;&lt;/li&gt;
+&lt;li&gt;Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&amp;#39;s are a couple of examples:&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id="now" class="hd"&gt;&lt;a name="now" class="anchor" href="#now"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;now&lt;/h1&gt;
-&lt;p&gt;require &amp;quot;dry/core&amp;quot;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax plaintext"&gt;&lt;code&gt;
-or
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# before&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/core/class_attributes"&lt;/span&gt;
 
-```ruby
-# before
-require "dry/system/container"
+&lt;span class="c1"&gt;# now&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/core"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# before&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/system/container"&lt;/span&gt;
 
-# now
-require "dry/system"
+&lt;span class="c1"&gt;# now&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/system"&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;In case of dry-validation and its own dry-rb dependencies, please make sure that you upgrade everything to the &lt;strong&gt;current&lt;/strong&gt; versions.  Unfortunately, dry-validation 1.9.0 may still be installed with dry-schema &amp;lt; 1.11 due to how version requirements work in Rubygems. It’s best to have something like this in your Gemfile:&lt;/p&gt;
@@ -103,7 +98,7 @@ require "dry/system"
   end
 end&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre class="syntax plaintext"&gt;&lt;code&gt;
-# Reporting issues
+## Reporting issues
 
 If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
@@ -113,7 +108,7 @@ If you find any related crashes related to Ruby constants, please try to report 
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -158,7 +153,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -224,7 +219,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -363,7 +358,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -517,7 +512,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-10-17T09:56:08+00:00</updated>
+    <updated>2022-10-17T10:07:42+00:00</updated>
     <author>
       <name>solnic</name>
     </author>

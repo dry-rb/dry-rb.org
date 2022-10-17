@@ -3,13 +3,13 @@
   indexName: 'dry-rb',
   inputSelector: '#search-input',
   debug: false // Set debug to true if you want to inspect the dropdown
-});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-rb adopts Zeitwerk for code loading</h1><div class="news-article-meta">Published on October 17, 2022 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>For the past few months we’ve been working on making all dry-rb gems auto-loadable through <a href="https://github.com/fxn/zeitwerk">Zeitwerk</a>. This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.</p>
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-rb adopts Zeitwerk for code loading</h1><div class="news-article-meta">Published on October 17, 2022 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>For the past few months we’ve been working on making all dry-rb gems auto-loadable through <a href="https://github.com/fxn/zeitwerk">Zeitwerk</a>. This is part of a bigger effort as Zeitwerk is also used by <a href="https://github.com/hanami/hanami">Hanami 2.0</a>.</p>
 
 <p>Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡</p>
-<h1 id="updated-gems" class="hd"><a name="updated-gems" class="anchor" href="#updated-gems">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+<h2 id="updated-gems" class="hd"><a name="updated-gems" class="anchor" href="#updated-gems">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Updated gems</h1>
+</a>Updated gems</h2>
 <p>During the last few days we’ve released the following gems that now use Zeitwerk&#39;s GemLoader:</p>
 
 <ul>
@@ -25,32 +25,27 @@
 <li>dry-effects 0.3.0</li>
 <li>dry-system 0.27.x</li>
 </ul>
-<h1 id="how-to-upgrade" class="hd"><a name="how-to-upgrade" class="anchor" href="#how-to-upgrade">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+<h2 id="how-to-upgrade" class="hd"><a name="how-to-upgrade" class="anchor" href="#how-to-upgrade">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>How to upgrade</h1>
+</a>How to upgrade</h2>
 <p>In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:</p>
 
 <ul>
-<li>Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&#39;s are a couple of examples:
-```ruby
-# before
-require &quot;dry/core/class_attributes&quot;</li>
+<li>Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&#39;s are a couple of examples:</li>
 </ul>
-<h1 id="now" class="hd"><a name="now" class="anchor" href="#now">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
-            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
-            </svg>
-</a>now</h1>
-<p>require &quot;dry/core&quot;</p>
-<div class="highlight"><pre class="syntax plaintext"><code>
-or
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># before</span>
+<span class="nb">require</span> <span class="s2">"dry/core/class_attributes"</span>
 
-```ruby
-# before
-require "dry/system/container"
+<span class="c1"># now</span>
+<span class="nb">require</span> <span class="s2">"dry/core"</span>
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># before</span>
+<span class="nb">require</span> <span class="s2">"dry/system/container"</span>
 
-# now
-require "dry/system"
+<span class="c1"># now</span>
+<span class="nb">require</span> <span class="s2">"dry/system"</span>
 </code></pre></div>
 <ul>
 <li><p>In case of dry-validation and its own dry-rb dependencies, please make sure that you upgrade everything to the <strong>current</strong> versions.  Unfortunately, dry-validation 1.9.0 may still be installed with dry-schema &lt; 1.11 due to how version requirements work in Rubygems. It’s best to have something like this in your Gemfile:</p>
@@ -89,7 +84,7 @@ require "dry/system"
   end
 end</p>
 <div class="highlight"><pre class="syntax plaintext"><code>
-# Reporting issues
+## Reporting issues
 
 If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
 </code></pre></div></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
