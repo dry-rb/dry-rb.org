@@ -13,7 +13,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/"/>
     <id>http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/</id>
     <published>2022-10-17T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -47,7 +47,7 @@
 &lt;p&gt;In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&amp;#39;s are a couple of examples:&lt;/li&gt;
+&lt;li&gt;Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&amp;#39;s a couple of examples:&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# before&lt;/span&gt;
 &lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s2"&gt;"dry/core/class_attributes"&lt;/span&gt;
@@ -101,7 +101,7 @@
             &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
             &lt;/svg&gt;
 &lt;/a&gt;Reporting issues&lt;/h3&gt;
-&lt;p&gt;If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.&lt;/p&gt;
+&lt;p&gt;If you find any crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -109,7 +109,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -154,7 +154,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -220,7 +220,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -359,7 +359,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -513,7 +513,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-10-17T10:23:37+00:00</updated>
+    <updated>2022-10-17T10:38:08+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
