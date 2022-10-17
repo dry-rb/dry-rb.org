@@ -19,6 +19,7 @@ During the last few days we’ve released the following gems that now use Zeitwe
 - [dry-validation 1.9.0](https://github.com/dry-rb/dry-validation/releases/tag/v1.9.0)
 - [dry-types 1.6.0](https://github.com/dry-rb/dry-types/releases/tag/v1.6.0)
 - [dry-struct 1.5.0](https://github.com/dry-rb/dry-struct/releases/tag/v1.5.0)
+- [dry-monads 1.5.0](https://github.com/dry-rb/dry-monads/releases/tag/v1.5.0)
 - [dry-monitor 0.7.0](https://github.com/dry-rb/dry-monitor/releases/tag/v0.7.0)
 - [dry-events 0.4.0](https://github.com/dry-rb/dry-events/releases/tag/v0.4.0)
 - [dry-effects 0.3.0](https://github.com/dry-rb/dry-effects/releases/tag/v0.3.0)
