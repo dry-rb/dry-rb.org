@@ -13,36 +13,37 @@
     <link rel="alternate" href="http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/"/>
     <id>http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/</id>
     <published>2022-10-17T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
     <content type="html">&lt;p&gt;For the past few months we’ve been working on making all dry-rb gems auto-loadable through &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt;. This is part of a bigger effort as Zeitwerk is also used by &lt;a href="https://github.com/hanami/hanami"&gt;Hanami 2.0&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡&lt;/p&gt;
-&lt;h2 id="updated-gems" class="hd"&gt;&lt;a name="updated-gems" class="anchor" href="#updated-gems"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+&lt;h3 id="updated-gems" class="hd"&gt;&lt;a name="updated-gems" class="anchor" href="#updated-gems"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
             &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
             &lt;/svg&gt;
-&lt;/a&gt;Updated gems&lt;/h2&gt;
+&lt;/a&gt;Updated gems&lt;/h3&gt;
 &lt;p&gt;During the last few days we’ve released the following gems that now use Zeitwerk&amp;#39;s GemLoader:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;dry-core 0.9.0&lt;/li&gt;
-&lt;li&gt;dry-configurable 0.16.0&lt;/li&gt;
-&lt;li&gt;dry-logic 1.3.0&lt;/li&gt;
-&lt;li&gt;dry-schema 1.11.x&lt;/li&gt;
-&lt;li&gt;dry-validation 1.9.0&lt;/li&gt;
-&lt;li&gt;dry-types 1.6.0&lt;/li&gt;
-&lt;li&gt;dry-struct 1.5.0&lt;/li&gt;
-&lt;li&gt;dry-monitor 0.7.0&lt;/li&gt;
-&lt;li&gt;dry-events 0.4.0&lt;/li&gt;
-&lt;li&gt;dry-effects 0.3.0&lt;/li&gt;
-&lt;li&gt;dry-system 0.27.x&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-core/releases/tag/v0.9.0"&gt;dry-core 0.9.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-configurable/releases/tag/v0.16.0"&gt;dry-configurable 0.16.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-logic/releases/tag/v1.3.0"&gt;dry-logic 1.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-schema/releases/tag/v1.11.2"&gt;dry-schema 1.11.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-validation/releases/tag/v1.9.0"&gt;dry-validation 1.9.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-types/releases/tag/v1.6.0"&gt;dry-types 1.6.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-struct/releases/tag/v1.5.0"&gt;dry-struct 1.5.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-monads/releases/tag/v1.5.0"&gt;dry-monads 1.5.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-monitor/releases/tag/v0.7.0"&gt;dry-monitor 0.7.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-events/releases/tag/v0.4.0"&gt;dry-events 0.4.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-effects/releases/tag/v0.3.0"&gt;dry-effects 0.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-system/releases/tag/v0.27.2"&gt;dry-system 0.27.2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="how-to-upgrade" class="hd"&gt;&lt;a name="how-to-upgrade" class="anchor" href="#how-to-upgrade"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+&lt;h3 id="how-to-upgrade" class="hd"&gt;&lt;a name="how-to-upgrade" class="anchor" href="#how-to-upgrade"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
             &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
             &lt;/svg&gt;
-&lt;/a&gt;How to upgrade&lt;/h2&gt;
+&lt;/a&gt;How to upgrade&lt;/h3&gt;
 &lt;p&gt;In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -66,49 +67,49 @@
 &lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-validation"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 1.9.0"&lt;/span&gt;
 &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-schema"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 1.11.2"&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;If you already use Zeitwerk and have teardown code in your test suite, please take a look how we’ve set it up in Hanami’s test suite to clear only the parts we need, without affecting loaders from other gems:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;autoloaders_teardown!&lt;/span&gt;
-&lt;span class="c1"&gt;# Tear down Zeitwerk (from zeitwerk's own test/support/loader_test)&lt;/span&gt;
-&lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;loaders&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-&lt;span class="n"&gt;test_loader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;any?&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-  &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/spec/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;tmpdir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
-    &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/slices/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/app"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;test_loader&lt;/span&gt;
-  &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;unload&lt;/span&gt;
-  &lt;span class="kp"&gt;true&lt;/span&gt;
-&lt;span class="k"&gt;else&lt;/span&gt;
-  &lt;span class="kp"&gt;false&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If you already use Zeitwerk and have teardown code in your test suite, please take a look how we’ve set it up in Hanami’s test suite to clear only the parts we need, without affecting loaders from other gems:&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;autoloaders_teardown!&lt;/span&gt;
+  &lt;span class="c1"&gt;# Tear down Zeitwerk (from zeitwerk's own test/support/loader_test)&lt;/span&gt;
+  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;loaders&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="n"&gt;test_loader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;any?&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+      &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/spec/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;tmpdir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
+        &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/slices/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/app"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
 
-&lt;p&gt;Zeitwerk::Registry.gem_loaders_by_root_file.clear&lt;/p&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;test_loader&lt;/span&gt;
+      &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;unload&lt;/span&gt;
+      &lt;span class="kp"&gt;true&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+      &lt;span class="kp"&gt;false&lt;/span&gt;
+    &lt;span class="k"&gt;end&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
 
-&lt;p&gt;Zeitwerk::Registry.autoloads.reject! do |path, _|
-    path.include?(&amp;quot;/spec/&amp;quot;) || path.include?(&amp;quot;/slices/&amp;quot;) || path.include?(&amp;quot;/app&amp;quot;)
-  end&lt;/p&gt;
+  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;gem_loaders_by_root_file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;clear&lt;/span&gt;
 
-&lt;p&gt;Zeitwerk::Registry.inceptions.clear&lt;/p&gt;
+  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;autoloads&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/spec/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/slices/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/app"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
 
-&lt;p&gt;Zeitwerk::ExplicitNamespace.cpaths.reject! do |name, _|
-    name.start_with?(&amp;quot;Hanami::&amp;quot;)
-  end
-end&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax plaintext"&gt;&lt;code&gt;
-## Reporting issues
+  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;inceptions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;clear&lt;/span&gt;
 
-If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;ExplicitNamespace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;cpaths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+    &lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;start_with?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Hanami::"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="reporting-issues" class="hd"&gt;&lt;a name="reporting-issues" class="anchor" href="#reporting-issues"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Reporting issues&lt;/h3&gt;
+&lt;p&gt;If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.&lt;/p&gt;
+</content>
   </entry>
   <entry>
     <title>Introducing dry-files</title>
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -153,7 +154,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -219,7 +220,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -358,7 +359,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -512,7 +513,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-10-17T10:07:42+00:00</updated>
+    <updated>2022-10-17T10:23:37+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
