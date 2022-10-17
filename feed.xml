@@ -4,16 +4,116 @@
   <id>http://dry-rb.org/news</id>
   <link href="http://dry-rb.org/news"/>
   <link href="http://dry-rb.org/feed.xml" rel="self"/>
-  <updated>2021-05-04T00:00:00+00:00</updated>
+  <updated>2022-10-17T00:00:00+00:00</updated>
   <author>
     <name>dry-rb community</name>
   </author>
+  <entry>
+    <title>dry-rb adopts Zeitwerk for code loading</title>
+    <link rel="alternate" href="http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/"/>
+    <id>http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/</id>
+    <published>2022-10-17T00:00:00+00:00</published>
+    <updated>2022-10-17T09:56:08+00:00</updated>
+    <author>
+      <name>solnic</name>
+    </author>
+    <content type="html">&lt;p&gt;For the past few months we’ve been working on making all dry-rb gems auto-loadable through &lt;a href="https://github.com/fxn/zeitwerk"&gt;Zeitwerk&lt;/a&gt;. This is part of a bigger effort as Zeitwerk is also used by Hanami 2.0.&lt;/p&gt;
+
+&lt;p&gt;Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡&lt;/p&gt;
+&lt;h1 id="updated-gems" class="hd"&gt;&lt;a name="updated-gems" class="anchor" href="#updated-gems"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;Updated gems&lt;/h1&gt;
+&lt;p&gt;During the last few days we’ve released the following gems that now use Zeitwerk&amp;#39;s GemLoader:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;dry-core 0.9.0&lt;/li&gt;
+&lt;li&gt;dry-configurable 0.16.0&lt;/li&gt;
+&lt;li&gt;dry-logic 1.3.0&lt;/li&gt;
+&lt;li&gt;dry-schema 1.11.x&lt;/li&gt;
+&lt;li&gt;dry-validation 1.9.0&lt;/li&gt;
+&lt;li&gt;dry-types 1.6.0&lt;/li&gt;
+&lt;li&gt;dry-struct 1.5.0&lt;/li&gt;
+&lt;li&gt;dry-monitor 0.7.0&lt;/li&gt;
+&lt;li&gt;dry-events 0.4.0&lt;/li&gt;
+&lt;li&gt;dry-effects 0.3.0&lt;/li&gt;
+&lt;li&gt;dry-system 0.27.x&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="how-to-upgrade" class="hd"&gt;&lt;a name="how-to-upgrade" class="anchor" href="#how-to-upgrade"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;How to upgrade&lt;/h1&gt;
+&lt;p&gt;In theory, everything should just work, but we’ve already found there can be various issues depending on how you require files from dry-rb gems. Luckily, the changes that may be required are very simple:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Change “cherry picking” requires of individual gem files (assuming you have them) to be just a single require of the gem’s entrypoint. Here&amp;#39;s are a couple of examples:
+```ruby
+# before
+require &amp;quot;dry/core/class_attributes&amp;quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="now" class="hd"&gt;&lt;a name="now" class="anchor" href="#now"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
+            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
+            &lt;/svg&gt;
+&lt;/a&gt;now&lt;/h1&gt;
+&lt;p&gt;require &amp;quot;dry/core&amp;quot;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax plaintext"&gt;&lt;code&gt;
+or
+
+```ruby
+# before
+require "dry/system/container"
+
+# now
+require "dry/system"
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In case of dry-validation and its own dry-rb dependencies, please make sure that you upgrade everything to the &lt;strong&gt;current&lt;/strong&gt; versions.  Unfortunately, dry-validation 1.9.0 may still be installed with dry-schema &amp;lt; 1.11 due to how version requirements work in Rubygems. It’s best to have something like this in your Gemfile:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-validation"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 1.9.0"&lt;/span&gt;
+&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s2"&gt;"dry-schema"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"~&amp;gt; 1.11.2"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;If you already use Zeitwerk and have teardown code in your test suite, please take a look how we’ve set it up in Hanami’s test suite to clear only the parts we need, without affecting loaders from other gems:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;autoloaders_teardown!&lt;/span&gt;
+&lt;span class="c1"&gt;# Tear down Zeitwerk (from zeitwerk's own test/support/loader_test)&lt;/span&gt;
+&lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;loaders&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="n"&gt;test_loader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;root_dirs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;any?&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/spec/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;Dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;tmpdir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;
+    &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/slices/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;dir&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/app"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;test_loader&lt;/span&gt;
+  &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;unload&lt;/span&gt;
+  &lt;span class="kp"&gt;true&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+  &lt;span class="kp"&gt;false&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Zeitwerk::Registry.gem_loaders_by_root_file.clear&lt;/p&gt;
+
+&lt;p&gt;Zeitwerk::Registry.autoloads.reject! do |path, _|
+    path.include?(&amp;quot;/spec/&amp;quot;) || path.include?(&amp;quot;/slices/&amp;quot;) || path.include?(&amp;quot;/app&amp;quot;)
+  end&lt;/p&gt;
+
+&lt;p&gt;Zeitwerk::Registry.inceptions.clear&lt;/p&gt;
+
+&lt;p&gt;Zeitwerk::ExplicitNamespace.cpaths.reject! do |name, _|
+    name.start_with?(&amp;quot;Hanami::&amp;quot;)
+  end
+end&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre class="syntax plaintext"&gt;&lt;code&gt;
+# Reporting issues
+
+If you find any related crashes related to Ruby constants, please try to report them in the repository where the given missing constant is actually defined. If you’re unsure, just report them in the repository of the gem that you upgraded and gave you trouble.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
+  </entry>
   <entry>
     <title>Introducing dry-files</title>
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
+    <updated>2022-10-17T09:56:08+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -58,7 +158,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
+    <updated>2022-10-17T09:56:08+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -124,7 +224,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
+    <updated>2022-10-17T09:56:08+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -263,7 +363,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
+    <updated>2022-10-17T09:56:08+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -417,7 +517,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
+    <updated>2022-10-17T09:56:08+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -601,101 +701,6 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
             &lt;/svg&gt;
 &lt;/a&gt;Thank you&lt;/h2&gt;
 &lt;p&gt;Thank you to all the contributors and early adopters who helped us shape dry-validation. This has been a big effort and we&amp;#39;re very happy with the results. Please check it out and let us know what you think!&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>dry-types and dry-struct 1.0.0 released</title>
-    <link rel="alternate" href="http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/"/>
-    <id>http://dry-rb.org/news/2019/04/23/dry-types-and-dry-struct-1-0-0-released/</id>
-    <published>2019-04-23T00:00:00+00:00</published>
-    <updated>2022-10-08T00:43:13+00:00</updated>
-    <author>
-      <name>solnic</name>
-    </author>
-    <content type="html">&lt;p&gt;We&amp;#39;re very happy to announce the release of &lt;code&gt;dry-types&lt;/code&gt; and &lt;code&gt;dry-struct&lt;/code&gt; 1.0.0! &lt;code&gt;dry-types&lt;/code&gt; is one of the most important and foundational gem in the dry-rb organization. It powers attributes in &lt;code&gt;dry-struct&lt;/code&gt;, handles coercion in &lt;code&gt;dry-schema&lt;/code&gt;, and is used extensively in &lt;a href="https://rom-rb.org/"&gt;&lt;code&gt;rom-rb&lt;/code&gt;&lt;/a&gt;&amp;#39;s relation schemas. With this 1.0.0 release, we hope it will be adopted by more projects. &lt;code&gt;dry-struct&lt;/code&gt; was originally extracted from &lt;code&gt;dry-types&lt;/code&gt; and it provides the famous &lt;code&gt;attribute&lt;/code&gt; API for your PORO objects.&lt;/p&gt;
-
-&lt;p&gt;Huge props go to &lt;a href="https://github.com/flash-gordon"&gt;Nikita Shilnikov&lt;/a&gt; who has worked so hard to finalize these releases which bring a lot of improvements. Let&amp;#39;s look at some of the highlights.&lt;/p&gt;
-&lt;h3 id="configurable-types-module" class="hd"&gt;&lt;a name="configurable-types-module" class="anchor" href="#configurable-types-module"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;Configurable types module&lt;/h3&gt;
-&lt;p&gt;Previously you could include all built-in types into your own module via &lt;code&gt;include Dry::Types.module&lt;/code&gt;. This was changed to a configurable module builder. Now you can cherry-pick which type namespaced categories you want, which types should be used by default and even rename namespaces. Here are some examples:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# Cherry-pick which categories you want&lt;/span&gt;
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;:strict&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:nominal&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:coercible&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
-&lt;span class="c1"&gt;# =&amp;gt; #&amp;lt;Dry::Types[Constrained&amp;lt;Nominal&amp;lt;String&amp;gt; rule=[type?(String)]&amp;gt;]&amp;gt;&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;constants&lt;/span&gt;
-&lt;span class="c1"&gt;# =&amp;gt; [:Strict, :Nominal, :Coercible]&lt;/span&gt;
-
-&lt;span class="c1"&gt;# Change default category to be `:coercible`&lt;/span&gt;
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;default: :coercible&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
-&lt;span class="c1"&gt;# =&amp;gt; #&amp;lt;Dry::Types[Constructor&amp;lt;Nominal&amp;lt;String&amp;gt; fn=Kernel.String&amp;gt;]&amp;gt;&lt;/span&gt;
-
-&lt;span class="c1"&gt;# Rename default categories&lt;/span&gt;
-&lt;span class="k"&gt;module&lt;/span&gt; &lt;span class="nn"&gt;Types&lt;/span&gt;
-  &lt;span class="kp"&gt;include&lt;/span&gt; &lt;span class="no"&gt;Dry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;strict: :Strong&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;coercible: :Kernel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-
-&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Kernel&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;
-&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;#&amp;lt;Dry::Types[Constructor&amp;lt;Nominal&amp;lt;String&amp;gt; fn=Kernel.String&amp;gt;]&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="constructors-support-prepending-and-appending" class="hd"&gt;&lt;a name="constructors-support-prepending-and-appending" class="anchor" href="#constructors-support-prepending-and-appending"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;Constructors support prepending and appending&lt;/h3&gt;
-&lt;p&gt;Previously it was only possible to append a constructor function. This was too limiting because it wasn&amp;#39;t easy to extend and re-use existing constructors. Now it&amp;#39;s possible to either append or prepend a new constructor:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;to_int&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Coercible&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Integer&lt;/span&gt;
-&lt;span class="n"&gt;inc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;to_int&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;append&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="n"&gt;inc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"1"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; "1" -&amp;gt; 1 -&amp;gt; 3&lt;/span&gt;
-
-&lt;span class="n"&gt;inc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;to_int&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;prepend&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"2"&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;span class="n"&gt;inc&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"1"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# =&amp;gt; "1" -&amp;gt; "12" -&amp;gt; 12&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This feature should be very useful in places like rom-rb&amp;#39;s schemas or dry-schema, where you may want to pre-process data and then re-use existing coercion logic.&lt;/p&gt;
-&lt;h3 id="shortcut-syntax-for-optional-keys-in-hash-schemas" class="hd"&gt;&lt;a name="shortcut-syntax-for-optional-keys-in-hash-schemas" class="anchor" href="#shortcut-syntax-for-optional-keys-in-hash-schemas"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;Shortcut syntax for optional keys in Hash schemas&lt;/h3&gt;
-&lt;p&gt;You can now use key names ending with &lt;code&gt;?&lt;/code&gt; to denote an optional key. Here&amp;#39;s how it looks in practice in a struct definition:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;hash_schema&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;schema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;name?: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;String&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;age?: &lt;/span&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Integer&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="n"&gt;hash_schema&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="c1"&gt;# =&amp;gt; {:email=&amp;gt;"jane@doe.org"}&lt;/span&gt;
-
-&lt;span class="n"&gt;hash_schema&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="ss"&gt;email: &lt;/span&gt;&lt;span class="s1"&gt;'jane@doe.org'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;name: &lt;/span&gt;&lt;span class="s1"&gt;'Jane'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;age: &lt;/span&gt;&lt;span class="mi"&gt;31&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="c1"&gt;# =&amp;gt; {:email=&amp;gt;"jane@doe.org", :name=&amp;gt;"Jane", :age=&amp;gt;31}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="type-safe-coercions-by-default-and-lax-types" class="hd"&gt;&lt;a name="type-safe-coercions-by-default-and-lax-types" class="anchor" href="#type-safe-coercions-by-default-and-lax-types"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;Type-safe coercions by default and Lax types&lt;/h3&gt;
-&lt;p&gt;All the built-in coercion types have been changed to &lt;em&gt;raise exceptions on unexpected input&lt;/em&gt;. If you want to get back the original input when coercion fails, rather than getting an exception, you can use &lt;code&gt;Lax&lt;/code&gt; types, which will rescue known type-related errors:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre class="syntax ruby"&gt;&lt;code&gt;&lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Params&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Float&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'oops'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="c1"&gt;# Dry::Types::CoercionError: invalid value for Float(): "oops"&lt;/span&gt;
-
-&lt;span class="n"&gt;lax_float&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Types&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Params&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Float&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;lax&lt;/span&gt;
-&lt;span class="n"&gt;lax_float&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'oops'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s2"&gt;"oops"&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="and-more" class="hd"&gt;&lt;a name="and-more" class="anchor" href="#and-more"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
-            &lt;path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"&gt;&lt;/path&gt;
-            &lt;/svg&gt;
-&lt;/a&gt;...and more&lt;/h3&gt;
-&lt;p&gt;There are a lot of other features, improvements, optimizations and fixes in this release. &lt;em&gt;Please refer to the CHANGELOGS&lt;/em&gt; for a full overview:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-types/blob/main/CHANGELOG.md#100-2019-04-23"&gt;&lt;code&gt;dry-types 1.0.0 CHANGELOG&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://github.com/dry-rb/dry-struct/blob/main/CHANGELOG.md#100-2019-04-23"&gt;&lt;code&gt;dry-struct 1.0.0 CHANGELOG&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Please give it a go and let us know what you think!&lt;/p&gt;
-
-&lt;p&gt;We&amp;#39;re also wrapping up &lt;code&gt;dry-validation&lt;/code&gt; and &lt;code&gt;dry-schema&lt;/code&gt; 1.0.0, stay tuned for more good news :)&lt;/p&gt;
 </content>
   </entry>
 </feed>
