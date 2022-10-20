@@ -3,7 +3,7 @@
   indexName: 'dry-rb',
   inputSelector: '#search-input',
   debug: false // Set debug to true if you want to inspect the dropdown
-});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-rb adopts Zeitwerk for code loading</h1><div class="news-article-meta">Published on October 17, 2022 by <a href="https://twitter.com/_solnic_">Piotr Solnica</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>For the past few months we’ve been working on making all dry-rb gems auto-loadable through <a href="https://github.com/fxn/zeitwerk">Zeitwerk</a>. This is part of a bigger effort as Zeitwerk is also used by <a href="https://github.com/hanami/hanami">Hanami 2.0</a>.</p>
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><div class="intro-page intro-page--content"><div class="content-wrap"><div class="intro-page__inner"><h1>dry-rb adopts Zeitwerk for code loading</h1><div class="news-article-meta">Published on October 17, 2022 by <a href="https://twitter.com/solnic29a">Piotr Solnica</a></div></div></div></div><main><div class="row"><div class="content-wrap"><article class="news-article"><p>For the past few months we’ve been working on making all dry-rb gems auto-loadable through <a href="https://github.com/fxn/zeitwerk">Zeitwerk</a>. This is part of a bigger effort as Zeitwerk is also used by <a href="https://github.com/hanami/hanami">Hanami 2.0</a>.</p>
 
 <p>Using Zeitwerk to autoload not just your application code but also your dependencies leads to significantly faster boot times. That’s why it’s worth going through this process to have all the dry-rb gems use Zeitwerk ⚡</p>
 <h3 id="updated-gems" class="hd"><a name="updated-gems" class="anchor" href="#updated-gems">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
@@ -64,23 +64,11 @@
     <span class="k">end</span>
 
     <span class="k">if</span> <span class="n">test_loader</span>
-      <span class="n">loader</span><span class="p">.</span><span class="nf">unload</span>
+      <span class="n">loader</span><span class="p">.</span><span class="nf">unregister</span>
       <span class="kp">true</span>
     <span class="k">else</span>
       <span class="kp">false</span>
     <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">Registry</span><span class="p">.</span><span class="nf">gem_loaders_by_root_file</span><span class="p">.</span><span class="nf">clear</span>
-
-  <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">Registry</span><span class="p">.</span><span class="nf">autoloads</span><span class="p">.</span><span class="nf">reject!</span> <span class="k">do</span> <span class="o">|</span><span class="n">path</span><span class="p">,</span> <span class="n">_</span><span class="o">|</span>
-    <span class="n">path</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s2">"/spec/"</span><span class="p">)</span> <span class="o">||</span> <span class="n">path</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s2">"/slices/"</span><span class="p">)</span> <span class="o">||</span> <span class="n">path</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s2">"/app"</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">Registry</span><span class="p">.</span><span class="nf">inceptions</span><span class="p">.</span><span class="nf">clear</span>
-
-  <span class="no">Zeitwerk</span><span class="o">::</span><span class="no">ExplicitNamespace</span><span class="p">.</span><span class="nf">cpaths</span><span class="p">.</span><span class="nf">reject!</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="n">_</span><span class="o">|</span>
-    <span class="nb">name</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="s2">"Hanami::"</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div><h3 id="reporting-issues" class="hd"><a name="reporting-issues" class="anchor" href="#reporting-issues">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">

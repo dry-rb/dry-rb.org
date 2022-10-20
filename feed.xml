@@ -13,7 +13,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/"/>
     <id>http://dry-rb.org/news/2022/10/17/dry-rb-adopts-zeitwerk-for-code-loading/</id>
     <published>2022-10-17T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -78,23 +78,11 @@
     &lt;span class="k"&gt;end&lt;/span&gt;
 
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;test_loader&lt;/span&gt;
-      &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;unload&lt;/span&gt;
+      &lt;span class="n"&gt;loader&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;unregister&lt;/span&gt;
       &lt;span class="kp"&gt;true&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;
       &lt;span class="kp"&gt;false&lt;/span&gt;
     &lt;span class="k"&gt;end&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;gem_loaders_by_root_file&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;clear&lt;/span&gt;
-
-  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;autoloads&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/spec/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/slices/"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;include?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"/app"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="k"&gt;end&lt;/span&gt;
-
-  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Registry&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;inceptions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;clear&lt;/span&gt;
-
-  &lt;span class="no"&gt;Zeitwerk&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;ExplicitNamespace&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;cpaths&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;reject!&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-    &lt;span class="nb"&gt;name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;start_with?&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"Hanami::"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
   &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;span class="k"&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="reporting-issues" class="hd"&gt;&lt;a name="reporting-issues" class="anchor" href="#reporting-issues"&gt;            &lt;svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16"&gt;
@@ -109,7 +97,7 @@
     <link rel="alternate" href="http://dry-rb.org/news/2021/05/04/introducing-dry-files/"/>
     <id>http://dry-rb.org/news/2021/05/04/introducing-dry-files/</id>
     <published>2021-05-04T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>jodosha</name>
     </author>
@@ -154,7 +142,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/"/>
     <id>http://dry-rb.org/news/2021/04/22/dry-system-0-19-released-with-zeitwerk-support-and-more-leading-the-way-for-hanami-2-0/</id>
     <published>2021-04-22T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>timriley</name>
     </author>
@@ -220,7 +208,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/"/>
     <id>http://dry-rb.org/news/2020/03/11/dry-schema-and-dry-validation-1-5-0-released/</id>
     <published>2020-03-11T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
@@ -359,7 +347,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/10/03/introducing-dry-effects/"/>
     <id>http://dry-rb.org/news/2019/10/03/introducing-dry-effects/</id>
     <published>2019-10-03T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>flash-gordon</name>
     </author>
@@ -513,7 +501,7 @@ The other adapter is an &lt;strong&gt;in-memory file system&lt;/strong&gt;. It&a
     <link rel="alternate" href="http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/"/>
     <id>http://dry-rb.org/news/2019/06/10/dry-validation-1-0-0-released/</id>
     <published>2019-06-10T00:00:00+00:00</published>
-    <updated>2022-10-17T10:38:08+00:00</updated>
+    <updated>2022-10-20T07:03:30+00:00</updated>
     <author>
       <name>solnic</name>
     </author>
