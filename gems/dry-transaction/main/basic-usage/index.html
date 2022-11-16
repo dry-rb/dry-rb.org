@@ -33,7 +33,7 @@
 <p>You can also define a transaction that relies upon operation objects in a container. Each operation must respond to <code>#call(input)</code>.</p>
 
 <p>The container will be checked for the operations using <code>#key?</code>, and the operations will be resolved from the container via <code>#[]</code>. For this example, we’ll use <a href="/gems/dry-container">dry-container</a>:</p>
-<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"dry/container"</span>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"dry/core"</span>
 <span class="nb">require</span> <span class="s2">"dry/transaction"</span>
 <span class="nb">require</span> <span class="s2">"dry/transaction/operation"</span>
 
@@ -56,7 +56,7 @@
 <span class="k">end</span>
 
 <span class="k">class</span> <span class="nc">Container</span>
-  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Core</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Mixin</span>
 
   <span class="n">namespace</span> <span class="s2">"users"</span> <span class="k">do</span>
     <span class="n">register</span> <span class="s2">"validate"</span> <span class="k">do</span>
