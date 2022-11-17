@@ -9,16 +9,16 @@
 <li>Structured logging <em>by default</em></li>
 <li>Logging to multiple destinations via pluggable logging <code>backends</code></li>
 <li>Fine-grained log formatting using <code>formatters</code></li>
-<li>Customizable loggging logic via log filtering</li>
+<li>Customizable logging logic via log filtering</li>
 <li>Out-of-the-box exception logging</li>
-<li>Built-in support for text log templates with customizable colorized ouput</li>
+<li>Built-in support for text log templates with customizable colorized output</li>
 <li>Built-in support for tagged log entries</li>
 <li>Public API for adding your own <code>backends</code> and <code>formatters</code></li>
 </ul>
-<h1 id="basic-setup" class="hd"><a name="basic-setup" class="anchor" href="#basic-setup">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+<h3 id="basic-setup" class="hd"><a name="basic-setup" class="anchor" href="#basic-setup">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Basic setup</h1>
+</a>Basic setup</h3>
 <p>To configure a basic <code>$stdout</code> logger simply use the main setup method <code>Dry.Logger</code>:</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
 
@@ -33,10 +33,10 @@ provide customized text templates, and so on.</p>
 
 <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"Hello World"</span>
 <span class="c1"># [test] [INFO] [2022-11-17 11:43:52 +0100] Hello World</span>
-</code></pre></div><h1 id="using-multiple-logging-destinations" class="hd"><a name="using-multiple-logging-destinations" class="anchor" href="#using-multiple-logging-destinations">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+</code></pre></div><h3 id="using-multiple-logging-destinations" class="hd"><a name="using-multiple-logging-destinations" class="anchor" href="#using-multiple-logging-destinations">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Using multiple logging destinations</h1>
+</a>Using multiple logging destinations</h3>
 <p>You can configure your logger to log to more than one destination. In case of the default logger,
 the destination is set to <code>$stdout</code>. Let&#39;s say you want to log both to <code>$stdout</code> and a file:</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">template: :details</span><span class="p">).</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/test.log"</span><span class="p">)</span>
@@ -44,10 +44,10 @@ the destination is set to <code>$stdout</code>. Let&#39;s say you want to log bo
 <span class="c1"># This goes to $stdout and logs/test.log too</span>
 <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"Hello World"</span>
 <span class="c1"># [test] [INFO] [2022-11-17 11:46:12 +0100] Hello World</span>
-</code></pre></div><h1 id="conditional-logging" class="hd"><a name="conditional-logging" class="anchor" href="#conditional-logging">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+</code></pre></div><h3 id="conditional-logging" class="hd"><a name="conditional-logging" class="anchor" href="#conditional-logging">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Conditional logging</h1>
+</a>Conditional logging</h3>
 <p>You can tell your backends when exactly they should be logging using <code>log_if</code> option. It can be set
 to either a symbol that represents a method that <code>Dry::Logger::Entry</code> implements or a custom proc.</p>
 
@@ -62,10 +62,10 @@ to either a symbol that represents a method that <code>Dry::Logger::Entry</code>
 <span class="c1"># This goes to $stdout and logs/requests.log</span>
 <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"GET /posts"</span><span class="p">,</span> <span class="ss">request: </span><span class="kp">true</span>
 <span class="c1"># [test] [INFO] [2022-11-17 11:51:50 +0100] GET /posts request=true</span>
-</code></pre></div><h1 id="using-custom-templates" class="hd"><a name="using-custom-templates" class="anchor" href="#using-custom-templates">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+</code></pre></div><h3 id="using-custom-templates" class="hd"><a name="using-custom-templates" class="anchor" href="#using-custom-templates">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Using custom templates</h1>
+</a>Using custom templates</h3>
 <p>You can provide customized text log templates using regular Ruby syntax for tokenized string templates:</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">template: </span><span class="s2">"[%&lt;severity&gt;s] %&lt;message&gt;s"</span><span class="p">)</span>
 
@@ -88,10 +88,10 @@ Here&#39;s an example:</p>
 
 <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="ss">verb: </span><span class="s2">"GET"</span><span class="p">,</span> <span class="ss">path: </span><span class="s2">"/users"</span>
 <span class="c1"># [INFO] GET /users</span>
-</code></pre></div><h1 id="using-colorized-text-output" class="hd"><a name="using-colorized-text-output" class="anchor" href="#using-colorized-text-output">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+</code></pre></div><h3 id="using-colorized-text-output" class="hd"><a name="using-colorized-text-output" class="anchor" href="#using-colorized-text-output">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Using colorized text output</h1>
+</a>Using colorized text output</h3>
 <p>You can use simple color tags to colorize specific values in the text output:</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">template: </span><span class="s2">"[%&lt;severity&gt;s] &lt;blue&gt;%&lt;verb&gt;s&lt;/blue&gt; &lt;green&gt;%&lt;path&gt;s&lt;/green&gt;"</span><span class="p">)</span>
 
@@ -111,10 +111,10 @@ Here&#39;s an example:</p>
 <li>cyan</li>
 <li>gray</li>
 </ul>
-<h1 id="customizing-formatters" class="hd"><a name="customizing-formatters" class="anchor" href="#customizing-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+<h3 id="customizing-formatters" class="hd"><a name="customizing-formatters" class="anchor" href="#customizing-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Customizing formatters</h1>
+</a>Customizing formatters</h3>
 <p>There are three built-in formatters:</p>
 
 <ul>
