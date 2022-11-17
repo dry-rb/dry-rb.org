@@ -188,6 +188,8 @@
 - name: dry-logger
   desc: Logging for Ruby applications
   versions:
+    - value: "1.0"
+      branch: "release-1.0"
     - value: "main"
       branch: "main"
   seo:
