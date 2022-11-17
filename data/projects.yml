@@ -185,6 +185,13 @@
       branch: "main"
   seo:
     description: Predicate logic with rule composition for Ruby
+- name: dry-logger
+  desc: Logging for Ruby applications
+  versions:
+    - value: "main"
+      branch: "main"
+  seo:
+    description: Logging for Ruby applications
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
   versions:
