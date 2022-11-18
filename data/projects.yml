@@ -126,6 +126,8 @@
 - name: dry-system
   desc: Organize your code into reusable components
   versions:
+    - value: "1.0"
+      branch: "release-1.0"
     - value: "0.23"
       branch: "release-0.23"
     - value: "0.22"
