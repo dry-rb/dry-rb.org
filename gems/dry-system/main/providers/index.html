@@ -69,7 +69,7 @@
 <p>You can start one provider as a dependency of another by invoking the provider’s lifecycle directly on the <code>target</code> container (i.e. your application container):</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="c1"># system/providers/logger.rb</span>
 <span class="no">Application</span><span class="p">.</span><span class="nf">register_provider</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">init</span> <span class="k">do</span>
+  <span class="n">prepare</span> <span class="k">do</span>
     <span class="nb">require</span> <span class="s2">"logger"</span>
   <span class="k">end</span>
 
