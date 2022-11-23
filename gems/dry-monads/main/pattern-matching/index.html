@@ -28,6 +28,8 @@
   <span class="c1"># user_account is bound to the value of the `:account` key</span>
 <span class="k">in</span> <span class="no">Success</span><span class="p">()</span>
   <span class="c1"># corresponds to Success(Unit)</span>
+<span class="k">in</span> <span class="no">Success</span><span class="p">(</span><span class="n">user</span><span class="p">:,</span> <span class="o">**</span><span class="n">rest</span><span class="p">)</span>
+  <span class="c1"># matches Success(user: User.new, other_key: "value")</span>
 <span class="k">in</span> <span class="no">Success</span><span class="p">(</span><span class="n">_</span><span class="p">)</span>
   <span class="c1"># general success</span>
 <span class="k">in</span> <span class="no">Failure</span><span class="p">[</span><span class="ss">:user_not_found</span><span class="p">]</span>
