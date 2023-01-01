@@ -31,7 +31,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: "3.2"
     - name: Install latest bundler
       run: gem install bundler --no-document
     - name: Bundle install
