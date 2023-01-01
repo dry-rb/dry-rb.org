@@ -199,6 +199,8 @@
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
   versions:
+    - value: "1.0"
+      branch: "release-1.0"
     - value: "0.7"
       branch: "release-0.7"
     - value: "0.8"
