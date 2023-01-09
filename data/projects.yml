@@ -265,6 +265,8 @@
 - name: dry-cli
   desc: General purpose Command Line Interface (CLI) framework
   versions:
+    - value: "1.0"
+      branch: "release-1.0"
     - value: "0.6"
       branch: "release-0.6"
     - value: "0.4"
