@@ -51,6 +51,8 @@
 - name: dry-types
   desc: Flexible type system with many built-in types
   versions:
+    - value: "1.7"
+      branch: "release-1.7"
     - value: "1.2"
       branch: "release-1.2"
     - value: "1.0"
