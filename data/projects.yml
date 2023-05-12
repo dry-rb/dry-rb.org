@@ -286,10 +286,12 @@
   versions:
   - value: main
     branch: main
-  - value: '0.2'
-    branch: release-0.2
+  - value: '0.3'
+    branch: release-0.3
   - value: '0.1'
     branch: release-0.1
+  - value: '0.2'
+    branch: release-0.2
   seo:
     description: A practical, production-grade implementation of algebraic effects
       for Ruby
