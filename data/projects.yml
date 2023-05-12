@@ -194,10 +194,12 @@
 - name: dry-initializer
   desc: DSL for defining initializer params and options
   versions:
-  - value: '3.0'
-    branch: release-3.0
   - value: main
     branch: main
+  - value: '0.4'
+    branch: release-0.4
+  - value: '3.0'
+    branch: release-3.0
   seo:
     description: A dead simple library for initializing Ruby classes with params and
       options
