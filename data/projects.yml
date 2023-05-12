@@ -210,12 +210,14 @@
   versions:
   - value: main
     branch: main
-  - value: '1.1'
-    branch: release-1.1
-  - value: '1.0'
-    branch: release-1.0
+  - value: '1.3'
+    branch: release-1.3
   - value: '1.2'
     branch: release-1.2
+  - value: '1.0'
+    branch: release-1.0
+  - value: '1.1'
+    branch: release-1.1
   seo:
     description: Predicate logic with rule composition for Ruby
 - name: dry-logger
