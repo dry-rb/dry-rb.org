@@ -130,10 +130,12 @@
 - name: dry-inflector
   desc: Standalone inflections
   versions:
-  - value: '0.1'
-    branch: release-0.1
   - value: main
     branch: main
+  - value: '0.2'
+    branch: release-0.2
+  - value: '0.1'
+    branch: release-0.1
   seo:
     description: A Ruby library to transform human-friendly strings to machine-friendly
       strings, and vice-versa
