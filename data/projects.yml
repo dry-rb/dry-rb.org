@@ -95,10 +95,12 @@
 - name: dry-transaction
   desc: Business transaction DSL
   versions:
-  - value: '0.13'
-    branch: release-0.13
   - value: main
     branch: main
+  - value: '0.1'
+    branch: release-0.1
+  - value: '0.13'
+    branch: release-0.13
   seo:
     description: Business transaction DSL for Ruby
 - name: dry-container
