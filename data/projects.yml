@@ -86,10 +86,12 @@
 - name: dry-container
   desc: Simple and thread-safe IoC container
   versions:
-  - value: '0.7'
-    branch: release-0.7
   - value: main
     branch: main
+  - value: '0.1'
+    branch: release-0.1
+  - value: '0.7'
+    branch: release-0.7
   seo:
     description: A simple, configurable object container implemented in Ruby
 - name: dry-auto_inject
