@@ -132,12 +132,14 @@
   versions:
   - value: main
     branch: main
-  - value: '0.3'
-    branch: release-0.3
-  - value: '0.1'
-    branch: release-0.1
+  - value: '1.0'
+    branch: release-1.0
   - value: '0.2'
     branch: release-0.2
+  - value: '0.1'
+    branch: release-0.1
+  - value: '0.3'
+    branch: release-0.3
   seo:
     description: A Ruby library to transform human-friendly strings to machine-friendly
       strings, and vice-versa
