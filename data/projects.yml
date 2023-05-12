@@ -362,16 +362,18 @@
 - name: dry-rails
   desc: The dry-rb railtie
   versions:
-  - value: '0.1'
-    branch: release-0.1
-  - value: '0.2'
-    branch: release-0.2
-  - value: '0.3'
-    branch: release-0.3
-  - value: '0.4'
-    branch: release-0.4
   - value: main
     branch: main
+  - value: '0.5'
+    branch: release-0.5
+  - value: '0.4'
+    branch: release-0.4
+  - value: '0.3'
+    branch: release-0.3
+  - value: '0.2'
+    branch: release-0.2
+  - value: '0.1'
+    branch: release-0.1
   seo:
     description: Bring the power of DRY.rb to your Ruby on Rails application
 - name: dry-files
