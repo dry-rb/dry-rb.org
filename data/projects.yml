@@ -392,9 +392,11 @@
   versions:
   - value: main
     branch: main
-  - value: '0.6'
-    branch: release-0.6
+  - value: '0.7'
+    branch: release-0.7
   - value: '1.0'
     branch: release-1.0
+  - value: '0.6'
+    branch: release-0.6
   seo:
     description: A set of instrumentation APIs and tools for any Ruby application
