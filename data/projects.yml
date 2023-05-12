@@ -95,10 +95,12 @@
 - name: dry-auto_inject
   desc: Container-agnostic constructor injection mixin
   versions:
-  - value: '0.6'
-    branch: release-0.6
   - value: main
     branch: main
+  - value: '0.7'
+    branch: release-0.7
+  - value: '0.6'
+    branch: release-0.6
   seo:
     description: Bring dependency injection to your Ruby application
 - name: dry-equalizer
