@@ -277,12 +277,14 @@
   versions:
   - value: main
     branch: main
-  - value: '0.4'
-    branch: release-0.4
-  - value: '0.2'
-    branch: release-0.2
+  - value: '1.0'
+    branch: release-1.0
   - value: '0.3'
     branch: release-0.3
+  - value: '0.2'
+    branch: release-0.2
+  - value: '0.4'
+    branch: release-0.4
   seo:
     description: A convienent publisher-subscriber framework for Ruby
 - name: dry-effects
