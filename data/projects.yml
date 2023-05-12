@@ -284,10 +284,12 @@
 - name: dry-effects
   desc: Algebraic effects in Ruby
   versions:
-  - value: '0.1'
-    branch: release-0.1
   - value: main
     branch: main
+  - value: '0.2'
+    branch: release-0.2
+  - value: '0.1'
+    branch: release-0.1
   seo:
     description: A practical, production-grade implementation of algebraic effects
       for Ruby
