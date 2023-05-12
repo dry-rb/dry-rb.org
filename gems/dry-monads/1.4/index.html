@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Useful, common monads in idiomatic Ruby" name="description" /><meta content="dry-rb - dry-monads v1.4 - Introduction" property="og:title" /><meta content="Useful, common monads in idiomatic Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-monads v1.4 - Introduction" name="twitter:title" /><meta content="Useful, common monads in idiomatic Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-monads v1.4 - Introduction</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.0">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.0">dry-logger</a></ul><ul><li></li><a href="/gems/dry-logic/1.5">dry-logic</a><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a></ul><ul><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-monads <span class="hide">1.4</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-monads">View dry-monads on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-monads/main">main</option><option value="/gems/dry-monads/1.6">1.6</option><option selected="selected" value="/gems/dry-monads/1.4">1.4</option><option value="/gems/dry-monads/1.3">1.3</option><option value="/gems/dry-monads/1.0">1.0</option><option value="/gems/dry-monads/0.4">0.4</option><option value="/gems/dry-monads/1.5">1.5</option></select></h3><ul><li><a href="/gems/dry-monads/1.4" class="active">Introduction</a><li><a href="/gems/dry-monads/1.4/getting-started" class="">Getting started</a></li><li><a href="/gems/dry-monads/1.4/maybe" class="">Maybe</a></li><li><a href="/gems/dry-monads/1.4/result" class="">Result</a></li><li><a href="/gems/dry-monads/1.4/do-notation" class="">Do notation</a></li><li><a href="/gems/dry-monads/1.4/try" class="">Try</a></li><li><a href="/gems/dry-monads/1.4/list" class="">List</a></li><li><a href="/gems/dry-monads/1.4/task" class="">Task</a></li><li><a href="/gems/dry-monads/1.4/validated" class="">Validated</a></li><li><a href="/gems/dry-monads/1.4/case-equality" class="">Case equality</a></li><li><a href="/gems/dry-monads/1.4/tracing-failures" class="">Tracing failures</a></li><li><a href="/gems/dry-monads/1.4/pattern-matching" class="">Pattern matching</a></li><li><a href="/gems/dry-monads/1.4/unit" class="">Unit</a></li></li></ul></aside><article class="gem-article"><h2>Introduction</h2><p>dry-monads is a set of common monads for Ruby. Monads provide an elegant way of handling errors, exceptions and chaining functions so that the code is much more understandable and has all the error handling, without all the <code>if</code>s and <code>else</code>s. The gem was inspired by the <a href="https://github.com/txus/kleisli">Kleisli</a> gem.</p>
+
+<p>What is a monad, anyway? Simply, <a href="https://stackoverflow.com/questions/3870088/a-monad-is-just-a-monoid-in-the-category-of-endofunctors-whats-the-proble%E2%85%BF">a monoid in the category of endofunctors</a>. The term comes from category theory and some believe monads are tough to understand or explain. It&#39;s hard to say why people think so because you certainly don&#39;t need to know category theory for using them, just like you don&#39;t need it for, say, using functions.</p>
+
+<p>Moreover, the best way to develop intuition about monads is looking at examples rather than learning theories.</p>
+<h2 id="how-to-use-it" class="hd"><a name="how-to-use-it" class="anchor" href="#how-to-use-it">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>How to use it?</h2>
+<p>Let&#39;s say you have code like this</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="n">user</span>
+  <span class="n">address</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">address</span>
+<span class="k">end</span>
+
+<span class="k">if</span> <span class="n">address</span>
+  <span class="n">city</span> <span class="o">=</span> <span class="n">address</span><span class="p">.</span><span class="nf">city</span>
+<span class="k">end</span>
+
+<span class="k">if</span> <span class="n">city</span>
+  <span class="n">state</span> <span class="o">=</span> <span class="n">city</span><span class="p">.</span><span class="nf">state</span>
+<span class="k">end</span>
+
+<span class="k">if</span> <span class="n">state</span>
+  <span class="n">state_name</span> <span class="o">=</span> <span class="n">state</span><span class="p">.</span><span class="nf">name</span>
+<span class="k">end</span>
+
+<span class="n">user_state</span> <span class="o">=</span> <span class="n">state_name</span> <span class="o">||</span> <span class="s2">"No state"</span>
+</code></pre></div>
+<p>Writing code in this style is tedious and error-prone. There were created several &quot;cutting-corners&quot; means to work around this issue. The first is ActiveSupport&#39;s <code>.try</code> which is a plain global monkey patch on <code>NilClass</code> and <code>Object</code>. Another solution is using the Safe Navigation Operator <code>&amp;.</code> introduced in Ruby 2.3 which is a bit better because this is a language feature rather than an opinionated runtime environment pollution. However, some people think these solutions are hacks and the problem reveals a missing abstraction. What kind of abstraction?</p>
+
+<p>When all objects from the chain of objects are there we could have this instead:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">state_name</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">]).</span><span class="nf">address</span><span class="p">.</span><span class="nf">city</span><span class="p">.</span><span class="nf">state</span><span class="p">.</span><span class="nf">name</span>
+<span class="n">user_state</span> <span class="o">=</span> <span class="n">state_name</span> <span class="o">||</span> <span class="s2">"No state"</span>
+</code></pre></div>
+<p>By using the <code>Maybe</code> monad you can preserve the structure of this code at a cost of introducing a notion of <code>nil</code>-able result:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">state_name</span> <span class="o">=</span> <span class="no">Maybe</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])).</span><span class="nf">maybe</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:address</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:city</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:state</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:name</span><span class="p">)</span>
+<span class="n">user_state</span> <span class="o">=</span> <span class="n">state_name</span><span class="p">.</span><span class="nf">value_or</span><span class="p">(</span><span class="s2">"No state"</span><span class="p">)</span>
+</code></pre></div>
+<p><code>Maybe(...)</code> wraps the first value and returns a monadic value which either can be a <code>Some(user)</code> or <code>None</code> if <code>user</code> is <code>nil</code>. <code>maybe(&amp;:address)</code> transforms <code>Some(user)</code> to <code>Some(address)</code> but leaves <code>None</code> intact. To get the final value you can use <code>value_or</code> which is a safe way to unwrap a <code>nil</code>-able value. In other words, once you&#39;ve used <code>Maybe</code> you <em>cannot</em> hit <code>nil</code> with a missing method. This is remarkable because even <code>&amp;.</code> doesn&#39;t save you from omitting <code>|| &quot;No state&quot;</code> at the end of the computation. Basically, that&#39;s what they call &quot;Type Safety&quot;.</p>
+
+<p>A more expanded example is based on <em>composing</em> different monadic values. Suppose, we have a user and address, both can be <code>nil</code>, and we want to associate the address with the user:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">])</span>
+<span class="n">address</span> <span class="o">=</span> <span class="no">Address</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">])</span>
+
+<span class="k">if</span> <span class="n">user</span> <span class="o">&amp;&amp;</span> <span class="n">address</span>
+  <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Again, this implies direct work with <code>nil</code>-able values which may end up with errors. A monad-way would be using another method, <code>bind</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">maybe_user</span> <span class="o">=</span> <span class="no">Maybe</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]))</span>
+
+<span class="n">maybe_user</span><span class="p">.</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="n">maybe_address</span> <span class="o">=</span> <span class="no">Maybe</span><span class="p">(</span><span class="no">Address</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">]))</span>
+
+  <span class="n">maybe_address</span><span class="p">.</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">address</span><span class="o">|</span>
+    <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>One can say this code is opaque compared to the previous example but keep in mind that in <em>real code</em> it often happens to call methods returning <code>Maybe</code> values. In this case, it might look like this:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">find_user</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]).</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="n">find_address</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">]).</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">address</span><span class="o">|</span>
+    <span class="no">Some</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Finally, since 1.0, dry-monads has support for <a href="/gems/dry-monads/1.4/do-notation"><code>do</code> notation</a> which simplifies this code even more, making it almost regular yet <code>nil</code>-safe:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">user</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">find_user</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">])</span>
+<span class="n">address</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">find_address</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">])</span>
+
+<span class="no">Some</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">))</span>
+</code></pre></div>
+<p>Another widely spread monad is <code>Result</code> (also known as <code>Either</code>) that serves a similar purpose. A notable downside of <code>Maybe</code> is plain <code>None</code> which carries no information about where this value was produced. <code>Result</code> solves exactly this problem by having two constructors for <code>Success</code> and <code>Failure</code> cases:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">def</span> <span class="nf">find_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">user_id</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">user</span>
+    <span class="no">Success</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="no">Failure</span><span class="p">(</span><span class="ss">:user_not_found</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">find_address</span><span class="p">(</span><span class="n">address_id</span><span class="p">)</span>
+  <span class="n">address</span> <span class="o">=</span> <span class="no">Address</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">id: </span><span class="n">address_id</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">address</span>
+    <span class="no">Success</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="no">Failure</span><span class="p">(</span><span class="ss">:address_not_found</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can compose <code>find_user</code> and <code>find_address</code> with <code>bind</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">find_user</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]).</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="n">find_address</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">]).</span><span class="nf">bind</span> <span class="o">|</span><span class="n">address</span><span class="o">|</span>
+    <span class="no">Success</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The inner block can be simplified with <code>fmap</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">find_user</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]).</span><span class="nf">bind</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="n">find_address</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">]).</span><span class="nf">fmap</span> <span class="o">|</span><span class="n">address</span><span class="o">|</span>
+    <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Or, again, the same code with <code>do</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">user</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">find_user</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">])</span>
+<span class="n">address</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">find_address</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="ss">:address_id</span><span class="p">])</span>
+
+<span class="no">Success</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">address_id: </span><span class="n">address</span><span class="p">.</span><span class="nf">id</span><span class="p">))</span>
+</code></pre></div>
+<p>The result of this piece of code can be one of <code>Success(user)</code>, <code>Failure(:user_not_found)</code>, or <code>Failure(:address_not_found)</code>. This style of programming is called &quot;Railway Oriented Programming&quot; and you can check out <a href="/gems/dry-transaction">dry-transaction</a> and watch a <a href="https://fsharpforfunandprofit.com/rop/">nice video</a> on the subject. Also, see <a href="/gems/dry-matcher">dry-matcher</a> for an example of how to use monads for controlling the flow of code with a result.</p>
+<h2 id="a-word-of-warning" class="hd"><a name="a-word-of-warning" class="anchor" href="#a-word-of-warning">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>A word of warning</h2>
+<p>Before <code>do</code> came around here was a warning about over-using monads, turned out with <code>do</code> notation code does not differ much from regular Ruby code. Just don&#39;t wrap everything with <code>Maybe</code>, come up with conventions.</p>
+
+<p>If you&#39;re interested in functional programming in general, consider learning other languages such as Haskell, Scala, OCaml, this will make you a better programmer no matter what programming language you use on a daily basis. And if not earlier then maybe after that, dry-monads will become another instrument in your Ruby toolbox :)</p>
+<h2 id="credits" class="hd"><a name="credits" class="anchor" href="#credits">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Credits</h2>
+<p>dry-monads is inspired by Josep M. Bach’s <a href="https://github.com/txus/kleisli">Kleisli</a> gem and its usage by <a href="/gems/dry-transaction/">dry-transaction</a> and <a href="/gems/dry-types/">dry-types</a>.</p>
+<p><a class="edit_page_link" href="https://github.com/dry-rb/dry-monads/edit/release-1.4/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

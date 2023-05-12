@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="A simple, configurable object container implemented in Ruby" name="description" /><meta content="dry-rb - dry-container v0.8 - Introduction &amp; Usage" property="og:title" /><meta content="A simple, configurable object container implemented in Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-container v0.8 - Introduction &amp; Usage" name="twitter:title" /><meta content="A simple, configurable object container implemented in Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-container v0.8 - Introduction &amp; Usage</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.0">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.0">dry-logger</a></ul><ul><li></li><a href="/gems/dry-logic/1.5">dry-logic</a><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a></ul><ul><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-container <span class="hide">0.8</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-container">View dry-container on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-container/main">main</option><option selected="selected" value="/gems/dry-container/0.8">0.8</option><option value="/gems/dry-container/0.10">0.10</option><option value="/gems/dry-container/0.7">0.7</option><option value="/gems/dry-container/0.1">0.1</option><option value="/gems/dry-container/0.11">0.11</option></select></h3><ul><li><a href="/gems/dry-container/0.8" class="active">Introduction &amp; Usage</a><li><a href="/gems/dry-container/0.8/registry-and-resolver" class="">Registry &amp; Resolver</a></li><li><a href="/gems/dry-container/0.8/testing" class="">Testing</a></li></li></ul></aside><article class="gem-article"><h2>Introduction &amp; Usage</h2><h3 id="introduction" class="hd"><a name="introduction" class="anchor" href="#introduction">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Introduction</h3>
+<p><code>dry-container</code> is a simple, thread-safe container, intended to be one half of a dependency injection system, possibly in combination with <a href="/gems/dry-auto_inject/">dry-auto_inject</a>.</p>
+
+<p>At its most basic, dependency injection is a simple technique that makes it possible to implement patterns or principles of code design that rely on object composition, such as the <a href="https://en.wikipedia.org/wiki/SOLID">SOLID principles</a>. By being passed its dependencies instead of instantiating them itself, your code can be written to depend on abstractions, with implementations that can vary independently, potentially at runtime or for specific use-cases, such as injecting a double instead of an expensive web service call when running tests. A container offers two main improvements to basic dependency injection: it takes the work out of manually instantiating and composing trees of dependencies, and it makes it trivial to swap out one implementation of a dependency for another.</p>
+
+<p>Note that dependency <em>injection</em>, dependency <em>inversion</em>, and <em>inversion of control</em> are related, but distinct, concepts that are often confused or conflated. <a href="https://en.wikipedia.org/wiki/Inversion_of_control"><strong>Inversion of control</strong></a> is an architectural pattern by which a low-level <em>system</em> passes control to higher-level application code, as opposed to the classical pattern, where higher-level code calls directly into a lower-level dependency. <strong>Dependency inversion</strong> is a principle that encourages thoughtfully designing the interfaces that your classes depend on, instead of tightly coupling to an <em>external</em> dependency&#39;s interface. This shouldn&#39;t imply that the external dependency itself changes in any way; instead it encourages the use of bridge, facade, or adapter classes to implement the interface that you designed using the third party dependency&#39;s public interface. <strong>Dependency injection</strong>, finally, is the practical technique of providing an object with its dependencies, instead of hard-coding them.</p>
+
+<p><code>dry-container</code> makes it much easier than with so-called &quot;idiomatic&quot; Ruby to make use of any one or all three of these, as desired.</p>
+<h3 id="brief-example" class="hd"><a name="brief-example" class="anchor" href="#brief-example">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Brief Example</h3><div class="highlight"><pre class="syntax ruby"><code><span class="n">container</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:parrot</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">a</span> <span class="p">}</span>
+
+<span class="n">parrot</span> <span class="o">=</span> <span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:parrot</span><span class="p">)</span>
+<span class="n">parrot</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"Hello World"</span><span class="p">)</span>
+<span class="c1"># Hello World</span>
+<span class="c1"># =&gt; nil</span>
+</code></pre></div><h3 id="detailed-example" class="hd"><a name="detailed-example" class="anchor" href="#detailed-example">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Detailed Example</h3><div class="highlight"><pre class="syntax ruby"><code><span class="no">User</span> <span class="o">=</span> <span class="no">Struct</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">)</span>
+
+<span class="n">data_store</span> <span class="o">=</span> <span class="no">ThreadSafe</span><span class="o">::</span><span class="no">Cache</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">ds</span><span class="o">|</span>
+  <span class="n">ds</span><span class="p">[</span><span class="ss">:users</span><span class="p">]</span> <span class="o">=</span> <span class="no">ThreadSafe</span><span class="o">::</span><span class="no">Array</span><span class="p">.</span><span class="nf">new</span>
+<span class="k">end</span>
+
+<span class="c1"># Initialize container</span>
+<span class="n">container</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="c1"># Register an item with the container to be resolved later</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:data_store</span><span class="p">,</span> <span class="n">data_store</span><span class="p">)</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:user_repository</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:data_store</span><span class="p">)[</span><span class="ss">:users</span><span class="p">]</span> <span class="p">})</span>
+
+<span class="c1"># Resolve an item from the container</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:user_repository</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'Jack'</span><span class="p">,</span> <span class="s1">'jack@dry-container.com'</span><span class="p">)</span>
+<span class="c1"># You can also resolve with []</span>
+<span class="n">container</span><span class="p">[</span><span class="ss">:user_repository</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'Jill'</span><span class="p">,</span> <span class="s1">'jill@dry-container.com'</span><span class="p">)</span>
+<span class="c1"># =&gt; [</span>
+<span class="c1">#      #&lt;struct User name="Jack", email="jack@dry-container.com"&gt;,</span>
+<span class="c1">#      #&lt;struct User name="Jill", email="jill@dry-container.com"&gt;</span>
+<span class="c1">#    ]</span>
+
+<span class="c1"># If you wish to register an item that responds to call but don't want it to be</span>
+<span class="c1"># called when resolved, you can use the options hash</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:proc</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="ss">:result</span> <span class="p">},</span> <span class="ss">call: </span><span class="kp">false</span><span class="p">)</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:proc</span><span class="p">)</span>
+<span class="c1"># =&gt; #&lt;Proc:0x007fa75e652c98@(irb):25 (lambda)&gt;</span>
+
+<span class="c1"># You can also register using a block</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span> <span class="k">do</span>
+  <span class="ss">:result</span>
+<span class="k">end</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span>
+<span class="c1"># =&gt; :result</span>
+
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:block</span><span class="p">,</span> <span class="ss">call: </span><span class="kp">false</span><span class="p">)</span> <span class="k">do</span>
+  <span class="ss">:result</span>
+<span class="k">end</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:block</span><span class="p">)</span>
+<span class="c1"># =&gt; #&lt;Proc:0x007fa75e6830f0@(irb):36&gt;</span>
+
+<span class="c1"># You can also register items under namespaces using the #namespace method</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">namespace</span><span class="p">(</span><span class="s1">'repositories'</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">namespace</span><span class="p">(</span><span class="s1">'checkout'</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">register</span><span class="p">(</span><span class="s1">'orders'</span><span class="p">)</span> <span class="p">{</span> <span class="no">ThreadSafe</span><span class="o">::</span><span class="no">Array</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="s1">'repositories.checkout.orders'</span><span class="p">)</span>
+<span class="c1"># =&gt; []</span>
+
+<span class="c1"># Or import a namespace</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Namespace</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'repositories'</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">namespace</span><span class="p">(</span><span class="s1">'authentication'</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">register</span><span class="p">(</span><span class="s1">'users'</span><span class="p">)</span> <span class="p">{</span> <span class="no">ThreadSafe</span><span class="o">::</span><span class="no">Array</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">import</span><span class="p">(</span><span class="n">ns</span><span class="p">)</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="s1">'repositories.authentication.users'</span><span class="p">)</span>
+<span class="c1"># =&gt; []</span>
+
+<span class="c1"># Also, you can import namespaces in container class</span>
+<span class="no">Repositories</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Namespace</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'repositories'</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">namespace</span><span class="p">(</span><span class="s1">'authentication'</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">register</span><span class="p">(</span><span class="s1">'users'</span><span class="p">)</span> <span class="p">{</span> <span class="no">ThreadSafe</span><span class="o">::</span><span class="no">Array</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Container</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Mixin</span>
+  <span class="n">import</span> <span class="no">Repositories</span>
+<span class="k">end</span>
+
+<span class="no">Container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="s1">'repositories.authentication.users'</span><span class="p">)</span>
+<span class="c1"># =&gt; []</span>
+</code></pre></div>
+<p>You can also get container behaviour at both the class and instance level via the mixin:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Container</span>
+  <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Mixin</span>
+<span class="k">end</span>
+<span class="no">Container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:item</span><span class="p">,</span> <span class="ss">:my_item</span><span class="p">)</span>
+<span class="no">Container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span>
+<span class="c1"># =&gt; :my_item</span>
+
+<span class="k">class</span> <span class="nc">ContainerObject</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Container</span><span class="o">::</span><span class="no">Mixin</span>
+<span class="k">end</span>
+<span class="n">container</span> <span class="o">=</span> <span class="no">ContainerObject</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">register</span><span class="p">(</span><span class="ss">:item</span><span class="p">,</span> <span class="ss">:my_item</span><span class="p">)</span>
+<span class="n">container</span><span class="p">.</span><span class="nf">resolve</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span>
+<span class="c1"># =&gt; :my_item</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-container/edit/release-0.8/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

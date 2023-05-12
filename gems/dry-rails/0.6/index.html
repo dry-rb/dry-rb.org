@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Bring the power of DRY.rb to your Ruby on Rails application" name="description" /><meta content="dry-rb - dry-rails v0.6 - Introduction" property="og:title" /><meta content="Bring the power of DRY.rb to your Ruby on Rails application" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-rails v0.6 - Introduction" name="twitter:title" /><meta content="Bring the power of DRY.rb to your Ruby on Rails application" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-rails v0.6 - Introduction</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.0">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.0">dry-logger</a></ul><ul><li></li><a href="/gems/dry-logic/1.5">dry-logic</a><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a></ul><ul><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-rails <span class="hide">0.6</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-rails">View dry-rails on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-rails/0.3">0.3</option><option value="/gems/dry-rails/main">main</option><option selected="selected" value="/gems/dry-rails/0.6">0.6</option><option value="/gems/dry-rails/0.5">0.5</option><option value="/gems/dry-rails/0.4">0.4</option><option value="/gems/dry-rails/0.7">0.7</option><option value="/gems/dry-rails/0.2">0.2</option><option value="/gems/dry-rails/0.1">0.1</option></select></h3><ul><li><a href="/gems/dry-rails/0.6" class="active">Introduction</a></li></ul></aside><article class="gem-article"><h2>Introduction</h2><div role="note" aria-label="Info" class="application-notice info-notice">
+  <div class="notice-title">
+    <i class="fa fa-info-circle"></i> Info
+  </div>
+  <p>Before dry-rails hits 1.0.0 it should be considered as beta software. Various usage patterns should emerge as more people try it out, so please do so and provide feedback!</p>
+
+</div>
+
+<p><code>dry-rails</code> is the official dry-rb railtie for Ruby on Rails framework. It provides an application container using <code>dry-system</code> with additional features:</p>
+
+<ul>
+<li><code>:safe_params</code> - a small controller extension that adds the ability to define schemas for controller actions</li>
+<li><code>:application_contract</code> - sets up <code>ApplicationContract</code> class for you</li>
+<li><code>:controller_helpers</code> - convenient methods for working with the application container</li>
+</ul>
+<h2 id="installation" class="hd"><a name="installation" class="anchor" href="#installation">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Installation</h2>
+<p>To generate a new application skeleton with <code>dry-rails</code> installed, you can use the default template provided by the gem. Here&#39;s a minimalistic example:</p>
+<div class="highlight"><pre class="syntax shell"><code>rails new my_app <span class="nt">-MOPCSJT</span> <span class="nt">--template</span> https://raw.githubusercontent.com/dry-rb/dry-rails/master/templates/default.rb
+</code></pre></div>
+<p>If you already have a Rails application, simply add <code>dry-rails</code> to your <code>Gemfile</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">gem</span> <span class="s2">"dry-rails"</span><span class="p">,</span> <span class="s2">"~&gt; 0.3"</span>
+</code></pre></div><h2 id="overview" class="hd"><a name="overview" class="anchor" href="#overview">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Overview</h2>
+<p>The railtie integrates dry-system with the Rails runtime by setting up a system container for you that works out of the box with no configuration required. This is based on a couple of conventions:</p>
+
+<ol>
+<li>The system container is defined as <code>Container</code> constant within your application namespace defined by <code>config/application.rb</code>. For example, if you generate a new rails application and call it <code>blog</code>, then the application namespace will be called <code>Blog</code>, and so your system container will be available as <code>Blog::Container</code></li>
+<li>The auto-injection mixin is defined as <code>Deps</code> under the application namespace too</li>
+<li>You can tweak the system container via an initializer, it can be called however you want, but the convention that we use is to call it <code>config/initializers/system.rb</code></li>
+<li>Bootable components are expected to be found in <code>config/system/*.rb</code> files</li>
+</ol>
+
+<p>The railtie supports code-reloading in development mode - <code>Container</code>, <code>Deps</code> and boot files get reloaded upon every request (or when you manually <code>reload!</code> in the console).</p>
+<h2 id="using-auto-registration" class="hd"><a name="using-auto-registration" class="anchor" href="#using-auto-registration">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using auto-registration</h2>
+<p>Currently, the railtie <strong>does not make any assumptions about your directory/file structure</strong>. This means you are expected to specify where your components are located. Here&#39;s an example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># config/initializers/system.rb</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Rails</span><span class="p">.</span><span class="nf">container</span> <span class="k">do</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"app/operations"</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+    <span class="n">dir</span><span class="p">.</span><span class="nf">namespaces</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"my_super_cool_app"</span><span class="p">,</span> <span class="ss">key: </span><span class="kp">nil</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Then, in <code>app/operations</code> you can add your own classes and have them auto-registered and exposed via application container:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># app/operations/users/create</span>
+<span class="k">module</span> <span class="nn">Users</span>
+  <span class="k">class</span> <span class="nc">Create</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can easily verify this using the console:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Container</span><span class="p">[</span><span class="s1">'users.create'</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Users::Create:0x00007fa8f7c04f48&gt;</span>
+</code></pre></div><h3 id="using-code-deps-code-mixin" class="hd"><a name="using-code-deps-code-mixin" class="anchor" href="#using-code-deps-code-mixin">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using <code>Deps</code> mixin</h3>
+<p>The auto-injection mechanism is also set up for you automatically. Let&#39;s say you have a GitHub service that needs an HTTP client. The HTTP client will be part of your <code>lib</code> but the GitHub service will be part of your <code>app</code>. Here&#39;s how you could set it up:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># lib/my_app/http.rb</span>
+<span class="k">module</span> <span class="nn">MyApp</span>
+  <span class="k">class</span> <span class="nc">HTTP</span>
+    <span class="c1"># some useful methods</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># app/services/github.rb</span>
+<span class="k">class</span> <span class="nc">Github</span>
+  <span class="kp">include</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Deps</span><span class="p">[</span><span class="ss">:http</span><span class="p">]</span>
+
+  <span class="c1"># more useful methods</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can verify that <code>Github</code> has access to <code>HTTP</code> object in the console:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># bin/rails console</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Container</span><span class="p">[</span><span class="ss">:github</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Github:0x00007fb38c2fae30 @http=#&lt;MyApp::HTTP:0x00007fb38c2fb150&gt;&gt;</span>
+</code></pre></div><h2 id="inflector" class="hd"><a name="inflector" class="anchor" href="#inflector">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Inflector</h2>
+<p>By default, the railtie registers <code>ActiveSupport::Inflector</code> as the default inflector. You can access it via container:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># bin/rails console</span>
+
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">007</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Container</span><span class="p">[</span><span class="ss">:inflector</span><span class="p">].</span><span class="nf">demodulize</span><span class="p">(</span><span class="s2">"MyApp::Container"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="s2">"Container"</span>
+</code></pre></div>
+<div role="note" aria-label="Info" class="application-notice info-notice">
+  <div class="notice-title">
+    <i class="fa fa-info-circle"></i> Info
+  </div>
+  <p>It is <em>recommended</em> to inject the inflector via the import module, instead of referring to the global <code>ActiveSupport::Inflector</code> constant. Otherwise you&#39;ll lose the ability to easily switch inflectors when you have a need, which <em>can happen</em>. Your future-self will be grateful.</p>
+
+</div>
+<h2 id="safe-params" class="hd"><a name="safe-params" class="anchor" href="#safe-params">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Safe Params</h2>
+<p>Controllers can specify schemas for their actions and access safe params through <code>safe_params</code> helper. This is like <code>strong_parameters</code> but much more powerful as its powered by dry-schema.</p>
+
+<p>Here&#39;s a simple example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">schema</span><span class="p">(</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">required</span><span class="p">(</span><span class="ss">:id</span><span class="p">).</span><span class="nf">value</span><span class="p">(</span><span class="ss">:integer</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">before_action</span> <span class="ss">:set_user</span><span class="p">,</span> <span class="ss">only: </span><span class="sx">%i[show edit]</span>
+
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="n">render</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">user: </span><span class="vi">@user</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+    <span class="n">render</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">user: </span><span class="vi">@user</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+
+  <span class="k">def</span> <span class="nf">set_user</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">safe_params</span><span class="p">[</span><span class="ss">:id</span><span class="p">])</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>safe_params</code> returns a dry-schema result object, you can use it to return a default error response, ie:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">protect_from_forgery</span> <span class="ss">with: :exception</span>
+
+  <span class="n">before_action</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="n">safe_params</span> <span class="o">&amp;&amp;</span> <span class="n">safe_params</span><span class="p">.</span><span class="nf">failure?</span>
+      <span class="n">render</span><span class="p">(</span><span class="ss">:error</span><span class="p">,</span> <span class="ss">errors: </span><span class="n">safe_params</span><span class="p">.</span><span class="nf">errors</span><span class="p">.</span><span class="nf">to_h</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="applicationcontract" class="hd"><a name="applicationcontract" class="anchor" href="#applicationcontract">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>ApplicationContract</h2>
+<p>The railtie gives you access to <code>ApplicationContract</code> class which is powered by dry-validation. You can define your own contract classes and simply inherit from <code>ApplicationContract</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># lib/users/contracts/new.rb</span>
+<span class="k">module</span> <span class="nn">Users</span>
+  <span class="k">module</span> <span class="nn">Contracts</span>
+    <span class="k">class</span> <span class="nc">New</span> <span class="o">&lt;</span> <span class="no">ApplicationContract</span>
+      <span class="c1"># define the schema and rules</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="controller-helpers" class="hd"><a name="controller-helpers" class="anchor" href="#controller-helpers">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Controller Helpers</h2>
+<p>With <code>:controller_helpers</code> feature you get a couple of convenient methods that makes it easier to access container and its registered objects:</p>
+
+<ul>
+<li><code>ApplicationController#container</code> - a simple shortcut to <code>YourApp::Container</code> constant</li>
+<li><code>ApplicationController#resolve</code> - a shortcut that delegates <code>resolve</code> to the container</li>
+</ul>
+
+<p>Here&#39;s a simple usage example how you could access an operation powered by dry-monads:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">create</span>
+    <span class="n">resolve</span><span class="p">(</span><span class="s2">"users.create"</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">safe_params</span><span class="p">[</span><span class="ss">:user</span><span class="p">])</span> <span class="k">do</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+      <span class="n">m</span><span class="p">.</span><span class="nf">success</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+        <span class="n">render</span> <span class="ss">json: </span><span class="n">user</span>
+      <span class="k">end</span>
+
+      <span class="n">m</span><span class="p">.</span><span class="nf">failure</span> <span class="k">do</span> <span class="o">|</span><span class="n">code</span><span class="p">,</span> <span class="n">errors</span><span class="o">|</span>
+        <span class="n">render</span> <span class="ss">json: </span><span class="p">{</span> <span class="ss">code: </span><span class="n">code</span><span class="p">,</span> <span class="ss">errors: </span><span class="n">errors</span><span class="p">.</span><span class="nf">to_h</span> <span class="p">},</span> <span class="ss">status: :unprocessable_entity</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<div role="note" aria-label="Info" class="application-notice info-notice">
+  <div class="notice-title">
+    <i class="fa fa-info-circle"></i> Info
+  </div>
+  <p>The railtie will soon provide monadic operations too!</p>
+
+</div>
+<h2 id="turning-features-on-off" class="hd"><a name="turning-features-on-off" class="anchor" href="#turning-features-on-off">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Turning features on/off</h2>
+<p>By default all the features are enabled but you can cherry-pick them if you want. Let&#39;s say you only want to use <code>safe_params</code> and <code>controller_helpers</code>, in such case you can configure that in the initializer:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># config/initializers/system.rb</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Rails</span><span class="p">.</span><span class="nf">container</span> <span class="k">do</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">features</span> <span class="o">=</span> <span class="sx">%i[
+    safe_params
+    controller_helpers
+  ]</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="learn-more" class="hd"><a name="learn-more" class="anchor" href="#learn-more">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Learn more</h2>
+<p>The railtie simply puts together other dry-rb gems and make them work out-of-the-box in a typical Rails application. If you want to fully leverage the power of these tools, it is recommended to check out individual gem documentation pages:</p>
+
+<ul>
+<li><a href="/gems/dry-system">dry-system</a> - which is the backbone of <code>Dry::Rails::Container</code>, your application container</li>
+<li><a href="/gems/dry-schema">dry-schema</a> - which gives you the safe params feature</li>
+<li><a href="/gems/dry-validation">dry-validation</a> - which gives you the application contract feature</li>
+</ul>
+<p><a class="edit_page_link" href="https://github.com/dry-rb/dry-rails/edit/release-0.6/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

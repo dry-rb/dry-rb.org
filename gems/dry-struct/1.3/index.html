@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="The easiest and most powerful way to build struct and value objects in Ruby" name="description" /><meta content="dry-rb - dry-struct v1.3 - Introduction" property="og:title" /><meta content="The easiest and most powerful way to build struct and value objects in Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-struct v1.3 - Introduction" name="twitter:title" /><meta content="The easiest and most powerful way to build struct and value objects in Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-struct v1.3 - Introduction</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><div class="alert"><span>Dear Russian friends, please watch President Zelenskyy's <a href="https://www.youtube.com/watch?v=p-zilnPtZ2M&ab_channel=Kaiser">speech addressed to you</a>. 🇺🇦</span><span>Help our brave mates in Ukraine with <a href="https://war.ukraine.ua/donate/">a donation</a>.</span></div><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.0">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.0">dry-logger</a></ul><ul><li></li><a href="/gems/dry-logic/1.5">dry-logic</a><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a></ul><ul><li></li><a href="/gems/dry-view/0.7">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-struct <span class="hide">1.3</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-struct">View dry-struct on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-struct/1.1">1.1</option><option value="/gems/dry-struct/main">main</option><option value="/gems/dry-struct/1.6">1.6</option><option value="/gems/dry-struct/1.2">1.2</option><option value="/gems/dry-struct/1.0">1.0</option><option value="/gems/dry-struct/1.5">1.5</option><option value="/gems/dry-struct/0.7">0.7</option><option selected="selected" value="/gems/dry-struct/1.3">1.3</option><option value="/gems/dry-struct/1.4">1.4</option></select></h3><ul><li><a href="/gems/dry-struct/1.3" class="active">Introduction</a><li><a href="/gems/dry-struct/1.3/nested-structs" class="">Nested Structs</a></li><li><a href="/gems/dry-struct/1.3/recipes" class="">Recipes</a></li></li></ul></aside><article class="gem-article"><h2>Introduction</h2><p><code>dry-struct</code> is a gem built on top of <code>dry-types</code> which provides virtus-like DSL for defining typed struct classes.</p>
+<h3 id="basic-usage" class="hd"><a name="basic-usage" class="anchor" href="#basic-usage">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Basic Usage</h3>
+<p>You can define struct objects which will have readers for specified attributes using a simple dsl:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry-struct'</span>
+
+<span class="k">module</span> <span class="nn">Types</span>
+  <span class="kp">include</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Types</span><span class="p">()</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span>
+<span class="k">end</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">)</span>
+
+<span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="c1"># nil</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">age</span> <span class="c1"># 21</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Jane'</span><span class="p">,</span> <span class="ss">age: </span><span class="s1">'21'</span><span class="p">)</span>
+
+<span class="n">user</span><span class="p">.</span><span class="nf">name</span> <span class="c1"># =&gt; "Jane"</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">age</span> <span class="c1"># =&gt; 21</span>
+</code></pre></div><h3 id="value" class="hd"><a name="value" class="anchor" href="#value">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Value</h3>
+<p>:warning: <code>Dry::Struct::Value</code> is deprecated in 1.2.0. Structs are already meant to be immutable, freezing them doesn&#39;t add any value (no pun intended) beyond a bad example of defensive programming.</p>
+
+<p>You can define value objects which will behave like structs but will be <em>deeply frozen</em>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">Location</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span><span class="o">::</span><span class="no">Value</span>
+  <span class="n">attribute</span> <span class="ss">:lat</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Float</span>
+  <span class="n">attribute</span> <span class="ss">:lng</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Float</span>
+<span class="k">end</span>
+
+<span class="n">loc1</span> <span class="o">=</span> <span class="no">Location</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">lat: </span><span class="mf">1.23</span><span class="p">,</span> <span class="ss">lng: </span><span class="mf">4.56</span><span class="p">)</span>
+<span class="n">loc2</span> <span class="o">=</span> <span class="no">Location</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">lat: </span><span class="mf">1.23</span><span class="p">,</span> <span class="ss">lng: </span><span class="mf">4.56</span><span class="p">)</span>
+
+<span class="n">loc1</span><span class="p">.</span><span class="nf">frozen?</span> <span class="c1"># true</span>
+<span class="n">loc2</span><span class="p">.</span><span class="nf">frozen?</span> <span class="c1"># true</span>
+
+<span class="n">loc1</span> <span class="o">==</span> <span class="n">loc2</span>
+<span class="c1"># true</span>
+</code></pre></div><h3 id="hash-schemas" class="hd"><a name="hash-schemas" class="anchor" href="#hash-schemas">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Hash Schemas</h3>
+<p><code>Dry::Struct</code> out of the box uses <a href="/gems/dry-types/1.0/hash-schemas">hash schemas</a> from <code>dry-types</code> for processing input hashes. <code>with_type_transform</code> and <code>with_key_transform</code> are exposed as <code>transform_types</code> and <code>transform_keys</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">transform_keys</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>
+
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span>
+<span class="k">end</span>
+
+<span class="no">User</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'Jane'</span><span class="p">,</span> <span class="s1">'age'</span> <span class="o">=&gt;</span> <span class="s1">'21'</span><span class="p">)</span>
+<span class="c1"># =&gt; #&lt;User name="Jane" age=21&gt;</span>
+</code></pre></div>
+<p>This plays nicely with inheritance, you can define a base struct for symbolizing input and then reuse it:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">SymbolizeStruct</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Struct</span>
+  <span class="n">transform_keys</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">SymbolizeStruct</span>
+  <span class="n">attribute</span> <span class="ss">:name</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">String</span><span class="p">.</span><span class="nf">optional</span>
+  <span class="n">attribute</span> <span class="ss">:age</span><span class="p">,</span> <span class="no">Types</span><span class="o">::</span><span class="no">Coercible</span><span class="o">::</span><span class="no">Integer</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="validating-data-with-dry-struct" class="hd"><a name="validating-data-with-dry-struct" class="anchor" href="#validating-data-with-dry-struct">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Validating data with dry-struct</h3>
+<p>Please don&#39;t. Structs are meant to work with valid input, it cannot generate error messages good enough for displaying them for a user etc. Use <a href="/gems/dry-validation"><code>dry-validation</code></a> for validating incoming data and then pass its output to structs.</p>
+<h3 id="differences-between-dry-struct-and-virtus" class="hd"><a name="differences-between-dry-struct-and-virtus" class="anchor" href="#differences-between-dry-struct-and-virtus">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Differences between dry-struct and virtus</h3>
+<p><code>dry-struct</code> look somewhat similar to Virtus but there are few significant differences:</p>
+
+<ul>
+<li>Structs don&#39;t provide attribute writers and are meant to be used as &quot;data objects&quot; exclusively</li>
+<li>Handling of attribute values is provided by standalone type objects from <code>dry-types</code>, which gives you way more powerful features</li>
+<li>Handling of attribute hashes is provided by standalone hash schemas from <code>dry-types</code>, which means there are different types of constructors in <code>dry-struct</code></li>
+<li>Structs are not designed as swiss-army knifes, specific constructor types are used depending on the use case</li>
+<li>Struct classes quack like <code>dry-types</code>, which means you can use them in hash schemas, as array members or sum them</li>
+</ul>
+<p><a class="edit_page_link" href="https://github.com/dry-rb/dry-struct/edit/release-1.3/docsite/source/index.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
