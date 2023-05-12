@@ -88,10 +88,12 @@
   versions:
   - value: main
     branch: main
-  - value: '0.1'
-    branch: release-0.1
+  - value: '0.10'
+    branch: release-0.10
   - value: '0.7'
     branch: release-0.7
+  - value: '0.1'
+    branch: release-0.1
   seo:
     description: A simple, configurable object container implemented in Ruby
 - name: dry-auto_inject
