@@ -151,24 +151,26 @@
 - name: dry-configurable
   desc: Thread-safe configuration mixin
   versions:
-  - value: '0.16'
-    branch: release-0.16
-  - value: '0.14'
-    branch: release-0.14
-  - value: '0.13'
-    branch: release-0.13
-  - value: '0.12'
-    branch: release-0.12
-  - value: '0.11'
-    branch: release-0.11
   - value: '0.10'
     branch: release-0.10
-  - value: '0.9'
-    branch: release-0.9
-  - value: '0.8'
-    branch: release-0.8
   - value: main
     branch: main
+  - value: '0.11'
+    branch: release-0.11
+  - value: '0.14'
+    branch: release-0.14
+  - value: '0.1'
+    branch: release-0.1
+  - value: '0.8'
+    branch: release-0.8
+  - value: '0.13'
+    branch: release-0.13
+  - value: '0.9'
+    branch: release-0.9
+  - value: '0.16'
+    branch: release-0.16
+  - value: '0.12'
+    branch: release-0.12
   seo:
     description: A simple mixin to make Ruby classes configurable
 - name: dry-initializer
