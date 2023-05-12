@@ -73,14 +73,16 @@
   versions:
   - value: main
     branch: main
-  - value: '1.2'
-    branch: release-1.2
-  - value: '1.0'
-    branch: release-1.0
-  - value: '0.7'
-    branch: release-0.7
+  - value: '1.3'
+    branch: release-1.3
   - value: '1.1'
     branch: release-1.1
+  - value: '0.7'
+    branch: release-0.7
+  - value: '1.0'
+    branch: release-1.0
+  - value: '1.2'
+    branch: release-1.2
   seo:
     description: The easiest and most powerful way to build struct and value objects
       in Ruby
