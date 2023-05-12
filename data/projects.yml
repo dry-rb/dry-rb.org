@@ -236,14 +236,16 @@
 - name: dry-matcher
   desc: Flexible, expressive pattern matching
   versions:
-  - value: '1.0'
-    branch: release-1.0
-  - value: '0.7'
-    branch: release-0.7
-  - value: '0.8'
-    branch: release-0.8
   - value: main
     branch: main
+  - value: '0.1'
+    branch: release-0.1
+  - value: '0.8'
+    branch: release-0.8
+  - value: '0.7'
+    branch: release-0.7
+  - value: '1.0'
+    branch: release-1.0
   seo:
     description: Flexible, expressive pattern matching for Ruby
 - name: dry-monads
