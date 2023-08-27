@@ -1,7 +1,7 @@
 h3.sidebar__version
   'Version:
   select#sidebar__version-switcher
-    - current_project.versions.each do |version|
+    - versions.each do |version|
       - label = version[:value]
       - value = "/gems/#{current_project}/#{label}"
       option value=value selected=("selected" if current_version.eql?(label))
