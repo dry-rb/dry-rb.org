@@ -27,15 +27,15 @@
 <p>By using simple naming conventions we can automatically register objects within our container.</p>
 
 <p>Let&#39;s provide a custom logger object and put it under a custom load-path that we will configure:</p>
-<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s1">'dry/system'</span>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"dry/system"</span>
 
 <span class="k">class</span> <span class="nc">Application</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
   <span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s1">'./my/app'</span><span class="p">)</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">root</span> <span class="o">=</span> <span class="no">Pathname</span><span class="p">(</span><span class="s2">"./my/app"</span><span class="p">)</span>
 
     <span class="c1"># Add a 'lib' component dir (relative to `root`), containing class definitions</span>
     <span class="c1"># that can be auto-registered</span>
-    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s1">'lib'</span>
+    <span class="n">config</span><span class="p">.</span><span class="nf">component_dirs</span><span class="p">.</span><span class="nf">add</span> <span class="s2">"lib"</span>
   <span class="k">end</span>
 <span class="k">end</span>
 
@@ -48,5 +48,5 @@
 <span class="no">Application</span><span class="p">.</span><span class="nf">finalize!</span>
 
 <span class="c1"># the logger becomes available</span>
-<span class="no">Application</span><span class="p">[</span><span class="s1">'logger'</span><span class="p">]</span>
+<span class="no">Application</span><span class="p">[</span><span class="s2">"logger"</span><span class="p">]</span>
 </code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-system/edit/main/docsite/source/container.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
