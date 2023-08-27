@@ -10,7 +10,7 @@
 <p>dry-system provides a <code>:settings</code> provider source that you can use to load settings and share them throughout your application. To use this provider source, create your own <code>:settings</code> provider using the provider source from <code>:dry_system</code>, then declare your settings inside <code>settings</code> block (using <a href="/gems/dry-configurable">dry-configurable’s</a> <code>setting</code> API):</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="c1"># system/providers/settings.rb:</span>
 
-<span class="nb">require</span> <span class="s2">"dry/system/provider_sources"</span>
+<span class="nb">require</span> <span class="s2">"dry/system"</span>
 
 <span class="no">Application</span><span class="p">.</span><span class="nf">register_provider</span><span class="p">(</span><span class="ss">:settings</span><span class="p">,</span> <span class="ss">from: :dry_system</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">before</span> <span class="ss">:prepare</span> <span class="k">do</span>
