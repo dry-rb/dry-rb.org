@@ -190,13 +190,14 @@ helpers do
   end
 
   def current_branch
-    versions[:branch]
+    current_project.versions.find { |version| version[:value] == current_version }[:branch]
   end
 
   def versions
     @versions ||=
       begin
-        vs = current_project.versions.find { |version| version[:value] == current_version }.sort_by { |version|
+        vs = current_project.versions.sort_by { |v|
+          version = v[:value]
           if version.match?(/[\d\.]+/)
             [1, *version.split('.').map(&:to_i)]
           else
@@ -325,7 +326,7 @@ helpers do
   end
 
   def set_version(url, new_version)
-    return url unless versions.empty?
+    return url unless current_project.versions.empty?
 
     version = extract_version(url)
 
