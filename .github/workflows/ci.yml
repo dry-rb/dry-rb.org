@@ -33,7 +33,8 @@ jobs:
       with:
         ruby-version: "2.6"
     - name: Install latest bundler
-      run: gem install bundler --no-document
+      # unfortunatelly this is the latest bundler that works with 2.6
+      run: gem install bundler:2.4.22 --no-document
     - name: Bundle install
       run: |
         bundle config set without development
