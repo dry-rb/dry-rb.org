@@ -11,7 +11,7 @@
 
   <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="nb">name</span> <span class="o">=</span> <span class="n">values</span><span class="p">.</span><span class="nf">values_at</span><span class="p">(</span><span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">' '</span><span class="p">)</span>
-    <span class="n">user_repo</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="ss">name: </span><span class="nb">name</span><span class="p">))</span>
+    <span class="n">user_repo</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="o">**</span><span class="n">values</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="ss">name: </span><span class="nb">name</span><span class="p">))</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>

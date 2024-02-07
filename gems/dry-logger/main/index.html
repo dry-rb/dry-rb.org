@@ -44,6 +44,19 @@ the destination is set to <code>$stdout</code>. Let&#39;s say you want to log bo
 <span class="c1"># This goes to $stdout and logs/test.log too</span>
 <span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"Hello World"</span>
 <span class="c1"># [test] [INFO] [2022-11-17 11:46:12 +0100] Hello World</span>
+</code></pre></div><h3 id="skipping-default-behaviour" class="hd"><a name="skipping-default-behaviour" class="anchor" href="#skipping-default-behaviour">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Skipping default behaviour</h3>
+<p>If you don&#39;t want to log to the default <code>$stdout</code> you can skip it by passing in a block to the
+constructor:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">dispatcher</span><span class="o">|</span>
+  <span class="n">dispatcher</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/test.log"</span><span class="p">,</span> <span class="ss">template: :details</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># This goes to logs/test.log</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span> <span class="s2">"Hello World"</span>
+<span class="c1"># [test] [INFO] [2022-11-17 11:46:12 +0100] Hello World</span>
 </code></pre></div><h3 id="conditional-logging" class="hd"><a name="conditional-logging" class="anchor" href="#conditional-logging">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
