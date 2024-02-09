@@ -6,6 +6,16 @@
 
 This is the [Middleman](https://middlemanapp.com)-generated [dry-rb.org website](http://dry-rb.org/).
 
+## Getting started with Docker
+
+Simply start development via docker-compose:
+
+```
+docker compose up development
+```
+
+WARNING: this *takes a while* because it downloads docsite repos for all the dry-rb gems and all their versions. See container logs to watch progress.
+
 ## Getting started
 
 Install the gem and NPM dependencies:

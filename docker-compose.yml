@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  development:
+    build: .
+    entrypoint: bin/docker
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    ports:
+      - "4567:4567"
+
+volumes:
+  bundle:

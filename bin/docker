@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Install gems
+bundle check || bundle install --jobs 4 --retry 3
+
+# Install node modules
+npm install --prefer-offline --no-audit
+
+# Symlink docsites from dry-rb repos
+bundle exec rake projects:symlink
+
+# Start middleman server
+bundle exec middleman server --verbose
