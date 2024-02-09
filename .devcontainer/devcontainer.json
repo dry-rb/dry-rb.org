@@ -1,6 +1,6 @@
 {
   "name": "dry-rb-org dev",
-  "dockerComposeFile": "docker-compose.yml",
+  "dockerComposeFile": "../docker-compose.yml",
   "service": "development",
   "workspaceFolder": "/app",
   "runServices": ["development"],
