@@ -1,0 +1,14 @@
+{
+  "name": "dry-rb-org dev",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "development",
+  "workspaceFolder": "/app",
+  "runServices": ["development"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rebornix.Ruby"
+      ]
+    }
+  }
+}
