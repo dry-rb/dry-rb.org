@@ -21,8 +21,6 @@ p
           th Build Status
           th Issues
           th Pull Requests
-          th CodeClimate
-          th Test Coverage
           th Doc Coverage
       tbody
         - Site.projects.sort_by(&:name).each do |project|
@@ -41,12 +39,6 @@ p
             td
               a href=project.opened_pulls_url
                 img src=project.opened_pulls_badge
-            td
-              a href=project.codeclimate_url
-                img src=project.codeclimate_badge
-            td
-              a href=project.codeclimate_url
-                img src=project.coverage_badge
             td
               a href=project.inch_url
                 img src=project.inch_badge
