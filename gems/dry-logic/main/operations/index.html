@@ -80,16 +80,16 @@
 <tr>
 <td>false</td>
 <td>true</td>
-<td>false</td>
+<td>true</td>
 </tr>
 <tr>
 <td>false</td>
 <td>false</td>
-<td>false</td>
+<td>true</td>
 </tr>
 </tbody></table>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">is_empty</span> <span class="o">=</span> <span class="n">build</span> <span class="k">do</span>
-  <span class="p">(</span><span class="kp">attr</span><span class="sc">?(</span><span class="ss">:empty</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">empty?</span><span class="p">)</span> <span class="o">|</span> <span class="kp">nil</span><span class="p">?</span>
+  <span class="p">(</span><span class="kp">attr</span><span class="sc">?(</span><span class="ss">:empty?</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">empty?</span><span class="p">)</span> <span class="o">|</span> <span class="kp">nil</span><span class="p">?</span>
 <span class="k">end</span>
 
 <span class="n">is_empty</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">""</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
