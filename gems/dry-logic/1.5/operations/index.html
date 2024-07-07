@@ -50,7 +50,7 @@
 
 <span class="n">is_number</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 <span class="n">is_number</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mf">2.0</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_number</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'3'</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_number</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'3'</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 <span class="n">is_number</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'four'</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><h3 id="implication-code-gt-code-code-then-code-code-implication-code" class="hd"><a name="implication-code-gt-code-code-then-code-code-implication-code" class="anchor" href="#implication-code-gt-code-code-then-code-code-implication-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
@@ -183,9 +183,9 @@
   <span class="n">gt?</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">lt?</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
 <span class="k">end</span>
 
-<span class="n">is_child</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">20</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
-<span class="n">is_child</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">40</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_child</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">60</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+<span class="n">is_middle_aged</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">20</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_middle_aged</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">40</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+<span class="n">is_middle_aged</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">60</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><h3 id="attribute-code-attr-code" class="hd"><a name="attribute-code-attr-code" class="anchor" href="#attribute-code-attr-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
@@ -220,13 +220,13 @@
 <blockquote>
 <p>Applies input to an array of predicates. Returns true if all predicates yield true. Similar to <code>Array#all?</code></p>
 </blockquote>
-<div class="highlight"><pre class="syntax ruby"><code><span class="n">is_natrual_and_odd</span> <span class="o">=</span> <span class="n">build</span> <span class="k">do</span>
-  <span class="n">set</span><span class="p">(</span><span class="n">int?</span><span class="p">,</span> <span class="n">odd?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">is_natural_and_odd</span> <span class="o">=</span> <span class="n">build</span> <span class="k">do</span>
+  <span class="n">set</span> <span class="p">{</span> <span class="p">[</span><span class="n">int?</span><span class="p">,</span> <span class="n">odd?</span><span class="p">,</span> <span class="n">gt?</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span> <span class="p">}</span>
 <span class="k">end</span>
 
-<span class="n">is_natrual_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'5'</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
-<span class="n">is_natrual_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_natrual_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_natural_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s1">'5'</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; NoMethodError: undefined method `odd?' for "5":String</span>
+<span class="n">is_natural_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+<span class="n">is_natural_and_odd</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><h3 id="negation-code-negation-code-code-not-code" class="hd"><a name="negation-code-negation-code-code-not-code" class="anchor" href="#negation-code-negation-code-code-not-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
@@ -235,7 +235,7 @@
 <p>Returns true when predicate returns false. Similar to Ruby&#39;s <code>!</code> operator</p>
 </blockquote>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">is_present</span> <span class="o">=</span> <span class="n">build</span> <span class="k">do</span>
-  <span class="n">negation</span><span class="p">(</span><span class="n">empty?</span><span class="p">)</span>
+  <span class="n">negation</span> <span class="p">{</span> <span class="n">empty?</span> <span class="p">}</span>
 <span class="k">end</span>
 
 <span class="n">is_present</span><span class="p">.</span><span class="nf">call</span><span class="p">([</span><span class="mi">1</span><span class="p">]).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
@@ -247,7 +247,7 @@
             </svg>
 </a>Key (<code>key</code>)</h3><div class="highlight"><pre class="syntax ruby"><code><span class="n">is_named</span> <span class="o">=</span> <span class="n">build</span> <span class="k">do</span>
   <span class="n">key</span> <span class="ss">name: </span><span class="p">[</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:name</span><span class="p">]</span> <span class="k">do</span>
-    <span class="n">str?</span> <span class="o">&amp;</span> <span class="n">negation</span><span class="p">(</span><span class="n">empty?</span><span class="p">)</span>
+    <span class="n">str?</span> <span class="o">&amp;</span> <span class="n">negation</span> <span class="p">{</span> <span class="n">empty?</span> <span class="p">}</span>
   <span class="k">end</span>
 <span class="k">end</span>
 
