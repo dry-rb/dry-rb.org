@@ -14,7 +14,7 @@
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">is_https_url</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">uri?</span><span class="p">(</span><span class="ss">:https</span><span class="p">)</span> <span class="p">}</span>
 <span class="n">is_https_url</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">uri?</span><span class="p">(</span><span class="sr">/https?/</span><span class="p">)</span> <span class="p">}</span>
 <span class="n">is_http_url</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">uri?</span><span class="p">(</span><span class="ss">:http</span><span class="p">)</span> <span class="p">}</span>
-<span class="n">is_url</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">uri?</span><span class="p">([</span><span class="ss">:http</span><span class="p">,</span> <span class="ss">:https</span><span class="p">])</span> <span class="p">}</span>
+<span class="n">is_url</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">uri?</span><span class="p">([</span><span class="s1">'http'</span><span class="p">,</span> <span class="s1">'https'</span><span class="p">])</span> <span class="p">}</span>
 
 <span class="n">https_url</span> <span class="o">=</span> <span class="s2">"https://example.com"</span>
 <span class="n">http_url</span> <span class="o">=</span> <span class="s2">"http://example.com"</span>
@@ -23,7 +23,7 @@
 <span class="n">is_https_url</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">https_url</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 <span class="n">is_https_url</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">local_url</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 <span class="n">is_http_url</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">http_url</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_url</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">https_url</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_url</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="n">https_url</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 </code></pre></div><h3 id="uuid-code-uuid_v1-code-code-uuid_v2-code-code-uuid_v3-code-code-uuid_v4-code-code-uuid_v5-code" class="hd"><a name="uuid-code-uuid_v1-code-code-uuid_v2-code-code-uuid_v3-code-code-uuid_v4-code-code-uuid_v5-code" class="anchor" href="#uuid-code-uuid_v1-code-code-uuid_v2-code-code-uuid_v3-code-code-uuid_v4-code-code-uuid_v5-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
@@ -382,17 +382,17 @@ is_negative.call(1).success? # =&gt; false
 
 <span class="n">is_float</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mf">1.0</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 <span class="n">is_float</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
-</code></pre></div><h3 id="number-code-num-code" class="hd"><a name="number-code-num-code" class="anchor" href="#number-code-num-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+</code></pre></div><h3 id="integer-code-int-code" class="hd"><a name="integer-code-int-code" class="anchor" href="#integer-code-int-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
-</a>Number (<code>num?</code>)</h3>
+</a>Integer (<code>int?</code>)</h3>
 <blockquote>
 <p>Returns true if the input is of type <code>Integer</code></p>
 </blockquote>
-<div class="highlight"><pre class="syntax ruby"><code><span class="n">is_num</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">num?</span> <span class="p">}</span>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">is_int</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="n">int?</span> <span class="p">}</span>
 
-<span class="n">is_num</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_num</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mf">1.0</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_int</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+<span class="n">is_int</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="mf">1.0</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><h3 id="time-code-time-code" class="hd"><a name="time-code-time-code" class="anchor" href="#time-code-time-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
@@ -453,7 +453,7 @@ is_negative.call(1).success? # =&gt; false
 <span class="n">is_true</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="kp">true</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
 <span class="n">is_true</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="kp">false</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 <span class="n">is_false</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="kp">false</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_true</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="kp">true</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_false</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="kp">true</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><h3 id="empty-code-empty-code" class="hd"><a name="empty-code-empty-code" class="anchor" href="#empty-code-empty-code">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
             <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
             </svg>
@@ -540,6 +540,6 @@ is_negative.call(1).success? # =&gt; false
 </blockquote>
 <div class="highlight"><pre class="syntax ruby"><code><span class="n">is_email_ish</span> <span class="o">=</span> <span class="n">build</span> <span class="p">{</span> <span class="nb">format</span><span class="p">?(</span><span class="sr">/^\S+@\S+$/</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="n">is_email_ish</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"hello@example.com"</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-<span class="n">is_email_ish</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"nope|failed.com"</span><span class="p">)</span> <span class="c1"># =&gt; false</span>
+<span class="n">is_email_ish</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"hello@example.com"</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; true</span>
+<span class="n">is_email_ish</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="s2">"nope|failed.com"</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># =&gt; false</span>
 </code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-logic/edit/main/docsite/source/predicates.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
