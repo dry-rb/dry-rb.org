@@ -404,14 +404,6 @@
     branch: release-1.1
   - value: '1.0'
     branch: release-1.0
-  - value: '0.7'
-    branch: release-0.7
-  - value: '0.6'
-    branch: release-0.6
-  - value: '0.4'
-    branch: release-0.4
-  - value: '0.5'
-    branch: release-0.5
   seo:
     description: General purpose Command Line Interface (CLI) framework for Ruby
 - name: dry-transformer
