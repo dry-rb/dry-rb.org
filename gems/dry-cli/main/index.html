@@ -86,7 +86,7 @@
         <span class="k">class</span> <span class="nc">Configuration</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
           <span class="n">desc</span> <span class="s2">"Generate configuration"</span>
 
-          <span class="n">option</span> <span class="ss">:apps</span><span class="p">,</span> <span class="ss">type: :array</span><span class="p">,</span> <span class="ss">default: </span><span class="p">[],</span> <span class="ss">desc: </span><span class="s2">"Generate configuration for specific apps"</span>
+          <span class="n">option</span> <span class="ss">:apps</span><span class="p">,</span> <span class="ss">type: :array</span><span class="p">,</span> <span class="ss">default: </span><span class="p">[],</span> <span class="ss">aliases: </span><span class="p">[</span><span class="s2">"-a"</span><span class="p">],</span> <span class="ss">desc: </span><span class="s2">"Generate configuration for specific apps"</span>
 
           <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">apps</span><span class="p">:,</span> <span class="o">**</span><span class="p">)</span>
             <span class="nb">puts</span> <span class="s2">"generated configuration for apps: </span><span class="si">#{</span><span class="n">apps</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="s2">"</span>

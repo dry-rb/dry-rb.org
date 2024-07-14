@@ -17,7 +17,7 @@ A command can accept none or many options.</p>
       <span class="kp">extend</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Registry</span>
 
       <span class="k">class</span> <span class="nc">Request</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">CLI</span><span class="o">::</span><span class="no">Command</span>
-        <span class="n">option</span> <span class="ss">:mode</span><span class="p">,</span> <span class="ss">default: </span><span class="s2">"http"</span><span class="p">,</span> <span class="ss">values: </span><span class="sx">%w[http http2]</span><span class="p">,</span> <span class="ss">desc: </span><span class="s2">"The request mode"</span>
+        <span class="n">option</span> <span class="ss">:mode</span><span class="p">,</span> <span class="ss">default: </span><span class="s2">"http"</span><span class="p">,</span> <span class="ss">values: </span><span class="sx">%w[http http2]</span><span class="p">,</span> <span class="ss">aliases: </span><span class="p">[</span><span class="s2">"-m"</span><span class="p">],</span> <span class="ss">desc: </span><span class="s2">"The request mode"</span>
 
         <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
           <span class="nb">puts</span> <span class="s2">"Performing a request (mode: </span><span class="si">#{</span><span class="n">options</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:mode</span><span class="p">)</span><span class="si">}</span><span class="s2">)"</span>
@@ -33,6 +33,8 @@ A command can accept none or many options.</p>
 </code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo request
 Performing a request <span class="o">(</span>mode: http<span class="o">)</span>
 </code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo request <span class="nt">--mode</span><span class="o">=</span>http2
+Performing a request <span class="o">(</span>mode: http2<span class="o">)</span>
+</code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo request <span class="nt">--m</span><span class="o">=</span>http2
 Performing a request <span class="o">(</span>mode: http2<span class="o">)</span>
 </code></pre></div><div class="highlight"><pre class="syntax shell"><code><span class="nv">$ </span>foo request <span class="nt">--mode</span><span class="o">=</span>unknown
 ERROR: <span class="s2">"foo request"</span> was called with arguments <span class="s2">"--mode=unknown"</span>
