@@ -395,17 +395,17 @@
   seo:
     description: A practical, production-grade implementation of algebraic effects
       for Ruby
-# - name: dry-cli
-#   desc: General purpose Command Line Interface (CLI) framework
-#   versions:
-#   - value: main
-#     branch: main
-#   - value: '1.1'
-#     branch: release-1.1
-#   - value: '1.0'
-#     branch: release-1.0
-#   seo:
-#     description: General purpose Command Line Interface (CLI) framework for Ruby
+- name: dry-cli
+  desc: General purpose Command Line Interface (CLI) framework
+  versions:
+  - value: main
+    branch: main
+  - value: '1.1'
+    branch: release-1.1
+  - value: '1.0'
+    branch: release-1.0
+  seo:
+    description: General purpose Command Line Interface (CLI) framework for Ruby
 - name: dry-transformer
   desc: Data transformation toolkit
   versions:
