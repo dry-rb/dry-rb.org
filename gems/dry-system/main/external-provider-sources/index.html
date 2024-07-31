@@ -18,7 +18,7 @@
 <span class="c1">#  |- lib/my_gem/provider_sources/exception_notifier.rb</span>
 
 <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="p">.</span><span class="nf">register_provider_source</span><span class="p">(</span><span class="ss">:exception_notifier</span><span class="p">,</span> <span class="ss">group: :my_gem</span><span class="p">)</span> <span class="k">do</span>
-  <span class="n">init</span> <span class="k">do</span>
+  <span class="n">prepare</span> <span class="k">do</span>
     <span class="nb">require</span> <span class="s2">"some_exception_notifier"</span>
   <span class="k">end</span>
 
@@ -79,7 +79,7 @@
   <span class="n">setting</span> <span class="ss">:environments</span><span class="p">,</span> <span class="ss">default: :production</span><span class="p">,</span> <span class="ss">constructor: </span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Array</span><span class="p">.</span><span class="nf">of</span><span class="p">(</span><span class="no">Types</span><span class="o">::</span><span class="no">Strict</span><span class="o">::</span><span class="no">Symbol</span><span class="p">)</span>
   <span class="n">setting</span> <span class="ss">:logger</span>
 
-  <span class="n">init</span> <span class="k">do</span>
+  <span class="n">prepare</span> <span class="k">do</span>
     <span class="nb">require</span> <span class="s2">"some_exception_notifier"</span>
   <span class="k">end</span>
 
