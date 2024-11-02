@@ -65,7 +65,7 @@ jobs:
       run: mkdir build && tar cvzf build/docs.tar.gz --exclude ".git" ./docs
     - name: Upload build artifact
       if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: build
         path: build/docs.tar.gz
