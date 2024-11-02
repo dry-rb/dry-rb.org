@@ -437,7 +437,7 @@
   - value: '0.1'
     branch: release-0.1
   seo:
-    description: Bring the power of DRY.rb to your Ruby on Rails application
+    description: Bring the power of dry-rb to your Ruby on Rails application
 - name: dry-files
   desc: File utilities
   versions:
