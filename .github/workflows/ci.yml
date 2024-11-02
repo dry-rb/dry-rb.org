@@ -80,6 +80,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build
+          path: build
       - name: Extract the build
         run: tar xvf build/docs.tar.gz
       - name: Deploy to GitHub Pages
