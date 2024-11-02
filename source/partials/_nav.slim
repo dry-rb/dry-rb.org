@@ -19,6 +19,8 @@ nav.main-nav
       a href="/status" Status
     li class=("main-nav__item--selected" if /\Anews/.match(current_page.path))
       a href="/news" News
+    li class=("main-nav__item--selected" if /\Aresources/.match(current_page.path))
+      a href="/resources" Resources
     li class=("main-nav__item--selected" if /\Acommunity/.match(current_page.path))
       a href="/community" Community
     br.mobile-only
