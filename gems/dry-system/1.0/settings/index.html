@@ -11,6 +11,7 @@
 <div class="highlight"><pre class="syntax ruby"><code><span class="c1"># system/providers/settings.rb:</span>
 
 <span class="nb">require</span> <span class="s2">"dry/system"</span>
+<span class="nb">require</span> <span class="s2">"dry/system/provider_sources"</span>
 
 <span class="no">Application</span><span class="p">.</span><span class="nf">register_provider</span><span class="p">(</span><span class="ss">:settings</span><span class="p">,</span> <span class="ss">from: :dry_system</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">before</span> <span class="ss">:prepare</span> <span class="k">do</span>
@@ -34,8 +35,6 @@
 <p>You can use this settings object in other providers:</p>
 <div class="highlight"><pre class="syntax ruby"><code><span class="no">Application</span><span class="p">.</span><span class="nf">register_provider</span><span class="p">(</span><span class="ss">:redis</span><span class="p">)</span> <span class="k">do</span>
   <span class="n">start</span> <span class="k">do</span>
-    <span class="n">use</span> <span class="ss">:settings</span>
-
     <span class="n">uri</span> <span class="o">=</span> <span class="no">URI</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="ss">:settings</span><span class="p">].</span><span class="nf">redis_url</span><span class="p">)</span>
     <span class="n">redis</span> <span class="o">=</span> <span class="no">Redis</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">host: </span><span class="n">uri</span><span class="p">.</span><span class="nf">host</span><span class="p">,</span> <span class="ss">port: </span><span class="n">uri</span><span class="p">.</span><span class="nf">port</span><span class="p">,</span> <span class="ss">password: </span><span class="n">uri</span><span class="p">.</span><span class="nf">password</span><span class="p">)</span>
 
