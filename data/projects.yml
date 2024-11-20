@@ -336,6 +336,8 @@
 - name: dry-view
   desc: Functional, standalone view rendering
   versions:
+  - value: '0.8'
+    branch: release-0.8
   - value: '0.7'
     branch: release-0.7
   - value: main
