@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="A functional view rendering system for Ruby" name="description" /><meta content="dry-rb - dry-view v0.8 - Context" property="og:title" /><meta content="A functional view rendering system for Ruby" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-view v0.8 - Context" name="twitter:title" /><meta content="A functional view rendering system for Ruby" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-view v0.8 - Context</title><link href="/assets/stylesheets/site-9fe218b6.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.1">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.0">dry-logger</a><li></li><a href="/gems/dry-logic/1.5">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-operation/1.0">dry-operation</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a><li></li><a href="/gems/dry-view/0.8">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-view <span class="hide">0.8</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-view">View dry-view on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option selected="selected" value="/gems/dry-view/0.8">0.8</option><option value="/gems/dry-view/main">main</option><option value="/gems/dry-view/0.7">0.7</option></select></h3><ul><li><a href="/gems/dry-view/0.8" class="">Introduction</a><li><a href="/gems/dry-view/0.8/configuration" class="">Configuration</a></li><li><a href="/gems/dry-view/0.8/injecting-dependencies" class="">Injecting dependencies</a></li><li><a href="/gems/dry-view/0.8/exposures" class="">Exposures</a></li><li><a href="/gems/dry-view/0.8/templates" class="">Templates</a></li><li><a href="/gems/dry-view/0.8/parts" class="">Parts</a></li><li><a href="/gems/dry-view/0.8/scopes" class="">Scopes</a></li><li><a href="/gems/dry-view/0.8/context" class="active">Context</a></li><li><a href="/gems/dry-view/0.8/testing" class="">Testing</a></li></li></ul></aside><article class="gem-article"><h2>Context</h2><p>Use a context object to provide shared facilities to every template, partial, scope, and part in a given view rendering.</p>
+
+<p>A context object is helpful in holding any behaviour or data you don&#39;t want to pass around explicitly. For example:</p>
+
+<ul>
+<li>Data specific to the current HTTP request, like the request path and CSRF tags</li>
+<li>A &quot;current user&quot; or similar session-based object needed across multiple disparate places</li>
+<li>Application static assets helpers</li>
+<li><code>content_for</code>-style helpers</li>
+</ul>
+<h2 id="defining-a-context" class="hd"><a name="defining-a-context" class="anchor" href="#defining-a-context">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Defining a context</h2>
+<p>Context classes must inherit from <code>Dry::View::Context</code></p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyContext</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Context</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="injecting-dependencies" class="hd"><a name="injecting-dependencies" class="anchor" href="#injecting-dependencies">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Injecting dependencies</h2>
+<p><code>Dry::View::Context</code> is designed to allow dependencies to be injected into your subclasses. To do this, accept your dependencies as keyword arguments to <code>#initialize</code>, and pass all arguments through to <code>super</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyContext</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Context</span>
+  <span class="nb">attr_reader</span> <span class="ss">:assets</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">assets</span><span class="p">:,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="vi">@assets</span> <span class="o">=</span> <span class="n">assets</span>
+    <span class="k">super</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">asset_path</span><span class="p">(</span><span class="n">asset_name</span><span class="p">)</span>
+    <span class="n">assets</span><span class="p">[</span><span class="n">asset_name</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>If your app uses <a href="/gems/dry-system">dry-system</a> or <a href="/gems/dry-auto_inject">dry-auto_inject</a>, this is even less work. dry-auto_inject works out of the box with <code>Dry::View::Context</code>’s initializer:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># Require the auto-injector module for your app's container</span>
+<span class="nb">require</span> <span class="s2">"my_app/import"</span>
+
+<span class="k">class</span> <span class="nc">MyContext</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Context</span>
+  <span class="kp">include</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Import</span><span class="p">[</span><span class="s2">"assets"</span><span class="p">]</span>
+
+  <span class="k">def</span> <span class="nf">asset_path</span><span class="p">(</span><span class="n">asset_name</span><span class="p">)</span>
+    <span class="n">assets</span><span class="p">[</span><span class="n">asset_name</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="providing-the-context" class="hd"><a name="providing-the-context" class="anchor" href="#providing-the-context">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Providing the context</h2>
+<p>The default context can be <code>configured</code> for a view:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyView</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">default_context</span> <span class="o">=</span> <span class="no">MyContext</span><span class="p">.</span><span class="nf">new</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Or provided at render-time, when calling a view:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">my_view</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">context: </span><span class="n">my_context</span><span class="p">)</span>
+</code></pre></div>
+<p>This context object will override whatever has been previously configured.</p>
+
+<p>When providing a context at render time, you may wish to provide a version of your context object with e.g. data specific to the current HTTP request, which is not available when configuring the view with a context.</p>
+<h2 id="decorating-context-attributes" class="hd"><a name="decorating-context-attributes" class="anchor" href="#decorating-context-attributes">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Decorating context attributes</h2>
+<p>Your context may have attribute that you want decorated as <a href="/gems/dry-view/0.8/parts">parts</a>. Declare these using <code>decorate</code> in your context class:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyContext</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Context</span>
+  <span class="n">decorate</span> <span class="ss">:navigation_items</span>
+
+  <span class="nb">attr_reader</span> <span class="ss">:navigation_items</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">navigation_items</span><span class="p">:,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+    <span class="vi">@navigation_items</span> <span class="o">=</span> <span class="n">navigation_items</span>
+    <span class="k">super</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can pass the same options to <code>decorate</code> as you do to <a href="/gems/dry-view/0.8/exposures">exposures</a>, for example:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyContext</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">View</span><span class="o">::</span><span class="no">Context</span>
+  <span class="n">decorate</span> <span class="ss">:navigation_items</span><span class="p">,</span> <span class="ss">as: :menu_items</span>
+
+  <span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-view/edit/release-0.8/docsite/source/context.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
