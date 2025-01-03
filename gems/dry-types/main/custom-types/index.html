@@ -34,7 +34,15 @@
             </svg>
 </a><code>Types.Constructor</code></h3>
 <p><code>Types.Constructor</code> builds a new constructor type for the given class. By default uses the <code>new</code> method as a constructor.</p>
-<div class="highlight"><pre class="syntax ruby"><code><span class="n">user_type</span> <span class="o">=</span> <span class="no">Types</span><span class="o">.</span><span class="no">Constructor</span><span class="p">(</span><span class="no">User</span><span class="p">)</span>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">User</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+    <span class="vi">@attributes</span> <span class="o">=</span> <span class="n">attributes</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">name</span> <span class="o">=</span> <span class="vi">@attributes</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">user_type</span> <span class="o">=</span> <span class="no">Types</span><span class="o">.</span><span class="no">Constructor</span><span class="p">(</span><span class="no">User</span><span class="p">)</span>
 
 <span class="c1"># It is equivalent to User.new(name: 'John')</span>
 <span class="n">user_type</span><span class="p">[</span><span class="ss">name: </span><span class="s1">'John'</span><span class="p">]</span>
