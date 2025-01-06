@@ -117,4 +117,28 @@
 <span class="c1">#   :people=&gt;["size cannot be less than 1"]</span>
 <span class="c1"># }</span>
 
+</code></pre></div>
+<p>Use <code>maybe(array[?])</code> to validate an array that could be <code>nil</code>:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">nested_schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:tags</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="n">nested_schema</span><span class="p">])</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">tags: </span><span class="kp">nil</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># true</span>
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">tags: </span><span class="p">[{</span> <span class="ss">name: </span><span class="s1">'Alice'</span> <span class="p">},</span> <span class="p">{</span> <span class="ss">name: </span><span class="s1">'Bob'</span> <span class="p">}]).</span><span class="nf">success?</span> <span class="c1"># true</span>
+</code></pre></div>
+<p>Or use <code>maybe(:array)</code> with a block:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">schema</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="no">Params</span> <span class="k">do</span>
+  <span class="n">required</span><span class="p">(</span><span class="ss">:tags</span><span class="p">).</span><span class="nf">maybe</span><span class="p">(</span><span class="ss">:array</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kp">nil</span><span class="p">?</span> <span class="o">|</span> <span class="n">each</span><span class="p">(:</span><span class="nb">hash</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">required</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">filled</span><span class="p">(</span><span class="ss">:string</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">tags: </span><span class="kp">nil</span><span class="p">).</span><span class="nf">success?</span> <span class="c1"># true</span>
+<span class="n">schema</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">tags: </span><span class="p">[{</span> <span class="ss">name: </span><span class="s1">'Alice'</span> <span class="p">},</span> <span class="p">{</span> <span class="ss">name: </span><span class="s1">'Bob'</span> <span class="p">}]).</span><span class="nf">success?</span> <span class="c1"># true</span>
 </code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-schema/edit/main/docsite/source/nested-data.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
