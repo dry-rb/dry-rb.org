@@ -2,6 +2,9 @@ doctype html
 html lang="en"
   head = partial("head")
   body
+    .sponsorship-banner
+      | Support dry-rb: Help us continue building powerful, maintainable Ruby libraries.
+      a href="https://github.com/sponsors/dry-rb" Become a sponsor today!
     = partial "header-home"
     main
       = yield

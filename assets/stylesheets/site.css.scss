@@ -1499,4 +1499,26 @@ table {
 body > .alert {
   text-align: center;
   padding: 0.35rem 0;
+}}
+
+.sponsorship-banner {
+  background-color: $teal;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  text-align: center;
+  font-weight: $primary-font-bold-weight;
+  font-size: 17px;
+
+  a {
+    color: #fff;
+    text-decoration: underline;
+    &:hover {
+      color: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  @include mobile {
+    font-size: 15px;
+    padding: 10px 15px;
+  }
 }
