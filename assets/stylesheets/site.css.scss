@@ -1507,10 +1507,12 @@ body > .alert {
   padding: 1.5rem 1rem;
   text-align: center;
   font-size: 24px;
-  border-bottom: 1px solid darken($light-blue, 10%);
+  position: relative;
+  border-bottom: 3px solid rgba($dark-teal, 0.3);
 
   a {
     color: $mid-blue;
+    font-weight: $primary-font-bold-weight;
     text-decoration: underline;
     transition: color 150ms ease;
     margin-left: 0.5em;
