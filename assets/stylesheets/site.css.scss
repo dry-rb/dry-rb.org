@@ -1502,23 +1502,26 @@ body > .alert {
 }}
 
 .sponsorship-banner {
-  background-color: $teal;
-  color: #fff;
-  padding: 0.8rem 1rem;
+  background-color: $light-blue;
+  color: $mid-teal;
+  padding: 1.5rem 1rem;
   text-align: center;
-  font-weight: $primary-font-bold-weight;
-  font-size: 17px;
+  font-size: 24px;
+  border-bottom: 1px solid darken($light-blue, 10%);
 
   a {
-    color: #fff;
+    color: $mid-blue;
     text-decoration: underline;
+    transition: color 150ms ease;
+    margin-left: 0.5em;
+
     &:hover {
-      color: rgba(255, 255, 255, 0.85);
+      color: $teal;
     }
   }
 
   @include mobile {
-    font-size: 15px;
-    padding: 10px 15px;
+    font-size: 19px;
+    padding: 1.2rem 1rem;
   }
 }
