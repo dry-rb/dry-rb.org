@@ -1516,9 +1516,21 @@ body > .alert {
     text-decoration: underline;
     transition: color 150ms ease;
     margin-left: 0.5em;
+    display: inline-block; // Support transform on inline element
 
     &:hover {
       color: $teal;
+
+      &::after {
+        transform: translateX(3px);
+      }
+    }
+
+    &::after {
+      content: "→";
+      display: inline-block;
+      margin-left: 0.2em;
+      transition: transform 200ms ease;
     }
   }
 
