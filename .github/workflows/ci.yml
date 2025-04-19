@@ -21,54 +21,54 @@ jobs:
     runs-on: ubuntu-latest
     if: (github.event_name == 'repository_dispatch' && github.event.action == 'ci') || github.event_name != 'repository_dispatch'
     steps:
-    - name: Clone
-      uses: actions/checkout@v2
-    - name: Clone gh-pages
-      uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-        path: docs
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: "2.6"
-    - name: Install latest bundler
-      # unfortunatelly this is the latest bundler that works with 2.6
-      run: gem install bundler:2.4.22 --no-document
-    - name: Bundle install
-      run: |
-        bundle config set without development
-        bundle config path vendor/bundle
-        bundle install --jobs 4 --retry 3
-    - name: Install Node
-      uses: actions/setup-node@v1
-      with:
-        version: "12.10.0"
-    - name: Restore npm package cache
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-    - name: Install node modules
-      run: npm install --prefer-offline --no-audit
-    - name: Symlink project docsites
-      run: bundle exec rake projects:symlink
-    - name: Build Middleman site
-      run: bundle exec middleman build --verbose
-    # TODO this currently crashes under 2.6 and updating to latest ruby is super hard :(
-    # - name: Check internal links
-    #   run: bundle exec rake check_links:internal
-    - name: Prepare build artifact
-      if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
-      run: mkdir build && tar cvzf build/docs.tar.gz --exclude ".git" ./docs
-    - name: Upload build artifact
-      if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
-      uses: actions/upload-artifact@v4
-      with:
-        name: build
-        path: build/docs.tar.gz
+      - name: Clone
+        uses: actions/checkout@v2
+      - name: Clone gh-pages
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: docs
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+      - name: Install latest bundler
+        # unfortunatelly this is the latest bundler that works with 2.6
+        run: gem install bundler:2.4.22 --no-document
+      - name: Bundle install
+        run: |
+          bundle config set without development
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Install Node
+        uses: actions/setup-node@v1
+        with:
+          version: "12.10.0"
+      - name: Restore npm package cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install node modules
+        run: npm install --prefer-offline --no-audit
+      - name: Symlink project docsites
+        run: bundle exec rake projects:symlink
+      - name: Build Middleman site
+        run: bundle exec middleman build --verbose
+      # TODO this currently crashes under 2.6 and updating to latest ruby is super hard :(
+      # - name: Check internal links
+      #   run: bundle exec rake check_links:internal
+      - name: Prepare build artifact
+        if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
+        run: mkdir build && tar cvzf build/docs.tar.gz --exclude ".git" ./docs
+      - name: Upload build artifact
+        if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build/docs.tar.gz
   deploy:
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && contains(github.ref, 'main') || (github.event_name == 'repository_dispatch' && github.event.action == 'ci')
