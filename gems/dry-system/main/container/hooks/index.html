@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Organize your Ruby code into reusable components" name="description" /><meta content="dry-rb - dry-system main - Hooks" property="og:title" /><meta content="Organize your Ruby code into reusable components" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-system main - Hooks" name="twitter:title" /><meta content="Organize your Ruby code into reusable components" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-system main - Hooks</title><link href="/assets/stylesheets/site-17d6239a.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.1">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.1">dry-logger</a><li></li><a href="/gems/dry-logic/1.5">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-operation/1.0">dry-operation</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a><li></li><a href="/gems/dry-view/0.8">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-system <span class="hide">main</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-system">View dry-system on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-system/1.0">1.0</option><option selected="selected" value="/gems/dry-system/main">main</option><option value="/gems/dry-system/0.27">0.27</option><option value="/gems/dry-system/0.26">0.26</option><option value="/gems/dry-system/0.25">0.25</option><option value="/gems/dry-system/0.24">0.24</option><option value="/gems/dry-system/0.23">0.23</option><option value="/gems/dry-system/0.22">0.22</option><option value="/gems/dry-system/0.21">0.21</option><option value="/gems/dry-system/0.20">0.20</option><option value="/gems/dry-system/0.19">0.19</option><option value="/gems/dry-system/0.18">0.18</option><option value="/gems/dry-system/0.17">0.17</option><option value="/gems/dry-system/0.16">0.16</option><option value="/gems/dry-system/0.15">0.15</option><option value="/gems/dry-system/0.14">0.14</option><option value="/gems/dry-system/0.12">0.12</option><option value="/gems/dry-system/0.2">0.2</option><option value="/gems/dry-system/0.1">0.1</option></select></h3><ul><li><a href="/gems/dry-system/main" class="">Introduction</a><li><a href="/gems/dry-system/main/container" class="">Container</a><ul><li><a href="/gems/dry-system/main/container/hooks" class="active">Hooks</a></li></ul></li><li><a href="/gems/dry-system/main/component-dirs" class="">Component dirs</a></li><li><a href="/gems/dry-system/main/providers" class="">Providers</a></li><li><a href="/gems/dry-system/main/dependency-auto-injection" class="">Dependency auto-injection</a></li><li><a href="/gems/dry-system/main/plugins" class="">Plugins</a></li><li><a href="/gems/dry-system/main/external-provider-sources" class="">External provider sources</a></li><li><a href="/gems/dry-system/main/settings" class="">Settings</a></li><li><a href="/gems/dry-system/main/test-mode" class="">Test Mode</a></li></li></ul></aside><article class="gem-article"><h2>Hooks</h2><p>There are a few lifecycle events that you can hook into if you need to ensure things happen in a particular order.</p>
+
+<p>Hooks are executed within the context of the container instance.</p>
+<h3 id="code-configure-code-event" class="hd"><a name="code-configure-code-event" class="anchor" href="#code-configure-code-event">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>configure</code> Event</h3>
+<p>You can register a callback to fire after the container is configured, which happens one of three ways:</p>
+
+<ol>
+<li>The <code>configure</code> method is called on the container</li>
+<li>The <code>configured!</code> method is called</li>
+<li>The <code>finalize!</code> method is called when neither of the other two have been</li>
+</ol>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyApp</span><span class="o">::</span><span class="no">Container</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">after</span><span class="p">(</span><span class="ss">:configure</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># do something here</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="code-register-code-event" class="hd"><a name="code-register-code-event" class="anchor" href="#code-register-code-event">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>register</code> Event</h3>
+<p>Most of the time, you will know what keys you are working with ahead of time. But for certain cases you may want to
+react to keys dynamically.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyApp</span><span class="o">::</span><span class="no">Container</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">use</span> <span class="ss">:monitoring</span>
+
+  <span class="n">after</span><span class="p">(</span><span class="ss">:register</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
+    <span class="k">next</span> <span class="k">unless</span> <span class="n">key</span><span class="p">.</span><span class="nf">end_with?</span><span class="p">(</span><span class="s2">".gateway"</span><span class="p">)</span>
+
+    <span class="n">monitor</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">event</span><span class="o">|</span>
+      <span class="n">resolve</span><span class="p">(</span><span class="ss">:logger</span><span class="p">).</span><span class="nf">debug</span><span class="p">(</span><span class="n">key</span><span class="p">:,</span> <span class="ss">method: </span><span class="n">event</span><span class="p">[</span><span class="ss">:method</span><span class="p">],</span> <span class="ss">time: </span><span class="n">event</span><span class="p">[</span><span class="ss">:time</span><span class="p">])</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now let&#39;s say you register <code>api_client.gateway</code> into your container. Your API methods will be automatically monitored
+and their timing measured and logged.</p>
+<h3 id="code-finalize-code-event" class="hd"><a name="code-finalize-code-event" class="anchor" href="#code-finalize-code-event">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a><code>finalize</code> Event</h3>
+<p>Finalization is the point at which the container is made ready, such as booting a web application.</p>
+
+<p>The following keys are loaded in sequence:</p>
+
+<ol>
+<li>Providers</li>
+<li>Auto-registered components</li>
+<li>Manually-registered components</li>
+<li>Container imports</li>
+</ol>
+
+<p>At the conclusion of this process, the container is frozen thus preventing any further changes. This makes the
+<code>finalize</code> event quite important: it&#39;s the last call before your container will disallow mutation.</p>
+
+<p>Unlike the previous events, you can register before hooks in addition to after hooks.</p>
+
+<p>The after hooks will run immediately prior to the container freeze. This allows you to enumerate the container keys
+while they can still be mutated, such as with <code>decorate</code> or <code>monitor</code>.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyApp</span><span class="o">::</span><span class="no">Container</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">System</span><span class="o">::</span><span class="no">Container</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:finalize</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># Before system boot, no keys registered yet</span>
+  <span class="k">end</span>
+
+  <span class="n">after</span><span class="p">(</span><span class="ss">:finalize</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># After system boot, all keys registered</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-system/edit/main/docsite/source/container/hooks.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
