@@ -1500,3 +1500,54 @@ body > .alert {
   text-align: center;
   padding: 0.35rem 0;
 }
+
+.sponsorship-banner {
+  background-color: $light-blue;
+  color: $mid-teal;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 24px;
+  position: relative;
+  border-bottom: 3px solid rgba($dark-teal, 0.3);
+
+  a {
+    color: $mid-blue;
+    font-weight: $primary-font-bold-weight;
+    text-decoration: none;
+    transition: color 150ms ease;
+    margin-left: 0.5em;
+    display: inline-block; // Support transform on inline element
+
+    span {
+      border-bottom: 2px solid rgba($mid-blue, 0.3); // Apply underline to span only
+      padding-bottom: 3px;
+      transition: border-bottom 150ms ease;
+    }
+
+    &:hover {
+      color: $teal;
+
+      span {
+        border-bottom: 2px solid rgba($teal, 0.3); // Change border color on hover
+      }
+
+      &::after {
+        transform: translateX(3px);
+      }
+    }
+
+    &::after {
+      content: "→";
+      display: inline-block;
+      margin-left: 0.2em;
+      position: relative;
+      top: 2px;
+      transition: transform 200ms ease;
+    }
+  }
+
+  @include mobile {
+    font-size: 19px;
+    padding: 1.2rem 1rem;
+  }
+}
