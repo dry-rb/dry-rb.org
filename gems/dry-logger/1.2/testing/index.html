@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Logging for Ruby applications" name="description" /><meta content="dry-rb - dry-logger v1.2 - Testing" property="og:title" /><meta content="Logging for Ruby applications" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-logger v1.2 - Testing" name="twitter:title" /><meta content="Logging for Ruby applications" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-logger v1.2 - Testing</title><link href="/assets/stylesheets/site-17d6239a.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.1">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.2">dry-logger</a><li></li><a href="/gems/dry-logic/1.5">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-operation/1.0">dry-operation</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a><li></li><a href="/gems/dry-view/0.8">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-logger <span class="hide">1.2</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-logger">View dry-logger on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option selected="selected" value="/gems/dry-logger/1.2">1.2</option><option value="/gems/dry-logger/main">main</option><option value="/gems/dry-logger/1.1">1.1</option><option value="/gems/dry-logger/1.0">1.0</option></select></h3><ul><li><a href="/gems/dry-logger/1.2" class="">Introduction</a><li><a href="/gems/dry-logger/1.2/backends" class="">Backends</a></li><li><a href="/gems/dry-logger/1.2/formatters" class="">Formatters</a></li><li><a href="/gems/dry-logger/1.2/templates" class="">Templates</a></li><li><a href="/gems/dry-logger/1.2/filtering" class="">Filtering sensitive data</a></li><li><a href="/gems/dry-logger/1.2/context" class="">Context</a></li><li><a href="/gems/dry-logger/1.2/tagging" class="">Tagged logging</a></li><li><a href="/gems/dry-logger/1.2/crash-handling" class="">Crash handling</a></li><li><a href="/gems/dry-logger/1.2/testing" class="active">Testing</a></li><li><a href="/gems/dry-logger/1.2/examples" class="">Examples</a></li></li></ul></aside><article class="gem-article"><h2>Testing</h2><p>When testing applications that use dry-logger, you&#39;ll want to verify that your code logs correctly without cluttering test output.</p>
+<h2 id="using-stringio" class="hd"><a name="using-stringio" class="anchor" href="#using-stringio">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using StringIO</h2>
+<p>The simplest approach is to log to a <code>StringIO</code> object, which you can inspect in your tests:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"stringio"</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">MyClass</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="p">{</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="n">log_output</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s2">"logs the operation"</span> <span class="k">do</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="no">MyClass</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">subject</span><span class="p">.</span><span class="nf">perform</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"Operation completed"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="testing-log-content" class="hd"><a name="testing-log-content" class="anchor" href="#testing-log-content">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing log content</h2><h3 id="string-format" class="hd"><a name="string-format" class="anchor" href="#string-format">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>String format</h3>
+<p>For human-readable assertions:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UserService</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span>
+      <span class="ss">stream: </span><span class="n">log_output</span><span class="p">,</span>
+      <span class="ss">formatter: :string</span><span class="p">,</span>
+      <span class="ss">template: :details</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"logs user creation"</span> <span class="k">do</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="no">UserService</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">service</span><span class="p">.</span><span class="nf">create_user</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"test@example.com"</span><span class="p">)</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"User created"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'email="test@example.com"'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="json-format" class="hd"><a name="json-format" class="anchor" href="#json-format">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>JSON format</h3>
+<p>For structured assertions:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UserService</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="n">log_output</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"logs user creation with correct data"</span> <span class="k">do</span>
+    <span class="n">service</span> <span class="o">=</span> <span class="no">UserService</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">service</span><span class="p">.</span><span class="nf">create_user</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"test@example.com"</span><span class="p">)</span>
+
+    <span class="n">log_entry</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"message"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"User created"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"severity"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"INFO"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"email"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"test@example.com"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="testing-multiple-log-entries" class="hd"><a name="testing-multiple-log-entries" class="anchor" href="#testing-multiple-log-entries">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing multiple log entries</h3>
+<p>When your code logs multiple times:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">OrderProcessor</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="p">{</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="n">log_output</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s2">"logs each step of order processing"</span> <span class="k">do</span>
+    <span class="n">processor</span> <span class="o">=</span> <span class="no">OrderProcessor</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">processor</span><span class="p">.</span><span class="nf">process</span><span class="p">(</span><span class="ss">order_id: </span><span class="mi">123</span><span class="p">)</span>
+
+    <span class="n">logs</span> <span class="o">=</span> <span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">).</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="n">expect</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"message"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Order received"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">"message"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Payment processed"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">logs</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">"message"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Order completed"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="testing-log-levels" class="hd"><a name="testing-log-levels" class="anchor" href="#testing-log-levels">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing log levels</h2>
+<p>Verify that your code logs at the correct severity:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">ErrorHandler</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="p">{</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="n">log_output</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s2">"logs errors at ERROR level"</span> <span class="k">do</span>
+    <span class="n">handler</span> <span class="o">=</span> <span class="no">ErrorHandler</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">handler</span><span class="p">.</span><span class="nf">handle_error</span><span class="p">(</span><span class="no">StandardError</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"Something went wrong"</span><span class="p">))</span>
+
+    <span class="n">log_entry</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"severity"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"ERROR"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"message"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"Something went wrong"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="suppressing-logs-in-tests" class="hd"><a name="suppressing-logs-in-tests" class="anchor" href="#suppressing-logs-in-tests">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Suppressing logs in tests</h2><h3 id="null-device" class="hd"><a name="null-device" class="anchor" href="#null-device">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Null device</h3>
+<p>Send logs to the null device to discard them:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># spec/spec_helper.rb</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">around</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">example</span><span class="o">|</span>
+    <span class="c1"># Suppress all logging during tests</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="no">File</span><span class="o">::</span><span class="no">NULL</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">))</span>
+
+    <span class="c1"># Make it available to your app</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">MyApp</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:logger</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+
+    <span class="n">example</span><span class="p">.</span><span class="nf">run</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="high-log-level" class="hd"><a name="high-log-level" class="anchor" href="#high-log-level">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>High log level</h3>
+<p>Set the log level to <code>:fatal</code> or above to suppress most logs:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">before</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+    <span class="vi">@original_logger</span> <span class="o">=</span> <span class="no">MyApp</span><span class="p">.</span><span class="nf">logger</span>
+    <span class="no">MyApp</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">level: :fatal</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">after</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">MyApp</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="vi">@original_logger</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h3 id="per-test-control" class="hd"><a name="per-test-control" class="anchor" href="#per-test-control">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Per-test control</h3>
+<p>Use RSpec metadata to control logging per test:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">around</span><span class="p">(</span><span class="ss">:each</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">example</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">example</span><span class="p">.</span><span class="nf">metadata</span><span class="p">[</span><span class="ss">:show_logs</span><span class="p">]</span>
+      <span class="n">example</span><span class="p">.</span><span class="nf">run</span>
+    <span class="k">else</span>
+      <span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="no">File</span><span class="o">::</span><span class="no">NULL</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">))</span>
+      <span class="n">allow</span><span class="p">(</span><span class="no">MyApp</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:logger</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
+      <span class="n">example</span><span class="p">.</span><span class="nf">run</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Enable logging for specific tests</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">MyClass</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s2">"does something"</span><span class="p">,</span> <span class="ss">show_logs: </span><span class="kp">true</span> <span class="k">do</span>
+    <span class="c1"># Logs will be visible for this test</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"does something else"</span> <span class="k">do</span>
+    <span class="c1"># Logs suppressed (default)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="testing-with-dependency-injection" class="hd"><a name="testing-with-dependency-injection" class="anchor" href="#testing-with-dependency-injection">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing with dependency injection</h2>
+<p>Make loggers injectable for easier testing:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">UserService</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">logger: </span><span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:user_service</span><span class="p">))</span>
+    <span class="vi">@logger</span> <span class="o">=</span> <span class="n">logger</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="n">email</span><span class="p">:)</span>
+    <span class="vi">@logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Creating user"</span><span class="p">,</span> <span class="ss">email: </span><span class="n">email</span><span class="p">)</span>
+    <span class="c1"># ... create user</span>
+    <span class="vi">@logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"User created"</span><span class="p">,</span> <span class="ss">email: </span><span class="n">email</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># In tests</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">UserService</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="p">{</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span> <span class="ss">stream: </span><span class="n">log_output</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:service</span><span class="p">)</span> <span class="p">{</span> <span class="no">UserService</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s2">"logs user creation"</span> <span class="k">do</span>
+    <span class="n">service</span><span class="p">.</span><span class="nf">create_user</span><span class="p">(</span><span class="ss">email: </span><span class="s2">"test@example.com"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"User created"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="testing-filters" class="hd"><a name="testing-filters" class="anchor" href="#testing-filters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing filters</h2>
+<p>Verify that sensitive data is properly filtered:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">PaymentProcessor</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:log_output</span><span class="p">)</span> <span class="p">{</span> <span class="no">StringIO</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:logger</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:test</span><span class="p">,</span>
+      <span class="ss">stream: </span><span class="n">log_output</span><span class="p">,</span>
+      <span class="ss">formatter: :json</span><span class="p">,</span>
+      <span class="ss">filters: </span><span class="p">[</span><span class="ss">:card_number</span><span class="p">,</span> <span class="ss">:cvv</span><span class="p">]</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"filters sensitive payment data"</span> <span class="k">do</span>
+    <span class="n">processor</span> <span class="o">=</span> <span class="no">PaymentProcessor</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">logger: </span><span class="n">logger</span><span class="p">)</span>
+    <span class="n">processor</span><span class="p">.</span><span class="nf">process</span><span class="p">(</span><span class="ss">card_number: </span><span class="s2">"4111111111111111"</span><span class="p">,</span> <span class="ss">cvv: </span><span class="s2">"123"</span><span class="p">,</span> <span class="ss">amount: </span><span class="mf">99.99</span><span class="p">)</span>
+
+    <span class="n">log_entry</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">log_output</span><span class="p">.</span><span class="nf">string</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"card_number"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"[FILTERED]"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"cvv"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s2">"[FILTERED]"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">log_entry</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mf">99.99</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="testing-custom-formatters" class="hd"><a name="testing-custom-formatters" class="anchor" href="#testing-custom-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Testing custom formatters</h2>
+<p>If you&#39;ve created custom formatters, test them directly:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">MyCustomFormatter</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:formatter</span><span class="p">)</span> <span class="p">{</span> <span class="no">MyCustomFormatter</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:entry</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Dry</span><span class="o">::</span><span class="no">Logger</span><span class="o">::</span><span class="no">Entry</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+      <span class="ss">clock: </span><span class="no">Dry</span><span class="o">::</span><span class="no">Logger</span><span class="o">::</span><span class="no">Clock</span><span class="p">.</span><span class="nf">new</span><span class="p">,</span>
+      <span class="ss">progname: </span><span class="s2">"test"</span><span class="p">,</span>
+      <span class="ss">severity: :info</span><span class="p">,</span>
+      <span class="ss">message: </span><span class="s2">"Test message"</span><span class="p">,</span>
+      <span class="ss">payload: </span><span class="p">{</span><span class="ss">user_id: </span><span class="mi">42</span><span class="p">}</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s2">"formats entries correctly"</span> <span class="k">do</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">formatter</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="ss">:info</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">output</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"Test message"</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">output</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s2">"user_id=42"</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-logger/edit/release-1.2/docsite/source/testing.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

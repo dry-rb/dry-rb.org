@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Logging for Ruby applications" name="description" /><meta content="dry-rb - dry-logger v1.2 - Formatters" property="og:title" /><meta content="Logging for Ruby applications" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-logger v1.2 - Formatters" name="twitter:title" /><meta content="Logging for Ruby applications" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-logger v1.2 - Formatters</title><link href="/assets/stylesheets/site-17d6239a.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.1">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.2">dry-logger</a><li></li><a href="/gems/dry-logic/1.5">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-operation/1.0">dry-operation</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a><li></li><a href="/gems/dry-view/0.8">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-logger <span class="hide">1.2</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-logger">View dry-logger on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option selected="selected" value="/gems/dry-logger/1.2">1.2</option><option value="/gems/dry-logger/main">main</option><option value="/gems/dry-logger/1.1">1.1</option><option value="/gems/dry-logger/1.0">1.0</option></select></h3><ul><li><a href="/gems/dry-logger/1.2" class="">Introduction</a><li><a href="/gems/dry-logger/1.2/backends" class="">Backends</a></li><li><a href="/gems/dry-logger/1.2/formatters" class="active">Formatters</a></li><li><a href="/gems/dry-logger/1.2/templates" class="">Templates</a></li><li><a href="/gems/dry-logger/1.2/filtering" class="">Filtering sensitive data</a></li><li><a href="/gems/dry-logger/1.2/context" class="">Context</a></li><li><a href="/gems/dry-logger/1.2/tagging" class="">Tagged logging</a></li><li><a href="/gems/dry-logger/1.2/crash-handling" class="">Crash handling</a></li><li><a href="/gems/dry-logger/1.2/testing" class="">Testing</a></li><li><a href="/gems/dry-logger/1.2/examples" class="">Examples</a></li></li></ul></aside><article class="gem-article"><h2>Formatters</h2><p>Formatters control how log entries are serialized for output. dry-logger includes three built-in formatters optimized for different use cases.</p>
+<h2 id="built-in-formatters" class="hd"><a name="built-in-formatters" class="anchor" href="#built-in-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Built-in formatters</h2><h3 id="string-formatter-default" class="hd"><a name="string-formatter-default" class="anchor" href="#string-formatter-default">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>String formatter (default)</h3>
+<p>The <code>:string</code> formatter outputs human-readable text in <code>key=value</code> format. It&#39;s ideal for development and when you need to read logs directly.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: :string</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"User logged in"</span><span class="p">,</span> <span class="ss">user_id: </span><span class="mi">42</span><span class="p">,</span> <span class="ss">role: </span><span class="s2">"admin"</span><span class="p">)</span>
+<span class="c1"># User logged in user_id=42 role="admin"</span>
+</code></pre></div>
+<p>The string formatter:</p>
+
+<ul>
+<li>Formats payloads as <code>key=value</code> pairs</li>
+<li>Quotes string values</li>
+<li>Supports colorized output</li>
+<li>Handles exceptions with full backtraces</li>
+<li>Works with templates for customization</li>
+</ul>
+<h3 id="json-formatter" class="hd"><a name="json-formatter" class="anchor" href="#json-formatter">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>JSON formatter</h3>
+<p>The <code>:json</code> formatter outputs structured JSON, perfect for production environments and log aggregation tools.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"User logged in"</span><span class="p">,</span> <span class="ss">user_id: </span><span class="mi">42</span><span class="p">,</span> <span class="ss">role: </span><span class="s2">"admin"</span><span class="p">)</span>
+<span class="c1"># {"progname":"my_app","severity":"INFO","time":"2023-10-15T14:23:45Z","message":"User logged in","user_id":42,"role":"admin"}</span>
+</code></pre></div>
+<p>The JSON formatter:</p>
+
+<ul>
+<li>Outputs valid JSON on each line</li>
+<li>Converts timestamps to UTC ISO8601 format</li>
+<li>Flattens exception data into the JSON structure</li>
+<li>Perfect for tools like Elasticsearch, Splunk, or CloudWatch</li>
+</ul>
+
+<p>Example with exception:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="k">begin</span>
+  <span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">,</span> <span class="s2">"Invalid input"</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># {"progname":"my_app","severity":"ERROR","time":"2023-10-15T14:24:12Z","exception":"ArgumentError","message":"Invalid input","backtrace":["..."]}</span>
+</code></pre></div><h3 id="rack-formatter" class="hd"><a name="rack-formatter" class="anchor" href="#rack-formatter">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Rack formatter</h3>
+<p>The <code>:rack</code> formatter is specialized for logging HTTP requests in web applications.</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: :rack</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span>
+  <span class="ss">verb: </span><span class="s2">"GET"</span><span class="p">,</span>
+  <span class="ss">path: </span><span class="s2">"/users/42"</span><span class="p">,</span>
+  <span class="ss">status: </span><span class="mi">200</span><span class="p">,</span>
+  <span class="ss">elapsed: </span><span class="s2">"12ms"</span><span class="p">,</span>
+  <span class="ss">ip: </span><span class="s2">"192.168.1.1"</span><span class="p">,</span>
+  <span class="ss">length: </span><span class="mi">1024</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span><span class="ss">page: </span><span class="mi">1</span><span class="p">}</span>
+<span class="p">)</span>
+<span class="c1"># [my_app] [INFO] [2023-10-15 14:25:30 +0000] GET 200 12ms 192.168.1.1 /users/42 1024</span>
+<span class="c1">#   {"page":1}</span>
+</code></pre></div>
+<p>The rack formatter uses a predefined template that formats common HTTP request fields in a compact, readable format.</p>
+<h2 id="per-backend-formatters" class="hd"><a name="per-backend-formatters" class="anchor" href="#per-backend-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Per-backend formatters</h2>
+<p>Different backends can use different formatters:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">setup</span><span class="o">|</span>
+  <span class="c1"># Human-readable logs to stdout for development</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="vg">$stdout</span><span class="p">,</span>
+    <span class="ss">formatter: :string</span><span class="p">,</span>
+    <span class="ss">template: :details</span>
+  <span class="p">)</span>
+
+  <span class="c1"># JSON logs to file for production analysis</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/app.json"</span><span class="p">,</span>
+    <span class="ss">formatter: :json</span>
+  <span class="p">)</span>
+
+  <span class="c1"># Rack-formatted HTTP logs</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/requests.log"</span><span class="p">,</span>
+    <span class="ss">formatter: :rack</span><span class="p">,</span>
+    <span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span> <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:verb</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Now this logs to all three backends in different formats</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Starting server"</span><span class="p">,</span> <span class="ss">port: </span><span class="mi">3000</span><span class="p">)</span>
+</code></pre></div><h2 id="formatter-options" class="hd"><a name="formatter-options" class="anchor" href="#formatter-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Formatter options</h2><h3 id="string-formatter-options" class="hd"><a name="string-formatter-options" class="anchor" href="#string-formatter-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>String formatter options</h3>
+<p>The string formatter supports several customization options:</p>
+<h4 id="templates" class="hd"><a name="templates" class="anchor" href="#templates">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Templates</h4>
+<p>Control the output format using templates (see <a href="/gems/dry-logger/templates/">Templates</a> for details):</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">formatter: :string</span><span class="p">,</span>
+  <span class="ss">template: </span><span class="s2">"[%&lt;severity&gt;s] %&lt;time&gt;s - %&lt;message&gt;s %&lt;payload&gt;s"</span>
+<span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Server started"</span><span class="p">,</span> <span class="ss">port: </span><span class="mi">3000</span><span class="p">)</span>
+<span class="c1"># [INFO] 2023-10-15 14:30:00 +0000 - Server started port=3000</span>
+</code></pre></div><h4 id="colorization" class="hd"><a name="colorization" class="anchor" href="#colorization">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Colorization</h4>
+<p>Enable colorized output for better readability in terminals:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">formatter: :string</span><span class="p">,</span>
+  <span class="ss">colorize: </span><span class="kp">true</span>
+<span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">debug</span><span class="p">(</span><span class="s2">"Debug message"</span><span class="p">)</span>  <span class="c1"># Cyan</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Info message"</span><span class="p">)</span>    <span class="c1"># Magenta</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="s2">"Warning"</span><span class="p">)</span>         <span class="c1"># Yellow</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s2">"Error"</span><span class="p">)</span>          <span class="c1"># Red</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">fatal</span><span class="p">(</span><span class="s2">"Fatal error"</span><span class="p">)</span>    <span class="c1"># Red</span>
+</code></pre></div><h4 id="custom-severity-colors" class="hd"><a name="custom-severity-colors" class="anchor" href="#custom-severity-colors">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Custom severity colors</h4>
+<p>Customize which colors are used for each severity level:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">formatter: :string</span><span class="p">,</span>
+  <span class="ss">colorize: </span><span class="kp">true</span><span class="p">,</span>
+  <span class="ss">severity_colors: </span><span class="p">{</span>
+    <span class="ss">debug: :gray</span><span class="p">,</span>
+    <span class="ss">info: :green</span><span class="p">,</span>
+    <span class="ss">warn: :yellow</span><span class="p">,</span>
+    <span class="ss">error: :red</span><span class="p">,</span>
+    <span class="ss">fatal: :magenta</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Available colors:</p>
+
+<ul>
+<li><code>:black</code></li>
+<li><code>:red</code></li>
+<li><code>:green</code></li>
+<li><code>:yellow</code></li>
+<li><code>:blue</code></li>
+<li><code>:magenta</code></li>
+<li><code>:cyan</code></li>
+<li><code>:gray</code></li>
+</ul>
+<h3 id="json-formatter-options" class="hd"><a name="json-formatter-options" class="anchor" href="#json-formatter-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>JSON formatter options</h3>
+<p>The JSON formatter automatically:</p>
+
+<ul>
+<li>Converts all timestamps to UTC</li>
+<li>Formats timestamps as ISO8601 strings</li>
+<li>Includes all metadata (progname, severity, time)</li>
+<li>Merges payload data into the root object</li>
+</ul>
+
+<p>No additional configuration is needed for the JSON formatter.</p>
+<h2 id="exception-formatting" class="hd"><a name="exception-formatting" class="anchor" href="#exception-formatting">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Exception formatting</h2><h3 id="string-formatter" class="hd"><a name="string-formatter" class="anchor" href="#string-formatter">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>String formatter</h3>
+<p>Exceptions are formatted with full details:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: :string</span><span class="p">,</span> <span class="ss">template: :details</span><span class="p">)</span>
+
+<span class="k">begin</span>
+  <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"missing.txt"</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># [my_app] [ERROR] [2023-10-15 14:35:12 +0000]</span>
+<span class="c1">#   No such file or directory @ rb_sysopen - missing.txt (Errno::ENOENT)</span>
+<span class="c1">#   /path/to/file.rb:10:in `read'</span>
+<span class="c1">#   /path/to/file.rb:10:in `&lt;main&gt;'</span>
+</code></pre></div><h3 id="json-formatter_1" class="hd"><a name="json-formatter_1" class="anchor" href="#json-formatter_1">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>JSON formatter</h3>
+<p>Exceptions are serialized as JSON fields:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span>
+
+<span class="k">begin</span>
+  <span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s2">"missing.txt"</span><span class="p">)</span>
+<span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">e</span>
+  <span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># {"progname":"my_app","severity":"ERROR","time":"2023-10-15T14:35:12Z","exception":"Errno::ENOENT","message":"No such file or directory @ rb_sysopen - missing.txt","backtrace":["..."]}</span>
+</code></pre></div><h2 id="custom-formatters" class="hd"><a name="custom-formatters" class="anchor" href="#custom-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Custom formatters</h2>
+<p>Create formatters for specialized output needs.</p>
+<h3 id="simple-custom-formatter" class="hd"><a name="simple-custom-formatter" class="anchor" href="#simple-custom-formatter">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Simple custom formatter</h3><div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">CustomFormatter</span>
+  <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="n">_severity</span><span class="p">,</span> <span class="n">_time</span><span class="p">,</span> <span class="n">_progname</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
+    <span class="c1"># Must return a string</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="n">entry</span><span class="p">.</span><span class="nf">severity</span><span class="si">}</span><span class="s2"> | </span><span class="si">#{</span><span class="n">entry</span><span class="p">.</span><span class="nf">message</span><span class="si">}</span><span class="s2"> | </span><span class="si">#{</span><span class="n">entry</span><span class="p">.</span><span class="nf">payload</span><span class="p">.</span><span class="nf">inspect</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">formatter: </span><span class="no">CustomFormatter</span><span class="p">.</span><span class="nf">new</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Test"</span><span class="p">,</span> <span class="ss">user_id: </span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># INFO | Test | {:user_id=&gt;42}</span>
+</code></pre></div><h3 id="extending-built-in-formatters" class="hd"><a name="extending-built-in-formatters" class="anchor" href="#extending-built-in-formatters">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Extending built-in formatters</h3><div class="highlight"><pre class="syntax ruby"><code><span class="k">class</span> <span class="nc">MyFormatter</span> <span class="o">&lt;</span> <span class="no">Dry</span><span class="o">::</span><span class="no">Logger</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">String</span>
+  <span class="kp">private</span>
+
+  <span class="c1"># Customize how specific fields are formatted</span>
+  <span class="k">def</span> <span class="nf">format_user_id</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="s2">"USER:</span><span class="si">#{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">format_duration</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="n">value</span><span class="si">}</span><span class="s2">ms"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Register your formatter</span>
+<span class="no">Dry</span><span class="o">::</span><span class="no">Logger</span><span class="p">.</span><span class="nf">register_formatter</span><span class="p">(</span><span class="ss">:my_formatter</span><span class="p">,</span> <span class="no">MyFormatter</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">formatter: :my_formatter</span><span class="p">,</span>
+  <span class="ss">template: </span><span class="s2">"%&lt;user_id&gt;s took %&lt;duration&gt;s"</span>
+<span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="ss">user_id: </span><span class="mi">42</span><span class="p">,</span> <span class="ss">duration: </span><span class="mi">150</span><span class="p">)</span>
+<span class="c1"># USER:42 took 150ms</span>
+</code></pre></div>
+<p>For complete, realistic configuration examples, see the <a href="/gems/dry-logger/examples/">Examples</a> page.</p>
+<p><a class="edit_page_link" href="https://github.com/dry-rb/dry-logger/edit/release-1.2/docsite/source/formatters.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>

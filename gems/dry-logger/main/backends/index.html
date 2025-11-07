@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta content="phone" media="(max-width: 480px)" name="breakpoint" /><meta content="width=device-width, initial-scale=1.0" name="viewport" /><meta content="website" property="og:type" /><meta content="Logging for Ruby applications" name="description" /><meta content="dry-rb - dry-logger main - Backends" property="og:title" /><meta content="Logging for Ruby applications" property="og:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><meta content="summary" name="twitter:card" /><meta content="dry-rb - dry-logger main - Backends" name="twitter:title" /><meta content="Logging for Ruby applications" name="twitter:description" /><meta content="/images/favicon-651cfa16.png" property="og:image" /><link href="/feed.xml" rel="alternate" title="dry-rb news" type="application/atom+xml" /><link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:400,400i,600,600i" rel="stylesheet" /><link href="/images/favicon-651cfa16.png" rel="icon" /><link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet" /><!--[if IE]><link href="/images/favicon.ico" rel="shortcut icon" /><![endif]--><title>dry-rb - dry-logger main - Backends</title><link href="/assets/stylesheets/site-17d6239a.css" rel="stylesheet" /><script src="/assets/javascripts/site-948a8a19.js"></script></head><body><header><div class="content-wrap"><nav class="main-nav"><ul class="main-nav__list"><li class="main-nav__logo"><a href="/">dry-rb</a></li><li class="main-nav__with-dropdown main-nav__item--selected"><a href="/gems">Gems <span class="hide-mobile">/ Docs </span></a><div class="main-nav__dropdown main-nav__dropdown--gems"><ul><li></li><a href="/gems/dry-auto_inject/1.0">dry-auto_inject</a><li></li><a href="/gems/dry-cli/1.1">dry-cli</a><li></li><a href="/gems/dry-configurable/1.0">dry-configurable</a><li></li><a href="/gems/dry-container/0.11">dry-container</a><li></li><a href="/gems/dry-core/1.0">dry-core</a><li></li><a href="/gems/dry-effects/0.4">dry-effects</a><li></li><a href="/gems/dry-equalizer/0.2">dry-equalizer</a><li></li><a href="/gems/dry-events/1.0">dry-events</a><li></li><a href="/gems/dry-files/1.0">dry-files</a><li></li><a href="/gems/dry-inflector/1.0">dry-inflector</a><li></li><a href="/gems/dry-initializer/3.1">dry-initializer</a><li></li><a href="/gems/dry-logger/1.2">dry-logger</a><li></li><a href="/gems/dry-logic/1.5">dry-logic</a></ul><ul><li></li><a href="/gems/dry-matcher/1.0">dry-matcher</a><li></li><a href="/gems/dry-monads/1.6">dry-monads</a><li></li><a href="/gems/dry-monitor/1.0">dry-monitor</a><li></li><a href="/gems/dry-operation/1.0">dry-operation</a><li></li><a href="/gems/dry-rails/0.7">dry-rails</a><li></li><a href="/gems/dry-schema/1.13">dry-schema</a><li></li><a href="/gems/dry-struct/1.6">dry-struct</a><li></li><a href="/gems/dry-system/1.0">dry-system</a><li></li><a href="/gems/dry-transaction/0.15">dry-transaction</a><li></li><a href="/gems/dry-transformer/1.0">dry-transformer</a><li></li><a href="/gems/dry-types/1.7">dry-types</a><li></li><a href="/gems/dry-validation/1.10">dry-validation</a><li></li><a href="/gems/dry-view/0.8">dry-view</a></ul></div></li><li><a href="/status">Status</a></li><li><a href="/news">News</a></li><li><a href="/community">Community</a></li><br class="mobile-only" /><li class="main-nav__search"><form class="searchbox"><input class="form-control" id="search-input" type="text" /></form><script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js" type="text/javascript"></script><script>docsearch({
+  apiKey: '77902a61218a8fbaa06a6125cb6589a7',
+  indexName: 'dry-rb',
+  inputSelector: '#search-input',
+  debug: false // Set debug to true if you want to inspect the dropdown
+});</script></li><li class="main-nav__code"><a href="https://github.com/dry-rb">Github</a></li></ul></nav></div></header><main><div class="intro-page"><div class="content-wrap"><div class="intro-page__inner"><h1 class="intro-page__header">dry-logger <span class="hide">main</span></h1><p class="intro-page__link"><a href="https://github.com/dry-rb/dry-logger">View dry-logger on GitHub</a></p></div></div></div><div class="row"><div class="content-wrap"><aside class="sidebar"><h3 class="sidebar__version">Version: <select id="sidebar__version-switcher"><option value="/gems/dry-logger/1.2">1.2</option><option selected="selected" value="/gems/dry-logger/main">main</option><option value="/gems/dry-logger/1.1">1.1</option><option value="/gems/dry-logger/1.0">1.0</option></select></h3><ul><li><a href="/gems/dry-logger/main" class="">Introduction</a><li><a href="/gems/dry-logger/main/backends" class="active">Backends</a></li><li><a href="/gems/dry-logger/main/formatters" class="">Formatters</a></li><li><a href="/gems/dry-logger/main/templates" class="">Templates</a></li><li><a href="/gems/dry-logger/main/filtering" class="">Filtering sensitive data</a></li><li><a href="/gems/dry-logger/main/context" class="">Context</a></li><li><a href="/gems/dry-logger/main/tagging" class="">Tagged logging</a></li><li><a href="/gems/dry-logger/main/crash-handling" class="">Crash handling</a></li><li><a href="/gems/dry-logger/main/testing" class="">Testing</a></li><li><a href="/gems/dry-logger/main/examples" class="">Examples</a></li></li></ul></aside><article class="gem-article"><h2>Backends</h2><p>Backends are responsible for writing log entries to specific destinations. dry-logger supports multiple backends, allowing you to log to several destinations simultaneously with different configurations for each.</p>
+<h2 id="understanding-backends" class="hd"><a name="understanding-backends" class="anchor" href="#understanding-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Understanding backends</h2>
+<p>A backend combines:</p>
+
+<ul>
+<li>An <strong>output destination</strong> (stdout, file, external logger, etc.)</li>
+<li>A <strong>formatter</strong> (how entries are formatted)</li>
+<li>Optional <strong>conditional logging</strong> (when to log)</li>
+</ul>
+<h2 id="multiple-backends" class="hd"><a name="multiple-backends" class="anchor" href="#multiple-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Multiple backends</h2><h3 id="adding-backends" class="hd"><a name="adding-backends" class="anchor" href="#adding-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Adding backends</h3>
+<p>Add backends to the default logger:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/application.log"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/errors.log"</span><span class="p">,</span> <span class="ss">log_if: :error?</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"User logged in"</span><span class="p">)</span>
+<span class="c1"># Goes to stdout and logs/application.log</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s2">"Database connection failed"</span><span class="p">)</span>
+<span class="c1"># Goes to stdout, logs/application.log, and logs/errors.log</span>
+</code></pre></div><h3 id="block-based-configuration" class="hd"><a name="block-based-configuration" class="anchor" href="#block-based-configuration">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Block-based configuration</h3>
+<p>For more control, configure all backends in a block:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">setup</span><span class="o">|</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/application.log"</span><span class="p">,</span> <span class="ss">template: :details</span><span class="p">)</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/json.log"</span><span class="p">,</span> <span class="ss">formatter: :json</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="c1"># Only logs to the files you configured (no stdout)</span>
+</code></pre></div>
+<p>When you use a block, dry-logger skips creating the default stdout backend, giving you complete control.</p>
+<h2 id="conditional-logging" class="hd"><a name="conditional-logging" class="anchor" href="#conditional-logging">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Conditional logging</h2>
+<p>The <code>log_if</code> option controls when a backend should log an entry. This is useful for routing different log levels to different destinations.</p>
+<h3 id="using-severity-methods" class="hd"><a name="using-severity-methods" class="anchor" href="#using-severity-methods">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using severity methods</h3>
+<p>Filter by log level using the entry&#39;s severity methods:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/errors.log"</span><span class="p">,</span>
+    <span class="ss">log_if: :error?</span>  <span class="c1"># Only log ERROR and FATAL</span>
+  <span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Normal operation"</span><span class="p">)</span>  <span class="c1"># Not logged to errors.log</span>
+<span class="n">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="s2">"Something broke"</span><span class="p">)</span>  <span class="c1"># Logged to errors.log</span>
+</code></pre></div>
+<p>Available severity methods:</p>
+
+<ul>
+<li><code>:debug?</code> - Only DEBUG messages</li>
+<li><code>:info?</code> - Only INFO messages</li>
+<li><code>:warn?</code> - Only WARN messages</li>
+<li><code>:error?</code> - Only ERROR messages</li>
+<li><code>:fatal?</code> - Only FATAL messages</li>
+</ul>
+<h3 id="using-custom-procs" class="hd"><a name="using-custom-procs" class="anchor" href="#using-custom-procs">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using custom procs</h3>
+<p>For more complex filtering, use a proc that receives the log entry:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/requests.log"</span><span class="p">,</span>
+    <span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span> <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:request</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"User logged in"</span><span class="p">,</span> <span class="ss">request: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">path: </span><span class="s2">"/login"</span><span class="p">)</span>
+<span class="c1"># Logged to logs/requests.log</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Cache cleared"</span><span class="p">)</span>
+<span class="c1"># Not logged to logs/requests.log</span>
+</code></pre></div>
+<p>The entry object provides several useful methods:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1"># Check severity</span>
+  <span class="n">entry</span><span class="p">.</span><span class="nf">error?</span> <span class="o">||</span> <span class="n">entry</span><span class="p">.</span><span class="nf">fatal?</span>
+
+  <span class="c1"># Check for specific keys in payload</span>
+  <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:database</span><span class="p">)</span>
+
+  <span class="c1"># Access payload values</span>
+  <span class="n">entry</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]</span> <span class="o">==</span> <span class="mi">123</span>
+
+  <span class="c1"># Check tags</span>
+  <span class="n">entry</span><span class="p">.</span><span class="nf">tag?</span><span class="p">(</span><span class="ss">:production</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="multiple-conditions-example" class="hd"><a name="multiple-conditions-example" class="anchor" href="#multiple-conditions-example">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Multiple conditions example</h3>
+<p>Route different types of logs to different files:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">setup</span><span class="o">|</span>
+  <span class="c1"># All logs in detailed format</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/all.log"</span><span class="p">,</span>
+    <span class="ss">template: :details</span>
+  <span class="p">)</span>
+
+  <span class="c1"># Only errors in JSON format for monitoring tools</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/errors.json"</span><span class="p">,</span>
+    <span class="ss">formatter: :json</span><span class="p">,</span>
+    <span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span> <span class="n">entry</span><span class="p">.</span><span class="nf">error?</span> <span class="o">||</span> <span class="n">entry</span><span class="p">.</span><span class="nf">fatal?</span> <span class="p">}</span>
+  <span class="p">)</span>
+
+  <span class="c1"># Only HTTP requests</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/requests.log"</span><span class="p">,</span>
+    <span class="ss">formatter: :rack</span><span class="p">,</span>
+    <span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span> <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:verb</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:path</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">)</span>
+
+  <span class="c1"># Performance logs</span>
+  <span class="n">setup</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+    <span class="ss">stream: </span><span class="s2">"logs/performance.log"</span><span class="p">,</span>
+    <span class="ss">log_if: </span><span class="o">-&gt;</span> <span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="p">{</span> <span class="n">entry</span><span class="p">.</span><span class="nf">key?</span><span class="p">(</span><span class="ss">:elapsed</span><span class="p">)</span> <span class="p">}</span>
+  <span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div><h2 id="backend-configuration-options" class="hd"><a name="backend-configuration-options" class="anchor" href="#backend-configuration-options">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Backend configuration options</h2>
+<p>Each backend supports several configuration options:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span><span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>      <span class="c1"># Output destination</span>
+  <span class="ss">formatter: :json</span><span class="p">,</span>             <span class="c1"># Formatter to use (:string, :json, :rack)</span>
+  <span class="ss">template: :details</span><span class="p">,</span>           <span class="c1"># Template for string formatter</span>
+  <span class="ss">level: :warn</span><span class="p">,</span>                 <span class="c1"># Minimum level for this backend</span>
+  <span class="ss">log_if: :error?</span><span class="p">,</span>             <span class="c1"># Conditional logging</span>
+  <span class="ss">shift_age: </span><span class="mi">5</span><span class="p">,</span>                <span class="c1"># Log rotation: number of old files</span>
+  <span class="ss">shift_size: </span><span class="mi">1048576</span><span class="p">,</span>         <span class="c1"># Log rotation: max file size</span>
+  <span class="ss">colorize: </span><span class="kp">true</span><span class="p">,</span>              <span class="c1"># Enable colorized output</span>
+  <span class="ss">severity_colors: </span><span class="p">{</span>           <span class="c1"># Custom severity colors</span>
+    <span class="ss">error: :red</span><span class="p">,</span>
+    <span class="ss">warn: :yellow</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div><h2 id="using-external-loggers" class="hd"><a name="using-external-loggers" class="anchor" href="#using-external-loggers">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Using external loggers</h2><h3 id="standard-library-logger" class="hd"><a name="standard-library-logger" class="anchor" href="#standard-library-logger">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Standard library logger</h3>
+<p>You can use Ruby&#39;s standard library <code>Logger</code> as a backend:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="nb">require</span> <span class="s2">"logger"</span>
+
+<span class="n">stdlib_logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"logs/stdlib.log"</span><span class="p">)</span>
+<span class="n">stdlib_logger</span><span class="p">.</span><span class="nf">formatter</span> <span class="o">=</span> <span class="nb">proc</span> <span class="p">{</span> <span class="o">|</span><span class="n">severity</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">progname</span><span class="p">,</span> <span class="n">msg</span><span class="o">|</span>
+  <span class="s2">"[</span><span class="si">#{</span><span class="n">severity</span><span class="si">}</span><span class="s2">] </span><span class="si">#{</span><span class="n">msg</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+<span class="p">}</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">).</span><span class="nf">add_backend</span><span class="p">(</span><span class="n">stdlib_logger</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Test message"</span><span class="p">)</span>
+<span class="c1"># Written to both dry-logger default output and stdlib.log</span>
+</code></pre></div><h3 id="conditional-external-loggers" class="hd"><a name="conditional-external-loggers" class="anchor" href="#conditional-external-loggers">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Conditional external loggers</h3>
+<p>Apply conditional logging to external loggers too:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">error_logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s2">"logs/errors.log"</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="n">error_logger</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">backend</span><span class="o">|</span>
+    <span class="n">backend</span><span class="p">.</span><span class="nf">log_if</span> <span class="o">=</span> <span class="ss">:error?</span><span class="p">.</span><span class="nf">to_proc</span>
+  <span class="p">}</span>
+</code></pre></div><h2 id="log-rotation" class="hd"><a name="log-rotation" class="anchor" href="#log-rotation">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Log rotation</h2>
+<p>dry-logger supports Ruby&#39;s <code>Logger</code> log rotation features for file-based backends.</p>
+<h3 id="size-based-rotation" class="hd"><a name="size-based-rotation" class="anchor" href="#size-based-rotation">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Size-based rotation</h3>
+<p>Keep a fixed number of log files with a maximum size:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># Keep 5 log files, 10MB each</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>
+  <span class="ss">shift_age: </span><span class="mi">5</span><span class="p">,</span>
+  <span class="ss">shift_size: </span><span class="mi">10_485_760</span>  <span class="c1"># 10 megabytes</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>When <code>app.log</code> reaches 10MB, it&#39;s renamed to <code>app.log.1</code>, and a new <code>app.log</code> is created. This continues up to <code>app.log.5</code>, at which point the oldest file is deleted.</p>
+<h3 id="time-based-rotation" class="hd"><a name="time-based-rotation" class="anchor" href="#time-based-rotation">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Time-based rotation</h3>
+<p>Rotate logs by time period:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="c1"># Rotate daily</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>
+  <span class="ss">shift_age: </span><span class="s2">"daily"</span>
+<span class="p">)</span>
+
+<span class="c1"># Rotate weekly</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>
+  <span class="ss">shift_age: </span><span class="s2">"weekly"</span>
+<span class="p">)</span>
+
+<span class="c1"># Rotate monthly</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>
+  <span class="ss">shift_age: </span><span class="s2">"monthly"</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Rotated files are named with timestamps (e.g., <code>app.log.20231015</code>).</p>
+<h3 id="custom-rotation-suffix" class="hd"><a name="custom-rotation-suffix" class="anchor" href="#custom-rotation-suffix">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Custom rotation suffix</h3>
+<p>Customize the timestamp format for rotated files:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span>
+  <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">,</span>
+  <span class="ss">shift_age: </span><span class="s2">"monthly"</span><span class="p">,</span>
+  <span class="ss">shift_period_suffix: </span><span class="s2">"month%m"</span>  <span class="c1"># e.g., app.log.month10</span>
+<span class="p">)</span>
+</code></pre></div><h2 id="managing-backends" class="hd"><a name="managing-backends" class="anchor" href="#managing-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Managing backends</h2><h3 id="closing-backends" class="hd"><a name="closing-backends" class="anchor" href="#closing-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Closing backends</h3>
+<p>When you&#39;re done with a logger, close all backends to flush buffers and release file handles:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">,</span> <span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">"Final message"</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">close</span>  <span class="c1"># Flushes and closes all backends</span>
+</code></pre></div><h3 id="inspecting-backends" class="hd"><a name="inspecting-backends" class="anchor" href="#inspecting-backends">            <svg aria-hidden="true" height="16" width="16" version="1.1" viewBox="0 0 16 16">
+            <path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path>
+            </svg>
+</a>Inspecting backends</h3>
+<p>View configured backends:</p>
+<div class="highlight"><pre class="syntax ruby"><code><span class="n">logger</span> <span class="o">=</span> <span class="no">Dry</span><span class="o">.</span><span class="no">Logger</span><span class="p">(</span><span class="ss">:my_app</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">add_backend</span><span class="p">(</span><span class="ss">stream: </span><span class="s2">"logs/app.log"</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">backends</span>
+<span class="c1"># =&gt; [#&lt;Dry::Logger::Backends::Stream...&gt;, #&lt;Dry::Logger::Backends::File...&gt;]</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="nf">backends</span><span class="p">.</span><span class="nf">size</span>
+<span class="c1"># =&gt; 2</span>
+</code></pre></div><p><a class="edit_page_link" href="https://github.com/dry-rb/dry-logger/edit/main/docsite/source/backends.html.md"><span class="ss-icon ss-social octocat">octocat</span><span>Edit on GitHub</span></a></p></article></div></div></main><footer><div class="content-wrap"><nav class="footer__links"><ul><li><a href="/gems"><span>Gems</span></a></li><li><a href="/community"><span>Community</span></a></li><li><a href="https://github.com/dry-rb"><span>Code</span></a></li><li><a href="https://discourse.dry-rb.org"><span>Discussion</span></a></li><li><a href="https://dry-rb.zulipchat.com"><span>Chat</span></a></li><li><a href="https://twitter.com/dry_rb"><span>Twitter</span></a></li></ul></nav><div class="footer__credits"><p>Website made with love by <a href="https://www.icelab.com.au/">Icelab</a>.</p></div><div class="footer__credits"><p>Found a typo? Want to add something? <br />Send us an issue or a pull-request at <a href="https://github.com/dry-rb/dry-rb.org/">GitHub</a>.</p></div></div></footer></body></html>
